@@ -1,0 +1,14 @@
+header {
+    padding-inline: var(--spacing-m, 1.2rem);
+
+    .logo {
+    }
+
+    .main-nav {
+
+    }
+
+    .option-nav {
+    
+    }
+}

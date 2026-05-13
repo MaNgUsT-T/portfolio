@@ -16,17 +16,22 @@
     --grey-dark: #a1a1aa;
     --primary: var(--black);
     --secondary: #ffffff;
-    --header: #18181b;
-    --copytext: #52525b;
-    --body-font-family: 'Inter Light', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    --color-header: #18181b;
+    --color-text: #52525b;
+    --font-text-light: 'Inter Light', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    --font-text-regular: 'Inter Regular', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    --font-text-medium: 'Inter Medium', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    --font-header-semibold: 'Playfair Display SemiBold', 'Times New Roman', Times, serif;
+    --font-header-bold: 'Playfair Display Bold', 'Times New Roman', Times, serif;
+    --body-font-family: var(--font-text-light);
     --body-font-size: 1.8rem;
     --body-font-weight: 100;
     --body-line-height: 2.925rem;
-    --body-color: var(--copytext);
+    --body-color: var(--color-text);
     --body-bg: var(--gray-lighter);
-    --h1-font-family: 'Playfair Display Bold', 'Times New Roman', Times, serif;
-    --h3-font-family: 'Playfair Display SemiBold', 'Times New Roman', Times, serif;
-    --a-color: var(--copytext);
+    --h1-font-family: var(--font-header-bold);
+    --h3-font-family: var(--font-header-semibold);
+    --a-color: var(--color-text);
     --a-hover-color: var(--purple);
     --focus-outline-color: var(--blue);
     --input-border-background: var(--gray-lighter);
@@ -37,7 +42,7 @@
     --btn-primary-hover-color: var(--white);
     --btn-primary-background: var(--black);
     --btn-secondary-background: var(--white);
-    --btn-secondary-color: var(--header);
+    --btn-secondary-color: var(--color-header);
     --btn-secondary-border: var(--gray);
     --btn-secondary-hover-border: var(--purple);
     --btn-secondary-hover-background: var( --purple-lighter);
@@ -45,7 +50,7 @@
     --btn-disabled: var(--gray);
     --pill-background: var(--white);
     --pill-border: var(--gray);
-    --pill-color: var(--copytext);
+    --pill-color: var(--color-text);
     --spacing-xs: 0.8rem; /* 8px */
     --spacing-s: calc(2 * var(--spacing-xs) - 0.4rem); /* 12px */
     --spacing-m: calc(2 * var(--spacing-xs)); /* 16px */

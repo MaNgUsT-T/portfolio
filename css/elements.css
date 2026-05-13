@@ -42,16 +42,16 @@ button {
 }
 
 .btn--secondary {
-    background: var(--btn-secondary-background, #ffffff);
-    border: 0.1rem solid var(--btn-secondary-border, #e4e4e7);
-    color: var(--btn-secondary-color, #18181b);
+    background: var(--btn-secondary-background);
+    border: 0.1rem solid var(--btn-secondary-border);
+    color: var(--btn-secondary-color);
     transition: ease-out all .2s;
 
     &:active,
     &:hover {
-        background: var(--btn-secondary-hover-background, #fafafa);
-        border-color: var(--btn-secondary-hover-border, #7c3aed);
-        color: var(--btn-secondary-hover-color, #000000);
+        background: var(--btn-secondary-hover-background);
+        border-color: var(--btn-secondary-hover-border);
+        color: var(--btn-secondary-hover-color);
     }
 }
 
@@ -73,12 +73,12 @@ button:disabled,
     pointer-events: none;
 
     &.btn--primary {
-        background: var(--btn-disabled, #e4e4e7);
+        background: var(--btn-disabled);
     }
 
     &.btn--secondary {
-        border-color: var(--btn-disabled, #e4e4e7);
-        color: var(--btn-disabled, #e4e4e7);
+        border-color: var(--btn-disabled);
+        color: var(--btn-disabled);
     }
 
     &:focus {
@@ -94,12 +94,12 @@ button:disabled,
 
 .pill {
     padding: calc(var(--spacing-s) - 0.2rem);
-    background: var(--pill-background, #ffffff);
-    border: 0.1rem solid var(--pill-border, #e4e4e7);
+    background: var(--pill-background);
+    border: 0.1rem solid var(--pill-border);
     border-radius: 999.9rem;
-    font-family: 'Inter Medium', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: var(--font-text-medium);
     font-weight: 500;
     font-size: 1.4rem;
     line-height: 1;
-    color: var(--pill-color, #52525b);
+    color: var(--pill-color);
 }

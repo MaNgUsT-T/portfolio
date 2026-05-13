@@ -41,11 +41,17 @@ h6 {
 }
 
 a {
-    color: var(--copytext, #52525b);
+    color: var(--color-text);
     text-decoration: underline;
 
     &:active,
     &:hover {
-        color: var(--a-hover-color, #7c3aed);
+        color: var(--a-hover-color);
     }
+}
+
+
+.container {
+    max-width: 115.2rem;
+    margin-inline: auto;
 }

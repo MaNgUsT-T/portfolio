@@ -15,7 +15,8 @@
     --gray-lighter: #fafafa;
     --grey-dark: #a1a1aa;
     --primary: var(--black);
-    --secondary: #ffffff;
+    --secondary: var(--white);
+    --tertiary: var(--purple);
     --color-header: #18181b;
     --color-text: #52525b;
     --font-text-light: 'Inter Light', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;

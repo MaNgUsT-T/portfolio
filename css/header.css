@@ -1,14 +1,51 @@
 header {
     padding-inline: var(--spacing-m, 1.2rem);
 
+    a {
+        font-family: var(--font-text-medium);
+        font-size: 1.4rem;
+        font-weight: 500;
+        color: var(--color-text);
+    }
+
+    .header-wrapper {
+        display: flex;
+        align-items: center;
+    }
+
     .logo {
+        margin-inline-end: auto;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.8rem;
+        font-family: var(--font-header-bold);
+        font-weight: 700;
+        color: var(--color-header);
+
+        svg {
+            color: var(--tertiary);
+        }
     }
 
     .main-nav {
 
+        ul {
+            margin-inline-end: 3.2rem;
+            gap: 3.2rem;
+            display: flex;
+            align-items: center;
+            a {
+                text-decoration: none;
+            }
+        }
     }
 
     .option-nav {
-    
+
+        ul {
+            gap: 3.2rem;
+            display: flex;
+            align-items: center;
+        }
     }
 }

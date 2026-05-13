@@ -1,16 +1,19 @@
 header {
-    padding-block: var(--spacing-m, 1.2rem);
+    padding-block: var(--spacing-m);
 
     a {
-        font-family: var(--font-text-medium);
-        font-size: 1.4rem;
-        font-weight: 500;
-        color: var(--color-text);
+        text-decoration: none;
     }
 
-    .header-wrapper {
+    .header_wrapper,
+    .main-nav ul,
+    .option-nav ul {
         display: flex;
         align-items: center;
+    }
+
+    .header_wrapper {
+        gap: var(--spacing-2xl);
     }
 
     .logo {
@@ -30,22 +33,19 @@ header {
     .main-nav {
 
         ul {
-            margin-inline-end: 3.2rem;
-            gap: 3.2rem;
-            display: flex;
-            align-items: center;
-            a {
-                text-decoration: none;
-            }
+            gap: var(--spacing-2xl);
+            font-family: var(--font-text-medium);
+            font-size: 1.4rem;
+            font-weight: 500;
         }
     }
 
     .option-nav {
+        padding-inline-start: var(--spacing-m);
+        border-inline-start: 1px solid var(--border-color-dark);
 
         ul {
-            gap: 3.2rem;
-            display: flex;
-            align-items: center;
+            gap: var(--spacing-m);
         }
     }
 }

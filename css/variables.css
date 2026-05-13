@@ -1,11 +1,14 @@
 :root {
     --black: #000000;
+    --black-rgb: 0, 0, 0;
     --white: #ffffff;
+    --white-rgb: 255, 255, 255;
     --red: #cf1a43;
     --yellow: #f0c000;
     --green: #6aa029;
     --blue: #005fcc;
     --purple: #7c3aed;
+    --purple-rgb: 124 58 237;
     --purple-light: #ddd6fe;
     --purple-lighter: #f5f3ff;
     --pink: #ff7182;
@@ -14,44 +17,62 @@
     --gray-light: #f4f4f5;
     --gray-lighter: #fafafa;
     --grey-dark: #a1a1aa;
+
     --primary: var(--black);
     --secondary: var(--white);
     --tertiary: var(--purple);
+    --primary-rgb: var(--black-rgb);
+    --secondary-rgb: var(--white-rgb);
+    --tertiary-rgb: var(--purple-rgb);
+
     --color-header: #18181b;
     --color-text: #52525b;
+
     --font-text-light: 'Inter Light', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     --font-text-regular: 'Inter Regular', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     --font-text-medium: 'Inter Medium', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     --font-header-semibold: 'Playfair Display SemiBold', 'Times New Roman', Times, serif;
     --font-header-bold: 'Playfair Display Bold', 'Times New Roman', Times, serif;
+
     --body-font-family: var(--font-text-light);
     --body-font-size: 1.8rem;
     --body-font-weight: 100;
     --body-line-height: 2.925rem;
     --body-color: var(--color-text);
     --body-bg: var(--gray-lighter);
+
+    --footer-bg: var(--gray-lighter);
+
     --h1-font-family: var(--font-header-bold);
     --h3-font-family: var(--font-header-semibold);
+
     --a-color: var(--color-text);
-    --a-hover-color: var(--purple);
+    --a-hover-color: var(--tertiary);
+
     --focus-outline-color: var(--blue);
-    --input-border-background: var(--gray-lighter);
+
+    --border-color: var(--gray-light);
+    --border-color-dark: var(--gray);
+
+    --input-border-bg: var(--gray-lighter);
     --input-border-color: var(--gray);
-    --btn-primary-background: var(--black);
-    --btn-primary-color: var(--white);
-    --btn-primary-hover-background: var(--purple);
-    --btn-primary-hover-color: var(--white);
-    --btn-primary-background: var(--black);
-    --btn-secondary-background: var(--white);
-    --btn-secondary-color: var(--color-header);
+
+    --btn-primary-bg: var(--primary);
+    --btn-primary-color: var(--secondary);
+    --btn-primary-hover-bg: var(--tertiary);
+
+    --btn-secondary-bg: var(--secondary);
     --btn-secondary-border: var(--gray);
-    --btn-secondary-hover-border: var(--purple);
-    --btn-secondary-hover-background: var( --purple-lighter);
-    --btn-secondary-hover-color: var(--black);
+    --btn-secondary-color: var(--color-header);
+    --btn-secondary-hover-bg: var( --purple-lighter);
+    --btn-secondary-hover-border: var(--tertiary);
+
     --btn-disabled: var(--gray);
-    --pill-background: var(--white);
+
+    --pill-bg: var(--white);
     --pill-border: var(--gray);
     --pill-color: var(--color-text);
+
     --spacing-xs: 0.8rem; /* 8px */
     --spacing-s: calc(2 * var(--spacing-xs) - 0.4rem); /* 12px */
     --spacing-m: calc(2 * var(--spacing-xs)); /* 16px */

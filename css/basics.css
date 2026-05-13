@@ -3,16 +3,23 @@
 }
 
 html {
+    height: 100%;
     font-size: 10px;
+    scroll-behavior: smooth;
 }
 
 body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-image: radial-gradient(circle, rgba(0, 0, 0, .06) 1px, transparent 1px);
+    background-size: 24px 24px;
+    background-color: var(--body-bg);
     font-family: var(--body-font-family);
     font-size: var(--body-font-size);
     font-weight: var(--body-font-weight);
     line-height: var(--body-line-height);
     color: var(--body-color);
-    background-color: var(--body-bg);
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -50,8 +57,15 @@ a {
     }
 }
 
+section {
+    padding-block: calc(var(--spacing-3xl) * 2);
+}
 
 .container {
     max-width: 115.2rem;
     margin-inline: auto;
+}
+
+.text-nowrap {
+    white-space: nowrap;
 }

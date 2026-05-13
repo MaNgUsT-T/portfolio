@@ -1,4 +1,4 @@
-/* 
+/*
  * Buttons
  *
 */
@@ -30,28 +30,26 @@ button {
 }
 
 .btn--primary {
-    background: var(--btn-primary-background, #000000);
-    color: var(--btn-primary-color, #ffffff);
+    background: var(--btn-primary-bg);
+    color: var(--btn-primary-color) !important;
     transition: ease-out background .2s;
 
     &:active,
     &:hover {
-        background: var(--btn-primary-hover-background, #7c3aed);
-        color: var(--btn-primary-hover-color, #ffffff);
+        background: var(--btn-primary-hover-bg);
     }
 }
 
 .btn--secondary {
-    background: var(--btn-secondary-background);
+    background: var(--btn-secondary-bg);
     border: 0.1rem solid var(--btn-secondary-border);
-    color: var(--btn-secondary-color);
+    color: var(--btn-secondary-color) !important;
     transition: ease-out all .2s;
 
     &:active,
     &:hover {
-        background: var(--btn-secondary-hover-background);
+        background: var(--btn-secondary-hover-bg);
         border-color: var(--btn-secondary-hover-border);
-        color: var(--btn-secondary-hover-color);
     }
 }
 
@@ -87,14 +85,14 @@ button:disabled,
 }
 
 
-/* 
+/*
  * Pill
  *
 */
 
 .pill {
     padding: calc(var(--spacing-s) - 0.2rem);
-    background: var(--pill-background);
+    background: var(--pill-bg);
     border: 0.1rem solid var(--pill-border);
     border-radius: 999.9rem;
     font-family: var(--font-text-medium);

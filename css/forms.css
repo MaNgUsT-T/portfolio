@@ -10,7 +10,7 @@ input,
 textarea {
     width: 100%;
     padding: var(--spacing-s);
-    background: var(--input-border-background, #fafafa);
+    background: var(--input-border-bg, #fafafa);
     border: 0.1rem solid var(--input-border-color, #e4e4e7);
     border-radius: 1.2rem;
     font-size: 1.6rem;

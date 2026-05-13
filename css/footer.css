@@ -11,24 +11,6 @@ footer {
         justify-content: space-between;
     }
 
-    .logo {
-        display: flex;
-        gap: var(--spacing-xs);
-        align-items: center;
-
-        svg {
-            stroke: var(--tertiary);
-        }
-
-        span {
-            font-family: var(--font-header-bold);
-            font-weight: 700;
-            color: var(--color-header);
-            line-height: 2.8rem;
-            letter-spacing: -.05rem;
-        }
-    }
-
     .footer_text {
         max-width: 30rem;
         font-size: 1.4rem;

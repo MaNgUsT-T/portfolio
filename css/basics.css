@@ -1,4 +1,4 @@
-*:focus {
+*:focus-visible {
     outline: 2px solid var(--focus-outline-color, #005fcc);
 }
 
@@ -64,6 +64,24 @@ section {
 .container {
     max-width: 115.2rem;
     margin-inline: auto;
+}
+
+.logo {
+    display: flex;
+    gap: var(--spacing-xs);
+    align-items: center;
+
+    svg {
+        stroke: var(--tertiary);
+    }
+
+    span {
+        font-family: var(--font-header-bold);
+        font-weight: 700;
+        color: var(--color-header);
+        line-height: 2.8rem;
+        letter-spacing: -.05rem;
+    }
 }
 
 .text-nowrap {

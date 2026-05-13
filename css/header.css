@@ -33,21 +33,6 @@ header {
 
     .logo {
         margin-inline-end: auto;
-        display: flex;
-        align-items: center;
-        gap: var(--spacing-xs);
-
-        svg {
-            stroke: var(--tertiary);
-        }
-
-        span {
-            font-family: var(--font-header-bold);
-            font-weight: 700;
-            color: var(--color-header);
-            line-height: 2.8rem;
-            letter-spacing: -.05rem;
-        }
     }
 
     .main-nav {

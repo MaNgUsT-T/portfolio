@@ -1,0 +1,51 @@
+*:focus {
+    outline: 2px solid var(--focus-outline-color, #005fcc);
+}
+
+html {
+    font-size: 10px;
+}
+
+body {
+    font-family: var(--body-font-family);
+    font-size: var(--body-font-size);
+    font-weight: var(--body-font-weight);
+    line-height: var(--body-line-height);
+    color: var(--body-color);
+    background-color: var(--body-bg);
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: clip;
+}
+
+h1 {
+    font-family: var(--h1-font-family);
+    font-weight: 700;
+    font-size: 7.2rem;
+    line-height: 8.2rem;
+    letter-spacing: -0.18rem;
+}
+
+h2{
+    font-family: var(--h1-font-family);
+    font-weight: 700;
+}
+
+h3,
+h4,
+h5,
+h6 {
+    font-family: var(--h3-font-family);
+    font-weight: 600;
+}
+
+a {
+    color: var(--copytext, #52525b);
+    text-decoration: underline;
+
+    &:active,
+    &:hover {
+        color: var(--a-hover-color, #7c3aed);
+    }
+}

@@ -7,7 +7,7 @@
 	<title>Lisa Weber Portfolio - Siteelements</title>
 	<meta name="description" content="Lisa Weber Portfolio - Siteelements">
 	<meta name="keywords" content="portfolio">
-	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="mobile-web-app-capable" content="yes">
 	<meta property="og:title" content="Lisa Weber Portfolio">
 	<meta property="og:description" content="Lisa Weber Portfolio - Siteelements">
 	<meta property="og:image" content="">
@@ -32,9 +32,137 @@
 	<link rel="icon" href="./img/favicon_48x48.png" sizes="48x48">
 	<link rel="icon" href="./img/favicon_64x64.png" sizes="64x64">
 	<link rel="icon" href="./img/favicon_128x128.png" sizes="128x128">
+
+	<link rel="preload" href="./fonts/PlayfairDisplay/PlayfairDisplay-Bold.woff" as="font" type="font/woff" crossorigin="anonymous">
+	<link rel="preload" href="./fonts/PlayfairDisplay/PlayfairDisplay-SemiBold.woff" as="font" type="font/woff" crossorigin="anonymous">
+	<link rel="preload" href="./fonts/Inter/Inter-Light.woff" as="font" type="font/woff" crossorigin="anonymous">
+
+	<link rel="stylesheet" type="text/css" href="./css/styles.css">
 </head>
 
 <body>
+	<h1>Lorem Ipsum</h1>
+	<h2>Lorem Ipsum</h2>
+	<h3>Lorem Ipsum</h3>
+	<h4>Lorem Ipsum</h4>
+	<h5>Lorem Ipsum</h5>
+	<h6>Lorem Ipsum</h6>
 
+	<p>Lorem ipsum dolor sit amet, <a href="#" title="link">consetetur</a> sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
+
+	<div style="margin-top:3rem; display:flex; align-items:center; gap:1rem;">
+		<i data-lucide="arrow-right"></i>
+		<i data-lucide="award"></i>
+		<i data-lucide="circle-check"></i>
+		<i data-lucide="code-xml"></i>
+		<i data-lucide="external-link"></i>
+		<i data-lucide="mail"></i>
+		<i data-lucide="map-pin"></i>
+		<i data-lucide="monitor-play"></i>
+		<i data-lucide="layers"></i>
+		<i data-lucide="smartphone"></i>
+		<i data-lucide="moon"></i>
+		<i data-lucide="coffee"></i>
+		<i data-lucide="palette"></i>
+		<i data-lucide="send"></i>
+		<i data-lucide="pen-tool"></i>
+		<i data-lucide="panels-top-left"></i>
+		<i data-lucide="sun"></i>
+		<i data-lucide="users"></i>
+		<i data-lucide="dribbble"></i>
+		<i data-lucide="figma"></i>
+		<i data-lucide="instagram"></i>
+		<i data-lucide="linkedin-in"></i>
+	</div>
+
+	<div style="margin-top:3rem; display:flex; align-items:center; gap:1rem;">
+		<a href="#"
+		   title="Button primary"
+		   class="btn btn--primary" disabled>Lorem Ipsum<i data-lucide="arrow-right"></i></a>
+
+		<a href="#"
+		   title="Button primary"
+		   class="btn btn--primary btn--large" disabled>Lorem Ipsum<i data-lucide="arrow-right"></i></a>
+
+		<a href="#"
+		   title="Button primary"
+		   class="btn btn--primary btn--large btn--disabled">Lorem Ipsum<i data-lucide="arrow-right"></i></a>
+
+		<a href="#"
+		   title="Button secondary"
+		   class="btn btn--secondary" disabled>Lorem Ipsum<i data-lucide="arrow-right"></i></a>
+
+		<a href="#"
+		   title="Button secondary"
+		   class="btn btn--secondary btn--large" disabled>Lorem Ipsum<i data-lucide="arrow-right"></i></a>
+
+		<a href="#"
+		   title="Button primary"
+		   class="btn btn--secondary btn--large btn--disabled">Lorem Ipsum<i data-lucide="arrow-right"></i></a>
+	</div>
+
+	<div style="margin-top:3rem; display:flex; align-items:center; gap:1rem;">
+		<button type="submit"
+				class="btn btn--primary">
+			Lorem Ipsum<i data-lucide="arrow-right"></i>
+		</button>
+		<button type="submit"
+				class="btn btn--primary btn--large">
+			Lorem Ipsum<i data-lucide="arrow-right"></i>
+		</button>
+		<button type="submit"
+				class="btn btn--primary btn--large"
+				disabled>
+			Lorem Ipsum<i data-lucide="arrow-right"></i>
+		</button>
+
+
+		<button type="submit"
+				class="btn btn--secondary">
+			Lorem Ipsum<i data-lucide="arrow-right"></i>
+		</button>
+		<button type="submit"
+				class="btn btn--secondary btn--large">
+			Lorem Ipsum<i data-lucide="arrow-right"></i>
+		</button>
+		<button type="submit"
+				class="btn btn--secondary btn--large"
+				disabled>
+			Lorem Ipsum<i data-lucide="arrow-right"></i>
+		</button>
+	</div>
+
+	<form style="margin-top:3rem; display:flex; flex-direction:column; gap:2.4rem;">
+		<div>
+			<label for="textfield">Lorem Ipsum</label>
+			<input type="text"
+				   id="textfield"
+				   name="textfield"
+				   placeholder="Lorem Ipsum" />
+		</div>
+
+		<div>
+			<label for="emailfield">Lorem Ipsum</label>
+			<input type="email"
+				   id="emailfield"
+				   name="emailfield"
+				   placeholder="hallo@beispiel.de" />
+		</div>
+
+		<div>
+			<label for="textarea">Lorem Ipsum</label>
+			<textarea 
+				   id="textarea"
+				   name="textarea"
+				   placeholder="Lorem Ipsum..."></textarea>
+		</div>
+
+	</form>
+
+
+	<script src="./vendor/lucide.min.js"></script>
+	<script>
+		lucide.createIcons();
+	</script>
 </body>
 </html>

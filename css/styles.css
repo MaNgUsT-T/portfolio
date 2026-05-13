@@ -1,5 +1,6 @@
-@import "basics.css";
-@font-face {
-	font-family: myFirstFont;
-	src: url(sansation_light.woff);
-}
+@import url("reset.css");
+@import url("fonts.css");
+@import url("variables.css");
+@import url("basics.css");
+@import url("elements.css");
+@import url("forms.css");

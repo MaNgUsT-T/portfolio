@@ -1,0 +1,105 @@
+/* 
+ * Buttons
+ *
+*/
+
+button {
+    border: none;
+    border-radius: 1.2rem;
+}
+
+.btn {
+    height: 4rem;
+    padding: var(--spacing-s) var(--spacing-m);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    font-size: 1.4rem;
+    line-height: 1;
+    text-decoration: none;
+
+    &:not(button) {
+        border-radius: 999.9rem;
+    }
+
+    i,
+    svg {
+        Width: 1.4rem;
+        height: 1.4rem;
+    }
+}
+
+.btn--primary {
+    background: var(--btn-primary-background, #000000);
+    color: var(--btn-primary-color, #ffffff);
+    transition: ease-out background .2s;
+
+    &:active,
+    &:hover {
+        background: var(--btn-primary-hover-background, #7c3aed);
+        color: var(--btn-primary-hover-color, #ffffff);
+    }
+}
+
+.btn--secondary {
+    background: var(--btn-secondary-background, #ffffff);
+    border: 0.1rem solid var(--btn-secondary-border, #e4e4e7);
+    color: var(--btn-secondary-color, #18181b);
+    transition: ease-out all .2s;
+
+    &:active,
+    &:hover {
+        background: var(--btn-secondary-hover-background, #fafafa);
+        border-color: var(--btn-secondary-hover-border, #7c3aed);
+        color: var(--btn-secondary-hover-color, #000000);
+    }
+}
+
+.btn--large {
+    height: 5.6rem;
+    padding: var(--spacing-m) var(--spacing-2xl);
+    font-size: 1.6rem;
+
+    i,
+    svg {
+        Width: 2.4rem;
+        height: 2.4rem;
+    }
+}
+
+button:disabled,
+.btn--disabled {
+    cursor: default;
+    pointer-events: none;
+
+    &.btn--primary {
+        background: var(--btn-disabled, #e4e4e7);
+    }
+
+    &.btn--secondary {
+        border-color: var(--btn-disabled, #e4e4e7);
+        color: var(--btn-disabled, #e4e4e7);
+    }
+
+    &:focus {
+        outline: none;
+    }
+}
+
+
+/* 
+ * Pill
+ *
+*/
+
+.pill {
+    padding: calc(var(--spacing-s) - 0.2rem);
+    background: var(--pill-background, #ffffff);
+    border: 0.1rem solid var(--pill-border, #e4e4e7);
+    border-radius: 999.9rem;
+    font-family: 'Inter Medium', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 500;
+    font-size: 1.4rem;
+    line-height: 1;
+    color: var(--pill-color, #52525b);
+}

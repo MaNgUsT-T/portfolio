@@ -1,0 +1,56 @@
+:root {
+    --black: #000000;
+    --white: #ffffff;
+    --red: #cf1a43;
+    --yellow: #f0c000;
+    --green: #6aa029;
+    --blue: #005fcc;
+    --purple: #7c3aed;
+    --purple-light: #ddd6fe;
+    --purple-lighter: #f5f3ff;
+    --pink: #ff7182;
+    --pink-light: #f4f4f5;
+    --gray: #e4e4e7;
+    --gray-light: #f4f4f5;
+    --gray-lighter: #fafafa;
+    --grey-dark: #a1a1aa;
+    --primary: var(--black);
+    --secondary: #ffffff;
+    --header: #18181b;
+    --copytext: #52525b;
+    --body-font-family: 'Inter Light', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    --body-font-size: 1.8rem;
+    --body-font-weight: 100;
+    --body-line-height: 2.925rem;
+    --body-color: var(--copytext);
+    --body-bg: var(--gray-lighter);
+    --h1-font-family: 'Playfair Display Bold', 'Times New Roman', Times, serif;
+    --h3-font-family: 'Playfair Display SemiBold', 'Times New Roman', Times, serif;
+    --a-color: var(--copytext);
+    --a-hover-color: var(--purple);
+    --focus-outline-color: var(--blue);
+    --input-border-background: var(--gray-lighter);
+    --input-border-color: var(--gray);
+    --btn-primary-background: var(--black);
+    --btn-primary-color: var(--white);
+    --btn-primary-hover-background: var(--purple);
+    --btn-primary-hover-color: var(--white);
+    --btn-primary-background: var(--black);
+    --btn-secondary-background: var(--white);
+    --btn-secondary-color: var(--header);
+    --btn-secondary-border: var(--gray);
+    --btn-secondary-hover-border: var(--purple);
+    --btn-secondary-hover-background: var( --purple-lighter);
+    --btn-secondary-hover-color: var(--black);
+    --btn-disabled: var(--gray);
+    --pill-background: var(--white);
+    --pill-border: var(--gray);
+    --pill-color: var(--copytext);
+    --spacing-xs: 0.8rem; /* 8px */
+    --spacing-s: calc(2 * var(--spacing-xs) - 0.4rem); /* 12px */
+    --spacing-m: calc(2 * var(--spacing-xs)); /* 16px */
+    --spacing-l: calc(3 * var(--spacing-xs) - 0.4rem); /* 20px */
+    --spacing-xl: calc(3 * var(--spacing-xs)); /* 24px */
+    --spacing-2xl: calc(4 * var(--spacing-xs)); /* 32px */
+    --spacing-3xl: calc(6 * var(--spacing-xs)); /* 48px */
+}

@@ -1,5 +1,5 @@
 header {
-    padding-inline: var(--spacing-m, 1.2rem);
+    padding-block: var(--spacing-m, 1.2rem);
 
     a {
         font-family: var(--font-text-medium);

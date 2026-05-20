@@ -1,7 +1,6 @@
 footer {
     margin-block-start: auto;
     padding-block: var(--spacing-3xl);
-    padding-inline: var(--spacing-m);
     background: var(--footer-bg);
 
     .footer_wrapper {
@@ -13,7 +12,7 @@ footer {
 
     .footer_text {
         max-width: 30rem;
-        font-size: 1.4rem;
+        font-size: var(--fs-xs);
         line-height: 2rem;
     }
 
@@ -24,7 +23,7 @@ footer {
         svg {
             width: 2rem;
             height: 2rem;
-            fill: var(--color-text);
+            stroke: var(--footer-social-icon-color);
         }
     }
 }

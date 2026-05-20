@@ -1,7 +1,6 @@
 header {
     width: 100%;
     padding-block: var(--spacing-xl);
-    padding-inline: var(--spacing-m);
     background-color: transparent;
     transition-property: all;
     transition-timing-function: cubic-bezier(.4, 0, .2, 1);
@@ -35,12 +34,23 @@ header {
         margin-inline-end: auto;
     }
 
+    .main-nav,
+    .option-nav {
+        display: none;
+
+        @media (min-width: 76.8rem)  {
+            display: block;
+        }
+    }
+
     .main-nav {
 
         ul {
             gap: var(--spacing-2xl);
-            font-family: var(--font-text-medium);
-            font-size: 1.4rem;
+            font-family: var(--font-text-family);
+            font-size: var(--fs-xs);
+            font-weight: 500;
+            white-space: nowrap;
         }
     }
 
@@ -50,6 +60,14 @@ header {
 
         ul {
             gap: var(--spacing-m);
+        }
+    }
+
+    .mobile-nav {
+        display: block;
+
+        @media (min-width: 76.8rem)  {
+            display: none;
         }
     }
 }

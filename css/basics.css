@@ -26,24 +26,28 @@ body {
     overflow-x: clip;
 }
 
-h1 {
-    font-family: var(--h1-font-family);
-    font-weight: 700;
-    font-size: 7.2rem;
-    line-height: 8.2rem;
-    letter-spacing: -0.18rem;
-}
-
-h2{
-    font-family: var(--h1-font-family);
-    font-weight: 700;
-}
-
+h1,
+h2,
 h3,
 h4,
 h5,
 h6 {
-    font-family: var(--h3-font-family);
+    font-family: var(--font-header-family);
+}
+
+h1 {
+    font-size: var(--fs-3xl);
+    font-weight: 600;
+    color: var(--color-header);
+    line-height: var(--lh);
+    letter-spacing: -0.18rem;
+}
+
+h2,
+h3,
+h4,
+h5,
+h6 {
     font-weight: 600;
 }
 
@@ -61,6 +65,13 @@ section {
     padding-block: calc(var(--spacing-3xl) * 2);
 }
 
+
+header,
+main,
+footer {
+    padding-inline: var(--spacing-m);
+}
+
 .container {
     max-width: 115.2rem;
     margin-inline: auto;
@@ -76,10 +87,10 @@ section {
     }
 
     span {
-        font-family: var(--font-header-bold);
+        font-family: var(--font-header-family);
         font-weight: 700;
         color: var(--color-header);
-        line-height: 2.8rem;
+        line-height: 2.4rem;
         letter-spacing: -.05rem;
     }
 }

@@ -8,13 +8,18 @@
     --green: #6aa029;
     --blue: #005fcc;
     --purple: #7c3aed;
-    --purple-rgb: 124 58 237;
+    --purple-rgb: 124, 58, 237;
     --purple-light: #ddd6fe;
     --purple-lighter: #f5f3ff;
     --pink: #ff7182;
-    --pink-light: #f4f4f5;
+    --pink-rgb: 255, 113, 130;
+    --pink-light: #fba1aa;
+    --pink-dark: #f43f5e;
+    --pink-dark-rgb: 244 63 94;
     --gray: #e4e4e7;
+    --gray-rgb: 228, 228, 231;
     --gray-light: #f4f4f5;
+    --gray-light-rgb: 244, 244, 245;
     --gray-lighter: #fafafa;
     --grey-dark: #a1a1aa;
 
@@ -28,23 +33,41 @@
     --color-header: #18181b;
     --color-text: #52525b;
 
-    --font-text-light: 'Inter Light', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    --font-text-regular: 'Inter Regular', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    --font-text-medium: 'Inter Medium', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    --font-header-semibold: 'Playfair Display SemiBold', 'Times New Roman', Times, serif;
-    --font-header-bold: 'Playfair Display Bold', 'Times New Roman', Times, serif;
+    --spacing-xs: 0.8rem; /* 8px */
+    --spacing-s: 1.2rem; /* 12px */
+    --spacing-m: 1.6rem; /* 16px */
+    --spacing-l: 2rem; /* 20px */
+    --spacing-xl: 2.4rem; /* 24px */
+    --spacing-2xl: 3.2rem; /* 32px */
+    --spacing-3xl: 4.8rem; /* 48px */
 
-    --body-font-family: var(--font-text-light);
+    --font-header-family: 'Playfair Display', 'Times New Roman', Times, serif;
+    --font-text-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+    --fs: 1.2rem; /* 12px */
+    --fs-xs: 1.4rem; /* 14px */
+    --fs-s: 1.6rem; /* 16px */
+    --fs-m: 1.8rem; /* 18px */
+    --fs-l: 2rem; /* 20px */
+    --fs-xl: 2.4rem; /* 24px */
+    --fs-2xl: 4.8rem; /* 48px */
+    --fs-3xl: 7.2rem; /* 72px */
+
+    --lh: 1; /* 100% */
+    --lh-xs: 1.22; /* 122% */
+    --lh-s: 1.33; /* 133% */
+    --lh-m: 1.4; /* 140% */
+    --lh-l: 1.43; /* 143% */
+    --lh-xl: 1.5; /* 150% */
+    --lh-2xl: 1.53; /* 153% */
+    --lh-3xl: 1.63; /* 163% */
+
+    --body-font-family: var(--font-text-family);
     --body-font-size: 1.8rem;
-    --body-font-weight: 100;
+    --body-font-weight: 300;
     --body-line-height: 2.925rem;
     --body-color: var(--color-text);
     --body-bg: var(--gray-lighter);
-
-    --footer-bg: var(--gray-lighter);
-
-    --h1-font-family: var(--font-header-bold);
-    --h3-font-family: var(--font-header-semibold);
 
     --a-color: var(--color-text);
     --a-hover-color: var(--tertiary);
@@ -53,6 +76,9 @@
 
     --border-color: var(--gray-light);
     --border-color-dark: var(--gray);
+
+    --shadow-lg: 0 10px 15px -3px rgb(var(--primary-rgb), .1), 0 4px 6px -4px rgb(var(--primary-rgb), .1);
+    --shadow-2xl: 0 25px 50px -12px rgb(var(--primary-rgb), .25);
 
     --input-border-bg: var(--gray-lighter);
     --input-border-color: var(--gray);
@@ -73,11 +99,11 @@
     --pill-border: var(--gray);
     --pill-color: var(--color-text);
 
-    --spacing-xs: 0.8rem; /* 8px */
-    --spacing-s: calc(2 * var(--spacing-xs) - 0.4rem); /* 12px */
-    --spacing-m: calc(2 * var(--spacing-xs)); /* 16px */
-    --spacing-l: calc(3 * var(--spacing-xs) - 0.4rem); /* 20px */
-    --spacing-xl: calc(3 * var(--spacing-xs)); /* 24px */
-    --spacing-2xl: calc(4 * var(--spacing-xs)); /* 32px */
-    --spacing-3xl: calc(6 * var(--spacing-xs)); /* 48px */
+    --highlight-bg: var(--purple-lighter);
+    --highlight-color: var(--tertiary);
+
+    --social-icon-color: var(--grey-dark);
+
+    --footer-bg: var(--gray-lighter);
+    --footer-social-icon-color: var(--social-icon-color);
 }

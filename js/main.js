@@ -1,11 +1,4 @@
 /*
- * Icons
-*/
-
-lucide.createIcons();
-
-
-/*
  * Header scrolled
 */
 

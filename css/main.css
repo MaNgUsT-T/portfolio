@@ -93,11 +93,20 @@
 				.hero_element {
 					position : absolute;
 
+					&:is(:nth-child(1), :nth-child(4)) {
+						@media (prefers-reduced-motion: reduce) {
+							animation: none !important;
+						}
+					}
+
 					&:is(:nth-child(2), :nth-child(3)) {
 						border-radius: var(--hero-element-radius);
 						box-shadow: var(--hero-element-shadow);
 						transition: var(--hero-element-transform);
 						will-change: transform;
+						@media (prefers-reduced-motion: reduce) {
+							transition: none !important;
+						}
 					}
 
 					&:nth-child(1) {
@@ -267,15 +276,5 @@
 				}
 			}
 		}
-	}
-}
-
-@media (prefers-reduced-motion: reduce) {
-	.hero .hero_element:is(:nth-child(1), :nth-child(4)) {
-		animation: none !important;
-	}
-
-	.hero .hero_element:is(:nth-child(2), :nth-child(3)) {
-		transition: none !important;
 	}
 }

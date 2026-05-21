@@ -16,12 +16,12 @@ button {
     gap: var(--spacing-xs);
     font-size: var(--fs-xs);
     font-weight: 500;
-    line-height: 1;
+    line-height: var(--lh);
     text-decoration: none;
     white-space: nowrap;
 
     &:not(button) {
-        border-radius: 999.9rem;
+        border-radius: var(--btn-radius);
     }
 
     i,
@@ -96,10 +96,10 @@ button:disabled,
     padding: calc(var(--spacing-s) - 0.2rem);
     background: var(--pill-bg);
     border: 0.1rem solid var(--pill-border);
-    border-radius: 999.9rem;
+    border-radius: var(--pill-border-radius);
     font-family: var(--font-text-family);
     font-weight: 500;
     font-size: var(--fs-xs);
-    line-height: 1;
+    line-height: var(--lh);
     color: var(--pill-color);
 }

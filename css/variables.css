@@ -33,6 +33,8 @@
     --color-header: #18181b;
     --color-text: #52525b;
 
+    --focus-outline-color: var(--blue);
+
     --spacing-xs: 0.8rem; /* 8px */
     --spacing-s: 1.2rem; /* 12px */
     --spacing-m: 1.6rem; /* 16px */
@@ -62,17 +64,14 @@
     --lh-2xl: 1.53; /* 153% */
     --lh-3xl: 1.63; /* 163% */
 
-    --body-font-family: var(--font-text-family);
-    --body-font-size: 1.8rem;
-    --body-font-weight: 300;
-    --body-line-height: 2.925rem;
-    --body-color: var(--color-text);
-    --body-bg: var(--gray-lighter);
-
-    --a-color: var(--color-text);
-    --a-hover-color: var(--tertiary);
-
-    --focus-outline-color: var(--blue);
+    --radius-xs: 0.2rem; /* 2px */
+    --radius-s: 0.4rem; /* 4px */
+    --radius-m: 0.6rem; /* 6px */
+    --radius-l: 0.8rem; /* 8px */
+    --radius-xl: 1.2rem; /* 12px */
+    --radius-2xl: 1.6rem; /* 16px */
+    --radius-3xl: 2.4rem; /* 24px */
+    --radius-max: 999.9rem;
 
     --border-color: var(--gray-light);
     --border-color-dark: var(--gray);
@@ -80,8 +79,22 @@
     --shadow-lg: 0 10px 15px -3px rgb(var(--primary-rgb), .1), 0 4px 6px -4px rgb(var(--primary-rgb), .1);
     --shadow-2xl: 0 25px 50px -12px rgb(var(--primary-rgb), .25);
 
+    --body-font-family: var(--font-text-family);
+    --body-font-size: 1.8rem;
+    --body-font-weight: 300;
+    --body-line-height: var(--lh-3xl);
+    --body-color: var(--color-text);
+    --body-bg: var(--gray-lighter);
+
+    --a-color: var(--color-text);
+    --a-hover-color: var(--tertiary);
+
     --input-border-bg: var(--gray-lighter);
     --input-border-color: var(--gray);
+
+    --btn-radius: var(--radius-max);
+    --btn-shadow: var(--shadow-lg);
+    --btn-disabled: var(--gray);
 
     --btn-primary-bg: var(--primary);
     --btn-primary-color: var(--secondary);
@@ -93,14 +106,20 @@
     --btn-secondary-hover-bg: var( --purple-lighter);
     --btn-secondary-hover-border: var(--tertiary);
 
-    --btn-disabled: var(--gray);
-
     --pill-bg: var(--white);
     --pill-border: var(--gray);
+    --pill-border-radius: var(--radius-max);
     --pill-color: var(--color-text);
 
     --highlight-bg: var(--purple-lighter);
+    --highlight-radius: var(--radius-max);
     --highlight-color: var(--tertiary);
+
+    --hero-element-radius: var(--radius-2xl);
+    --hero-element-shadow: var(--shadow-2xl);
+    --hero-element-shadow-soft: var(--shadow-lg);
+    --hero-element-transform: transform .5s cubic-bezier(.4, 0, .2, 1);
+    --hero-element-pill-radius: var(--radius-max);
 
     --social-icon-color: var(--grey-dark);
 

@@ -13,7 +13,7 @@ footer {
     .footer_text {
         max-width: 30rem;
         font-size: var(--fs-xs);
-        line-height: 2rem;
+        line-height: var(--lh-l);
     }
 
     .footer_social {

@@ -90,7 +90,7 @@ footer {
         font-family: var(--font-header-family);
         font-weight: 700;
         color: var(--color-header);
-        line-height: 2.4rem;
+        line-height: var(--lh-s);
         letter-spacing: -.05rem;
     }
 }

@@ -19,16 +19,16 @@
 
 				.availability {
 					width: fit-content;
+					padding-block: calc(var(--spacing-xs) / 2);
+					padding-inline: var(--spacing-s);
 					display: inline-flex;
 					gap: var(--spacing-xs);
 					align-items: center;
-					padding-block: calc(var(--spacing-xs) / 2);
-					padding-inline: var(--spacing-s);
 					background: var(--highlight-bg);
-					border-radius: 999.9rem;
+					border-radius: var(--highlight-radius);
 					font-size: var(--fs-xs);
 					color: var(--highlight-color);
-					line-height: 1.43;
+					line-height: var(--lh-l);
 
 					&::before {
 						content:'';
@@ -36,7 +36,7 @@
 						height: 0.8rem;
 						display: block;
 						background: var(--highlight-color);
-						border-radius: 999.9rem;
+						border-radius: var(--highlight-radius);
 					}
 				}
 
@@ -61,7 +61,7 @@
 					gap: var(--spacing-m);
 
 					.btn {
-						box-shadow: var(--shadow-lg);
+						box-shadow: var(--btn-shadow);
 					}
 				}
 
@@ -93,14 +93,21 @@
 				.hero_element {
 					position : absolute;
 
+					&:is(:nth-child(2), :nth-child(3)) {
+						border-radius: var(--hero-element-radius);
+						box-shadow: var(--hero-element-shadow);
+						transition: var(--hero-element-transform);
+						will-change: transform;
+					}
+
 					&:nth-child(1) {
 						top: -1.6rem;
 						left: 4.8rem;
 						width: 6.4rem;
 						aspect-ratio: 1 / 1;
 						background: var(--purple);
-						border-radius: 1.6rem;
-						box-shadow: var(--shadow-lg);
+						border-radius: var(--hero-element-radius);
+						box-shadow: var(--hero-element-shadow-soft);
 						animation: bounce 4s infinite;
 						will-change: transform;
 					}
@@ -112,12 +119,8 @@
 						height: 32rem;
 						padding: var(--spacing-xl);
 						background: var(--white);
-						border-radius: 1.6rem;
-						box-shadow: var(--shadow-2xl);
 						transform: rotate(6deg);
-						transition: transform .5s cubic-bezier(.4, 0, .2, 1);
 						transform-origin: bottom right;
-						will-change: transform;
 
 						&:hover {
 							transform: rotate(12deg);
@@ -137,7 +140,7 @@
 								height: 1.6rem;
 								margin-block-end: var(--spacing-s);
 								background: var(--gray);
-								border-radius: 999.9rem;
+								border-radius: var(--hero-element-pill-radius);
 							}
 
 							&:nth-child(3) {
@@ -145,7 +148,7 @@
 								height: 1.6rem;
 								margin-block-end: var(--spacing-xl);
 								background: var(--gray);
-								border-radius: 999.9rem;
+								border-radius: var(--hero-element-pill-radius);
 							}
 
 							&:nth-child(4) {
@@ -155,7 +158,7 @@
 								span {
 									width: 3.2rem;
 									height: 3.2rem;
-									border-radius: 999.9rem;
+									border-radius: var(--hero-element-pill-radius);
 
 									&:nth-child(1) {
 										background: rgba(var(--purple-rgb), .1);
@@ -177,13 +180,9 @@
 						height: 25.6rem;
 						padding: var(--spacing-xl);
 						background: rgba(var(--white-rgb), .9);
-						border-radius: 1.6rem;
 						backdrop-filter: blur(4px);
-						box-shadow: var(--shadow-2xl);
 						transform: rotate(-3deg);
-						transition: transform .5s cubic-bezier(.4, 0, .2, 1);
 						transform-origin: top left;
-						will-change: transform;
 
 						&:hover {
 							transform: rotate(-6deg);
@@ -203,7 +202,7 @@
 										width: 4.8rem;
 										aspect-ratio: 1 / 1;
 										background: linear-gradient(125deg, rgb(var(--tertiary-rgb)) 20%, rgb(var(--pink-dark-rgb)) 100%);
-										border-radius: 999.9rem;
+										border-radius: var(--hero-element-pill-radius);
 									}
 
 									&:nth-child(2) {
@@ -214,7 +213,7 @@
 											&:nth-child(1),
 											&:nth-child(2) {
 												width: 100%;
-												border-radius: 999.9rem;
+												border-radius: var(--hero-element-pill-radius);
 											}
 
 											&:nth-child(1) {
@@ -241,7 +240,7 @@
 								width: 100%;
 								height: 1.2rem;
 								background: var(--gray-light);
-								border-radius: 999.9rem;
+								border-radius: var(--hero-element-pill-radius);
 
 								&:not(:last-child) {
 									margin-block-end: var(--spacing-s);
@@ -260,8 +259,8 @@
 						width: 4.8rem;
 						aspect-ratio: 1 / 1;
 						background: var(--pink);
-						border-radius: 999.9rem;
-						box-shadow: var(--shadow-lg);
+						border-radius: var(--hero-element-pill-radius);
+						box-shadow: var(--hero-element-shadow-soft);
 						animation: bounce 5s 1s infinite;
 						will-change: transform;
 					}
@@ -272,9 +271,11 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-	.hero .hero_element {
+	.hero .hero_element:is(:nth-child(1), :nth-child(4)) {
 		animation: none !important;
+	}
+
+	.hero .hero_element:is(:nth-child(2), :nth-child(3)) {
 		transition: none !important;
-		transform: none !important;
 	}
 }

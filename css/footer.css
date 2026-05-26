@@ -28,9 +28,9 @@ footer {
         gap: var(--spacing-s);
 
         svg {
-            height: 2rem;
             width: 2rem;
-            stroke: var(--social-icon-color);
+            height: 2rem;
+            stroke: var(--footer-social-icon-color);
         }
     }
 }

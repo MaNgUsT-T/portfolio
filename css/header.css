@@ -1,5 +1,19 @@
 header {
-    padding-block: var(--spacing-m);
+    width: 100%;
+    padding-block: var(--spacing-xl);
+    background-color: transparent;
+    transition-property: all;
+    transition-timing-function: cubic-bezier(.4, 0, .2, 1);
+    transition-duration: .3s;
+    position: fixed;
+    z-index: 50;
+
+    &.header--scrolled {
+        background-color: rgb(var(--white-rgb), 0.8);
+        padding-block: var(--spacing-m);
+        backdrop-filter:  blur(12px);
+        box-shadow: var(--shadow-s);
+    }
 
     a {
         text-decoration: none;
@@ -18,15 +32,14 @@ header {
 
     .logo {
         margin-inline-end: auto;
-        display: inline-flex;
-        align-items: center;
-        gap: var(--spacing-xs);
-        font-family: var(--font-header-bold);
-        font-weight: 700;
-        color: var(--color-header);
+    }
 
-        svg {
-            color: var(--tertiary);
+    .main-nav,
+    .option-nav {
+        display: none;
+
+         @media (min-width: 64rem)  {
+            display: block;
         }
     }
 
@@ -34,9 +47,10 @@ header {
 
         ul {
             gap: var(--spacing-2xl);
-            font-family: var(--font-text-medium);
-            font-size: 1.4rem;
+            font-family: var(--font-text-family);
+            font-size: var(--fs-xs);
             font-weight: 500;
+            white-space: nowrap;
         }
     }
 
@@ -46,6 +60,14 @@ header {
 
         ul {
             gap: var(--spacing-m);
+        }
+    }
+
+    .mobile-nav {
+        display: block;
+
+         @media (min-width: 64rem)  {
+            display: none;
         }
     }
 }

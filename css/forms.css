@@ -1,7 +1,8 @@
 label {
     margin-bottom: 0.8rem;
     display: block;
-    font-family: 'Inter Medium', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: var(--font-text-family);
+    font-size: var(--fs-xs);
     font-weight: 500;
     font-size: 1.4rem;
 }
@@ -10,10 +11,10 @@ input,
 textarea {
     width: 100%;
     padding: var(--spacing-s);
-    background: var(--input-border-background, #fafafa);
-    border: 0.1rem solid var(--input-border-color, #e4e4e7);
-    border-radius: 1.2rem;
-    font-size: 1.6rem;
+    background: var(--input-border-bg);
+    border: 0.1rem solid var(--input-border-color);
+    border-radius: var(--radius-xl);
+    font-size: var(--fs-s);
 }
 
 textarea {

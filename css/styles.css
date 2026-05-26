@@ -5,8 +5,9 @@
 @import url("elements.css");
 @import url("forms.css");
 
-/* 
+/*
  * layout
  *
 */
 @import url("header.css");
+@import url("footer.css");

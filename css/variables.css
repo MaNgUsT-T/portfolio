@@ -235,7 +235,7 @@
     --skill-item-icon-shadow: var(--shadow-s);
 
     --experience-item-max-w: 87rem;
-    --experience-item-gap: clamp(var(--spacing-l), -0.4045rem + 6.2640vw, 4.4rem);
+    --experience-item-gap: clamp(2.8rem, 1.6546rem + 3.5794vw, 4.4rem);
     --experience-item-date-padding: calc(var(--spacing-xs) * 5);
     --experience-item-date-fs: var(--fs-xs);
     --experience-item-date-color: var(--tertiary);

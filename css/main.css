@@ -416,30 +416,32 @@
 			margin-inline: auto;
 			display: flex;
 			gap: var(--experience-item-gap);
+			position: relative;
 			@media (min-width: 48rem)  {
 				gap: var(--spacing-3xl);
 			}
 
 			&:not(:first-child) {
-				margin-block-start: var(--experience-item-date-padding);
+				padding-block-start: var(--experience-item-date-padding);
+
+				.experience-item_timepoint {
+
+					&::after {
+						top: calc(-1 * var(--experience-item-date-padding));;
+					}
+				}
 			}
 
-			.experience-item_date {
-				padding-block-start: var(--experience-item-date-padding);
-				display: flex;
-				justify-content: flex-end;
-				font-size: var(--experience-item-date-fs);
-				font-weight: 600;
-				color: var(--experience-item-date-color);
-				line-height: var(--experience-item-date-lh);
-				position: relative;
+			.experience-item_timepoint {
+				height: 100%;
+				left: 0;
+				position: absolute;
 				@media (min-width: 48rem)  {
-					width: 12rem;
+					left: 13.8rem;
 				}
-
 				&::before {
 					content: '';
-					right: -1.2rem;
+					top: var(--experience-item-date-padding);
 					width: 1.2rem;
 					height: 1.2rem;
 					background: var(--experience-item-date-before-bg);
@@ -448,9 +450,6 @@
 					box-shadow: var(--experience-item-date-before-shadow);
 					position: absolute;
 					z-index: 1;
-					@media (min-width: 48rem)  {
-						right: -3rem;
-					}
 				}
 
 				&::after {
@@ -461,9 +460,22 @@
 					display: block;
 					background-color: var(--experience-item-date-after-color);
 					position: absolute;
-					@media (min-width: 48rem)  {
-						right: -2.4rem;
-					}
+				}
+			}
+
+			.experience-item_date {
+				padding-block-start: var(--experience-item-date-padding);
+				display: flex;
+				flex-shrink: 0;
+				justify-content: flex-end;
+				font-size: var(--experience-item-date-fs);
+				font-weight: 600;
+				color: var(--experience-item-date-color);
+				line-height: var(--experience-item-date-lh);
+				white-space: nowrap;
+				position: relative;
+				@media (min-width: 48rem)  {
+					width: 120px;
 				}
 
 				p {
@@ -538,10 +550,8 @@
 							color: var(--experience-item-content-li-before-color);
 						}
 					}
-
 				}
 			}
 		}
-
 	}
 }

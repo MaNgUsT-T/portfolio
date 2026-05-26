@@ -4,7 +4,6 @@ label {
     font-family: var(--font-text-family);
     font-size: var(--fs-xs);
     font-weight: 500;
-    font-size: 1.4rem;
 }
 
 input,

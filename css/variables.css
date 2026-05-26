@@ -159,6 +159,8 @@
     --a-color: var(--color-text);
     --a-hover-color: var(--tertiary);
 
+    --svg-collor: var(--tertiary);
+
     --input-border-bg: var(--color-zinc-50);
     --input-border-color: var(--border-color-dark);
 
@@ -189,4 +191,7 @@
     --highlight-color: var(--tertiary);
 
     --social-icon-color: var(--color-zinc-400);
+
+    --footer-bg: var(--color-zinc-50);
+    --footer-social-icon-color: var(--social-icon-color);
 }

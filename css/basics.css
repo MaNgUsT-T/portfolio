@@ -52,13 +52,12 @@ a {
 }
 
 svg {
-    stroke: var(--highlight-color);
+    stroke: var(--svg-collor);
 }
 
-header {
+header,
+footer {
     padding-inline: clamp(var(--spacing-m), 0.4364rem + 3.6364vw, var(--spacing-3xl));
-
-
 }
 
 .container {
@@ -79,4 +78,8 @@ header {
         line-height: var(--lh-s);
         letter-spacing: -.05rem;
     }
+}
+
+.text-nowrap {
+    white-space: nowrap;
 }

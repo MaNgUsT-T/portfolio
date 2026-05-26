@@ -20,7 +20,7 @@ header {
         margin-inline-end: auto;
         display: inline-flex;
         align-items: center;
-        gap: 0.8rem;
+        gap: var(--spacing-xs);
         font-family: var(--font-header-bold);
         font-weight: 700;
         color: var(--color-header);

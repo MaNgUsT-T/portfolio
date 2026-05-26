@@ -44,6 +44,10 @@ a {
     &:active,
     &:hover {
         color: var(--a-hover-color);
+
+        svg {
+            stroke: var(--highlight-color) !important;
+        }
     }
 }
 

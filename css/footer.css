@@ -1,3 +1,32 @@
 footer {
-    margin-block-start: auto;
+    width: 100%;
+    padding-block: var(--spacing-xl);
+    background-color:var(--color-zinc-50);
+
+    p {
+        font-family: var(--font-text-family);
+        font-size: var(--fs-xs);
+        font-weight: 300;
+    }
+
+    .footer_wrapper,
+    .footer_container {
+        display: flex;
+        align-items: center;
+    }
+
+    .footer_wrapper {
+        justify-content: space-between;
+        margin-inline-end: auto;
+    }
+
+    .footer_container {
+        gap: var(--spacing-s);
+
+        svg {
+            height: 2rem;
+            width: 2rem;
+            stroke: var(--social-icon-color);
+        }
+    }
 }

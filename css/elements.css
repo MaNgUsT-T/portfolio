@@ -1,69 +1,78 @@
-/* 
+/*
  * Buttons
  *
 */
 
 button {
     border: none;
-    border-radius: 1.2rem;
+    border-radius: var(--radius-xl);
 }
 
 .btn {
     height: 4rem;
     padding: var(--spacing-s) var(--spacing-m);
     display: flex;
-    align-items: center;
     gap: var(--spacing-xs);
-    font-size: 1.4rem;
-    line-height: 1;
+    align-items: center;
+    justify-content: space-between;
+    font-size: var(--btn-fs);
+    font-weight: 500;
+    line-height: var(--lh);
     text-decoration: none;
+    white-space: nowrap;
 
     &:not(button) {
-        border-radius: 999.9rem;
+        border-radius: var(--btn-radius);
     }
 
-    i,
     svg {
-        Width: 1.4rem;
-        height: 1.4rem;
+        width: 1.4rem;
+        height: fit-content;
+        aspect-ratio: 1 / 1;
     }
 }
 
 .btn--primary {
-    background: var(--btn-primary-background, #000000);
-    color: var(--btn-primary-color, #ffffff);
+    background: var(--btn-primary-bg);
+    color: var(--btn-primary-color) !important;
     transition: ease-out background .2s;
 
     &:active,
     &:hover {
-        background: var(--btn-primary-hover-background, #7c3aed);
-        color: var(--btn-primary-hover-color, #ffffff);
+        background: var(--btn-primary-hover-bg);
+    }
+
+    svg {
+        stroke: var(--btn-primary-color) !important;
     }
 }
 
 .btn--secondary {
-    background: var(--btn-secondary-background, #ffffff);
-    border: 0.1rem solid var(--btn-secondary-border, #e4e4e7);
-    color: var(--btn-secondary-color, #18181b);
+    background: var(--btn-secondary-bg);
+    border: 0.1rem solid var(--btn-secondary-border);
+    color: var(--btn-secondary-color) !important;
     transition: ease-out all .2s;
 
     &:active,
     &:hover {
-        background: var(--btn-secondary-hover-background, #fafafa);
-        border-color: var(--btn-secondary-hover-border, #7c3aed);
-        color: var(--btn-secondary-hover-color, #000000);
+        background: var(--btn-secondary-hover-bg);
+        border-color: var(--btn-secondary-hover-border);
+    }
+
+    svg {
+        stroke: var(--btn-secondary-color) !important;
     }
 }
 
 .btn--large {
     height: 5.6rem;
     padding: var(--spacing-m) var(--spacing-2xl);
-    font-size: 1.6rem;
+    font-size: var(--btn-fs-large);
 
-    i,
     svg {
         Width: 2.4rem;
-        height: 2.4rem;
+        height: fit-content;
+        aspect-ratio: 1 / 1;
     }
 }
 
@@ -73,12 +82,12 @@ button:disabled,
     pointer-events: none;
 
     &.btn--primary {
-        background: var(--btn-disabled, #e4e4e7);
+        background: var(--btn-disabled);
     }
 
     &.btn--secondary {
-        border-color: var(--btn-disabled, #e4e4e7);
-        color: var(--btn-disabled, #e4e4e7);
+        border-color: var(--btn-disabled);
+        color: var(--btn-disabled);
     }
 
     &:focus {
@@ -87,19 +96,20 @@ button:disabled,
 }
 
 
-/* 
+/*
  * Pill
  *
 */
 
 .pill {
-    padding: calc(var(--spacing-s) - 0.2rem);
-    background: var(--pill-background, #ffffff);
-    border: 0.1rem solid var(--pill-border, #e4e4e7);
-    border-radius: 999.9rem;
-    font-family: 'Inter Medium', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding: calc(var(--spacing-xs) + 0.2rem);
+    background: var(--pill-bg);
+    border: 0.1rem solid var(--pill-border);
+    border-radius: var(--pill-radius);
+    font-family: var(--font-text-family);
     font-weight: 500;
-    font-size: 1.4rem;
-    line-height: 1;
-    color: var(--pill-color, #52525b);
+    font-size: var(--pill-fs);
+    line-height: var(--lh);
+    color: var(--pill-color);
+    white-space: nowrap;
 }

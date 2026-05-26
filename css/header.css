@@ -12,7 +12,7 @@ header {
         background-color: rgb(var(--white-rgb), 0.8);
         padding-block: var(--spacing-m);
         backdrop-filter:  blur(12px);
-        box-shadow: 0 .1rem .2rem 0 rgb(var(--black-rgb), .05);
+        box-shadow: var(--shadow-s);
     }
 
     a {

@@ -159,6 +159,8 @@
     --a-color: var(--color-text);
     --a-hover-color: var(--tertiary);
 
+    --svg-collor: var(--tertiary);
+
     --input-border-bg: var(--color-zinc-50);
     --input-border-color: var(--border-color-dark);
 
@@ -231,6 +233,35 @@
     --skill-item-icon-border: 0.1rem solid var(--border-color);
     --skill-item-icon-radius: var(--radius-xl);
     --skill-item-icon-shadow: var(--shadow-s);
+
+    --experience-item-max-w: 87rem;
+    --experience-item-gap: clamp(var(--spacing-l), -0.4045rem + 6.2640vw, 4.4rem);
+    --experience-item-date-padding: calc(var(--spacing-xs) * 5);
+    --experience-item-date-fs: var(--fs-xs);
+    --experience-item-date-color: var(--tertiary);
+    --experience-item-date-lh: var(--lh);
+    --experience-item-date-before-bg: var(--secondary);
+    --experience-item-date-before-border: 0.2rem solid var(--tertiary);
+    --experience-item-date-before-radius: var(--radius-max);
+    --experience-item-date-before-shadow: var(--shadow-s);
+    --experience-item-date-after-color: var(--border-color-dark);
+    --experience-item-content-padding: var(--spacing-2xl);
+    --experience-item-content-bg: var(--secondary);
+    --experience-item-content-border: 0.1rem solid var(--border-color);
+    --experience-item-content-radius: var(--radius-2xl);
+    --experience-item-content-shadow: var(--shadow-s);
+    --experience-item-content-header-fs: clamp(var(--fs-l), 1.8182rem + 0.5682vw, var(--fs-xl));
+    --experience-item-content-header-lh: var(--lh-xs);
+    --experience-item-content-li-before-fs: var(--fs);
+    --experience-item-content-li-before-color: var(--tertiary);
+    --experience-item-content-text-fs: clamp(var(--fs-xs), 1.3091rem + 0.2841vw, var(--fs-s));
+    --experience-item-content-lh: var(--lh-3xl);
+    --experience-item-point-workplace-fs: clamp(var(--fs-xs), 1.3091rem + 0.2841vw, var(--fs-s));
+    --experience-item-point-workplace-color: var(--color-zinc-900);
+    --experience-item-point-city-fs: clamp(var(--fs), 1.1091rem + 0.2841vw, var(--fs-xs));
+
+
+
 
 
 

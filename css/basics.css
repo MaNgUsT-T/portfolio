@@ -77,7 +77,7 @@ section {
 }
 
 svg {
-    stroke: var(--highlight-color);
+    stroke: var(--svg-collor);
 }
 
 header,

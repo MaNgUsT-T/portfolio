@@ -12,7 +12,7 @@ textarea {
     padding: var(--spacing-s);
     background: var(--input-border-bg);
     border: 0.1rem solid var(--input-border-color);
-    border-radius: 1.2rem;
+    border-radius: var(--radius-xl);
     font-size: var(--fs-s);
 }
 

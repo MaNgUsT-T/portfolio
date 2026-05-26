@@ -12,7 +12,7 @@ body {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    background-image: radial-gradient(circle, rgba(0, 0, 0, .06) 1px, transparent 1px);
+    background-image: radial-gradient(circle, rgb(0, 0, 0, .06) 1px, transparent 1px);
     background-size: 24px 24px;
     background-color: var(--body-bg);
     font-family: var(--body-font-family);
@@ -33,23 +33,23 @@ h4,
 h5,
 h6 {
     font-family: var(--font-header-family);
+    font-weight: 600;
+    color: var(--color-header);
 }
 
 h1 {
-    font-size: var(--fs-3xl);
-    font-weight: 600;
-    color: var(--color-header);
+    font-size: clamp(6.2rem, 5.7455rem + 1.4205vw, 7.2rem);
     line-height: var(--lh);
     letter-spacing: -0.18rem;
 }
 
-h2,
-h3,
-h4,
-h5,
-h6 {
-    font-weight: 600;
+h2 {
+    margin-block-end: clamp(var(--spacing-2xl), 1.7455rem + 4.5455vw, calc(var(--spacing-xs) * 8));
+    font-size: clamp(3.8rem, 3.3455rem + 1.4205vw, 4.8rem);
+    line-height: var(--lh);
+    letter-spacing: -0.1rem;
 }
+
 
 a {
     color: var(--color-text);
@@ -62,14 +62,23 @@ a {
 }
 
 section {
-    padding-block: calc(var(--spacing-3xl) * 2);
+    padding-block: calc(var(--spacing-xs) * 12);
+    padding-inline: clamp(var(--spacing-m), 0.4364rem + 3.6364vw, var(--spacing-3xl));
+
+    &:nth-child(2n + 3) {
+        background: var(--secondary);
+        border-top: 0.1rem solid var(--border-color);
+        border-bottom: 0.1rem solid var(--border-color);
+    }
 }
 
+svg {
+    stroke: var(--highlight-color);
+}
 
 header,
-main,
 footer {
-    padding-inline: var(--spacing-m);
+    padding-inline: clamp(var(--spacing-m), 0.4364rem + 3.6364vw, var(--spacing-3xl));
 }
 
 .container {
@@ -82,17 +91,39 @@ footer {
     gap: var(--spacing-xs);
     align-items: center;
 
-    svg {
-        stroke: var(--tertiary);
-    }
-
     span {
         font-family: var(--font-header-family);
+        font-size: var(--fs-l);
         font-weight: 700;
         color: var(--color-header);
         line-height: var(--lh-s);
         letter-spacing: -.05rem;
     }
+}
+
+.preheader {
+    margin-block-end: var(--spacing-m);
+    display: flex;
+    gap: var(--spacing-m);
+    align-items: center;
+    font-size: clamp(var(--fs), 1.1091rem + 0.2841vw, var(--fs-xs));
+    font-weight: 500;
+    color: var(--color-preheader);
+    line-height: var(--lh-l);
+    text-transform: uppercase;
+
+    &::before {
+        content: '';
+        width: 3.2rem;
+        height: 0.2rem;
+        display: block;
+        background: var(--color-preheader);
+    }
+}
+
+.img-fluid {
+    max-width: 100%;
+    height: auto;
 }
 
 .text-nowrap {

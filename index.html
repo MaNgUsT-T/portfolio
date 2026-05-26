@@ -43,7 +43,6 @@
 <body>
     <header class="header">
         <div class="container header_wrapper">
-
             <div class="logo">
 				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
 					<path d="M12 22a1 1 0 0 1 0-20 10 9 0 0 1 10 9 5 5 0 0 1-5 5h-2.25a1.75 1.75 0 0 0-1.4 2.8l.3.4a1.75 1.75 0 0 1-1.4 2.8z"></path>
@@ -54,7 +53,6 @@
 				</svg>
                 <span>lisa.weber</span>
             </div>
-
 			<nav role="navigation" aria-label="Navigation" class="main-nav">
 				<ul>
 					<li><a href="#about">Über mich</a></li>
@@ -64,14 +62,12 @@
 					<li><a href="#contact" title="Kontakt">Kontakt</a></li>
 				</ul>
 			</nav>
-
 			<nav class="option-nav">
 				<ul>
 					<li><a href="#" title="dark"><i data-lucide="moon"></i></a></li>
 					<li><a href="#experience" class="btn btn--primary">Lebenslauf</a></li>
 				</ul>
 			</nav>
-
 			<nav role="navigation" aria-label="Mobile Navigation" class="mobile-nav">
 				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
 					<path d="M4 5h16"/>
@@ -79,24 +75,19 @@
 					<path d="M4 19h16"/>
 				</svg>
 			</nav>
-
         </div>
     </header>
 
     <main>
         <section id="hero" class="hero">
 			<div class="container hero_wrapper">
-
 				<div class="hero_column">
 					<p class="availability">Verfügbar für Freelance-Projekte</p>
-
 					<h1>Digitale <i>Erlebnisse</i> gestalten.</h1>
-
 					<p>
 						Hallo, ich bin <b>Lisa Weber</b>. Eine Webdesignerin & UI/UX Experterin, die sich  darauf spezialisiert
 						hat, ästhetische, nutzerzentrierte und zugängliche Interfaces zu kreieren.
 					</p>
-
 					<div class="hero_buttons">
 						<a href="#projects" class="btn btn--primary btn--large">Portfolio ansehen
 							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -106,7 +97,6 @@
 						</a>
 						<a href="#contact" class="btn btn--secondary btn--large">Kontakt</a>
 					</div>
-
 					<div class="hero_social">
 						<a href="#" title="Dribbble">
 							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -132,12 +122,10 @@
 						</a>
 					</div>
 				</div>
-
 				<div class="hero_column">
-
 					<div>
-						<div class="hero_element"></div>
-						<div class="hero_element">
+						<div class="hero-element"></div>
+						<div class="hero-element">
 							<div></div>
 							<div></div>
 							<div></div>
@@ -145,7 +133,7 @@
 								<span></span><span></span>
 							</div>
 						</div>
-						<div class="hero_element">
+						<div class="hero-element">
 							<div>
 								<div></div>
 								<div>
@@ -157,184 +145,239 @@
 							<div></div>
 							<div></div>
 						</div>
-						<div class="hero_element"></div>
+						<div class="hero-element"></div>
 					</div>
 				</div>
-
+			</div>
+        </section>
+        <section id="about" class="about">
+			<div class="container">
+				<p class="preheader">Philosophe & Ansatzt</p>
+				<h2>Über mich</h2>
+				<div class="about_wrapper">
+					<div class="about_column">
+						<p>
+							Schon währendmeines Design-Studiums war ich fasziniert von der Schnitstelle zwischen visueller
+							Geestaltung und Technologie. Heute mit über 6 Jahren Erfahrung in der Branche, helfe ich
+							Marken dabei, ihre digitale identität zu finden und in nutzerfreundliche Produkte zu übersetzen.
+						</p>
+						<p>
+							Mein Ansatz kombiniert strategisches Denken mit Liebe zum Detail. Ich glaube fest daran, dass
+							herausragendes Webdesign nicht nur gut aussehen der Zielgruppe zugeschnitten sein sollte.
+						</p>
+						<p>
+							Wenn ich nicht gerade Pixel in Figma schubse oder Frontend-Code optimiere, findet man mich meistens mit
+							einer analogen Kamera in der Natur oder beim Ausprobieren neuer Kaffeeröstereien in der Stadt.
+						</p>
+						<picture>
+							<source
+								media="(min-width: 48rem)"
+								srcset="./img/d_computer.jpg"
+								width="1024px"
+								height="683px"
+							>
+							<source
+								media="(min-width: 35.5rem)"
+								srcset="./img/t_computer.jpg"
+								width="768px"
+								height="683px"
+							>
+							<img
+								src="./img/m_computer.jpg"
+								width="568px"
+								height="683px"
+								alt="Computer"
+								loading="lazy"
+								class="img-fluid"
+							>
+						</picture>
+					</div>
+					<div class="about_column">
+						<div class="about-item">
+							<div class="about-item_icon">
+								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+									<path d="M15.707 21.293a1 1 0 0 1-1.414 0l-1.586-1.586a1 1 0 0 1 0-1.414l5.586-5.586a1 1 0 0 1 1.414 0l1.586 1.586a1 1 0 0 1 0 1.414z"></path>
+									<path d="m18 13-1.375-6.874a1 1 0 0 0-.746-.776L3.235 2.028a1 1 0 0 0-1.207 1.207L5.35 15.879a1 1 0 0 0 .776.746L13 18"></path>
+									<path d="m2.3 2.3 7.286 7.286"></path>
+									<circle cx="11" cy="11" r="2"></circle>
+								</svg>
+							</div>
+							<div class="about-item_content">
+								<h3>Ästhetik trifft Funktion</h3>
+								<p>
+									Gutes Design ist unsichtbar. Ich gestalte interfaces, die nicht nur visuell ansprechend sind,
+									sondern den Nutzer intuitiv an sein Ziel führen.
+								</p>
+							</div>
+						</div>
+						<div class="about-item">
+							<div class="about-item_icon">
+								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+									<rect width="18" height="18" x="3" y="3" rx="2"></rect>
+									<path d="M3 9h18"></path>
+									<path d="M9 21V9"></path>
+								</svg>
+							</div>
+							<div class="about-item_content">
+								<h3>Struktur <span>&</span> Systeme</h3>
+								<p>
+									Ich liebe es. konsistente Design-Systeme aufzubauen. Skalierbare Komponenten und klare
+									Typografie-Hierarchien sind das Fundament meiner Arbeit.
+								</p>
+							</div>
+						</div>
+						<div class="about-item">
+							<div class="about-item_icon">
+								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+									<rect width="14" height="20" x="5" y="2" rx="2" ry="2"></rect>
+									<path d="M12 18h.01"></path>
+								</svg>
+							</div>
+							<div class="about-item_content">
+								<h3>Nutzerzentriert</h3>
+								<p>
+									Der Nutzer steht immer im Mittelpunkt. Durch Research, Wireframing und Prototyping stelle ich
+									sicher, dass echte Probleme gelöst werden.
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+        </section>
+        <section id="skills" class="skills">
+			<div class="container">
+				<p class="preheader">Expertise & Skills</p>
+				<h2>Meine Werkzeuge</h2>
+				<div class="skills_wrapper">
+					<div class="skill-item">
+						<div class="skill-item_header">
+							<div class="skill-item_icon">
+								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+									<path d="M5 5.5A3.5 3.5 0 0 1 8.5 2H12v7H8.5A3.5 3.5 0 0 1 5 5.5z"></path>
+									<path d="M12 2h3.5a3.5 3.5 0 1 1 0 7H12V2z"></path>
+									<path d="M12 12.5a3.5 3.5 0 1 1 7 0 3.5 3.5 0 1 1-7 0z"></path>
+									<path d="M5 19.5A3.5 3.5 0 0 1 8.5 16H12v3.5a3.5 3.5 0 1 1-7 0z"></path>
+									<path d="M5 12.5A3.5 3.5 0 0 1 8.5 9H12v7H8.5A3.5 3.5 0 0 1 5 12.5z"></path>
+								</svg>
+							</div>
+							<h3>Design Tools</h3>
+						</div>
+						<div class="skill-item_content">
+							<p class="pill">Figma</p>
+							<p class="pill">Sketch</p>
+							<p class="pill">Adobe XD</p>
+							<p class="pill">Photoshop</p>
+							<p class="pill">Illustrator</p>
+							<p class="pill">Framer</p>
+						</div>
+					</div>
+					<div class="skill-item">
+						<div class="skill-item_header">
+							<div class="skill-item_icon">
+								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+									<path d="m18 16 4-4-4-4"></path>
+									<path d="m6 8-4 4 4 4"></path>
+									<path d="m14.5 4-5 16"></path>
+								</svg>
+							</div>
+							<h3>Frontend Entwicklung</h3>
+						</div>
+						<div class="skill-item_content">
+							<p class="pill">HTML 5</p>
+							<p class="pill">CSS3/SASS</p>
+							<p class="pill">Tailwind CSS</p>
+							<p class="pill">JavaScript</p>
+							<p class="pill">React</p>
+							<p class="pill">Webflow</p>
+						</div>
+					</div>
+					<div class="skill-item">
+						<div class="skill-item_header">
+							<div class="skill-item_icon">
+								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+									<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+									<path d="M16 3.128a4 4 0 0 1 0 7.744"></path>
+									<path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
+									<circle cx="9" cy="7" r="4"></circle>
+								</svg>
+							</div>
+							<h3>UX Methoden</h3>
+						</div>
+						<div class="skill-item_content">
+							<p class="pill">User Research</p>
+							<p class="pill">Wireframing</p>
+							<p class="pill">Prototyping</p>
+							<p class="pill">Usability Testing</p>
+							<p class="pill">Personas</p>
+						</div>
+					</div>
+					<div class="skill-item">
+						<div class="skill-item_header">
+							<div class="skill-item_icon">
+								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+									<path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z"></path>
+									<path d="M2 12a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 12"></path>
+									<path d="M2 17a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 17"></path>
+								</svg>
+							</div>
+							<h3>Design Systeme</h3>
+						</div>
+						<div class="skill-item_content">
+							<p class="pill">Component Libraries</p>
+							<p class="pill">Design Tokens</p>
+							<p class="pill">Styleguides</p>
+							<p class="pill">Dokumentation</p>
+						</div>
+					</div>
+					<div class="skill-item">
+						<div class="skill-item_header">
+							<div class="skill-item_icon">
+								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+									<path d="M12 22a1 1 0 0 1 0-20 10 9 0 0 1 10 9 5 5 0 0 1-5 5h-2.25a1.75 1.75 0 0 0-1.4 2.8l.3.4a1.75 1.75 0 0 1-1.4 2.8z"></path>
+									<circle cx="13.5" cy="6.5" r=".5" fill="currentColor"></circle>
+									<circle cx="17.5" cy="10.5" r=".5" fill="currentColor"></circle>
+									<circle cx="6.5" cy="12.5" r=".5" fill="currentColor"></circle>
+									<circle cx="8.5" cy="7.5" r=".5" fill="currentColor"></circle>
+								</svg>
+							</div>
+							<h3>Visuelles Design</h3>
+						</div>
+						<div class="skill-item_content">
+							<p class="pill">Typografie</p>
+							<p class="pill">Farbtheorie</p>
+							<p class="pill">Layout & Grid</p>
+							<p class="pill">Ikonografie</p>
+							<p class="pill">Branding</p>
+						</div>
+					</div>
+					<div class="skill-item">
+						<div class="skill-item_header">
+							<div class="skill-item_icon">
+								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+									<path d="M10 7.75a.75.75 0 0 1 1.142-.638l3.664 2.249a.75.75 0 0 1 0 1.278l-3.664 2.25a.75.75 0 0 1-1.142-.64z"></path>
+									<path d="M12 17v4"></path><path d="M8 21h8"></path>
+									<rect x="2" y="3" width="20" height="14" rx="2"></rect>
+								</svg>
+							</div>
+							<h3>Motion & Interaktion</h3>
+						</div>
+						<div class="skill-item_content">
+							<p class="pill">Micro-Interactions</p>
+							<p class="pill">After Effects</p>
+							<p class="pill">Lottie</p>
+							<p class="pill">CSS Animations</p>
+						</div>
+					</div>
+				</div>
 			</div>
         </section>
 
-        <section id="about">
-            <div>
-                <p><span></span> PHILOSOPHIE & ANSATZ</p>
-                <h2>Über mich</h2>
-                <p>
-                    Schon währendmeines Design-Studiums war ich fasziniert von der Schnitstelle zwischen visueller
-                    Geestaltung und Technologie. Heute mit über 6 Jahren Erfahrung in der Branche, helfe ich
-                    Marken dabei, ihre digitale identität zu finden und in nutzerfreundliche Produkte zu übersetzen.
-                </p>
-                <p>
-                    Mein Ansatz kombiniert strategisches Denken mit Liebe zum Detail. Ich glaube fest daran, dass
-                    herausragendes Webdesign nicht nur gut aussehen der Zielgruppe zugeschnitten sein sollte.
-                </p>
-                <p>
-                    Wenn ich nicht gerade Pixel in Figma schubse oder Frontend-Code optimiere, findet man mich meistens mit
-                    einer analogen Kamera in der Natur oder beim Ausprobieren neuer Kaffeeröstereien in der Stadt.
-                </p>
-                <img src="" alt="" />
-            </div>
-            <div>
-                <div>
-                    <picture>
-                        <img src="" alt="" />
-                    </picture>
-                    <div>
-                        <h3>Ästhetik trifft Funktion</h3>
-                        <p>
-                            Gutes Design ist unsichtbar. Ich gestalte interfaces, die nicht nur visuell ansprechend sind,
-                            sondern den Nutzer intuitiv an sein Ziel führen.
-                        </p>
-                    </div>
-                </div>
-                <div>
-                    <picture>
-                        <img src="" alt="" />
-                    </picture>
-                    <div>
-                        <h3>Struktur <span>&</span> Systeme</h3>
-                        <p>
-                            Ich liebe es. konsistente Design-Systeme aufzubauen. Skalierbare Komponenten und klare
-                            Typografie-Hierarchien sind das Fundament meiner Arbeit.
-                        </p>
-                    </div>
-                </div>
-                <div>
-                    <picture>
-                        <img src="" alt="" />
-                    </picture>
-                    <div>
-                        <h3>Nutzerzentriert</h3>
-                        <p>
-                            Der Nutzer steht immer im Mittelpunkt. Durch Research, Wireframing und Prototyping stelle ich
-                            sicher, dass echte Probleme gelöst werden.
-                        </p>
-                    </div>
-                </div>
-
-            </div>
-        </section>
-
-        <section id="skills">
-            <p><span></span> EXPERTISE & SKILLS</p>
-            <h2>Meine Werkzeuge</h2>
-            <div>
-                <div>
-                    <div>
-                        <picture>
-                            <img src="" alt="" />
-                        </picture>
-                        <h3>Design Tools</h3>
-                    </div>
-                    <div>
-                        <p>Figma</p>
-                        <p>Sketch</p>
-                        <p>Adobe XD</p>
-                        <p>Photoshop</p>
-                        <p>Illustrator</p>
-                        <p>Framer</p>
-                    </div>
-                </div>
-
-                <div>
-                    <div>
-                        <picture>
-                            <img src="" alt="" />
-                        </picture>
-                        <h3>Frontend Entwicklung</h3>
-                    </div>
-                    <div>
-                        <p>HTML 5</p>
-                        <p>CSS3/SASS</p>
-                        <p>Tailwind CSS</p>
-                        <p>JavaScript</p>
-                        <p>React</p>
-                        <p>Webflow</p>
-                    </div>
-                </div>
-
-                <div>
-                    <div>
-                        <picture>
-                            <img src="" alt="" />
-                        </picture>
-                        <h3>UX Methoden</h3>
-                    </div>
-
-                    <div>
-                        <p>User Research</p>
-                        <p>Wireframing</p>
-                        <p>Prototyping</p>
-                        <p>Usability Testing</p>
-                        <p>Personas</p>
-                    </div>
-                </div>
-
-                <div>
-                    <div>
-                        <picture>
-                            <img src="" alt="" />
-                        </picture>
-                        <h3>Design Systeme</h3>
-                    </div>
-
-                    <div>
-                        <p>Component Libraries</p>
-                        <p>Design Tokens</p>
-                        <p>Styleguides</p>
-                        <p>Dokumentation</p>
-                    </div>
-                </div>
-
-                <div>
-                    <div>
-                        <picture>
-                            <img src="" alt="" />
-                        </picture>
-                        <h3>Visuelles Design</h3>
-                    </div>
-
-                    <div>
-                        <p>Typografie</p>
-                        <p>Farbtheorie</p>
-                        <p>Layout & Grid</p>
-                        <p>Ikonografie</p>
-                        <p>Branding</p>
-                    </div>
-                </div>
-
-                <div>
-                    <div>
-                        <picture>
-                            <img src="" alt="" />
-                        </picture>
-                        <h3>Motion & Interaktion</h3>
-                        <p>Micro-Interactions</p>
-                        <p>After Effects</p>
-                    </div>
-
-                    <div>
-                        <p>Lottie</p>
-                        <p>CSS Animations</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="experience">
-            <p><span></span> MEIN WERDEGANG</p>
+        <section id="experience" class="experience">
+			<p class="preheader">Mein Werdegang</p>
             <h2>Berufserfahrung</h2>
 
-            <div>
+            <div class="experience_wrapper">
                 <div>
                     <div><span></span></div>
                     <div>
@@ -401,7 +444,7 @@
         </section>
 
         <section id="projects">
-            <p><span></span>Portfolio</p>
+			<p class="preheader">Portfolio</p>
             <h2>Ausgewählte Arbeiten</h2>
             <div>
                 <a href="" title="">
@@ -489,7 +532,7 @@
         </section>
 
         <section>
-            <p><span></span>Zertifikate & Kurse</p>
+			<p class="preheader">Zertifikate & Kurse</p>
             <h3>Weiterbildung</h3>
             <div>
                 <div>
@@ -540,7 +583,7 @@
         </section>
 
         <section id="contact">
-            <p><span></span>KONTAKT AUFNEHMEN</p>
+			<p class="preheader">Kontakt aufnehmen</p>
             <h2>Lass uns sprechen</h2>
             <div>
                 <h3><img src="" alt="" />Auf einen Kaffee?</h3>
@@ -614,7 +657,6 @@
 
     <footer class="footer">
         <div class="container footer_wrapper">
-
 			<div class="logo">
 				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
 					<path d="M12 22a1 1 0 0 1 0-20 10 9 0 0 1 10 9 5 5 0 0 1-5 5h-2.25a1.75 1.75 0 0 0-1.4 2.8l.3.4a1.75 1.75 0 0 1-1.4 2.8z"></path>
@@ -625,11 +667,9 @@
 				</svg>
 				<span>lisa.weber</span>
 			</div>
-
             <p class="footer_text">
 				Gestaltet & Entwickelt mit liebe zum Detail <span class="text-nowrap">&copy; 2026</span> Lisa Weber. Alle Rechte vorbehalten.
             </p>
-
             <div class="footer_social">
 				<a href="#" title="Dribbble">
 					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -654,7 +694,6 @@
 					</svg>
 				</a>
             </div>
-
         </div>
     </footer>
 

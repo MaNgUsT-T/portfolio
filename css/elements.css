@@ -5,16 +5,17 @@
 
 button {
     border: none;
-    border-radius: 1.2rem;
+    border-radius: var(--radius-xl);
 }
 
 .btn {
     height: 4rem;
     padding: var(--spacing-s) var(--spacing-m);
     display: flex;
-    align-items: center;
     gap: var(--spacing-xs);
-    font-size: var(--fs-xs);
+    align-items: center;
+    justify-content: space-between;
+    font-size: var(--btn-fs);
     font-weight: 500;
     line-height: var(--lh);
     text-decoration: none;
@@ -24,10 +25,10 @@ button {
         border-radius: var(--btn-radius);
     }
 
-    i,
     svg {
         width: 1.4rem;
-        height: 1.4rem;
+        height: fit-content;
+        aspect-ratio: 1 / 1;
     }
 }
 
@@ -39,6 +40,10 @@ button {
     &:active,
     &:hover {
         background: var(--btn-primary-hover-bg);
+    }
+
+    svg {
+        stroke: var(--btn-primary-color) !important;
     }
 }
 
@@ -53,17 +58,21 @@ button {
         background: var(--btn-secondary-hover-bg);
         border-color: var(--btn-secondary-hover-border);
     }
+
+    svg {
+        stroke: var(--btn-secondary-color) !important;
+    }
 }
 
 .btn--large {
     height: 5.6rem;
     padding: var(--spacing-m) var(--spacing-2xl);
-    font-size: var(--fs-s);
+    font-size: var(--btn-fs-large);
 
-    i,
     svg {
         Width: 2.4rem;
-        height: 2.4rem;
+        height: fit-content;
+        aspect-ratio: 1 / 1;
     }
 }
 
@@ -93,13 +102,14 @@ button:disabled,
 */
 
 .pill {
-    padding: calc(var(--spacing-s) - 0.2rem);
+    padding: calc(var(--spacing-xs) + 0.2rem);
     background: var(--pill-bg);
     border: 0.1rem solid var(--pill-border);
-    border-radius: var(--pill-border-radius);
+    border-radius: var(--pill-radius);
     font-family: var(--font-text-family);
     font-weight: 500;
-    font-size: var(--fs-xs);
+    font-size: var(--pill-fs);
     line-height: var(--lh);
     color: var(--pill-color);
+    white-space: nowrap;
 }

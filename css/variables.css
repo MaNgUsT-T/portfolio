@@ -190,13 +190,28 @@
     --highlight-radius: var(--radius-max);
     --highlight-color: var(--tertiary);
 
-    --preheader-bg: var(--tertiary);
+    --hero--availability-bg: var(--tertiary-bright);
+    --hero--availability-radius: var(--radius-max);
+    --hero--availability-color: var(--tertiary);
+    --hero-element-padding: var(--spacing-xl);
+    --hero-element-radius: var(--radius-2xl);
+    --hero-element-radius-max: var(--radius-max);
+    --hero-element-shadow: var(--shadow-2xl);
+    --hero-element-shadow-soft: var(--shadow-l);
+    --hero-element-transform: transform .5s cubic-bezier(.4, 0, .2, 1);
+    --hero-element-1-bg: var(--tertiary);
+    --hero-element-2-bg: var(--secondary);
+    --hero-element-2-child-1-bg: var(--color-zinc-100);
+    --hero-element-2-child-1-radius: var(--radius-xl);
+    --hero-element-2-child-2-bg: var(--color-zinc-200);
+    --hero-element-2-child-4-grandchild-1-bg: rgb(var(--tertiary-rgb), .1);
+    --hero-element-2-child-4-grandchild-2-bg: rgb(var(--quaternary-rgb), .1);
+    --hero-element-3-bg: rgb(var(--secondary-rgb), .9);
+    --hero-element-3-child-1-grandchild-1-bg: linear-gradient(125deg, var(--tertiary) 20%, var(--quaternary-dark) 100%);
+    --hero-element-3-child-1-grandchild-2-bg: var(--color-zinc-100);
+    --hero-element-3-child-1-grandchild-3-bg: var(--color-zinc-100);
+    --hero-element-4-bg: var(--quaternary);
 
-
-    --hero-availability-bg: (--highlight-bg);
-    --hero-availability-radius: (--highlight-radius);
-    --hero-availability-color: (--highlight-color);
-    --hero-availability-text-color: var(--tertiary);
 
 
     --social-icon-color: var(--color-zinc-400);

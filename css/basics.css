@@ -37,6 +37,20 @@ h6 {
     color: var(--color-header);
 }
 
+h1 {
+    font-size: clamp(6.2rem, 5.7455rem + 1.4205vw, 7.2rem);
+    line-height: var(--lh);
+    letter-spacing: -0.18rem;
+}
+
+h2 {
+    margin-block-end: clamp(var(--spacing-2xl), 1.7455rem + 4.5455vw, calc(var(--spacing-xs) * 8));
+    font-size: clamp(3.8rem, 3.3455rem + 1.4205vw, 4.8rem);
+    line-height: var(--lh);
+    letter-spacing: -0.1rem;
+}
+
+
 a {
     color: var(--color-text);
     text-decoration: underline;
@@ -45,9 +59,23 @@ a {
     &:hover {
         color: var(--a-hover-color);
 
-        svg {
-            stroke: var(--highlight-color) !important;
+        &:not(.btn) {
+
+            svg {
+                stroke: var(--a-hover-color) !important;
+            }
         }
+    }
+}
+
+section {
+    padding-block: calc(var(--spacing-xs) * 12);
+    padding-inline: clamp(var(--spacing-m), 0.4364rem + 3.6364vw, var(--spacing-3xl));
+
+    &:nth-child(2n + 3) {
+        background: var(--secondary);
+        border-top: 0.1rem solid var(--border-color);
+        border-bottom: 0.1rem solid var(--border-color);
     }
 }
 
@@ -77,6 +105,37 @@ footer {
         color: var(--color-header);
         line-height: var(--lh-s);
         letter-spacing: -.05rem;
+    }
+}
+
+.preheader {
+    margin-block-end: var(--spacing-m);
+    display: flex;
+    gap: var(--spacing-m);
+    align-items: center;
+    font-size: clamp(var(--fs), 1.1091rem + 0.2841vw, var(--fs-xs));
+    font-weight: 500;
+    color: var(--color-preheader);
+    line-height: var(--lh-l);
+    text-transform: uppercase;
+
+    &::before {
+        content: '';
+        width: 3.2rem;
+        height: 0.2rem;
+        display: block;
+        background: var(--color-preheader);
+    }
+}
+
+.social-icons {
+    display: flex;
+    gap: var(--spacing-l);
+
+    svg {
+        width: 2.4rem;
+        height: 2.4rem;
+        stroke: var(--footer-social-icon-color);
     }
 }
 

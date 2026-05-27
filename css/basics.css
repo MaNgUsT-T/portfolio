@@ -59,8 +59,11 @@ a {
     &:hover {
         color: var(--a-hover-color);
 
-        svg {
-            stroke: var(--a-hover-color) !important;
+        &:not(.btn) {
+
+            svg {
+                stroke: var(--a-hover-color) !important;
+            }
         }
     }
 }

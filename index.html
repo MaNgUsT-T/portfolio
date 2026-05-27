@@ -38,11 +38,12 @@
 
     <link rel="preload" href="./fonts/Inter/Inter.woff2" as="font" type="font/woff2" crossorigin="anonymous">
 
+	<link rel="stylesheet" type="text/css" href="./vendor/splide/splide.min.css">
     <link rel="stylesheet" type="text/css" href="./css/styles.css">
 </head>
 <body>
     <header class="header">
-        <div class="container header_wrapper">
+        <div class="container header__wrapper">
             <div class="logo">
 				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
 					<path d="M12 22a1 1 0 0 1 0-20 10 9 0 0 1 10 9 5 5 0 0 1-5 5h-2.25a1.75 1.75 0 0 0-1.4 2.8l.3.4a1.75 1.75 0 0 1-1.4 2.8z"></path>
@@ -80,15 +81,15 @@
 
     <main>
         <section id="hero" class="hero">
-			<div class="container hero_wrapper">
-				<div class="hero_column">
+			<div class="container hero__wrapper">
+				<div class="hero__column">
 					<p class="availability">Verfügbar für Freelance-Projekte</p>
 					<h1>Digitale <i>Erlebnisse</i> gestalten.</h1>
 					<p>
 						Hallo, ich bin <b>Lisa Weber</b>. Eine Webdesignerin & UI/UX Experterin, die sich  darauf spezialisiert
 						hat, ästhetische, nutzerzentrierte und zugängliche Interfaces zu kreieren.
 					</p>
-					<div class="hero_buttons">
+					<div class="hero__buttons">
 						<a href="#projects" class="btn btn--primary btn--large">Portfolio ansehen
 							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
 								<path d="M5 12h14"></path>
@@ -97,7 +98,7 @@
 						</a>
 						<a href="#contact" class="btn btn--secondary btn--large">Kontakt</a>
 					</div>
-					<div class="hero_social">
+					<div class="hero__social">
 						<a href="#" title="Dribbble">
 							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
 								<circle cx="12" cy="12" r="10"></circle>
@@ -122,7 +123,7 @@
 						</a>
 					</div>
 				</div>
-				<div class="hero_column">
+				<div class="hero__column">
 					<div>
 						<div class="hero-element"></div>
 						<div class="hero-element">
@@ -154,8 +155,8 @@
 			<div class="container">
 				<p class="preheader">Philosophe & Ansatzt</p>
 				<h2>Über mich</h2>
-				<div class="about_wrapper">
-					<div class="about_column">
+				<div class="about__wrapper">
+					<div class="about__column">
 						<p>
 							Schon währendmeines Design-Studiums war ich fasziniert von der Schnitstelle zwischen visueller
 							Geestaltung und Technologie. Heute mit über 6 Jahren Erfahrung in der Branche, helfe ich
@@ -192,9 +193,9 @@
 							>
 						</picture>
 					</div>
-					<div class="about_column">
+					<div class="about__column">
 						<div class="about-item">
-							<div class="about-item_icon">
+							<div class="about-item__icon">
 								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
 									<path d="M15.707 21.293a1 1 0 0 1-1.414 0l-1.586-1.586a1 1 0 0 1 0-1.414l5.586-5.586a1 1 0 0 1 1.414 0l1.586 1.586a1 1 0 0 1 0 1.414z"></path>
 									<path d="m18 13-1.375-6.874a1 1 0 0 0-.746-.776L3.235 2.028a1 1 0 0 0-1.207 1.207L5.35 15.879a1 1 0 0 0 .776.746L13 18"></path>
@@ -202,7 +203,7 @@
 									<circle cx="11" cy="11" r="2"></circle>
 								</svg>
 							</div>
-							<div class="about-item_content">
+							<div class="about-item__content">
 								<h3>Ästhetik trifft Funktion</h3>
 								<p>
 									Gutes Design ist unsichtbar. Ich gestalte interfaces, die nicht nur visuell ansprechend sind,
@@ -211,14 +212,14 @@
 							</div>
 						</div>
 						<div class="about-item">
-							<div class="about-item_icon">
+							<div class="about-item__icon">
 								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
 									<rect width="18" height="18" x="3" y="3" rx="2"></rect>
 									<path d="M3 9h18"></path>
 									<path d="M9 21V9"></path>
 								</svg>
 							</div>
-							<div class="about-item_content">
+							<div class="about-item__content">
 								<h3>Struktur <span>&</span> Systeme</h3>
 								<p>
 									Ich liebe es. konsistente Design-Systeme aufzubauen. Skalierbare Komponenten und klare
@@ -227,13 +228,13 @@
 							</div>
 						</div>
 						<div class="about-item">
-							<div class="about-item_icon">
+							<div class="about-item__icon">
 								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
 									<rect width="14" height="20" x="5" y="2" rx="2" ry="2"></rect>
 									<path d="M12 18h.01"></path>
 								</svg>
 							</div>
-							<div class="about-item_content">
+							<div class="about-item__content">
 								<h3>Nutzerzentriert</h3>
 								<p>
 									Der Nutzer steht immer im Mittelpunkt. Durch Research, Wireframing und Prototyping stelle ich
@@ -249,10 +250,10 @@
 			<div class="container">
 				<p class="preheader">Expertise & Skills</p>
 				<h2>Meine Werkzeuge</h2>
-				<div class="skills_wrapper">
+				<div class="skills__wrapper">
 					<div class="skill-item">
-						<div class="skill-item_header">
-							<div class="skill-item_icon">
+						<div class="skill-item__header">
+							<div class="skill-item__icon">
 								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
 									<path d="M5 5.5A3.5 3.5 0 0 1 8.5 2H12v7H8.5A3.5 3.5 0 0 1 5 5.5z"></path>
 									<path d="M12 2h3.5a3.5 3.5 0 1 1 0 7H12V2z"></path>
@@ -263,7 +264,7 @@
 							</div>
 							<h3>Design Tools</h3>
 						</div>
-						<div class="skill-item_content">
+						<div class="skill-item__content">
 							<p class="pill">Figma</p>
 							<p class="pill">Sketch</p>
 							<p class="pill">Adobe XD</p>
@@ -273,8 +274,8 @@
 						</div>
 					</div>
 					<div class="skill-item">
-						<div class="skill-item_header">
-							<div class="skill-item_icon">
+						<div class="skill-item__header">
+							<div class="skill-item__icon">
 								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
 									<path d="m18 16 4-4-4-4"></path>
 									<path d="m6 8-4 4 4 4"></path>
@@ -283,7 +284,7 @@
 							</div>
 							<h3>Frontend Entwicklung</h3>
 						</div>
-						<div class="skill-item_content">
+						<div class="skill-item__content">
 							<p class="pill">HTML 5</p>
 							<p class="pill">CSS3/SASS</p>
 							<p class="pill">Tailwind CSS</p>
@@ -293,8 +294,8 @@
 						</div>
 					</div>
 					<div class="skill-item">
-						<div class="skill-item_header">
-							<div class="skill-item_icon">
+						<div class="skill-item__header">
+							<div class="skill-item__icon">
 								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
 									<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
 									<path d="M16 3.128a4 4 0 0 1 0 7.744"></path>
@@ -304,7 +305,7 @@
 							</div>
 							<h3>UX Methoden</h3>
 						</div>
-						<div class="skill-item_content">
+						<div class="skill-item__content">
 							<p class="pill">User Research</p>
 							<p class="pill">Wireframing</p>
 							<p class="pill">Prototyping</p>
@@ -313,8 +314,8 @@
 						</div>
 					</div>
 					<div class="skill-item">
-						<div class="skill-item_header">
-							<div class="skill-item_icon">
+						<div class="skill-item__header">
+							<div class="skill-item__icon">
 								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
 									<path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z"></path>
 									<path d="M2 12a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 12"></path>
@@ -323,7 +324,7 @@
 							</div>
 							<h3>Design Systeme</h3>
 						</div>
-						<div class="skill-item_content">
+						<div class="skill-item__content">
 							<p class="pill">Component Libraries</p>
 							<p class="pill">Design Tokens</p>
 							<p class="pill">Styleguides</p>
@@ -331,8 +332,8 @@
 						</div>
 					</div>
 					<div class="skill-item">
-						<div class="skill-item_header">
-							<div class="skill-item_icon">
+						<div class="skill-item__header">
+							<div class="skill-item__icon">
 								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
 									<path d="M12 22a1 1 0 0 1 0-20 10 9 0 0 1 10 9 5 5 0 0 1-5 5h-2.25a1.75 1.75 0 0 0-1.4 2.8l.3.4a1.75 1.75 0 0 1-1.4 2.8z"></path>
 									<circle cx="13.5" cy="6.5" r=".5" fill="currentColor"></circle>
@@ -343,7 +344,7 @@
 							</div>
 							<h3>Visuelles Design</h3>
 						</div>
-						<div class="skill-item_content">
+						<div class="skill-item__content">
 							<p class="pill">Typografie</p>
 							<p class="pill">Farbtheorie</p>
 							<p class="pill">Layout & Grid</p>
@@ -352,8 +353,8 @@
 						</div>
 					</div>
 					<div class="skill-item">
-						<div class="skill-item_header">
-							<div class="skill-item_icon">
+						<div class="skill-item__header">
+							<div class="skill-item__icon">
 								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
 									<path d="M10 7.75a.75.75 0 0 1 1.142-.638l3.664 2.249a.75.75 0 0 1 0 1.278l-3.664 2.25a.75.75 0 0 1-1.142-.64z"></path>
 									<path d="M12 17v4"></path><path d="M8 21h8"></path>
@@ -362,7 +363,7 @@
 							</div>
 							<h3>Motion & Interaktion</h3>
 						</div>
-						<div class="skill-item_content">
+						<div class="skill-item__content">
 							<p class="pill">Micro-Interactions</p>
 							<p class="pill">After Effects</p>
 							<p class="pill">Lottie</p>
@@ -376,15 +377,15 @@
 			<div class="container">
 				<p class="preheader">Mein Werdegang</p>
 				<h2>Berufserfahrung</h2>
-				<div class="experience_wrapper">
+				<div class="experience__wrapper">
 					<div class="experience-item">
-						<div class="experience-item_timepoint"></div>
-						<div class="experience-item_date">
+						<div class="experience-item__timepoint"></div>
+						<div class="experience-item__date">
 							<p>2021 - Heute</p>
 						</div>
-						<div class="experience-item_content">
+						<div class="experience-item__content">
 							<h3>Creative Director Digital</h3>
-							<div class="experience-item_point">
+							<div class="experience-item__point">
 								<p><b>Studio Nord</b></p>
 								<p>
 									<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -403,13 +404,13 @@
 						</div>
 					</div>
 					<div class="experience-item">
-						<div class="experience-item_timepoint"></div>
-						<div class="experience-item_date">
+						<div class="experience-item__timepoint"></div>
+						<div class="experience-item__date">
 							<p>2018 - 2021</p>
 						</div>
-						<div class="experience-item_content">
+						<div class="experience-item__content">
 							<h3>Senior UI/UX Designerin</h3>
-							<div class="experience-item_point">
+							<div class="experience-item__point">
 								<p><b>TechFlow Agency</b></p>
 								<p>
 									<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -428,13 +429,13 @@
 						</div>
 					</div>
 					<div class="experience-item">
-						<div class="experience-item_timepoint"></div>
-						<div class="experience-item_date">
+						<div class="experience-item__timepoint"></div>
+						<div class="experience-item__date">
 							<p>2016 - 2018</p>
 						</div>
-						<div class="experience-item_content">
+						<div class="experience-item__content">
 							<h3>Junior Webdesignerin</h3>
-							<div class="experience-item_point">
+							<div class="experience-item__point">
 								<p><b>Pixel & Code</b></p>
 								<p>
 									<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -544,55 +545,119 @@
             </div>
         </section>
 
-        <section>
-			<p class="preheader">Zertifikate & Kurse</p>
-            <h3>Weiterbildung</h3>
-            <div>
-                <div>
-                    <picture>
-                        <img src="" alt="" />
-                    </picture>
-                    <h3>Google UX Design Professional Certificate</h3>
-                    <p>Google via Coursera</p>
-                    <div>
-                        <p>2022</p>
-                        <p><img src="" alt="" /> Verifiziert</p>
-                    </div>
-                </div>
-                <div>
-                    <picture>
-                        <img src="" alt="" />
-                    </picture>
-                    <h3>UI Design Patterns for Successful Software</h3>
-                    <p>Interaction Design Foundation</p>
-                    <div>
-                        <p>2021</p>
-                        <p><img src="" alt="" /> Verifiziert</p>
-                    </div>
-                </div>
-                <div>
-                    <picture>
-                        <img src="" alt="" />
-                    </picture>
-                    <h3>Adobe Certified Professional in Visual Design</h3>
-                    <p>Adobe</p>
-                    <div>
-                        <p>2020</p>
-                        <p><img src="" alt="" /> Verifiziert</p>
-                    </div>
-                </div>
-                <div>
-                    <picture>
-                        <img src="" alt="" />
-                    </picture>
-                    <h3>Web Accessibility (WCAG 2.1)</h3>
-                    <p>W3C</p>
-                    <div>
-                        <p>2023</p>
-                        <p><img src="" alt="" /> Verifiziert</p>
-                    </div>
-                </div>
-            </div>
+        <section class="education">
+			<div class="container">
+				<p class="preheader">Zertifikate & Kurse</p>
+				<h2>Weiterbildung</h2>
+				<div id="education-carousel" class="education__wrapper splide" role="group" aria-label="Weiterbildung Slider">
+					<div class="splide__arrows">
+						<button class="splide__arrow splide__arrow--prev">
+							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+								<path d="M5 12h14"></path>
+								<path d="m12 5 7 7-7 7"></path>
+							</svg>
+						</button>
+						<button class="splide__arrow splide__arrow--next">
+							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+								<path d="M5 12h14"></path>
+								<path d="m12 5 7 7-7 7"></path>
+							</svg>
+						</button>
+					</div>
+					<div class="splide__track">
+						<ul class="splide__list">
+							<div class="education-item splide__slide">
+								<div class="education-item__content">
+									<div class="education-item__icon">
+										<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+											<path d="m15.477 12.89 1.515 8.526a.5.5 0 0 1-.81.47l-3.58-2.687a1 1 0 0 0-1.197 0l-3.586 2.686a.5.5 0 0 1-.81-.469l1.514-8.526"></path>
+											<circle cx="12" cy="8" r="6"></circle>
+										</svg>
+									</div>
+									<h3>Google UX Design Professional Certificate</h3>
+									<p>Google via Coursera</p>
+								</div>
+								<div class="education-item__footer">
+									<p>2022</p>
+									<p>
+										<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+											<circle cx="12" cy="12" r="10"></circle>
+											<path d="m9 12 2 2 4-4"></path>
+										</svg>
+										Verifiziert
+									</p>
+								</div>
+							</div>
+							<div class="education-item splide__slide">
+								<div class="education-item__content">
+									<div class="education-item__icon">
+										<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+											<path d="m15.477 12.89 1.515 8.526a.5.5 0 0 1-.81.47l-3.58-2.687a1 1 0 0 0-1.197 0l-3.586 2.686a.5.5 0 0 1-.81-.469l1.514-8.526"></path>
+											<circle cx="12" cy="8" r="6"></circle>
+										</svg>
+									</div>
+									<h3>UI Design Patterns for Successful Software</h3>
+									<p>Interaction Design Foundation</p>
+								</div>
+								<div class="education-item__footer">
+									<p>2021</p>
+									<p>
+										<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+											<circle cx="12" cy="12" r="10"></circle>
+											<path d="m9 12 2 2 4-4"></path>
+										</svg>
+										Verifiziert
+									</p>
+								</div>
+							</div>
+							<div class="education-item splide__slide">
+								<div class="education-item__content">
+									<div class="education-item__icon">
+										<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+											<path d="m15.477 12.89 1.515 8.526a.5.5 0 0 1-.81.47l-3.58-2.687a1 1 0 0 0-1.197 0l-3.586 2.686a.5.5 0 0 1-.81-.469l1.514-8.526"></path>
+											<circle cx="12" cy="8" r="6"></circle>
+										</svg>
+									</div>
+									<h3>Adobe Certified Professional in Visual Design</h3>
+									<p>Adobe</p>
+								</div>
+								<div class="education-item__footer">
+									<p>2020</p>
+									<p>
+										<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+											<circle cx="12" cy="12" r="10"></circle>
+											<path d="m9 12 2 2 4-4"></path>
+										</svg>
+										Verifiziert
+									</p>
+								</div>
+							</div>
+							<div class="education-item splide__slide">
+								<div class="education-item__content">
+									<div class="education-item__icon">
+										<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+											<path d="m15.477 12.89 1.515 8.526a.5.5 0 0 1-.81.47l-3.58-2.687a1 1 0 0 0-1.197 0l-3.586 2.686a.5.5 0 0 1-.81-.469l1.514-8.526"></path>
+											<circle cx="12" cy="8" r="6"></circle>
+										</svg>
+									</div>
+									<h3>Web Accessibility (WCAG 2.1)</h3>
+									<p>W3C</p>
+								</div>
+								<div class="education-item__footer">
+									<p>2023</p>
+									<p>
+										<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+											<circle cx="12" cy="12" r="10"></circle>
+											<path d="m9 12 2 2 4-4"></path>
+										</svg>
+										Verifiziert
+									</p>
+								</div>
+							</div>
+						</ul>
+					</div>
+				</div>
+			</div>
         </section>
 
         <section id="contact">
@@ -669,7 +734,7 @@
     </main>
 
     <footer class="footer">
-        <div class="container footer_wrapper">
+        <div class="container footer__wrapper">
 			<div class="logo">
 				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
 					<path d="M12 22a1 1 0 0 1 0-20 10 9 0 0 1 10 9 5 5 0 0 1-5 5h-2.25a1.75 1.75 0 0 0-1.4 2.8l.3.4a1.75 1.75 0 0 1-1.4 2.8z"></path>
@@ -681,7 +746,7 @@
 				<span>lisa.weber</span>
 			</div>
             <p>Gestaltet & Entwickelt mit liebe zum Detail <span class="text-nowrap">&copy; 2026</span> Lisa Weber. Alle Rechte vorbehalten.</p>
-			<div class="footer_social-icons">
+			<div class="footer__social-icons">
 				<a href="#" title="Dribbble">
 					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
 						<circle cx="12" cy="12" r="10"></circle>
@@ -708,6 +773,8 @@
         </div>
     </footer>
 
+	<script src="./vendor/jquery/jquery-3.7.1.min.js" crossorigin="anonymous"></script>
+	<script src="./vendor/splide/splide.min.js" crossorigin="anonymous"></script>
 	<script src="./js/main.js"></script>
 </body>
 </html>

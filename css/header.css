@@ -19,14 +19,14 @@ header {
         text-decoration: none;
     }
 
-    .header_wrapper,
+    .header__wrapper,
     .main-nav ul,
     .option-nav ul {
         display: flex;
         align-items: center;
     }
 
-    .header_wrapper {
+    .header__wrapper {
         gap: var(--spacing-2xl);
     }
 

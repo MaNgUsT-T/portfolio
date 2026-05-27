@@ -190,6 +190,9 @@
     --highlight-radius: var(--radius-max);
     --highlight-color: var(--tertiary);
 
+    --hero--availability-bg: var(--tertiary-bright);
+    --hero--availability-radius: var(--radius-max);
+    --hero--availability-color: var(--tertiary);
     --hero-element-padding: var(--spacing-xl);
     --hero-element-radius: var(--radius-2xl);
     --hero-element-radius-max: var(--radius-max);
@@ -219,8 +222,8 @@
     --about-item-icon-radius: var(--radius-xl);
     --about-item-content-header-fs: clamp(var(--fs-m), 1.7091rem + 0.2841vw, var(--fs-l));
     --about-item-content-header-lh: var(--lh-m);
-    --about-item_content-text-fs: clamp(var(--fs-xs), 1.3091rem + 0.2841vw, var(--fs-s));
-    --about-item-content-text-lh: var(--lh-3xl);
+    --about-item-content-fs: clamp(var(--fs-xs), 1.3091rem + 0.2841vw, var(--fs-s));
+    --about-item-content-lh: var(--lh-3xl);
 
     --skill-item-padding: var(--spacing-2xl);
     --skill-item-bg: var(--color-zinc-50);
@@ -254,11 +257,33 @@
     --experience-item-content-header-lh: var(--lh-xs);
     --experience-item-content-li-before-fs: var(--fs);
     --experience-item-content-li-before-color: var(--tertiary);
-    --experience-item-content-text-fs: clamp(var(--fs-xs), 1.3091rem + 0.2841vw, var(--fs-s));
+    --experience-item-content-fs: clamp(var(--fs-xs), 1.3091rem + 0.2841vw, var(--fs-s));
     --experience-item-content-lh: var(--lh-3xl);
     --experience-item-point-workplace-fs: clamp(var(--fs-xs), 1.3091rem + 0.2841vw, var(--fs-s));
     --experience-item-point-workplace-color: var(--color-zinc-900);
     --experience-item-point-city-fs: clamp(var(--fs), 1.1091rem + 0.2841vw, var(--fs-xs));
+
+    --education-item-padding: var(--spacing-2xl);
+    --education-item-bg: var(--secondary);
+    --education-item-border: 0.1rem solid var(--border-color);
+    --education-item-radius: var(--radius-2xl);
+    --education-item-shadow: var(--shadow-s);
+    --education-item-icon-bg: var(--highlight-bg);
+    --education-item-icon-radius: var(--radius-max);
+    --education-item-header-fs: clamp(var(--fs-s), 1.5091rem + 0.2841vw, var(--fs-m));
+    --education-item-header-lh: var(--lh-2xl);
+    --education-item-content-fs: clamp(var(--fs), 1.0844rem + 0.3082vw, var(--fs-xs));
+    --education-item-content-lh: var(--lh-m);
+    --education-item-footer-padding: var(--spacing-m);
+    --education-item-footer-border: 0.1rem solid var(--border-color);
+    --education-item-footer-color: var(--highlight-color);
+
+    --education-slider-arrow-bg: var(--tertiary);
+    --education-slider-arrow-storke: var(--secondary);
+    --education-slider-pagination-page-bg: var(--color-zinc-600);
+    --education-slider-pagination-page-active-bg: var(--color-zinc-900);
+
+
 
 
 

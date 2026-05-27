@@ -3,12 +3,12 @@ footer {
     padding-block: var(--spacing-3xl);
     background: var(--footer-bg);
 
-    .footer_wrapper,
-    .footer_social-icons {
+    .footer__wrapper,
+    .footer__social-icons {
         display: flex;
     }
 
-    .footer_wrapper {
+    .footer__wrapper {
         flex-direction: column;
         gap: var(--spacing-2xl);
         align-items: center;
@@ -24,7 +24,7 @@ footer {
         line-height: var(--lh-l);
     }
 
-    .footer_social-icons {
+    .footer__social-icons {
         gap: var(--spacing-s);
 
         svg {

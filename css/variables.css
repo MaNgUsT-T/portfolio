@@ -190,6 +190,15 @@
     --highlight-radius: var(--radius-max);
     --highlight-color: var(--tertiary);
 
+    --preheader-bg: var(--tertiary);
+
+
+    --hero-availability-bg: (--highlight-bg);
+    --hero-availability-radius: (--highlight-radius);
+    --hero-availability-color: (--highlight-color);
+    --hero-availability-text-color: var(--tertiary);
+
+
     --social-icon-color: var(--color-zinc-400);
 
     --footer-bg: var(--color-zinc-50);

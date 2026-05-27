@@ -80,6 +80,41 @@ footer {
     }
 }
 
+.social-icons {
+    gap: var(--spacing-s);
+    display: flex;
+
+    svg {
+        width: 2rem;
+        height: 2rem;
+        stroke: var(--footer-social-icon-color);
+    }
+}
+
+.preheader {
+    display: flex;
+    gap: var(--spacing-s);
+    align-items: center;
+    font-size: var(--fs-xs);
+    color: var(--preheader-bg);
+    text-transform: uppercase;
+    font-weight:500;
+
+    &::before {
+        content: '';
+        width: 3.2rem;
+        height: 0.2rem;
+        display: block;
+        background: var(--preheader-bg);
+    }
+}
+
+.header {
+    font-family: var(--font-header-family);
+    font-weight: 700;
+    font-size: var(--fs-2xl);
+}
+
 .text-nowrap {
     white-space: nowrap;
 }

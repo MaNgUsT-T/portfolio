@@ -1,0 +1,53 @@
+.hero {
+    .hero_wrapper {
+        height: 100vh;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(1, 1fr);
+        gap: 48px;
+        align-items: center;
+
+        .hero_column {
+
+            &:first-child {
+                .hero-container {
+                    display: inline-flex;
+                    gap: var(--spacing-s);
+                    align-items: center;
+                }
+
+                .availability {
+                    padding-left: var(--spacing-s);
+                    padding-right: var(--spacing-s);
+                    background-color: var(--highlight-bg);
+                    border-radius: var(--highlight-radius);
+                    font-weight: 500;
+                    font-size: var(--fs-xs);
+                    color: var(--hero-availability-text-color);
+
+                    &::before {
+                        content: '';
+                        display: block;
+                        width: 0.8rem;
+                        height: 0.8rem;
+                        border-radius: var(--radius-max);
+                        background-color: var(--tertiary);
+                    }
+                }
+
+                .experiences {
+                    font-weight: 700;
+                    font-size: var(--fs-3xl);
+                }
+            }
+        }
+
+            &:last-child {
+            }
+        
+    }
+}
+
+.about {
+
+}

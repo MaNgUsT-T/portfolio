@@ -27,6 +27,7 @@
 					background: var(--hero--availability-bg);
 					border-radius: var(--hero--availability-radius);
 					font-size: var(--fs-xs);
+					font-weight: 500;
 					color: var(--hero--availability-color);
 					line-height: var(--lh-l);
 
@@ -35,8 +36,8 @@
 						width: 0.8rem;
 						height: 0.8rem;
 						display: block;
-						background: var(--highlight-color);
-						border-radius: var(--highlight-radius);
+						background-color: var(--hero--availability-color);
+						border-radius: var(--hero--availability-radius);
 					}
 				}
 
@@ -52,12 +53,8 @@
 					font-weight: bold;
 				}
 
-				.hero__buttons,
-				.hero__social {
-					display: flex;
-				}
-
 				.hero__buttons {
+					display: flex;
 					flex-direction: column;
 					gap: var(--spacing-m);
 					 @media (min-width: 35.5rem)  {
@@ -66,15 +63,6 @@
 
 					.btn {
 						box-shadow: var(--btn-shadow);
-					}
-				}
-
-				.hero__social {
-					margin-block-start: var(--spacing-2xl);
-					gap: var(--spacing-xl);
-
-					svg {
-						stroke: var(--social-icon-color);
 					}
 				}
 			}

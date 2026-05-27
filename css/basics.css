@@ -59,8 +59,11 @@ a {
     &:hover {
         color: var(--a-hover-color);
 
-        svg {
-            stroke: var(--a-hover-color) !important;
+        &:not(.btn) {
+
+            svg {
+                stroke: var(--a-hover-color) !important;
+            }
         }
     }
 }
@@ -122,6 +125,17 @@ footer {
         height: 0.2rem;
         display: block;
         background: var(--color-preheader);
+    }
+}
+
+.social-icons {
+    display: flex;
+    gap: var(--spacing-l);
+
+    svg {
+        width: 2.4rem;
+        height: 2.4rem;
+        stroke: var(--footer-social-icon-color);
     }
 }
 

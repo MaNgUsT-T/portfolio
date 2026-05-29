@@ -50,7 +50,6 @@ h2 {
     letter-spacing: -0.1rem;
 }
 
-
 a {
     color: var(--color-text);
     text-decoration: underline;
@@ -66,6 +65,15 @@ a {
             }
         }
     }
+}
+
+p {
+
+}
+
+hr {
+    border: none;
+    border-top: 0.1rem solid var(--border-color-dark);
 }
 
 section {
@@ -108,6 +116,25 @@ footer {
     }
 }
 
+.highlight {
+    font-size: var(--highlight-fs) !important;
+    font-width: var(--highlight-fw) !important;
+    color: var(--highlight-color) !important;
+    line-height: var(--highlight-lh) !important;
+
+    &:has(svg) {
+        display: flex;
+        gap: var(--spacing-xs);
+        align-items: center;
+    }
+
+    svg {
+        width: var(--highlight-fs);
+        height: var(--highlight-fs);
+        stroke: var(--highlight-color);
+    }
+}
+
 .preheader {
     margin-block-end: var(--spacing-m);
     display: flex;
@@ -137,6 +164,11 @@ footer {
         height: 2.4rem;
         stroke: var(--footer-social-icon-color);
     }
+}
+
+.img-fluid {
+    max-width: 100%;
+    height: auto;
 }
 
 .text-nowrap {

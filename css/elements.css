@@ -102,14 +102,13 @@ button:disabled,
 */
 
 .pill {
-    padding: calc(var(--spacing-xs) + 0.2rem);
+    padding: var(--pill-padding);
     background: var(--pill-bg);
-    border: 0.1rem solid var(--pill-border);
+    border: var(--pill-border);
     border-radius: var(--pill-radius);
-    font-family: var(--font-text-family);
-    font-weight: 500;
+    font-weight: var(--pill-fw);
     font-size: var(--pill-fs);
-    line-height: var(--lh);
+    line-height: var(--pill-lh);
     color: var(--pill-color);
     white-space: nowrap;
 }

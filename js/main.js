@@ -1,5 +1,6 @@
 /*
-* Header scrolled
+ * Header scrolled
+ *
 */
 
 window.addEventListener('scroll', function() {
@@ -12,15 +13,18 @@ window.addEventListener('scroll', function() {
 });
 
 /*
-* Education carousel
+ * Education carousel
+ *
 */
 
 let educationCarouselItems = $('#education-carousel').find('.splide__slide').length;
 console.log(educationCarouselItems);
 
 /*
-* JS
+ * JS
+ *
 */
+
 /*
 document.addEventListener( 'DOMContentLoaded', function () {
     new Splide( '#education-carousel', {
@@ -47,8 +51,10 @@ document.addEventListener( 'DOMContentLoaded', function () {
 */
 
 /*
-* JQuery
+ * JQuery
+ *
 */
+
 function educationCarouselInitialize() {
     if (educationCarouselItems > 0) {
         const educationItemList = new Splide( '#education-carousel', {

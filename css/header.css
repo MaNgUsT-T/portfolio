@@ -1,6 +1,6 @@
 header {
     width: 100%;
-    padding-block: var(--spacing-xl);
+    padding-block: var(--header-padding);
     background-color: transparent;
     transition-property: all;
     transition-timing-function: cubic-bezier(.4, 0, .2, 1);
@@ -9,10 +9,10 @@ header {
     z-index: 50;
 
     &.header--scrolled {
-        background-color: rgb(var(--white-rgb), 0.8);
-        padding-block: var(--spacing-m);
-        backdrop-filter:  blur(12px);
-        box-shadow: var(--shadow-s);
+        padding-block: var(--header-scrolled-padding);
+        background-color: var(--header-scrolled-bg);
+        backdrop-filter: blur(12px);
+        box-shadow: var(--header-scrolled-shadow);
     }
 
     a {

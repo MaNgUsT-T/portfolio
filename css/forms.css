@@ -1,3 +1,9 @@
+form {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xl);
+}
+
 label {
     margin-bottom: 0.8rem;
     display: block;
@@ -7,16 +13,116 @@ label {
 }
 
 input,
+select,
 textarea {
     width: 100%;
     padding: var(--spacing-s);
-    background: var(--input-border-bg);
+    background: var(--input-bg);
     border: 0.1rem solid var(--input-border-color);
     border-radius: var(--radius-xl);
     font-size: var(--fs-s);
+
+
+}
+
+input[type="text"],
+input[type="email"],
+textarea {
+    &:not(:placeholder-shown) {
+        background: var(--input-checked-bg);
+    }
+}
+
+
+select,
+select::picker(select) {
+    appearance: base-select;
+}
+
+select {
+
+    &::checkmark {
+        content: "data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='%23000' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='m6 10 3 3 6-6'/%3e%3c/svg%3e;
+    }
+
+    &::picker-icon {
+        transition: 0.4s rotate;
+    }
+
+    &:open::picker-icon {
+        rotate: 180deg;
+    }
+
+    &::picker(select) {
+        background: transparent;
+        border: none;
+    }
+
+    option {
+        background: var(--input-bg);
+        border: 0.1rem solid var(--input-border-color);
+
+        &:first-of-type {
+            border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+        }
+
+        &:last-of-type {
+            border-radius: 0 0 var(--radius-xl) var(--radius-xl);
+        }
+
+        &:not(:last-child) {
+            border-block-end: none;
+        }
+
+        &:checked {
+            background: var(--input-checked-bg);
+        }
+    }
 }
 
 textarea {
     height: 17.2rem;
     resize: none;
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+    width: 2rem;
+    height: 2rem;
+    flex-shrink: 0;
+    appearance: none;
+
+    &:checked {
+        background: var(--input-checked-bg);
+    }
+}
+
+input[type="checkbox"] {
+    border-radius: var(--radius-xs);
+
+    &:checked {
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='%23000' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='m6 10 3 3 6-6'/%3e%3c/svg%3e");
+    }
+}
+
+input[type="radio"] {
+    border-radius: var(--radius-max);
+
+    &:checked {
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='2' fill='%23000'/%3e%3c/svg%3e");
+    }
+}
+
+.form-row {
+    display: flex;
+    gap: var(--spacing-xl);
+}
+
+.form-group {
+    width: 100%;
+}
+
+.form-check {
+    display: flex;
+    gap: var(--spacing-xs);
 }

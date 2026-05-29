@@ -217,6 +217,11 @@
     --about-img-radius: var(--radius-2xl);
     --about-img-shadow: var(--shadow-l);
 
+    --kontakt-item-radius: var(--radius-3xl);
+    --kontakt-border-color: var(--color-zinc-200);
+    --kontakt-bg-color:var(--color-zinc-100);
+    --kontakt-divider-color:var( --color-zinc-200);
+
     --social-icon-color: var(--color-zinc-400);
 
     --footer-bg: var(--color-zinc-50);

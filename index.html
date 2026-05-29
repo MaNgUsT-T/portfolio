@@ -545,77 +545,97 @@
             </div>
         </section>
 
-        <section>
-			<p class="preheader">KONTAKT AUFNEHMEN</p>
-            <h2>Lass uns sprechen</h2>
-
-            <div>
-                <h4><img src="" alt="" />Auf einen Kaffee?</h4>
-                <hr>
-                <p>
-                    Ich bin immer auf der Suche nach spannenden Projekten und neuen Herausforderungen. Egal ob es um ein
-                    Redesign, eine neue App oder einfach nur um einen kreativen Austausch geht - schreib mir gerne
-                    eine Nachricht!
-                </p>
-                <a href="mailto:&#104&#97&#108&#108&#111&#64&#108&#105&#115&#97&#119&#101&#98&#101&#114&#46&#100&#101&#115&#105&#103&#110" title=""><img src="" alt="" /> <b>&#104&#97&#108&#108&#111&#64&#108&#105&#115&#97&#119&#101&#98&#101&#114&#46&#100&#101&#115&#105&#103&#110</b></a>
-            </div>
-            <form method="post" action="">
-                <label for="salutation">Anrede</label>
-                <select id="salutation"
-                        name="salutation">
-                    <option value="" selected="">Anrede</option>
-                    <option value="Herr">Herr</option>
-                    <option value="Frau">Frau</option>
-                </select>
-                <div>
-                    <div>
-                        <label for="firstname">Vorname <sup>*</sup></label>
-                        <input type="text"
-                               id="firstname"
-                               name="firstname"
-                               placeholder="Dein Vorname"
-                               max="30"
-                               required />
+        <section class="kontakt">
+            <div class="container">
+                <p class="preheader">KONTAKT AUFNEHMEN</p>
+                <h2>Lass uns sprechen</h2>
+                <div class="kontakt__wrapper">
+                    <div class="kontakt__column kontakt__item">
+                        <h4>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path d="M10 2v2"></path>
+                                <path d="M14 2v2"></path>
+                                <path d="M16 8a1 1 0 0 1 1 1v8a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V9a1 1 0 0 1 1-1h14a4 4 0 1 1 0 8h-1"></path>
+                                <path d="M6 2v2"></path>
+                            </svg> Auf einen Kaffee?
+                        </h4>
+                        <hr>
+                        <p>
+                            Ich bin immer auf der Suche nach spannenden Projekten und neuen Herausforderungen. Egal ob es um ein
+                            Redesign, eine neue App oder einfach nur um einen kreativen Austausch geht - schreib mir gerne
+                            eine Nachricht!
+                        </p>
+                        <a href="mailto:&#104&#97&#108&#108&#111&#64&#108&#105&#115&#97&#119&#101&#98&#101&#114&#46&#100&#101&#115&#105&#103&#110" title="">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7"></path>
+                                <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+                            </svg> <b>&#104&#97&#108&#108&#111&#64&#108&#105&#115&#97&#119&#101&#98&#101&#114&#46&#100&#101&#115&#105&#103&#110</b>
+                        </a>
                     </div>
-                    <div>
-                        <label for="lastname">Nachname <sup>*</sup></label>
-                        <input type="text"
-                               id="lastname"
-                               name="ladtname"
-                               placeholder="Dein Nachname"
-                               max="30"
-                               required />
+                    <div class="kontakt__column kontakt__form">
+                        <form method="post" action="">
+                            <label for="salutation">Anrede</label>
+                            <select id="salutation"
+                                    name="salutation">
+                                <option value="" selected="">Anrede</option>
+                                <option value="Herr">Herr</option>
+                                <option value="Frau">Frau</option>
+                            </select>
+                            <div>
+                                <div>
+                                    <label for="firstname">Vorname <sup>*</sup></label>
+                                    <input type="text"
+                                           id="firstname"
+                                           name="firstname"
+                                           placeholder="Dein Vorname"
+                                           max="30"
+                                           required />
+                                </div>
+                                <div>
+                                    <label for="lastname">Nachname <sup>*</sup></label>
+                                    <input type="text"
+                                           id="lastname"
+                                           name="ladtname"
+                                           placeholder="Dein Nachname"
+                                           max="30"
+                                           required />
+                                </div>
+                            </div>
+                            <label for="email">E-Mail <sup>*</sup></label>
+                            <input type="email"
+                                   id="email"
+                                   name="email"
+                                   placeholder="hallo@beispiel.de"
+                                   required />
+                            <label for="subject">Betreff</label>
+                            <input type="text"
+                                   id="subject"
+                                   name="subject"
+                                   placeholder="Worum geht es?" />
+                            <label for="message">Nachricht</label>
+                            <textarea id="message"
+                                      name="message" lder="Erzähl mir von deinem Projekt.."
+                                      placeho
+                                      rows="5"></textarea>
+
+
+                            <input type="checkbox"
+                                   id="gdproptin"
+                                   name="gdproptin"
+                                   value="1"
+                                   required>
+                            <label for="gdproptin">Ich bin damit einverstanden, dass meine Daten dauerhaft verwendet werden. Ein Widerruf meiner Einwilligung ist jederzeit mit Wirkung für die Zukunft möglich.</label>
+
+                            <button type="submit" class="btn btn--primary btn--large">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                    <path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z"></path>
+                                    <path d="m21.854 2.147-10.94 10.939"></path>
+                                </svg> Nachricht senden
+                            </button>
+                        </form>
                     </div>
                 </div>
-                <label for="email">E-Mail <sup>*</sup></label>
-                <input type="email"
-                       id="email"
-                       name="email"
-                       placeholder="hallo@beispiel.de"
-                       required />
-                <label for="subject">Betreff</label>
-                <input type="text"
-                       id="subject"
-                       name="subject"
-                       placeholder="Worum geht es?" />
-                <label for="message">Nachricht</label>
-                <textarea id="message"
-                          name="message" lder="Erzähl mir von deinem Projekt.."
-                          placeho
-                          rows="5"></textarea>
-
-
-                <input type="checkbox"
-                       id="gdproptin"
-                       name="gdproptin"
-                       value="1"
-                       required>
-                <label for="gdproptin">Ich bin damit einverstanden, dass meine Daten dauerhaft verwendet werden. Ein Widerruf meiner Einwilligung ist jederzeit mit Wirkung für die Zukunft möglich.</label>
-
-                <button type="submit">
-                    <img src="" alt="" /> Nachricht senden
-                </button>
-            </form>
+            </div>
         </section>
     </main>
 

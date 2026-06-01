@@ -216,11 +216,71 @@
     --pill-bg: var(--secondary);
     --pill-border: 0.1rem solid var(--border-color-dark);
     --pill-radius: var(--radius-max);
+    --pill-shadow: var(--shadow-s);
     --pill-fs: clamp(var(--fs), 1.1091rem + 0.2841vw, var(--fs-xs));
     --pill-fw: 500;
     --pill-lh: var(--lh);
     --pill-color: var(--color-text);
     --pill-white-space: nowrap;
+
+    --card-padding: var(--spacing-2xl);
+    --card-content-padding: ;
+    --card-display: flex;
+    --card-direction: column;
+    --card-gap: ;
+    --card-bg: var(--secondary);
+    --card-border: 0.1rem solid var(--border-color);
+    --card-radius: var(--radius-2xl);
+    --card-shadow: var(--shadow-s);
+    --card-fs: clamp(var(--fs-xs), 1.3091rem + 0.2841vw, var(--fs-s));
+    --card-lh: var(--lh-3xl);
+    --card-color: var(--color-text);
+    --card-h-fs: clamp(var(--fs-l), 1.8182rem + 0.5682vw, var(--fs-xl));
+    --card-h-lh: var(--lh);
+
+    --card-icon-width: 2rem;
+    --card-icon-height: 2rem;
+    --card-icon-padding: var(--spacing-s);
+    --card-icon-bg: var(--secondary);
+    --card-icon-border: 0.1rem solid var(--border-color);
+    --card-icon-radius: var(--radius-xl);
+    --card-icon-shadow: var(--shadow-s);
+
+    --card-header-padding: 0 0 var(--spacing-xl) 0;
+    --card-header-display: flex;
+    --card-header-direction: ;
+    --card-header-gap: var(--spacing-m);
+    --card-header-align-items: center;
+    --card-header-justify-content: ;
+    --card-header-wrap: wrap;
+    --card-header-bg: ;
+    --card-header-border: ;
+
+    --card-body-padding: var(--spacing-xl) 0;
+    --card-body-display: ;
+    --card-body-direction: ;
+    --card-body-gap: ;
+    --card-body-align-items: ;
+    --card-body-justify-content: ;
+    --card-body-wrap: wrap;
+    --card-body-bg: ;
+    --card-body-h-margin-block-end: var(--spacing-s);
+    --card-body-p-margin-block-end: var(--spacing-xl);
+
+    --card-footer-margin-block-start: auto;
+    --card-footer-padding: var(--spacing-xl) 0 0 0;
+    --card-footer-display: flex;
+    --card-footer-direction: ;
+    --card-footer-gap: ;
+    --card-footer-align-items: ;
+    --card-footer-justify-content: ;
+    --card-footer-wrap: wrap;
+    --card-footer-bg: ;
+    --card-footer-border: ;
+
+
+
+
 
     --header-padding: var(--spacing-xl);
     --header-scrolled-padding: var(--spacing-m);
@@ -243,7 +303,6 @@
     --hero-availability-fw: var(--highlight-fw);
     --hero-availability-lh: var(--highlight-lh);
     --hero-availability-color: var(--highlight-color);
-
     --hero-element-padding: var(--spacing-xl);
     --hero-element-radius: var(--radius-2xl);
     --hero-element-radius-max: var(--radius-max);
@@ -263,32 +322,38 @@
     --hero-element-3-child-1-grandchild-3-bg: var(--color-zinc-100);
     --hero-element-4-bg: var(--quaternary);
 
-    --about-item-padding: var(--spacing-2xl);
-    --about-item-bg: var(--secondary);
-    --about-item-border: 0.1rem solid var(--border-color);
-    --about-item-radius: var(--radius-2xl);
-    --about-item-shadow: var(--shadow-s);
+    --about-item-display: flex;
+    --about-item-direction: row;
+    --about-item-gap: var(--spacing-2xl);
     --about-item-header-padding: var(--spacing-s);
+    --about-item-header-align-items: flex-start;
     --about-item-header-bg: var(--highlight-bg);
     --about-item-header-radius: var(--radius-xl);
+    --about-item-body-padding: 0;
     --about-item-body-h-fs: clamp(var(--fs-m), 1.7091rem + 0.2841vw, var(--fs-l));
     --about-item-body-h-lh: var(--lh-m);
-    --about-item-body-fs: clamp(var(--fs-xs), 1.3091rem + 0.2841vw, var(--fs-s));
-    --about-item-body-lh: var(--lh-3xl);
     --about-item-img-radius: var(--radius-2xl);
     --about-item-img-shadow: var(--shadow-xl);
 
-    --skill-item-padding: var(--spacing-2xl);
+    --skills-wrapper-gap: var(--spacing-2xl);
+    --skill-item-gap: var(--spacing-xl);
     --skill-item-bg: var(--color-zinc-50);
-    --skill-item-border: 0.1rem solid var(--border-color);
-    --skill-item-radius: var(--radius-2xl);
-    --skill-item-header-fs: clamp(var(--fs-s), 1.5091rem + 0.2841vw, var(--fs-m));
-    --skill-item-header-lh: var(--lh-2xl);
+    --skill-item-h-fs: clamp(var(--fs-s), 1.5091rem + 0.2841vw, var(--fs-m));
+    --skill-item-h-lh: var(--lh-2xl);
     --skill-item-icon-padding: var(--spacing-s);
     --skill-item-icon-bg: var(--secondary);
     --skill-item-icon-border: 0.1rem solid var(--border-color);
     --skill-item-icon-radius: var(--radius-xl);
     --skill-item-icon-shadow: var(--shadow-s);
+    --skill-item-header-gap: var(--spacing-m);
+    --skill-item-header-align-items: center;
+    --skill-item-footer-margin-block-start: 0;
+    --skill-item-footer-padding: 0;
+    --skill-item-footer-gap: var(--spacing-xs);
+    --skill-item-footer-align-items: center;
+    --skill-item-hover-border: 0.1rem solid var(--tertiary-bright);
+
+
 
     --experience-item-max-w: 87rem;
     --experience-item-gap: clamp(2.8rem, 1.6546rem + 3.5794vw, 4.4rem);

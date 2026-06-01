@@ -72,6 +72,7 @@ p {
 }
 
 hr {
+    margin-block: var(--spacing-xl);
     border: none;
     border-top: 0.1rem solid var(--border-color-dark);
 }

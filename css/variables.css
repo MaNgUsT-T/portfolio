@@ -242,10 +242,6 @@
     --hero-element-3-child-1-grandchild-3-bg: var(--color-zinc-100);
     --hero-element-4-bg: var(--quaternary);
 
-    --about-item-padding: var(--spacing-2xl);
-    --about-item-bg: var(--secondary);
-    --about-item-border: 0.1rem solid var(--border-color);
-    --about-item-radius: var(--radius-2xl);
     --about-item-shadow: var(--shadow-s);
     --about-item-header-padding: var(--spacing-s);
     --about-item-header-bg: var(--highlight-bg);
@@ -256,6 +252,14 @@
     --about-item-body-lh: var(--lh-3xl);
     --about-item-img-radius: var(--radius-2xl);
     --about-item-img-shadow: var(--shadow-xl);
+
+    --skill-item-bg:var(--color-zinc-50);
+    --skill-item-svg-bg-color:var(--white);
+    --skill-item-svg-shadow:var(--shadow-s);
+
+    --path-li-item-color:var(--color-violet-600);
+    --path-location-items-color: var(--color-zinc-400);
+    --path-date-font-color: var(--color-violet-600);
 
     --contact-padding: var(--spacing-2xl);
     --contact-border: 0.1rem solid var(--border-color-dark);
@@ -271,4 +275,11 @@
 
     --footer-bg: var(--color-zinc-50);
     --footer-social-icon-color: var(--social-icon-color);
+
+    --card-bg:var(--white);
+    --card-gap:var(--spacing-xl);
+    --card-padding:var(--spacing-2xl);
+    --card-border:0.1rem;
+    --card-border-radius:var(--radius-2xl);
+    --card-border-color:var(--color-zinc-100);
 }

@@ -89,6 +89,12 @@
 				<h5>Lorem Ipsum</h5>
 				<h6>Lorem Ipsum</h6>
 				<p>Lorem ipsum dolor sit amet, <a href="#" title="link">consetetur</a> sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
+				<ul>
+					<li>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</li>
+					<li>Lorem Ipsum</li>
+					<li>Lorem Ipsum</li>
+					<li>Lorem Ipsum</li>
+				</ul>
 			</div>
 		</section>
 		<section id="icons">
@@ -256,7 +262,7 @@
 			<div class="container">
 				<p class="preheader"></p>
 				<h2>Buttons</h2>
-				<div style="margin-block-end:var(--spacing-xl); display:flex; align-items:center; gap:var(--spacing-s);">
+				<div style="margin-block-end:var(--spacing-xl); display:flex; flex-wrap:wrap; align-items:center; gap:var(--spacing-s);">
 					<a href="#"
 					   title="Button primary"
 					   class="btn btn--primary">
@@ -311,7 +317,7 @@
 						</svg>
 					</a>
 				</div>
-				<div style="margin-block-end:var(--spacing-3xl); display:flex; align-items:center; gap:var(--spacing-s);">
+				<div style="margin-block-end:var(--spacing-3xl); display:flex; flex-wrap:wrap; align-items:center; gap:var(--spacing-s);">
 					<button
 						type="submit"
 						class="btn btn--primary"
@@ -382,8 +388,83 @@
 				</div>
 				<p class="preheader"></p>
 				<h2>Card</h2>
-				<div style="display:grid; grid-template-columns: repeat(2, 1fr); gap:var(--spacing-2xl);">
-					<div class="card">
+				<div style="margin-block-end:var(--spacing-3xl); display:grid; grid-template-columns: repeat(2, 1fr); gap:var(--spacing-2xl);">
+					<div class="card card--default">
+						<div class="card__header">
+							<p>Header</p>
+						</div>
+						<div class="card__body">
+							<div class="card__body-wrapper">
+								<h3>Lorem Ipsum</h3>
+								<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+								<p>
+									<a href="mailto:#" title="">
+										<span>
+											<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+											<path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7"></path>
+											<rect x="2" y="4" width="20" height="16" rx="2"></rect>
+										</svg>
+										</span>
+										 <b>Lorem Ipsum</b>
+									</a>
+								</p>
+							</div>
+						</div>
+						<div class="card__footer">
+							<p>footer</p>
+						</div>
+					</div>
+					<div class="card card--default-inner">
+						<div class="card__header">
+							<p>Header</p>
+						</div>
+						<div class="card__body">
+							<div class="card__body-wrapper">
+								<h3>Lorem Ipsum</h3>
+								<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+							</div>
+						</div>
+						<div class="card__footer">
+							<p>footer</p>
+						</div>
+					</div>
+					<div class="card card--about-item">
+						<div class="card__header">
+							<div class="card__icon">
+								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+									<path d="M15.707 21.293a1 1 0 0 1-1.414 0l-1.586-1.586a1 1 0 0 1 0-1.414l5.586-5.586a1 1 0 0 1 1.414 0l1.586 1.586a1 1 0 0 1 0 1.414z"></path>
+									<path d="m18 13-1.375-6.874a1 1 0 0 0-.746-.776L3.235 2.028a1 1 0 0 0-1.207 1.207L5.35 15.879a1 1 0 0 0 .776.746L13 18"></path>
+									<path d="m2.3 2.3 7.286 7.286"></path>
+									<circle cx="11" cy="11" r="2"></circle>
+								</svg>
+							</div>
+						</div>
+						<div class="card__body">
+							<div class="card__body-wrapper">
+								<h3>Lorem Ipsum</h3>
+								<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+							</div>
+						</div>
+					</div>
+					<div class="card card--about-item">
+						<div class="card__header">
+							<div class="card__icon">
+								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+									<path d="M15.707 21.293a1 1 0 0 1-1.414 0l-1.586-1.586a1 1 0 0 1 0-1.414l5.586-5.586a1 1 0 0 1 1.414 0l1.586 1.586a1 1 0 0 1 0 1.414z"></path>
+									<path d="m18 13-1.375-6.874a1 1 0 0 0-.746-.776L3.235 2.028a1 1 0 0 0-1.207 1.207L5.35 15.879a1 1 0 0 0 .776.746L13 18"></path>
+									<path d="m2.3 2.3 7.286 7.286"></path>
+									<circle cx="11" cy="11" r="2"></circle>
+								</svg>
+							</div>
+						</div>
+						<div class="card__body">
+							<div class="card__body-wrapper">
+								<h3>Lorem Ipsum</h3>
+								<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+							</div>
+						</div>
+					</div>
+					<div class="card card--skill-item">
 						<div class="card__header">
 							<div class="card__icon">
 								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -394,26 +475,415 @@
 									<path d="M5 12.5A3.5 3.5 0 0 1 8.5 9H12v7H8.5A3.5 3.5 0 0 1 5 12.5z"></path>
 								</svg>
 							</div>
-							<h3>Header</h3>
-						</div>
-						<div class="card__body">
 							<h3>Lorem Ipsum</h3>
-							<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
 						</div>
-						<div class="card__footer">footer</div>
+						<div class="card__footer">
+							<p class="pill">Lorem</p>
+							<p class="pill">Ipsum</p>
+							<p class="pill">Simply</p>
+							<p class="pill">Dumy</p>
+						</div>
 					</div>
-					<div class="card"
-						 style="
-						 --card-header-border: 0.1rem solid var(--border-color);
-						 --card-footer-border: 0.1rem solid var(--border-color);
-						"
-					>
-						<div class="card__header">header</div>
-						<div class="card__body">
+					<div class="card card--skill-item">
+						<div class="card__header">
+							<div class="card__icon">
+								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+									<path d="M5 5.5A3.5 3.5 0 0 1 8.5 2H12v7H8.5A3.5 3.5 0 0 1 5 5.5z"></path>
+									<path d="M12 2h3.5a3.5 3.5 0 1 1 0 7H12V2z"></path>
+									<path d="M12 12.5a3.5 3.5 0 1 1 7 0 3.5 3.5 0 1 1-7 0z"></path>
+									<path d="M5 19.5A3.5 3.5 0 0 1 8.5 16H12v3.5a3.5 3.5 0 1 1-7 0z"></path>
+									<path d="M5 12.5A3.5 3.5 0 0 1 8.5 9H12v7H8.5A3.5 3.5 0 0 1 5 12.5z"></path>
+								</svg>
+							</div>
 							<h3>Lorem Ipsum</h3>
-							<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
 						</div>
-						<div class="card__footer">footer</div>
+						<div class="card__footer">
+							<p class="pill">Lorem</p>
+							<p class="pill">Ipsum</p>
+							<p class="pill">Simply</p>
+							<p class="pill">Dumy</p>
+							<p class="pill">Lorem</p>
+							<p class="pill">Ipsum</p>
+							<p class="pill">Simply</p>
+							<p class="pill">Dumy</p>
+							<p class="pill">Lorem</p>
+							<p class="pill">Ipsum</p>
+							<p class="pill">Simply</p>
+							<p class="pill">Dumy</p>
+						</div>
+					</div>
+					<div class="card card--experience-item">
+						<div class="card__body">
+							<div class="card__body-wrapper">
+								<p>0000 - 0000</p>
+								<h3>Lorem Ipsum</h3>
+								<p class="workplace-point">
+									<b>LoremIpsum</b>
+									<span>
+										<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+											<path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"></path>
+											<circle cx="12" cy="10" r="3"></circle>
+										</svg>
+										Lorem-Ipsum
+									</span>
+								</p>
+								<ul class="star-list">
+									<li>Lorem Ipsum is simply dummy text.</li>
+									<li>Lorem Ipsum is simply dummy text.</li>
+									<li>Lorem Ipsum is simply dummy text.</li>
+									<li>Lorem Ipsum is simply dummy text.</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div class="card card--experience-item">
+						<div class="card__body">
+							<div class="card__body-wrapper">
+								<p>0000 - 0000</p>
+								<h3>Lorem Ipsum</h3>
+								<p class="workplace-point">
+									<b>LoremIpsum</b>
+									<span>
+										<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+											<path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"></path>
+											<circle cx="12" cy="10" r="3"></circle>
+										</svg>
+										Lorem-Ipsum
+									</span>
+								</p>
+								<ul class="star-list">
+									<li>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</li>
+									<li>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</li>
+									<li>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry.</li>
+									<li>Lorem Ipsum is simply dummy text.</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div class="card card--project-item">
+						<figure>
+							<picture>
+								<source
+										media="(min-width: 48rem)"
+										srcset="./img/d_computer.jpg"
+										width="1024px"
+										height="683px"
+								>
+								<source
+										media="(min-width: 35.5rem)"
+										srcset="./img/t_computer.jpg"
+										width="768px"
+										height="683px"
+								>
+								<img
+										src="./img/m_computer.jpg"
+										width="568px"
+										height="683px"
+										alt="Computer"
+										loading="lazy"
+										class="img-fluid"
+								>
+							</picture>
+							<figcaption class="pill">Lorem Ipsum</figcaption>
+						</figure>
+						<div class="card__body">
+							<div class="card__body-wrapper">
+								<a href="#">
+									<h3>
+										Lorem Ipsum
+										<span>
+											<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+												<path d="M15 3h6v6"></path>
+												<path d="M10 14 21 3"></path>
+												<path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+											</svg>
+										</span>
+									</h3>
+								</a>
+								<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+								<p class="highlight">
+									<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+										<path d="M5 12h14"></path>
+										<path d="m12 5 7 7-7 7"></path>
+									</svg>
+									Lorem Ipsum
+								</p>
+							</div>
+						</div>
+						<div class="card__footer">
+							<p class="pill">Lorem</p>
+							<p class="pill">Ipsum</p>
+							<p class="pill">Simply</p>
+						</div>
+					</div>
+					<div class="card card--project-item">
+						<figure>
+							<picture>
+								<source
+									media="(min-width: 48rem)"
+									srcset="./img/d_computer.jpg"
+									width="1024px"
+									height="683px"
+								>
+								<source
+									media="(min-width: 35.5rem)"
+									srcset="./img/t_computer.jpg"
+									width="768px"
+									height="683px"
+								>
+								<img
+									src="./img/m_computer.jpg"
+									width="568px"
+									height="683px"
+									alt="Computer"
+									loading="lazy"
+									class="img-fluid"
+								>
+							</picture>
+							<figcaption class="pill">Lorem Ipsum</figcaption>
+						</figure>
+						<div class="card__body">
+							<div class="card__body-wrapper">
+								<a href="#">
+									<h3>
+										Lorem Ipsum
+										<span>
+											<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+												<path d="M15 3h6v6"></path>
+												<path d="M10 14 21 3"></path>
+												<path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+											</svg>
+										</span>
+									</h3>
+								</a>
+								<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+								<p class="highlight">
+									<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+										<path d="M5 12h14"></path>
+										<path d="m12 5 7 7-7 7"></path>
+									</svg>
+									Lorem Ipsum
+								</p>
+							</div>
+						</div>
+						<div class="card__footer">
+							<p class="pill">Lorem</p>
+							<p class="pill">Ipsum</p>
+							<p class="pill">Simply</p>
+						</div>
+					</div>
+					<div class="card card--education-item">
+						<div class="card__header">
+							<div class="card__icon">
+								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+									<path d="m15.477 12.89 1.515 8.526a.5.5 0 0 1-.81.47l-3.58-2.687a1 1 0 0 0-1.197 0l-3.586 2.686a.5.5 0 0 1-.81-.469l1.514-8.526"></path>
+									<circle cx="12" cy="8" r="6"></circle>
+								</svg>
+							</div>
+						</div>
+						<div class="card__body">
+							<div class="card__body-wrapper">
+								<h3>Lorem Ipsum</h3>
+								<p>Lorem Ipsum is simply dummy text</p>
+							</div>
+						</div>
+						<div class="card__footer">
+							<p>0000</p>
+							<p class="highlight">
+								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+									<circle cx="12" cy="12" r="10"></circle>
+									<path d="m9 12 2 2 4-4"></path>
+								</svg>
+								Status
+							</p>
+						</div>
+					</div>
+					<div class="card card--education-item">
+						<div class="card__header">
+							<div class="card__icon">
+								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+									<path d="m15.477 12.89 1.515 8.526a.5.5 0 0 1-.81.47l-3.58-2.687a1 1 0 0 0-1.197 0l-3.586 2.686a.5.5 0 0 1-.81-.469l1.514-8.526"></path>
+									<circle cx="12" cy="8" r="6"></circle>
+								</svg>
+							</div>
+						</div>
+						<div class="card__body">
+							<div class="card__body-wrapper">
+								<h3>Lorem Ipsum is simply dummy text of the printing</h3>
+								<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry</p>
+							</div>
+						</div>
+						<div class="card__footer">
+							<p>0000</p>
+							<p class="highlight">
+								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+									<circle cx="12" cy="12" r="10"></circle>
+									<path d="m9 12 2 2 4-4"></path>
+								</svg>
+								Status
+							</p>
+						</div>
+					</div>
+				</div>
+				<p class="preheader"></p>
+				<h2>Slider</h2>
+				<div
+					id="splide-carousel"
+					role="group"
+					aria-label="Slider"
+					class="splide"
+					style="
+						--splide-track-margin-inline: var(--education-splide-track-margin-inline);
+    					--splide-track-padding-block: var(--education-splide-track-padding-block);
+    					--splide-track-padding-inline: var(--education-splide-track-padding-inline);
+					"
+					>
+					<div class="splide__track">
+						<ul class="splide__list">
+							<div class="splide__slide">
+								<div class="card card--default">
+									<div class="card__header">
+										<p>Header</p>
+									</div>
+									<div class="card__body">
+										<div class="card__body-wrapper">
+											<h3>Lorem Ipsum</h3>
+											<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+										</div>
+									</div>
+									<div class="card__footer">
+										<p>footer</p>
+									</div>
+								</div>
+							</div>
+							<div class="splide__slide">
+								<div class="card card--default">
+									<div class="card__header">
+										<p>Header</p>
+									</div>
+									<div class="card__body">
+										<div class="card__body-wrapper">
+											<h3>Lorem Ipsum</h3>
+											<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+										</div>
+									</div>
+									<div class="card__footer">
+										<p>footer</p>
+									</div>
+								</div>
+							</div>
+							<div class="splide__slide">
+								<div class="card card--default">
+									<div class="card__header">
+										<p>Header</p>
+									</div>
+									<div class="card__body">
+										<div class="card__body-wrapper">
+											<h3>Lorem Ipsum</h3>
+											<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+										</div>
+									</div>
+									<div class="card__footer">
+										<p>footer</p>
+									</div>
+								</div>
+							</div>
+							<div class="splide__slide">
+								<div class="card card--default">
+									<div class="card__header">
+										<p>Header</p>
+									</div>
+									<div class="card__body">
+										<div class="card__body-wrapper">
+											<h3>Lorem Ipsum</h3>
+											<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+										</div>
+									</div>
+									<div class="card__footer">
+										<p>footer</p>
+									</div>
+								</div>
+							</div>
+
+							<div class="splide__slide">
+								<div class="card card--default">
+									<div class="card__header">
+										<p>Header</p>
+									</div>
+									<div class="card__body">
+										<div class="card__body-wrapper">
+											<h3>Lorem Ipsum</h3>
+											<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+										</div>
+									</div>
+									<div class="card__footer">
+										<p>footer</p>
+									</div>
+								</div>
+							</div>
+							<div class="splide__slide">
+								<div class="card card--default">
+									<div class="card__header">
+										<p>Header</p>
+									</div>
+									<div class="card__body">
+										<div class="card__body-wrapper">
+											<h3>Lorem Ipsum</h3>
+											<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+										</div>
+									</div>
+									<div class="card__footer">
+										<p>footer</p>
+									</div>
+								</div>
+							</div>
+							<div class="splide__slide">
+								<div class="card card--default">
+									<div class="card__header">
+										<p>Header</p>
+									</div>
+									<div class="card__body">
+										<div class="card__body-wrapper">
+											<h3>Lorem Ipsum</h3>
+											<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+										</div>
+									</div>
+									<div class="card__footer">
+										<p>footer</p>
+									</div>
+								</div>
+							</div>
+							<div class="splide__slide">
+								<div class="card card--default">
+									<div class="card__header">
+										<p>Header</p>
+									</div>
+									<div class="card__body">
+										<div class="card__body-wrapper">
+											<h3>Lorem Ipsum</h3>
+											<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+										</div>
+									</div>
+									<div class="card__footer">
+										<p>footer</p>
+									</div>
+								</div>
+							</div>
+						</ul>
+					</div>
+					<div class="splide__arrows">
+						<button class="splide__arrow splide__arrow--prev">
+							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+								<path d="M5 12h14"></path>
+								<path d="m12 5 7 7-7 7"></path>
+							</svg>
+						</button>
+						<button class="splide__arrow splide__arrow--next">
+							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+								<path d="M5 12h14"></path>
+								<path d="m12 5 7 7-7 7"></path>
+							</svg>
+						</button>
 					</div>
 				</div>
 			</div>

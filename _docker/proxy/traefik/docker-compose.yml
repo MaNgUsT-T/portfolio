@@ -1,0 +1,34 @@
+services:
+  traefik:
+    image: traefik:v2.11.35
+    container_name: dev-proxy_traefik
+    restart: always
+    command:
+      - --providers.docker=true
+      - --providers.docker.exposedbydefault=false
+      - --entrypoints.web.address=:80
+      # Hinweis: Diese File-Provider-Konfiguration ist nur fuer den Parallelbetrieb
+      # mit Shopify-Containern noetig (gemeinsamer zentraler Traefik).
+      # Wenn kein Shopify-Container vorgesehen ist, koennen diese Zeilen auskommentiert werden.
+      - --providers.file.directory=/etc/traefik/dynamic
+      - --providers.file.watch=true
+      # Optional: Dashboard on :8080 (disabled by default)
+      # - --api.dashboard=true
+    ports:
+      - "127.0.0.1:80:80"
+      - "[::1]:80:80"
+      # - "127.0.0.1:8080:8080" # dashboard
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - dev-proxy-dynamic:/etc/traefik/dynamic
+    networks:
+      - dev-proxy
+
+networks:
+  dev-proxy:
+    name: dev-proxy
+    external: true
+
+volumes:
+  dev-proxy-dynamic:
+    name: dev-proxy-dynamic

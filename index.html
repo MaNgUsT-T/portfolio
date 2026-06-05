@@ -1021,7 +1021,17 @@
 									action="./contact.php"
 									id="contact-form"
 									class="contact-form"
+									novalidate
 								>
+									<div class="form-group form-group--website">
+										<label for="website">Website</label>
+										<input type="text"
+											id="website"
+											name="website"
+											tabindex="-1"
+											autocomplete="off"
+										/>
+									</div>
 									<div class="form-group">
 										<label for="salutation">Anrede</label>
 										<select id="salutation" name="salutation">
@@ -1040,9 +1050,8 @@
 												id="firstname"
 												name="firstname"
 												placeholder="Dein Vorname"
-												maxlength="30"
-												required
 											/>
+											<span data-contact-error="firstname"></span>
 										</div>
 										<div class="form-group">
 											<label for="lastname">Nachname <sup>*</sup></label>
@@ -1050,9 +1059,8 @@
 												id="lastname"
 												name="lastname"
 												placeholder="Dein Nachname"
-												maxlength="30"
-												required
 											/>
+											<span data-contact-error="lastname"></span>
 										</div>
 									</div>
 									<div class="form-group">
@@ -1061,9 +1069,8 @@
 											id="email"
 											name="email"
 											placeholder="hallo@beispiel.de"
-											maxlength="120"
-											required
 										/>
+										<span data-contact-error="email"></span>
 									</div>
 									<div class="form-group">
 										<label for="subject">Betreff <sup>*</sup></label>
@@ -1071,9 +1078,8 @@
 											id="subject"
 											name="subject"
 											placeholder="Worum geht es?"
-											maxlength="80"
-											required
 										/>
+										<span data-contact-error="subject"></span>
 									</div>
 									<div class="form-group">
 										<div class="form-check">
@@ -1107,9 +1113,8 @@
 											name="message"
 											placeholder="Erzähl mir von deinem Projekt.."
 											rows="5"
-											maxlength="2000"
-											required
 										></textarea>
+										<span data-contact-error="message"></span>
 									</div>
 									<div class="form-group">
 										<div class="form-check">

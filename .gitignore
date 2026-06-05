@@ -4,3 +4,6 @@
 .DS_Store
 
 img
+
+# Local Docker env files
+_docker/.env

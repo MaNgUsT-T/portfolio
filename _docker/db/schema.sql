@@ -1,0 +1,2 @@
+-- Schema-only initialization for local development
+-- Creates empty tables required by the application (no data)

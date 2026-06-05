@@ -1,0 +1,15 @@
+<?php
+// Lokale Datenbankkonfiguration über Umgebungsvariablen
+$host = getenv('MYSQL_HOST') ?: 'db';
+$user = getenv('MYSQL_USER') ?: '';
+$pass = getenv('MYSQL_PASSWORD') ?: '';
+$dbname = getenv('MYSQL_DATABASE') ?: '';
+
+// Verbindung herstellen
+$mysqli = new mysqli($host, $user, $pass, $dbname);
+
+// Fehlerbehandlung
+if ($mysqli->connect_error) {
+	die("Verbindung fehlgeschlagen: " . $mysqli->connect_error);
+}
+?>

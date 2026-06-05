@@ -1,0 +1,7 @@
+# Lokale Dev-Umgebung: DPP-Admin nicht mit Basic Auth schuetzen.
+Require all granted
+Options -Indexes
+
+<Files ".htpasswd">
+    Require all denied
+</Files>

@@ -306,6 +306,11 @@
     --project-item-direction: column;
     --project-item-bg: var(--color-zinc-50);
 
+    --education-item-display: flex;
+    --education-item-direction: column;
+    --education-item-gap:var(--spacing-xl);
+
+
 
 
 

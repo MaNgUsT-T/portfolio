@@ -604,46 +604,76 @@
 
 	.education__wrapper {
 		--wrapper-gap: var(--spacing-2xl);
-		@media (min-width: 48rem)  {
+
+		@media (min-width: 48rem) {
 			grid-template-columns: repeat(2, 1fr);
 		}
+
 		@media (min-width: 64rem) {
 			grid-template-columns: repeat(4, 1fr);
 		}
 
 		h3 {
-
+			font-size: 1.6rem;
 		}
 
 		p {
-
+			font-size: 1.4rem;
 		}
 
 		.education-item {
+			--card-display: var(--education-item-display);
+			--card-flex-direction: var(--education-item-direction);
+			--card-gap: var(--education-item-gap);
 
 			.education-item__header {
+				display: flex;
+				align-self: center;
 
 				div {
+					background-color: var(--highlight-bg);
+					border-radius: var(--radius-max);
+					padding: var(--spacing-m);
 
+					svg {
+						height: 3.2rem;
+						width: 3.2rem;
+					}
 				}
 			}
 
 			.education-item__body {
 
 				.education-item__body-wrapper {
-
+					text-align: center;
 				}
 			}
 
 			.education-item__footer {
+				margin-block-start: auto;
+				display: flex;
+				justify-content: space-between;
+				border-top: 0.1rem solid var(--color-zinc-100);
 
 				p {
+					display: flex;
+					flex-direction: row;
+					font-size: 1.4rem;
+					padding-block-start: var(--spacing-s);
 
-					&:last-child {}
+					&:last-child {
+						display: flex;
+						align-items: center;
+						gap: var(--spacing-xs);
+
+						svg {
+							height: 1.4rem;
+							width: 1.4rem;
+						}
+					}
 				}
 			}
 		}
-
 		/*
 		p {
 			font-size: 1.4rem;
@@ -708,7 +738,6 @@
 			}
 		}
 		*/
-
 	}
 }
 

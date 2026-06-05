@@ -17,7 +17,7 @@
     /* --color-violet-200: #ddd6fe; */
     /* --color-violet-300: #c4b5fd; */
     /* --color-violet-400: #a685ff; */
-    /* --color-violet-500: #8b5cf5; */
+    --color-violet-500: #8b5cf5;
     --color-violet-600: #7c3aed;
     /* --color-violet-700: #6d28d9; */
     /* --color-violet-800: #5d0ec0; */
@@ -28,7 +28,7 @@
     /* --color-violet-200-rgb: 221, 214, 254; */
     /* --color-violet-300-rgb: 196, 181, 253; */
     /* --color-violet-400-rgb: 166, 133, 255; */
-    /* --color-violet-500-rgb: 139, 92, 246; */
+    --color-violet-500-rgb: 139, 92, 246;
     --color-violet-600-rgb: 124, 58, 237;
     /* --color-violet-700-rgb: 109, 40, 217; */
     /* --color-violet-800-rgb: 93, 14, 192; */
@@ -61,7 +61,7 @@
     --color-zinc-50: #fafafa;
     --color-zinc-100: #f4f4f5;
     --color-zinc-200: #e4e4e7;
-    /* --color-zinc-300: #d4d4d8; */
+    --color-zinc-300: #d4d4d8;
     --color-zinc-400: #a1a1aa;
     /* --color-zinc-500: #71717b; */
     --color-zinc-600: #52525c;
@@ -173,24 +173,44 @@
     --svg-collor: var(--tertiary);
 
     --input-bg: var(--color-zinc-50);
-    --input-checked-bg: var(--color-violet-50);
+    --input-checked-bg: var(--tertiary-brighter);
     --input-border-color: var(--border-color-dark);
 
-    --btn-fs: clamp(var(--fs), 1.1091rem + 0.2841vw, var(--fs-xs));
-    --btn-fs-large: clamp(var(--fs-xs), 1.3091rem + 0.2841vw, var(--fs-s));
+    --btn-height: 4rem;
+    --btn-padding: var(--spacing-s) var(--spacing-m);
+    --btn-display: flex;
+    --btn-gap: var(--spacing-xs);
+    --btn-align-items: center;
+    --btn-justify-content: space-between;
     --btn-radius: var(--radius-max);
     --btn-shadow: var(--shadow-l);
-    --btn-disabled: var(--color-zinc-200);
+    --btn-transition: ease-out background-color .2s, ease-out border-color .2s;
+    --btn-fs: clamp(var(--fs), 1.1091rem + 0.2841vw, var(--fs-xs));
+    --btn-fw: 500;
+    --btn-lh: var(--lh);
+    --btn-text-decoration: none;
+    --btn-white-space: nowrap;
+    --btn-svg-dimension: 1.4rem;
+
+    --btn-large-height: 5.6rem;
+    --btn-large-padding: var(--spacing-m) var(--spacing-2xl);
+    --btn-large-fs: clamp(var(--fs-xs), 1.3091rem + 0.2841vw, var(--fs-s));
 
     --btn-primary-bg: var(--primary);
+    --btn-primary-border: 0.1rem solid var(--primary);
     --btn-primary-color: var(--secondary);
     --btn-primary-hover-bg: var(--tertiary);
+    --btn-primary-hover-border: var(--tertiary);
 
     --btn-secondary-bg: var(--secondary);
-    --btn-secondary-border: var(--border-color-dark);
+    --btn-secondary-border: 0.1rem solid var(--border-color-dark);
     --btn-secondary-color: var(--color-header);
     --btn-secondary-hover-bg: var(--tertiary-brighter);
     --btn-secondary-hover-border: var(--tertiary);
+
+    --btn-disabled-bg: var(--color-zinc-200);
+    --btn-disabled-border: var(--color-zinc-200);
+    --btn-disabled-color: var(--color-zinc-400);
 
     --pill-padding: calc(var(--spacing-xs) + 0.2rem);
     --pill-bg: var(--secondary);
@@ -200,6 +220,17 @@
     --pill-fw: 500;
     --pill-lh: var(--lh);
     --pill-color: var(--color-text);
+    --pill-white-space: nowrap;
+
+    --card-padding: var(--spacing-2xl);
+    --card-display: ;
+    --card-flex-direction: ;
+    --card-gap: ;
+    --card-bg: var(--secondary);
+    --card-border: 0.1rem solid var(--color-zinc-100);
+    --card-border-radius:var(--radius-2xl);
+    --card-shadow: var(--shadow-s);
+
 
     --header-padding: var(--spacing-xl);
     --header-scrolled-padding: var(--spacing-m);
@@ -242,7 +273,8 @@
     --hero-element-3-child-1-grandchild-3-bg: var(--color-zinc-100);
     --hero-element-4-bg: var(--quaternary);
 
-    --about-item-shadow: var(--shadow-s);
+    --about-item-display: flex;
+    --about-item-gap: var(--spacing-xl);
     --about-item-header-padding: var(--spacing-s);
     --about-item-header-bg: var(--highlight-bg);
     --about-item-header-radius: var(--radius-xl);
@@ -253,13 +285,29 @@
     --about-item-img-radius: var(--radius-2xl);
     --about-item-img-shadow: var(--shadow-xl);
 
+    --skill-item-display: flex;
+    --skill-item-direction: column;
+    --skill-item-gap: var(--spacing-xl);
     --skill-item-bg:var(--color-zinc-50);
     --skill-item-svg-bg-color:var(--white);
     --skill-item-svg-shadow:var(--shadow-s);
 
-    --path-li-item-color:var(--color-violet-600);
-    --path-location-items-color: var(--color-zinc-400);
-    --path-date-font-color: var(--color-violet-600);
+    --experience-item-display: flex;
+    --experience-item-direction: column;
+    --experience-item-gap: var(--spacing-s);
+    --experience-li-item-color:var(--color-violet-600);
+    --experience-location-items-color: var(--color-zinc-400);
+    --experience-date-font-color: var(--color-violet-600);
+
+
+    --project-item-pill-padding: calc(var(--spacing-xs) / 2) var(--spacing-s);
+    --project-item-pill-fs: var(--fs);
+    --project-item-display: flex;
+    --project-item-direction: column;
+    --project-item-bg: var(--color-zinc-50);
+
+
+
 
     --contact-padding: var(--spacing-2xl);
     --contact-border: 0.1rem solid var(--border-color-dark);
@@ -275,11 +323,4 @@
 
     --footer-bg: var(--color-zinc-50);
     --footer-social-icon-color: var(--social-icon-color);
-
-    --card-bg:var(--white);
-    --card-gap:var(--spacing-xl);
-    --card-padding:var(--spacing-2xl);
-    --card-border:0.1rem;
-    --card-border-radius:var(--radius-2xl);
-    --card-border-color:var(--color-zinc-100);
 }

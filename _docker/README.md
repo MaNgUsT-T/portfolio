@@ -30,7 +30,7 @@ MariaDB über `_docker/.env` (`DB_VERSION`, Image `mariadb:${DB_VERSION}`).
 - WP-CLI ist im PHP-Image vorinstalliert (`/usr/local/bin/wp`).
 - phpMyAdmin über `_docker/.env` (`PHPMYADMIN_VERSION`, Image `phpmyadmin:${PHPMYADMIN_VERSION}`) für die grafische
   Datenbankverwaltung.
-- MailHog über `_docker/.env` (`MAILHOG_VERSION`, Image `mailhog/mailhog:${MAILHOG_VERSION}`) für lokale
+- MailHog über `_docker/.env` (`MAILHOG_VERSION`, Image `mailhog/mailhog:latest`) für lokale
   E-Mail-Tests.
 
 ### Reverse Proxy / Routing
@@ -107,8 +107,7 @@ verwendet.
 - `DB_VERSION`: MariaDB-Image-Version (`mariadb:${DB_VERSION}`).
 - `APACHE_VERSION`: Apache-Image-Version (`httpd:${APACHE_VERSION}`).
 - `PHPMYADMIN_VERSION`: phpMyAdmin-Image-Version (`phpmyadmin:${PHPMYADMIN_VERSION}`).
-- `MAILHOG_VERSION`: MailHog-Image-Version (`mailhog/mailhog:${MAILHOG_VERSION}`), Standard in den Startskripten:
-  `v1.0.1`.
+- `MAILHOG_VERSION`: MailHog-Image-Version (`mailhog/mailhog:latest`).
 
 ### Gemeinsamer PHP-Imagename (für php)
 

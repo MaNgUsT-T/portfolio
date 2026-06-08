@@ -3,7 +3,7 @@
 declare(strict_types=1);
 
 return [
-    'recipient' => 'hallo@lisaweber.design',
+    'recipient' => 'a.lehn@clinton.de',
     'max_lengths' => [
         'firstname' => 30,
         'lastname' => 30,

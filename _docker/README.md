@@ -30,6 +30,8 @@ MariaDB über `_docker/.env` (`DB_VERSION`, Image `mariadb:${DB_VERSION}`).
 - WP-CLI ist im PHP-Image vorinstalliert (`/usr/local/bin/wp`).
 - phpMyAdmin über `_docker/.env` (`PHPMYADMIN_VERSION`, Image `phpmyadmin:${PHPMYADMIN_VERSION}`) für die grafische
   Datenbankverwaltung.
+- MailHog über `_docker/.env` (`MAILHOG_VERSION`, Image `mailhog/mailhog:${MAILHOG_VERSION}`) für lokale
+  E-Mail-Tests.
 
 ### Reverse Proxy / Routing
 Traefik-basiertes Host-Routing über `dev-proxy` mit `VIRTUAL_HOST` und `PHPMYADMIN_HOST`.
@@ -50,7 +52,8 @@ enthalten (`PHP_IMAGE`, `PHP_VERSION`, `WP_CLI_VERSION`, `DB_VERSION`, `APACHE_V
 
 ### Hostnamen für Routing
 `VIRTUAL_HOST` und `PHPMYADMIN_HOST` müssen in `_docker/.env` gesetzt sein und lokal auf `127.0.0.1` auflösen
-(Hosts-Datei), damit Traefik korrekt routen kann.
+(Hosts-Datei). `MAILHOG_HOST` kann ebenfalls gesetzt werden; ohne Wert verwenden die Startskripte
+`mailhog.<VIRTUAL_HOST>`.
 
 ### Traefik-Proxy
 Für `up`, `up-all` und alle URL-basierten Zugriffe muss der Proxy-Container `dev-proxy_traefik` laufen (wird bei
@@ -104,6 +107,8 @@ verwendet.
 - `DB_VERSION`: MariaDB-Image-Version (`mariadb:${DB_VERSION}`).
 - `APACHE_VERSION`: Apache-Image-Version (`httpd:${APACHE_VERSION}`).
 - `PHPMYADMIN_VERSION`: phpMyAdmin-Image-Version (`phpmyadmin:${PHPMYADMIN_VERSION}`).
+- `MAILHOG_VERSION`: MailHog-Image-Version (`mailhog/mailhog:${MAILHOG_VERSION}`), Standard in den Startskripten:
+  `v1.0.1`.
 
 ### Gemeinsamer PHP-Imagename (für php)
 
@@ -124,6 +129,8 @@ verwendet.
 
 - `VIRTUAL_HOST`: Traefik-Hostname für die Website (`apache`-Routerregel).
 - `PHPMYADMIN_HOST`: Traefik-Hostname für phpMyAdmin (`phpmyadmin`-Routerregel).
+- `MAILHOG_HOST`: Traefik-Hostname für MailHog (`mailhog`-Routerregel). Wenn der Wert in `_docker/.env` fehlt,
+  verwenden Makefile und Buildfile.sh/ps1 `mailhog.<VIRTUAL_HOST>`.
 
 
 ## Makefile-Flags (optionale Laufzeitsteuerung)
@@ -174,8 +181,9 @@ Datei übernehmen.
 Dies ist der wichtigste Schritt. Alle projektspezifischen Werte (inkl. Versionen/Hostnamen) werden hier definiert.
 
 - `PROJECT_NAME`: Eindeutiger Projektname. Wird für Container-, Volume- und Netzwerk-Namen verwendet.
-- `VIRTUAL_HOST`, `PHPMYADMIN_HOST`: Hostnamen für Traefik-Routing.
-- `PHP_IMAGE`, `PHP_VERSION`, `WP_CLI_VERSION`, `DB_VERSION`, `APACHE_VERSION`, `PHPMYADMIN_VERSION`: Versionen/Image.
+- `VIRTUAL_HOST`, `PHPMYADMIN_HOST`, `MAILHOG_HOST`: Hostnamen für Traefik-Routing.
+- `PHP_IMAGE`, `PHP_VERSION`, `WP_CLI_VERSION`, `DB_VERSION`, `APACHE_VERSION`, `PHPMYADMIN_VERSION`,
+  `MAILHOG_VERSION`: Versionen/Image.
 - `HOST_UID`, `HOST_GID`: Host-UID/GID für Linux/WSL-Bind-Mount-Schreibrechte (`www-data` im PHP-Image).
 - `MYSQL_ROOT_PASSWORD`: Neues, sicheres Root-Passwort setzen.
 - `MYSQL_DATABASE`, `MYSQL_USER`, `MYSQL_PASSWORD`: Lokale DB-Zugänge (können leer bleiben, werden bei Bedarf aus
@@ -268,9 +276,11 @@ Falls der Proxy fehlt: `make -C _docker proxy-up`.
 
 Nach dem Start wartet das Makefile (und die PowerShell-Skripte unten) auf den Abschluss und gibt hilfreiche Links aus:
 - phpMyAdmin: `[INFO] phpMyAdmin: http://<PHPMYADMIN_HOST>`.
+- MailHog: `[INFO] MailHog: http://<MAILHOG_HOST>`.
 
 Beispiele:
 - phpMyAdmin: http://pma.project.local
+- MailHog: http://mailhog.project.local
 
 Für spätere Starts ohne Neu-Build genügt:
 
@@ -346,6 +356,7 @@ Docker-Container weiter.
 
 #### Routing-Hostnamen in `_docker/.env` festlegen
 In `_docker/.env` müssen `VIRTUAL_HOST` und `PHPMYADMIN_HOST` mit den gewünschten lokalen Hostnamen gesetzt sein.
+Optional kann `MAILHOG_HOST` gesetzt werden; ohne Wert verwenden die Startskripte `mailhog.<VIRTUAL_HOST>`.
 
 #### Hostnamen in die `hosts`-Datei eintragen
 Das Betriebssystem muss wissen, dass die gewählten Hostnamen auf den lokalen Rechner verweisen. Dafür Einträge in die
@@ -357,10 +368,11 @@ Das Betriebssystem muss wissen, dass die gewählten Hostnamen auf den lokalen Re
 ```
 127.0.0.1 <VIRTUAL_HOST>
 127.0.0.1 <PHPMYADMIN_HOST>
+127.0.0.1 <MAILHOG_HOST>
 ```
 
-**Nach diesen Schritten sind die Anwendung unter `<LOCAL_URL>` und phpMyAdmin unter `http://<PHPMYADMIN_HOST>` ohne
-Portnummern erreichbar.**
+**Nach diesen Schritten sind die Anwendung unter `<LOCAL_URL>`, phpMyAdmin unter `http://<PHPMYADMIN_HOST>` und MailHog
+unter `http://<MAILHOG_HOST>` ohne Portnummern erreichbar.**
 
 #### Traefik starten (einmalig für alle Projekte)
 Das wird bei `up-all-build`, `restart-all` und `rebuild-all` automatisch gestartet. `up-all` prüft nur auf einen
@@ -485,6 +497,16 @@ Ein phpMyAdmin-Container ist Teil dieses Setups für die grafische Datenbankverw
 - Benutzername: `root` (Standard)
 - Passwort: Wert von `MYSQL_ROOT_PASSWORD` aus `_docker/.env`
 
+## E-Mail-Tests mit MailHog
+MailHog ist Teil dieses Setups, damit PHP-Mails lokal abgefangen und im Browser geprüft werden können.
+
+- URL: `http://<MAILHOG_HOST>` (Wert aus `_docker/.env`; ohne Wert nutzen die Startskripte `mailhog.<VIRTUAL_HOST>`)
+- SMTP-Ziel im Docker-Netzwerk: `mailhog:1025`
+- Web-UI-Port im Container: `8025`
+
+Das PHP-Image enthält `msmtp-mta`, stellt dadurch `/usr/sbin/sendmail` bereit und lädt `_docker/php/mail.ini`. Dadurch
+leitet PHP `mail()` lokale E-Mails an MailHog weiter, ohne SMTP-Zugangsdaten in der Anwendung zu speichern.
+
 ## Sicherheits‑Checkliste (Lokal)
 
 - Keine sensiblen Live‑Zugänge in Code/Repo – nur in `.env`.
@@ -492,6 +514,7 @@ Ein phpMyAdmin-Container ist Teil dieses Setups für die grafische Datenbankverw
 - Zugriff nur via Traefik auf `127.0.0.1:80` und `[::1]:80` (keine direkt veröffentlichten App-Container-Ports).
 - Datenbank hat keine externen Ports (nur internes Docker‑Netzwerk).
 - phpMyAdmin nur lokal erreichbar. bei Bedarf zusätzlich per Passwort/HTTP Auth schützen.
+- MailHog nur lokal erreichbar. Keine produktiven oder sensiblen E-Mail-Inhalte in Screenshots oder Tickets posten.
 - Pro Projekt eigene Volumes/Netzwerke (über `PROJECT_NAME`).
 
 ## WP-CLI Verwendung

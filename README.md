@@ -56,6 +56,9 @@ make -C _docker stop # Stoppen
 make -C _docker logs # Logs (Apache)
 ```
 
+Nach dem Start gibt die Docker-Umgebung zusätzlich zur Projekt-URL auch die lokalen phpMyAdmin- und MailHog-URLs aus.
+MailHog zeigt lokal abgefangene Kontaktformular-Mails an; Details stehen in `_docker/README.md`.
+
 ### Falls Traefik nicht läuft
 `make -C _docker proxy-up` oder erneut `make -C _docker up-all-build` ausführen.
 Hinweis: `proxy-up` setzt die Dynamic-Permissions nicht automatisch. Bei Bedarf

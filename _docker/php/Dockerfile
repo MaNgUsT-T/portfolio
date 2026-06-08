@@ -42,8 +42,21 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     zlib1g-dev \
     libicu-dev \
     libonig-dev \
+    msmtp-mta \
     default-mysql-client \
     && rm -rf /var/lib/apt/lists/*
+
+RUN set -eux; \
+    printf '%s\n' \
+      'defaults' \
+      'auth off' \
+      'tls off' \
+      'account default' \
+      'host mailhog' \
+      'port 1025' \
+      'from docker@localhost' \
+      > /etc/msmtprc; \
+    chmod 0644 /etc/msmtprc
 
 # Trust local MITM/Proxy CA (Sophos)
 COPY ./certs/sophos.pem /usr/local/share/ca-certificates/sophos.crt

@@ -21,6 +21,8 @@ get-env = $(shell sed -n 's/^$(1)=//p' $(ENV_FILE) | tail -n1)
 
 PROJECT_NAME := $(call get-env,PROJECT_NAME)
 PHP_VERSION  := $(call get-env,PHP_VERSION)
+MAILHOG_VERSION  := $(call get-env,MAILHOG_VERSION)
+MAILHOG_VERSION  := $(if $(MAILHOG_VERSION),$(MAILHOG_VERSION),v1.0.1)
 WP_CLI_VERSION  := $(call get-env,WP_CLI_VERSION)
 DB_VERSION   := $(call get-env,DB_VERSION)
 APACHE_VERSION := $(call get-env,APACHE_VERSION)
@@ -28,7 +30,7 @@ PHPMYADMIN_VERSION := $(call get-env,PHPMYADMIN_VERSION)
 HOST_UID := $(strip $(call get-env,HOST_UID))
 HOST_GID := $(strip $(call get-env,HOST_GID))
 
-export PHP_VERSION WP_CLI_VERSION DB_VERSION APACHE_VERSION PHPMYADMIN_VERSION
+export PHP_VERSION MAILHOG_VERSION WP_CLI_VERSION DB_VERSION APACHE_VERSION PHPMYADMIN_VERSION
 export HOST_UID HOST_GID
 
 # Shared PHP-Image name (must be set in _docker/.env)
@@ -41,8 +43,10 @@ LOCAL_PATH:= $(call get-env,LOCAL_PATH)
 
 VIRTUAL_HOST := $(call get-env,VIRTUAL_HOST)
 PHPMYADMIN_HOST := $(call get-env,PHPMYADMIN_HOST)
+MAILHOG_HOST := $(call get-env,MAILHOG_HOST)
+MAILHOG_HOST := $(if $(MAILHOG_HOST),$(MAILHOG_HOST),mailhog.$(VIRTUAL_HOST))
 
-export VIRTUAL_HOST PHPMYADMIN_HOST PROJECT_NAME LIVE_URL LOCAL_URL LIVE_PATH LOCAL_PATH
+export VIRTUAL_HOST PHPMYADMIN_HOST MAILHOG_HOST PROJECT_NAME LIVE_URL LOCAL_URL LIVE_PATH LOCAL_PATH
 
 # Local DB credentials (used by containers). If not set in .env, derive from REMOTE_DB_*
 MYSQL_DATABASE := $(call get-env,MYSQL_DATABASE)
@@ -85,7 +89,7 @@ IMAGE_BUILD_SIGNATURE ?= $(shell printf '%s' 'Dockerfile=$$(sha256sum php/Docker
 export IMAGE_BUILD_SIGNATURE
 FORCE_PHP_BUILD := $(strip $(call get-env,FORCE_PHP_BUILD))
 FORCE_PHP_BUILD := $(if $(FORCE_PHP_BUILD),$(FORCE_PHP_BUILD),0)
-PREBUILT_SERVICES := db apache phpmyadmin
+PREBUILT_SERVICES := db apache phpmyadmin mailhog
 PROXY_SERVICES := traefik
 PROXY_IMAGE := $(shell sed -n 's/^[[:space:]]*image:[[:space:]]*//p' $(PROXY_COMPOSE_FILE) | head -n1)
 # Ensure PHP container uses the latest image after rebuilds.
@@ -152,6 +156,7 @@ pull-prebuilt:
 	  if ! docker image inspect "mariadb:$(DB_VERSION)" >/dev/null 2>&1; then missing="$$missing db"; fi; \
 	  if ! docker image inspect "httpd:$(APACHE_VERSION)" >/dev/null 2>&1; then missing="$$missing apache"; fi; \
 	  if ! docker image inspect "phpmyadmin:$(PHPMYADMIN_VERSION)" >/dev/null 2>&1; then missing="$$missing phpmyadmin"; fi; \
+	  if ! docker image inspect "mailhog/mailhog:$(MAILHOG_VERSION)" >/dev/null 2>&1; then missing="$$missing mailhog"; fi; \
 	  if [ -n "$$missing" ]; then \
 	    echo "[INFO] Lade fehlende vorgebaute Images: $$missing"; \
 	    $(COMPOSE) pull $$missing; \
@@ -199,6 +204,7 @@ up: proxy-check check-versions
 	@$(MAKE) image-clean
 	@echo "[OK] Docker-Stack gebaut & gestartet. URL: $(LOCAL_URL)"
 	@if [ -n "$(PHPMYADMIN_HOST)" ]; then echo "[INFO] phpMyAdmin: http://$(PHPMYADMIN_HOST)"; fi
+	@if [ -n "$(MAILHOG_HOST)" ]; then echo "[INFO] MailHog: http://$(MAILHOG_HOST)"; fi
 	@command -v curl >/dev/null 2>&1 && { \
 	  code=$$(curl -s -o /dev/null -w '%{http_code}' '$(LOCAL_URL)'); \
 	  echo "[CHECK] HTTP-Status $(LOCAL_URL): $$code"; \
@@ -242,6 +248,7 @@ up-all: proxy-check check-versions
 	@# Admin-/Login-URL bestimmen (WPS Hide Login beachten)
 	@set -euo pipefail; \
 	@if [ -n "$(PHPMYADMIN_HOST)" ]; then echo "[INFO] phpMyAdmin: http://$(PHPMYADMIN_HOST)"; fi
+	@if [ -n "$(MAILHOG_HOST)" ]; then echo "[INFO] MailHog: http://$(MAILHOG_HOST)"; fi
 	@command -v curl >/dev/null 2>&1 && { \
 	  code=$$(curl -s -o /dev/null -w '%{http_code}' '$(LOCAL_URL)'); \
 	  echo "[CHECK] HTTP-Status $(LOCAL_URL): $$code"; \
@@ -269,6 +276,7 @@ up-all-build: proxy-ensure check-versions
 	@echo "[OK] Docker-Stack gebaut & gestartet. URL: $(LOCAL_URL)"
 	@# Admin-/Login-URL bestimmen (WPS Hide Login beachten)
 	@if [ -n "$(PHPMYADMIN_HOST)" ]; then echo "[INFO] phpMyAdmin: http://$(PHPMYADMIN_HOST)"; fi
+	@if [ -n "$(MAILHOG_HOST)" ]; then echo "[INFO] MailHog: http://$(MAILHOG_HOST)"; fi
 	@command -v curl >/dev/null 2>&1 && { \
 	  code=$$(curl -s -o /dev/null -w '%{http_code}' '$(LOCAL_URL)'); \
 	  echo "[CHECK] HTTP-Status $(LOCAL_URL): $$code"; \
@@ -294,6 +302,7 @@ restart-all: check-versions
 	@# Admin-/Login-URL bestimmen (WPS Hide Login beachten)
 	@set -euo pipefail; \
 	@if [ -n "$(PHPMYADMIN_HOST)" ]; then echo "[INFO] phpMyAdmin: http://$(PHPMYADMIN_HOST)"; fi
+	@if [ -n "$(MAILHOG_HOST)" ]; then echo "[INFO] MailHog: http://$(MAILHOG_HOST)"; fi
 	@command -v curl >/dev/null 2>&1 && { \
 	  code=$$(curl -s -o /dev/null -w '%{http_code}' '$(LOCAL_URL)'); \
 	  echo "[CHECK] HTTP-Status $(LOCAL_URL): $$code"; \
@@ -314,6 +323,7 @@ rebuild-all: check-versions
 	@$(MAKE) image-clean
 	@echo "[OK] Docker-Stack neu gebaut & gestartet. URL: $(LOCAL_URL)"
 	@if [ -n "$(PHPMYADMIN_HOST)" ]; then echo "[INFO] phpMyAdmin: http://$(PHPMYADMIN_HOST)"; fi
+	@if [ -n "$(MAILHOG_HOST)" ]; then echo "[INFO] MailHog: http://$(MAILHOG_HOST)"; fi
 	@command -v curl >/dev/null 2>&1 && { \
 	  code=$$(curl -s -o /dev/null -w '%{http_code}' '$(LOCAL_URL)'); \
 	  echo "[CHECK] HTTP-Status $(LOCAL_URL): $$code"; \

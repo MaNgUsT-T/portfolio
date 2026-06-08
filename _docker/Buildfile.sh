@@ -231,8 +231,8 @@ proxy_ensure() {
 
 pull_prebuilt() {
   if [[ "$PULL" == "1" ]]; then
-    echo "[INFO] Lade vorgebaute Images: db apache phpmyadmin"
-    compose pull db apache phpmyadmin
+    echo "[INFO] Lade vorgebaute Images: db apache phpmyadmin mailhog"
+    compose pull db apache phpmyadmin mailhog
     return
   fi
 
@@ -240,6 +240,7 @@ pull_prebuilt() {
   docker_image_exists "mariadb:${DB_VERSION}" || missing+=("db")
   docker_image_exists "httpd:${APACHE_VERSION}" || missing+=("apache")
   docker_image_exists "phpmyadmin:${PHPMYADMIN_VERSION}" || missing+=("phpmyadmin")
+  docker_image_exists "mailhog/mailhog:${MAILHOG_VERSION}" || missing+=("mailhog")
 
   if (( ${#missing[@]} > 0 )); then
     echo "[INFO] Lade fehlende vorgebaute Images: ${missing[*]}"
@@ -317,6 +318,9 @@ show_urls_and_status() {
   if [[ -n "$PHPMYADMIN_HOST" ]]; then
     echo "[INFO] phpMyAdmin: http://${PHPMYADMIN_HOST}"
   fi
+  if [[ -n "$MAILHOG_HOST" ]]; then
+    echo "[INFO] MailHog: http://${MAILHOG_HOST}"
+  fi
 
   if command -v curl >/dev/null 2>&1; then
     local code
@@ -345,6 +349,7 @@ import_gzip_to_db() {
 PROJECT_NAME="$(get_cfg PROJECT_NAME)"
 PHP_IMAGE="$(get_cfg PHP_IMAGE)"
 PHP_VERSION="$(get_cfg PHP_VERSION)"
+MAILHOG_VERSION="$(get_cfg MAILHOG_VERSION)"
 WP_CLI_VERSION="$(get_cfg WP_CLI_VERSION)"
 DB_VERSION="$(get_cfg DB_VERSION)"
 APACHE_VERSION="$(get_cfg APACHE_VERSION)"
@@ -355,7 +360,16 @@ LIVE_URL="$(get_cfg LIVE_URL)"
 LOCAL_URL="$(get_cfg LOCAL_URL)"
 LIVE_PATH="$(get_cfg LIVE_PATH)"
 LOCAL_PATH="$(get_cfg LOCAL_PATH)"
+VIRTUAL_HOST="$(get_cfg VIRTUAL_HOST)"
 PHPMYADMIN_HOST="$(get_cfg PHPMYADMIN_HOST)"
+MAILHOG_HOST="$(get_cfg MAILHOG_HOST)"
+if [[ -z "$MAILHOG_VERSION" ]]; then
+  MAILHOG_VERSION="v1.0.1"
+fi
+if [[ -z "$MAILHOG_HOST" && -n "$VIRTUAL_HOST" ]]; then
+  MAILHOG_HOST="mailhog.${VIRTUAL_HOST}"
+fi
+export MAILHOG_VERSION MAILHOG_HOST
 
 MYSQL_DATABASE="$(get_cfg MYSQL_DATABASE)"
 MYSQL_USER="$(get_cfg MYSQL_USER)"

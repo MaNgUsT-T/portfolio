@@ -396,12 +396,13 @@ function Invoke-PullPrebuilt {
   $prebuilt = @(
     @{ Service = "db"; Image = "mariadb:$dbVersion" },
     @{ Service = "apache"; Image = "httpd:$apacheVersion" },
-    @{ Service = "phpmyadmin"; Image = "phpmyadmin:$phpmyadminVersion" }
+    @{ Service = "phpmyadmin"; Image = "phpmyadmin:$phpmyadminVersion" },
+    @{ Service = "mailhog"; Image = "mailhog/mailhog:$mailhogVersion" }
   )
 
   if ($pull -eq "1") {
-    Write-Host "[INFO] Lade vorgebaute Images: db apache phpmyadmin"
-    Invoke-Compose @("-f", $composeFile, "pull", "db", "apache", "phpmyadmin") | Out-Null
+    Write-Host "[INFO] Lade vorgebaute Images: db apache phpmyadmin mailhog"
+    Invoke-Compose @("-f", $composeFile, "pull", "db", "apache", "phpmyadmin", "mailhog") | Out-Null
     return
   }
 
@@ -483,6 +484,9 @@ function Invoke-ImageClean {
 function Show-AccessInfo {
   if ($phpmyadminHost) {
     Write-Host "[INFO] phpMyAdmin: http://$phpmyadminHost"
+  }
+  if ($mailhogHost) {
+    Write-Host "[INFO] MailHog: http://$mailhogHost"
   }
 
   if (-not $localUrl) { return }
@@ -578,6 +582,7 @@ $envData = Read-EnvFile $envFile
 $projectName = Get-Cfg "PROJECT_NAME"
 $phpImage = Get-Cfg "PHP_IMAGE"
 $phpVersion = Get-Cfg "PHP_VERSION"
+$mailhogVersion = Get-Cfg "MAILHOG_VERSION"
 $wpCliVersion = Get-Cfg "WP_CLI_VERSION"
 $dbVersion = Get-Cfg "DB_VERSION"
 $apacheVersion = Get-Cfg "APACHE_VERSION"
@@ -591,6 +596,9 @@ $livePath = Get-Cfg "LIVE_PATH"
 $localPath = Get-Cfg "LOCAL_PATH"
 $virtualHost = Get-Cfg "VIRTUAL_HOST"
 $phpmyadminHost = Get-Cfg "PHPMYADMIN_HOST"
+$mailhogHost = Get-Cfg "MAILHOG_HOST"
+if (-not $mailhogVersion) { $mailhogVersion = "v1.0.1" }
+if (-not $mailhogHost -and $virtualHost) { $mailhogHost = "mailhog.$virtualHost" }
 
 $mysqlDatabase = Get-Cfg "MYSQL_DATABASE"
 $mysqlUser = Get-Cfg "MYSQL_USER"
@@ -663,6 +671,7 @@ $phpImageTag = "${phpImage}:$phpVersion"
 Set-EnvIfPresent "PROJECT_NAME" $projectName
 Set-EnvIfPresent "PHP_IMAGE" $phpImage
 Set-EnvIfPresent "PHP_VERSION" $phpVersion
+Set-EnvIfPresent "MAILHOG_VERSION" $mailhogVersion
 Set-EnvIfPresent "WP_CLI_VERSION" $wpCliVersion
 Set-EnvIfPresent "DB_VERSION" $dbVersion
 Set-EnvIfPresent "APACHE_VERSION" $apacheVersion
@@ -676,6 +685,7 @@ Set-EnvIfPresent "LIVE_PATH" $livePath
 Set-EnvIfPresent "LOCAL_PATH" $localPath
 Set-EnvIfPresent "VIRTUAL_HOST" $virtualHost
 Set-EnvIfPresent "PHPMYADMIN_HOST" $phpmyadminHost
+Set-EnvIfPresent "MAILHOG_HOST" $mailhogHost
 Set-EnvIfPresent "MYSQL_DATABASE" $mysqlDatabase
 Set-EnvIfPresent "MYSQL_USER" $mysqlUser
 Set-EnvIfPresent "MYSQL_PASSWORD" $mysqlPassword
@@ -908,4 +918,3 @@ try {
 } finally {
   Pop-Location
 }
-

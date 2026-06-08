@@ -44,12 +44,15 @@ services:
     volumes:
       - ../:/var/www/html:cached
       - ./php/uploads.ini:/usr/local/etc/php/conf.d/uploads.ini:ro
+      - ./php/mail.ini:/usr/local/etc/php/conf.d/mail.ini:ro
       - ./php/config.php.local:/var/www/html/config.php:ro
     networks:
       - cl_network
     depends_on:
       db:
         condition: service_healthy
+      mailhog:
+        condition: service_started
     healthcheck:
       test: ["CMD-SHELL", "php -r 'exit((int)!@fsockopen(\"127.0.0.1\",9000));'"]
       interval: 5s
@@ -99,6 +102,22 @@ services:
       - traefik.http.services.${PROJECT_NAME}_pma.loadbalancer.server.port=80
     depends_on:
       - db
+
+  mailhog:
+    image: mailhog/mailhog:${MAILHOG_VERSION:-v1.0.1}
+    container_name: ${PROJECT_NAME}_mailhog
+    restart: always
+    environment:
+      TZ: Europe/Berlin
+    networks:
+      - cl_network
+      - proxy
+    labels:
+      - traefik.enable=true
+      - traefik.docker.network=dev-proxy
+      - traefik.http.routers.${PROJECT_NAME}_mailhog.entrypoints=web
+      - traefik.http.routers.${PROJECT_NAME}_mailhog.rule=Host(`${MAILHOG_HOST:-mailhog.localhost}`)
+      - traefik.http.services.${PROJECT_NAME}_mailhog.loadbalancer.server.port=8025
 
 volumes:
   db_data:

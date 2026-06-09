@@ -123,8 +123,8 @@
 				}
 
 				&:nth-child(1) {
-					top: -1.6rem;
-					left: 4.8rem;
+					inset-block-start: -1.6rem;
+					inset-inline-start: 4.8rem;
 					width: 6.4rem;
 					aspect-ratio: 1 / 1;
 					background: var(--hero-element-1-bg);
@@ -135,8 +135,8 @@
 				}
 
 				&:nth-child(2) {
-					top: 0;
-					right: 4rem;
+					inset-block-start: 0;
+					inset-inline-end: 4rem;
 					width: 25.6rem;
 					height: 32rem;
 					background: var(--hero-element-2-bg);
@@ -196,8 +196,8 @@
 				}
 
 				&:nth-child(3) {
-					bottom: 4rem;
-					left: 0;
+					inset-block-end: 4rem;
+					inset-inline-start: 0;
 					width: 28.8rem;
 					height: 25.6rem;
 					background: var(--hero-element-3-bg);
@@ -276,8 +276,8 @@
 				}
 
 				&:nth-child(4) {
-					right: 0;
-					bottom: 9.6rem;
+					inset-inline-end: 0;
+					inset-block-end: 9.6rem;
 					width: 4.8rem;
 					aspect-ratio: 1 / 1;
 					background: var(--hero-element-4-bg);
@@ -346,22 +346,22 @@
 				.experience-item__timepoint {
 
 					&::after {
-						top: calc(-1 * var(--experience-item-date-padding));
+						inset-block-start: calc(-1 * var(--experience-item-date-padding));
 					}
 				}
 			}
 
 			.experience-item__timepoint {
 				height: 100%;
-				left: 0;
+				inset-inline-start: 0;
 				position: absolute;
 				@media (min-width: 48rem)  {
-					left: 13.8rem;
+					inset-inline-start: 13.8rem;
 				}
 
 				&::before {
 					content: '';
-					top: var(--experience-item-timepoint-padding);
+					inset-block-start: var(--experience-item-timepoint-padding);
 					width: var(--experience-item-timepoint-before-width);
 					height: var(--experience-item-timepoint-before-height);
 					background: var(--experience-item-timepoint-before-bg);
@@ -374,7 +374,7 @@
 
 				&::after {
 					content: '';
-					right: -0.6rem;
+					inset-inline-end: -0.6rem;
 					width: var(--experience-item-timepoint-after-width);
 					height: var(--experience-item-timepoint-after-height);
 					display: block;

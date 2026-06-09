@@ -249,8 +249,8 @@ button:disabled,
                 flex-basis: 100%;
 
                 span {
-                    top: -0.3rem;
-                    right: 0;
+                    inset-block-start: -0.3rem;
+                    inset-inline-end: 0;
                     position: absolute;
                 }
             }
@@ -537,11 +537,11 @@ button:disabled,
         background: var(--splide-arrow-bg);
 
         &.splide__arrow--prev {
-            left: var(--splide-arrow-position);
+            inset-inline-start: var(--splide-arrow-position);
         }
 
         &.splide__arrow--next {
-            right: var(--splide-arrow-position);
+            inset-inline-end: var(--splide-arrow-position);
         }
 
         svg {

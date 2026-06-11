@@ -1,6 +1,10 @@
 footer {
+    --social-icon-size: 2rem;
+    --p-fs: var(--fs-xs);
+    --p-lh: var(--lh-l);
+    --section-padding-block:var(--spacing-3xl);
+
     margin-block-start: auto;
-    padding-block: var(--spacing-3xl);
     background: var(--footer-bg);
 
     .footer__wrapper {
@@ -16,15 +20,5 @@ footer {
 
     p {
         max-width: 30rem;
-        font-size: var(--fs-xs);
-        line-height: var(--lh-l);
-    }
-
-    .social-icons {
-
-        svg {
-            width: 2rem;
-            height: 2rem;
-        }
     }
 }

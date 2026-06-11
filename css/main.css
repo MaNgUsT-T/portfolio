@@ -332,6 +332,13 @@
 .experience {
 
 	.experience__wrapper {
+		--li-display: flex;
+		--li-gap: var(--spacing-s);
+		--li-align-items: flex-start;
+		--li-before-content: '✦';
+		--li-before-lh: 2;
+		--li-last-child-margin: var(--spacing-s) 0 0 0;
+
 		max-width: var(--experience-wrapper-max-w);
 		margin-inline: auto;
 

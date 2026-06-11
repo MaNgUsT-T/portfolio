@@ -59,21 +59,50 @@
 				</svg>
 				<span>lisa.weber</span>
 			</div>
-			<nav role="navigation" aria-label="Navigation" class="main-nav">
-				<ul>
-					<li><a href="#typo">Typographie</a></li>
-					<li><a href="#icons">Icons</a></li>
-					<li><a href="#elements">Elements</a></li>
-					<li><a href="#form">Form</a></li>
-				</ul>
-			</nav>
-			<nav role="navigation" aria-label="Mobile Navigation" class="mobile-nav">
+			<div
+				id="header-navigation"
+				aria-hidden="true"
+				class="header__nav-wrapper"
+			>
+				<nav
+					role="navigation"
+					aria-label="Navigation"
+					class="main-nav"
+				>
+					<ul>
+						<li><a href="#typo">Typographie</a></li>
+						<li><a href="#icons">Icons</a></li>
+						<li><a href="#elements">Elements</a></li>
+						<li><a href="#form">Form</a></li>
+					</ul>
+				</nav>
+				<nav class="option-nav">
+					<ul>
+						<li>
+							<a href="#" title="dark">
+								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+									<path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+								</svg>
+							</a>
+						</li>
+					</ul>
+				</nav>
+			</div>
+			<div
+				role="button"
+				aria-expanded="false"
+				aria-controls="header-navigation"
+				aria-label="Navigation öffnen"
+				tabindex="0"
+				class="mobile-nav-toggle"
+				data-mobile-nav-toggle
+			>
 				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
 					<path d="M4 5h16"/>
 					<path d="M4 12h16"/>
 					<path d="M4 19h16"/>
 				</svg>
-			</nav>
+			</div>
 		</div>
 	</header>
 
@@ -90,7 +119,7 @@
 				<h6>Lorem Ipsum</h6>
 				<p>Lorem ipsum dolor sit amet, <a href="#" title="link">consetetur</a> sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.</p>
 				<ul>
-					<li>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</li>
+					<li>Lorem ipsum</li>
 					<li>Lorem Ipsum</li>
 					<li>Lorem Ipsum</li>
 					<li>Lorem Ipsum</li>
@@ -1020,8 +1049,11 @@
 			</div>
 		</div>
 	</footer>
-	<script src="./vendor/jquery/jquery-3.7.1.min.js" crossorigin="anonymous"></script>
+	<div
+		class="backdrop"
+		data-overlay
+	></div>
 	<script src="./vendor/splide/splide.min.js" crossorigin="anonymous"></script>
-	<script src="./js/main.js"></script>
+	<script src="./js/vjs-main.js"></script>
 </body>
 </html>

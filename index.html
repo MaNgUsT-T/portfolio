@@ -54,28 +54,52 @@
 				</svg>
 				<span>lisa.weber</span>
 			</div>
-			<nav role="navigation" aria-label="Navigation" class="main-nav">
-				<ul>
-					<li><a href="#about">Über mich</a></li>
-					<li><a href="#skills">Fähigkeiten</a></li>
-					<li><a href="#experience">Erfarung</a></li>
-					<li><a href="#projects">Projekte</a></li>
-					<li><a href="#contact" title="Kontakt">Kontakt</a></li>
-				</ul>
-			</nav>
-			<nav class="option-nav">
-				<ul>
-					<li><a href="#" title="dark"><i data-lucide="moon"></i></a></li>
-					<li><a href="#experience" class="btn btn--primary">Lebenslauf</a></li>
-				</ul>
-			</nav>
-			<nav role="navigation" aria-label="Mobile Navigation" class="mobile-nav">
+			<div
+				id="header-navigation"
+				aria-hidden="true"
+				class="header__nav-wrapper"
+			>
+				<nav
+					role="navigation"
+					aria-label="Navigation"
+					class="main-nav"
+				>
+					<ul>
+						<li><a href="#about">Über mich</a></li>
+						<li><a href="#skills">Fähigkeiten</a></li>
+						<li><a href="#experience">Erfarung</a></li>
+						<li><a href="#projects">Projekte</a></li>
+						<li><a href="#contact" title="Kontakt">Kontakt</a></li>
+					</ul>
+				</nav>
+				<nav class="option-nav">
+					<ul>
+						<li>
+							<a href="#" title="dark">
+								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+									<path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+								</svg>
+							</a>
+						</li>
+						<li><a href="#experience" class="btn btn--primary">Lebenslauf</a></li>
+					</ul>
+				</nav>
+			</div>
+			<div
+				role="button"
+				aria-expanded="false"
+				aria-controls="header-navigation"
+				aria-label="Navigation öffnen"
+				tabindex="0"
+				class="mobile-nav-toggle"
+				data-mobile-nav-toggle
+			>
 				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
 					<path d="M4 5h16"/>
 					<path d="M4 12h16"/>
 					<path d="M4 19h16"/>
 				</svg>
-			</nav>
+			</div>
 		</div>
 	</header>
 
@@ -411,7 +435,7 @@
 											Hamburg
 										</span>
 									</p>
-									<ul class="star-list">
+									<ul>
 										<li>Leitung eines 5-köpfigen Design-Teams für digitale Produkte und Markenauftritte.</li>
 										<li>Entwicklung und Implementierung von umfassenden Design-Systemen für Enterprise-Kunden.</li>
 										<li>Steigerung der Conversion-Rate bei E-Commerce-Projekten um durchschnittlich 25% durchUX-Optimierungen.</li>
@@ -441,7 +465,7 @@
 											Berlin
 										</span>
 									</p>
-									<ul class="star-list">
+									<ul>
 										<li>Verantwortlich für das Redesign von 3 großen SaaS-Plattformen im B2B-Bereich.</li>
 										<li>Durchführung von Nutzerinterviews und Usability-Tests zur Validierung von Prototypen.</li>
 										<li>Erstellung von interaktiven High-Fidelity-Prototypen in Figma und Framer.</li>
@@ -471,7 +495,7 @@
 											München
 										</span>
 									</p>
-									<ul class="star-list">
+									<ul>
 										<li>Gestaltung von responsiven Corporate Websites und Landingpages.</li>
 										<li>Umsetzung von Screendesigns in HTML, CSS und grundlegendem JavaScript.</li>
 										<li>Erstellung von Social-Media-Grafiken und digitalen Kampagnen-Assets.</li>
@@ -1188,8 +1212,14 @@
 			</div>
 		</div>
 	</footer>
+
+
+	<div
+		class="backdrop"
+		data-overlay
+	></div>
 	<script src="./vendor/jquery/jquery-3.7.1.min.js" crossorigin="anonymous"></script>
 	<script src="./vendor/splide/splide.min.js" crossorigin="anonymous"></script>
-	<script src="./js/main.js"></script>
+	<script src="./js/jq-main.js"></script>
 </body>
 </html>

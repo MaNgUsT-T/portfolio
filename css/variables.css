@@ -69,7 +69,7 @@
     /* --color-zinc-800: #27272a; */
     --color-zinc-900: #18181b;
     /* --color-zinc-950: #09090b; */
-    /* --color-zinc-50-rgb: 250, 250, 250; */
+    --color-zinc-50-rgb: 250, 250, 250;
     /* --color-zinc-100-rgb: 244, 244, 245; */
     /* --color-zinc-200-rgb: 228, 228, 231; */
     /* --color-zinc-300-rgb: 212, 212, 216; */
@@ -79,7 +79,7 @@
     /* --color-zinc-700-rgb: 63, 63, 70; */
     /* --color-zinc-800-rgb: 39, 39, 42; */
     /* --color-zinc-900-rgb: 24, 24, 27; */
-    /* --color-zinc-950-rgb: 9, 9, 11; */
+    --color-zinc-950-rgb: 9, 9, 11;
 
     --primary: var(--black);
     --secondary: var(--white);
@@ -98,42 +98,51 @@
     --quaternary-dark-rgb: var(--color-rose-500-rgb);
 
     --focus-outline-color: var(--blue);
-    --spacing: 0.2rem; /* 2px */
+    --spacing: 0.2rem;     /* 2px */
     --spacing-xxs: 0.4rem; /* 4px */
-    --spacing-xs: 0.8rem; /* 8px */
-    --spacing-s: 1.2rem; /* 12px */
-    --spacing-m: 1.6rem; /* 16px */
-    --spacing-l: 2rem; /* 20px */
-    --spacing-xl: 2.4rem; /* 24px */
+    --spacing-xs: 0.8rem;  /* 8px */
+    --spacing-s: 1.2rem;   /* 12px */
+    --spacing-m: 1.6rem;   /* 16px */
+    --spacing-l: 2rem;     /* 20px */
+    --spacing-xl: 2.4rem;  /* 24px */
     --spacing-2xl: 3.2rem; /* 32px */
-    --spacing-3xl: 4rem; /* 40px */
+    --spacing-3xl: 4rem;   /* 40px */
 
-    --font-header-family: 'Playfair Display', 'Times New Roman', Times, serif;
-    --font-text-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    --spacing-range-m-3xl: clamp(var(--spacing-m), 0.5091rem + 3.4091vw, var(--spacing-3xl)); /* von 16px bei 320px vw bis 40px bei  1024px vw  */
 
-    --fs: 1.2rem; /* 12px */
-    --fs-xs: 1.4rem; /* 14px */
-    --fs-s: 1.6rem; /* 16px */
-    --fs-m: 1.8rem; /* 18px */
-    --fs-l: 2rem; /* 20px */
-    --fs-xl: 2.4rem; /* 24px */
+    --font-header-family: 'Playfair Display';
+    --font-text-family: 'Inter';
+
+    --fs: 1.2rem;     /* 12px */
+    --fs-xs: 1.4rem;  /* 14px */
+    --fs-s: 1.6rem;   /* 16px */
+    --fs-m: 1.8rem;   /* 18px */
+    --fs-l: 2rem;     /* 20px */
+    --fs-xl: 2.4rem;  /* 24px */
     --fs-2xl: 4.8rem; /* 48px */
     --fs-3xl: 7.2rem; /* 72px */
 
-    --lh: 1; /* 100% */
-    --lh-xs: 1.22; /* 122% */
-    --lh-s: 1.33; /* 133% */
-    --lh-m: 1.4; /* 140% */
-    --lh-l: 1.43; /* 143% */
-    --lh-xl: 1.5; /* 150% */
+    --fs-range-fs-xs: clamp(var(--fs), 1.1091rem + 0.2841vw, var(--fs-xs));         /* von 12px bei 320px vw bis 14px bei 1024px vw */
+    --fs-range-xs-s: clamp(var(--fs-xs), 1.3091rem + 0.2841vw, var(--fs-s));        /* von 14px bei 320px vw bis 16px bei 1024px vw */
+    --fs-range-xs-m: clamp(var(--fs-xs), 1.2182rem + 0.5682vw, var(--fs-m));        /* von 14px bei 320px vw bis 18px bei 1024px vw */
+    --fs-range-s-m: clamp(var(--fs-s), 1.5091rem + 0.2841vw, var(--fs-m));          /* von 16px bei 320px vw bis 18px bei 1024px vw */
+    --fs-range-m-l: clamp(var(--fs-m), 1.7091rem + 0.2841vw, var(--fs-l));          /* von 18px bei 320px vw bis 20px bei 1024px vw */
+    --fs-range-l-xl: clamp(var(--fs-l), 1.8182rem + 0.5682vw, var(--fs-xl));        /* von 20px bei 320px vw bis 24px bei 1024px vw */
+
+    --lh: 1;        /* 100% */
+    --lh-xs: 1.22;  /* 122% */
+    --lh-s: 1.33;   /* 133% */
+    --lh-m: 1.4;    /* 140% */
+    --lh-l: 1.43;   /* 143% */
+    --lh-xl: 1.5;   /* 150% */
     --lh-2xl: 1.53; /* 153% */
     --lh-3xl: 1.63; /* 163% */
 
-    --radius-xs: 0.2rem; /* 2px */
-    --radius-s: 0.4rem; /* 4px */
-    --radius-m: 0.6rem; /* 6px */
-    --radius-l: 0.8rem; /* 8px */
-    --radius-xl: 1.2rem; /* 12px */
+    --radius-xs: 0.2rem;  /* 2px */
+    --radius-s: 0.4rem;   /* 4px */
+    --radius-m: 0.6rem;   /* 6px */
+    --radius-l: 0.8rem;   /* 8px */
+    --radius-xl: 1.2rem;  /* 12px */
     --radius-2xl: 1.6rem; /* 16px */
     --radius-3xl: 2.4rem; /* 24px */
     --radius-max: 999.9rem;
@@ -160,26 +169,87 @@
     --shadow-xl: var(--shadow-xl-base-1) var(--shadow-color-l), var(--shadow-xl-base-2) var(--shadow-color-l);
     --shadow-2xl: var(--shadow-2xl-base-1) var(--shadow-color-2xl);
 
-    --body-font-family: var(--font-text-family);
-    --body-font-size: clamp(var(--fs-xs), 1.2182rem + 0.5682vw, var(--fs-m));
-    --body-font-weight: 300;
-    --body-line-height: var(--lh-3xl);
-    --body-color: var(--p-color);
-    --body-bg: var(--color-zinc-50);
+    --body-ff: var(--font-text-family);
+    --body-fs: var(--fs-range-xs-m);
+    --body-fw: 300;
+    --body-lh: var(--lh-3xl);
+    --body-color: var(--color-zinc-600);
+    --body-bg: var(--color-zinc-50-rgb);
 
+    /* Typo */
     --h-fw: 600;
     --h-color: var(--color-zinc-900);
-    --p-color: var(--color-zinc-600);
-    --preheader-color: var(--tertiary);
+    --h1-margin-block-end: ;
+    --h1-padding-block-end: ;
+    --h1-fs: clamp(6.2rem, 5.7455rem + 1.4205vw, 7.2rem); /* von 62px bei 320px vw bis 72px bei  1024px vw */
+    --h1-lh: var(--lh);
+    --h1-ls: -0.18rem;
+    --h2-margin-block-end: clamp(var(--spacing-2xl), 1.7455rem + 4.5455vw, calc(var(--spacing) * 32)); /* von 32px bei 320px vw bis 64px bei 1024px vw */
+    --h2-padding-block-end: ;
+    --h2-fs: clamp(3.8rem, 3.3455rem + 1.4205vw, 4.8rem); /* von 38px bei 320px vw bis 48px bei 1024px vw */
+    --h2-lh: var(--lh);
+    --h2-ls: -0.1rem;
+    --h3-margin-block-end: ;
+    --h3-padding-block-end: ;
+    --h3-fs: ;
+    --h3-lh: ;
+    --h3-ls: ;
+    --h4-margin-block-end: ;
+    --h4-padding-block-end: ;
+    --h4-fs: ;
+    --h4-lh: ;
+    --h4-ls: ;
+    --h5-margin-block-end: ;
+    --h5-padding-block-end: ;
+    --h5-fs: ;
+    --h5-lh: ;
+    --h5-ls: ;
+    --h6-margin-block-end: ;
+    --h6-padding-block-end: ;
+    --h6-fs: ;
+    --h6-lh: ;
+    --h6-ls: ;
+
+    --p-margin-block-end: ;
+    --p-padding-block-end: ;
+    --p-fs: ;
+    --p-fw: ;
+    --p-lh: ;
+    --p-color: var(--body-color);
 
     --a-color: var(--p-color);
+    --a-text-decoration: underline;
     --a-hover-color: var(--tertiary);
 
-    --li-fs: clamp(var(--fs-xs), 1.3091rem + 0.2841vw, var(--fs-s));
+    --ul-margin: ;
+    --ul-padding: ;
+    --ul-display: block;
+    --ul-flex-direction: ;
+    --ul-gap: ;
+    --ul-align-items: ;
+    --ul-list-style: disc;
+    --ul-fs: ;
+    --ul-fw: ;
+    --ul-white-space: ;
+
+    --li-margin: ;
+    --li-padding: ;
+    --li-display: list-item;
+    --li-flex-direction: ;
+    --li-gap: ;
+    --li-align-items: ;
+    --li-fs: var(--fs-range-xs-s);
     --li-lh: var(--lh-3xl);
-    --li-before-content: ✦;
+    --li-before-content: ;
     --li-before-fs: var(--fs);
     --li-before-color: var(--tertiary);
+    --li-before-lh: ;
+    --li-last-child-margin: ;
+    --li-last-child-padding: ;
+
+    /* Elemente */
+    --hr-margin-block: var(--spacing-xl);
+    --hr-border: 0.1rem solid var(--border-color-dark);
 
     --svg-collor: var(--tertiary);
 
@@ -196,7 +266,7 @@
     --btn-radius: var(--radius-max);
     --btn-shadow: var(--shadow-l);
     --btn-transition: ease-out background-color .2s, ease-out border-color .2s;
-    --btn-fs: clamp(var(--fs), 1.1091rem + 0.2841vw, var(--fs-xs));
+    --btn-fs: var(--fs-range-fs-xs);
     --btn-fw: 500;
     --btn-lh: var(--lh);
     --btn-text-decoration: none;
@@ -205,7 +275,7 @@
 
     --btn-large-height: 5.6rem;
     --btn-large-padding: var(--spacing-m) var(--spacing-2xl);
-    --btn-large-fs: clamp(var(--fs-xs), 1.3091rem + 0.2841vw, var(--fs-s));
+    --btn-large-fs: var(--fs-range-xs-s);
 
     --btn-primary-bg: var(--primary);
     --btn-primary-border: 0.1rem solid var(--primary);
@@ -228,7 +298,7 @@
     --pill-border: 0.1rem solid var(--border-color-dark);
     --pill-radius: var(--radius-max);
     --pill-shadow: var(--shadow-s);
-    --pill-fs: clamp(var(--fs), 1.1091rem + 0.2841vw, var(--fs-xs));
+    --pill-fs: var(--fs-range-fs-xs);
     --pill-fw: 500;
     --pill-lh: var(--lh);
     --pill-color: var(--p-color);
@@ -243,10 +313,10 @@
     --card-radius: var(--radius-2xl);
     --card-shadow: var(--shadow-s);
     --card-transition: border-color .15s cubic-bezier(.4, 0, .2, 1), box-shadow .15s cubic-bezier(.4, 0, .2, 1);
-    --card-fs: clamp(var(--fs-xs), 1.3091rem + 0.2841vw, var(--fs-s));
+    --card-fs: var(--fs-range-xs-s);
     --card-lh: var(--lh-3xl);
     --card-color: var(--p-color);
-    --card-h-fs: clamp(var(--fs-l), 1.8182rem + 0.5682vw, var(--fs-xl));
+    --card-h-fs: var(--fs-range-l-xl);
     --card-h-fw: var(--h-fw);
     --card-h-lh: var(--lh);
     --card-a-gap: var(--spacing-xs);
@@ -304,6 +374,19 @@
     --card-footer-svg-width: 1.6rem;
     --card-footer-svg-height: 1.6rem;
 
+    --offcanvas-inset: 0;
+    --offcanvas-inset-block-start: 0;
+    --offcanvas-width: min(100%, 32rem);
+    --offcanvas-padding: var(--spacing-range-m-3xl);
+    --offcanvas-display: flex;
+    --offcanvas-flex-direction: column;
+    --offcanvas-align-items: stretch;
+    --offcanvas-gap: var(--spacing-s);
+    --offcanvas-background: rgb(var(--white-rgb));
+    --offcanvas-position: fixed;
+    --offcanvas-transform: translateX(100%);
+    --offcanvas-transition: none;
+
     --splide-track-margin-inline: ;
     --splide-track-padding-block: ;
     --splide-track-padding-inline: ;
@@ -330,19 +413,62 @@
     --splide-pagination-page-bg: var(--tertiary-bright);
     --splide-pagination-page-active-bg: var(--tertiary);
 
-    --header-padding: var(--spacing-xl);
+    /* Layout */
+    --header-padding-block: var(--spacing-xl);
+    --header-bg: transparen;
+    --header-shadow: ;
+    --header-backdrop-filter: ;
     --header-scrolled-padding: var(--spacing-m);
-    --header-scrolled-bg: rgb(var(--white-rgb), 0.8);
+    --header-scrolled-bg: rgb(var(--white-rgb), .8);
     --header-scrolled-shadow: var(--shadow-s);
+    --header-scrolled-backdrop-filter: blur(10px);
+    --header-ul-display: flex;
+    --header-ul-align-items: center;
+    --header-ul-list-style: none;
+    --header-main-nav-fs: var(--fs-xs);
+    --header-main-nav-fw: 500;
+    --header-main-nav-d-gap: var(--spacing-2xl);
+    --header-main-nav-m-flex-direction: column;
+    --header-main-nav-m-align-items: stretch;
+    --header-main-nav-m-gap: unset;
+    --header-main-nav-m-li-padding: var(--spacing-xs);
+    --header-option-nav-gap: var(--spacing-m);
+
+    --section-padding-block: calc(var(--spacing) * 48);
+    --section-padding-inline: var(--spacing-range-m-3xl);
+    --section-bg: var(--secondary);
+    --section-border: 0.1rem solid var(--border-color);
 
     --highlight-gap: var(--spacing-xs);
     --highlight-bg: var(--tertiary-bright);
     --highlight-radius: var(--radius-max);
-    --highlight-fs: clamp(var(--fs), 1.1091rem + 0.2841vw, var(--fs-xs));
+    --highlight-fs: var(--fs-range-fs-xs);
     --highlight-fw: 500;
     --highlight-color: var(--tertiary);
     --highlight-lh: var(--lh);
     --highlight-svg-size: var(--highlight-fs);
+
+    --preheader-margin-block-end: var(--spacing-m);
+    --preheader-gap: var(--spacing-m);
+    --preheader-align-items: center;
+    --preheader-fs: var(--fs-range-fs-xs);
+    --preheader-fw: 500;
+    --preheader-color: var(--tertiary);
+    --preheader-lh: var(--lh-l);
+    --preheader-text-transform: uppercase;
+
+    --preheader-content: '';
+    --preheader-w: 3.2rem;
+    --preheader-h: 0.2rem;
+    --preheader-bg: var(--preheader-color);
+
+    --social-icon-size: 2.4rem;
+    --social-icon-color: var(--color-zinc-400);
+
+    --social-icons-display: flex;
+    --social-icons-gap: var(--spacing-l);
+    --social-icons-align-items: center;
+    --social-icons-svg-size: 2.4rem;
 
     --wrapper-row-gap: calc(var(--spacing) * 32);
     --wrapper-column-gap: calc(var(--spacing) * 32);
@@ -382,7 +508,7 @@
     --about-item-card-icon-radius: var(--radius-xl);
     --about-item-header-display: flex;
     --about-item-header-align-items: stretch;
-    --about-item-body-h-fs: clamp(var(--fs-m), 1.7091rem + 0.2841vw, var(--fs-l));
+    --about-item-body-h-fs: var(--fs-range-m-l);
     --about-item-body-h-lh: var(--lh-m);
     --about-item-img-radius: var(--radius-2xl);
     --about-item-img-shadow: var(--shadow-xl);
@@ -391,7 +517,7 @@
     --skill-item-padding: var(--spacing-2xl);
     --skill-item-gap: var(--spacing-xl);
     --skill-item-bg: var(--color-zinc-50);
-    --skill-item-h-fs: clamp(var(--fs-s), 1.5091rem + 0.2841vw, var(--fs-m));
+    --skill-item-h-fs: var(--fs-range-s-m);
     --skill-item-h-lh: var(--lh-2xl);
     --skill-item-icon-padding: var(--spacing-s);
     --skill-item-icon-bg: var(--secondary);
@@ -429,25 +555,25 @@
     --experience-item-date-fw: 500;
     --experience-item-date-color: var(--tertiary);
     --experience-item-date-lh: var(--lh);
-    --experience-item-card-h-fs: clamp(var(--fs-l), 1.8182rem + 0.5682vw, var(--fs-xl));
+    --experience-item-card-h-fs: var(--fs-range-l-xl);
     --experience-item-card-h-fw: 700;
     --experience-item-card-h-lh: var(--lh-s);
     --experience-item-card-workplace-display: flex;
     --experience-item-card-workplace-gap: var(--spacing-m);
     --experience-item-card-workplace-align-items: center;
-    --experience-item-card-workplace-point-fs: clamp(var(--fs-xs), 1.3091rem + 0.2841vw, var(--fs-s));
+    --experience-item-card-workplace-point-fs: var(--fs-range-xs-s);
     --experience-item-card-workplace-point-color: var(--color-zinc-900);
     --experience-item-card-workplace-icon-width: 1.4rem;
     --experience-item-card-workplace-icon-height: 1.4rem;
     --experience-item-card-workplace-icon-color: var(--p-color);
-    --experience-item-card-workplace-city-fs: clamp(var(--fs), 1.1091rem + 0.2841vw, var(--fs-xs));
+    --experience-item-card-workplace-city-fs: var(--fs-range-fs-xs);
     --experience-item-card-workplace-city-fw: 400;
 
     --project-wrapper-row-gap: var(--spacing-3xl);
     --project-item-bg: var(--color-zinc-50);
-    --project-item-fs: clamp(var(--fs-xs), 1.3091rem + 0.2841vw, var(--fs-s));
+    --project-item-fs: var(--fs-range-xs-s);
     --project-item-lh: var(--lh-3xl);
-    --project-item-h-fs: clamp(var(--fs-l), 1.8182rem + 0.5682vw, var(--fs-xl));
+    --project-item-h-fs: var(--fs-range-l-xl);
     --project-item-h-lh: var(--lh);
     --project-item-icon-padding: var(--spacing-xs);
     --project-item-icon-bg: var(--secondary);
@@ -469,9 +595,9 @@
     --education-wrapper-gap: var(--spacing-3xl);
     --education-item-padding: var(--spacing-2xl);
     --education-item-bg: var(--secondary);
-    --education-item-fs: clamp(var(--fs), 1.1091rem + 0.2841vw, var(--fs-xs));
+    --education-item-fs: var(--fs-range-fs-xs);
     --education-item-lh: var(--lh-m);
-    --education-item-h-fs: clamp(var(--fs-s), 1.5091rem + 0.2841vw, var(--fs-m));
+    --education-item-h-fs: var(--fs-range-s-m);
     --education-item-h-lh: var(--lh-2xl);
     --education-item-icon-padding: var(--spacing-m);
     --education-item-icon-bg: var(--highlight-bg);
@@ -519,8 +645,12 @@
     --contact-item-form-card-footer-gap: var(--spacing-xl);
     --contact-item-form-card-footer-justify-content: center;
 
-    --social-icon-color: var(--color-zinc-400);
-
     --footer-bg: var(--color-zinc-50);
     --footer-social-icon-color: var(--social-icon-color);
+
+
+    /* --backdrop-bg: rgb(var(--color-zinc-950-rgb), .1); */
+    --backdrop-bg: ;
+    --backdrop-backdrop-filter: var(--header-scrolled-backdrop-filter);
+    --backdrop-transition: opacity .3s ease, visibility .3s ease;
 }

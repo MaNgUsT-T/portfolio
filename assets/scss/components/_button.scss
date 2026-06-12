@@ -1,0 +1,69 @@
+@use "../variables" as v;
+@use "../mixins/mixins" as m;
+
+.btn {
+    height: v.$btn-height;
+    padding: v.$btn-padding;
+    display: flex;
+    gap: v.$btn-gap;
+    align-items: v.$btn-align-items;
+    justify-content: v.$btn-justify-content;
+    transition: v.$btn-transition;
+    border-radius: v.$btn-radius;
+    font-size: v.$btn-fs;
+    font-weight: v.$btn-fw;
+    line-height: v.$lh;
+    text-decoration: none;
+    white-space: v.$btn-white-space;
+
+    &:not(.btn--large) svg {
+        @include m.icon-size (v.$btn-svg-dimension);
+    }
+}
+
+button {
+    border-radius: v.$radius-xl;
+}
+
+.btn--large {
+    height: v.$btn-large-height;
+    padding: v.$btn-large-padding;
+    font-size: v.$btn-large-fs;
+}
+
+.btn--primary {
+    @include m.button-surface(
+        v.$btn-primary-bg,
+        v.$btn-primary-border,
+        v.$btn-primary-color,
+        v.$btn-primary-hover-bg,
+        v.$btn-primary-hover-border
+    );
+}
+
+.btn--secondary {
+    @include m.button-surface(
+        v.$btn-secondary-bg,
+        v.$btn-secondary-border,
+        v.$btn-secondary-color,
+        v.$btn-secondary-hover-bg,
+        v.$btn-secondary-hover-border
+    );
+}
+
+button:disabled,
+.btn--disabled {
+    cursor: default;
+    pointer-events: none;
+    background-color: v.$btn-disabled-bg;
+    border-color: v.$btn-disabled-border;
+    color: v.$btn-disabled-color !important;
+
+    svg {
+        stroke: v.$btn-disabled-color !important;
+    }
+
+    &:focus {
+        outline: none;
+    }
+}

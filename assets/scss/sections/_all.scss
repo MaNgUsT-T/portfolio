@@ -1,0 +1,30 @@
+@use "../variables" as v;
+@use "../mixins/mixins" as m;
+
+.hero__wrapper,
+.about__wrapper,
+.skills__wrapper,
+.projects__wrapper,
+.education__wrapper,
+.contact__wrapper {
+	display: grid;
+	grid-template-columns: repeat(1, 1fr);
+	row-gap: v.$wrapper-row-gap;
+	column-gap: v.$wrapper-column-gap;
+}
+
+.hero__wrapper,
+.about__wrapper,
+.contact__wrapper {
+	@media (min-width: 64rem)  {
+		grid-template-columns: repeat(2, 1fr);
+	}
+}
+
+.skills__wrapper,
+.projects__wrapper,
+.education__wrapper {
+	@media (min-width: 48rem)  {
+		grid-template-columns: repeat(2, 1fr);
+	}
+}

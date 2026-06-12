@@ -1,0 +1,15 @@
+@use "../variables" as v;
+@use "../mixins/mixins" as m;
+
+.contact {
+
+	.contact__wrapper {
+		row-gap: v.$contact-wrapper-gap;
+		column-gap: v.$contact-wrapper-gap;
+	}
+
+	.btn {
+		width: 100%;
+		justify-content: center;
+	}
+}

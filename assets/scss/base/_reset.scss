@@ -1,3 +1,6 @@
+@use "../variables" as v;
+@use "../mixins/mixins" as m;
+
 *,
 *::before,
 *::after {

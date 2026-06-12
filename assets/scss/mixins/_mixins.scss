@@ -1,0 +1,62 @@
+@use "../functions" as f;
+
+@mixin respond-from($breakpoint) {
+    @media (min-width: f.breakpoint($breakpoint)) {
+        @content;
+    }
+}
+
+@mixin respond-until($breakpoint) {
+    @media (max-width: f.breakpoint($breakpoint)) {
+        @content;
+    }
+}
+
+@mixin reduced-motion {
+    @media (prefers-reduced-motion: reduce) {
+        @content;
+    }
+}
+
+@mixin flex-cluster($gap, $align: center, $justify: flex-start, $wrap: wrap) {
+    display: flex;
+    flex-wrap: $wrap;
+    gap: $gap;
+    align-items: $align;
+    justify-content: $justify;
+}
+
+@mixin grid-wrapper($columns: 1, $row-gap: null, $column-gap: null) {
+    display: grid;
+    grid-template-columns: repeat($columns, 1fr);
+
+    @if $row-gap != null {
+        row-gap: $row-gap;
+    }
+
+    @if $column-gap != null {
+        column-gap: $column-gap;
+    }
+}
+
+@mixin icon-size($size) {
+    width: $size;
+    height: $size;
+}
+
+@mixin button-surface($background, $border, $color, $hover-background, $hover-border) {
+    background-color: $background;
+    border: $border;
+    color: $color !important;
+
+    &:active,
+    &:hover {
+        background-color: $hover-background;
+        border-color: $hover-border;
+    }
+
+    svg {
+        stroke: $color !important;
+    }
+}
+

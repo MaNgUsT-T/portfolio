@@ -39,10 +39,10 @@
 	<link rel="preload" href="./fonts/Inter/Inter.woff2" as="font" type="font/woff2" crossorigin="anonymous">
 
 	<link rel="stylesheet" type="text/css" href="./vendor/splide/splide.min.css">
-	<link rel="stylesheet" type="text/css" href="./css/styles.css">
+	<link rel="stylesheet" type="text/css" href="./css/styles.min.css">
 	<style>
 		h2 {
-			margin-block-end: var(--spacing-xl);
+			margin-block-end: 2.4rem;
 		}
 	</style>
 </head>
@@ -130,7 +130,7 @@
 			<div class="container">
 				<p class="preheader"></p>
 				<h2>Icons</h2>
-				<div style="display:flex; gap:var(--spacing-m);">
+				<div style="display:flex; gap:1.6rem;">
 					<!-- arrow-left -->
 					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
 						<path d="m12 19-7-7 7-7"/>
@@ -291,7 +291,7 @@
 			<div class="container">
 				<p class="preheader"></p>
 				<h2>Buttons</h2>
-				<div style="margin-block-end:var(--spacing-xl); display:flex; flex-wrap:wrap; align-items:center; gap:var(--spacing-s);">
+				<div style="margin-block-end:2.4rem; display:flex; flex-wrap:wrap; align-items:center; gap:1.2rem;">
 					<a href="#"
 					   title="Button primary"
 					   class="btn btn--primary">
@@ -346,7 +346,7 @@
 						</svg>
 					</a>
 				</div>
-				<div style="margin-block-end:var(--spacing-3xl); display:flex; flex-wrap:wrap; align-items:center; gap:var(--spacing-s);">
+				<div style="margin-block-end:4rem; display:flex; flex-wrap:wrap; align-items:center; gap:1.2rem;">
 					<button
 						type="submit"
 						class="btn btn--primary"
@@ -412,12 +412,12 @@
 				</div>
 				<p class="preheader"></p>
 				<h2>Pill</h2>
-				<div style="margin-block-end:var(--spacing-3xl); display:flex; align-items:center; gap:var(--spacing-s);">
+				<div style="margin-block-end:4rem; display:flex; align-items:center; gap:1.2rem;">
 					<p class="pill">Lorem Ipsum</p>
 				</div>
 				<p class="preheader"></p>
 				<h2>Card</h2>
-				<div style="margin-block-end:var(--spacing-3xl); display:grid; grid-template-columns: repeat(2, 1fr); gap:var(--spacing-2xl);">
+				<div style="margin-block-end:4rem; display:grid; grid-template-columns: repeat(2, 1fr); gap:3.2rem;">
 					<div class="card card--default">
 						<div class="card__header">
 							<p>Header</p>
@@ -760,12 +760,7 @@
 					id="splide-carousel"
 					role="group"
 					aria-label="Slider"
-					class="splide"
-					style="
-						--splide-track-margin-inline: var(--education-splide-track-margin-inline);
-    					--splide-track-padding-block: var(--education-splide-track-padding-block);
-    					--splide-track-padding-inline: var(--education-splide-track-padding-inline);
-					"
+					class="splide splide--education"
 					>
 					<div class="splide__track">
 						<ul class="splide__list">
@@ -1054,6 +1049,6 @@
 		data-overlay
 	></div>
 	<script src="./vendor/splide/splide.min.js" crossorigin="anonymous"></script>
-	<script src="./js/vjs-main.js"></script>
+	<script src="./js/vjs-main.min.js"></script>
 </body>
 </html>

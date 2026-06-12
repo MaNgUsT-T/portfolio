@@ -1,0 +1,18 @@
+@use "sass:map";
+@use "variables" as v;
+
+@function breakpoint($name) {
+    @return map.get(v.$breakpoints, $name);
+}
+
+@function color($name) {
+    @return map.get(v.$colors, $name);
+}
+
+@function space($name) {
+    @return map.get(v.$spaces, $name);
+}
+
+@function radius($name) {
+    @return map.get(v.$radii, $name);
+}

@@ -1,0 +1,9 @@
+@use "../variables" as v;
+@use "../mixins/mixins" as m;
+
+.projects {
+	.projects__wrapper {
+		row-gap: v.$project-wrapper-row-gap;
+		column-gap: v.$project-wrapper-row-gap;
+	}
+}

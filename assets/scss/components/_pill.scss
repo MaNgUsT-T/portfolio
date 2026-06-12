@@ -1,0 +1,15 @@
+@use "../variables" as v;
+@use "../mixins/mixins" as m;
+
+.pill {
+    padding: v.$pill-padding;
+    background: v.$pill-bg;
+    border: v.$pill-border;
+    border-radius: v.$pill-radius;
+    box-shadow: v.$pill-shadow;
+    font-size: v.$pill-fs;
+    font-weight: v.$pill-fw;
+    color: v.$pill-color;
+    line-height: v.$pill-lh;
+    white-space: v.$pill-white-space;
+}

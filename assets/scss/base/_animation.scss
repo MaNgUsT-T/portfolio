@@ -1,3 +1,6 @@
+@use "../variables" as v;
+@use "../mixins/mixins" as m;
+
 @keyframes bounce {
     0%, 100% {
         transform: translateY(-25%);

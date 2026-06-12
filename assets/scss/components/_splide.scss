@@ -1,0 +1,97 @@
+@use "../variables" as v;
+@use "../mixins/mixins" as m;
+
+.splide {
+    
+    .splide__track {
+        overflow: clip;
+    }
+
+    .splide__arrow {
+        width: v.$splide-arrow-size;
+        height: v.$splide-arrow-size;
+        opacity: v.$splide-arrow-opacity;
+        background: v.$splide-arrow-bg;
+
+        &.splide__arrow--prev {
+            inset-inline-start: v.$splide-arrow-position;
+        }
+
+        &.splide__arrow--next {
+            inset-inline-end: v.$splide-arrow-position;
+        }
+
+        svg {
+            width: v.$splide-arrow-svg-size;
+            height: v.$splide-arrow-svg-size;
+            fill: transparent;
+            stroke: v.$splide-arrow-svg-color;
+        }
+    }
+
+    .splide__slide {
+        display: flex;
+    }
+
+    .splide__pagination {
+        inset-block-start: v.$splide-pagination-block-start;
+        inset-block-end: v.$splide-pagination-block-end;
+        inset-inline-start: v.$splide-pagination-inline-start;
+        inset-inline-end: v.$splide-pagination-inline-end;
+        margin: v.$splide-pagination-margin;
+        padding: v.$splide-pagination-padding;
+        display: flex;
+        flex-wrap: v.$splide-pagination-flex-wrap;
+        gap: v.$splide-pagination-gap;
+        align-items: v.$splide-pagination-align-items;
+        justify-content: v.$splide-pagination-justify-content;
+        position: relative;
+
+        .splide__pagination__page {
+            width: v.$splide-pagination-page-size;
+            height: v.$splide-pagination-page-size;
+            margin: 0;
+            background: v.$splide-pagination-page-bg;
+
+            &.is-active {
+                background: v.$splide-pagination-page-active-bg;
+            }
+        }
+    }
+
+    &.is-initialized.is-active .splide__slide:not(.is-visible) {
+        filter: blur(5px);
+    }
+
+    &.is-initialized:not(.is-active) {
+        
+        .splide__arrows {
+            display: none;
+        }
+
+        .splide__list {
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+            gap: v.$splide-list-gap;
+        }
+    }
+}
+
+.splide--education {
+    
+    .splide__track {
+        margin-inline: v.$education-splide-track-margin-inline;
+        padding-block: v.$education-splide-track-padding-block;
+        padding-inline: v.$education-splide-track-padding-inline !important;
+    }
+
+    &.is-initialized:not(.is-active) .splide__list {
+        @include m.respond-from(tablet) {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        @include m.respond-from(desktop) {
+            grid-template-columns: repeat(4, 1fr);
+        }
+    }
+}

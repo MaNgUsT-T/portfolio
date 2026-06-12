@@ -1,0 +1,30 @@
+@use "../variables" as v;
+@use "../mixins/mixins" as m;
+
+footer {
+    margin-block-start: auto;
+    padding-block: v.$spacing-3xl;
+    background: v.$footer-bg;
+
+    .footer__wrapper {
+        display: flex;
+        flex-wrap: wrap;
+        gap: v.$spacing-2xl;
+        align-items: center;
+        justify-content: space-between;
+
+        @include m.respond-from(tablet) {
+            flex-wrap: nowrap;
+        }
+    }
+
+    p {
+        font-size: v.$fs-xs;
+        line-height: v.$lh-l;
+    }
+
+    .social-icons svg {
+        @include m.icon-size(2rem);
+        stroke: v.$footer-social-icon-color;
+    }
+}

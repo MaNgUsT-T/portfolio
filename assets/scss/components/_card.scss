@@ -1,0 +1,469 @@
+@use "../variables" as v;
+@use "../mixins/mixins" as m;
+
+@mixin card-shell(
+    $padding: null,
+    $direction: column,
+    $gap: null,
+    $background: v.$card-bg,
+    $border: v.$card-border,
+    $radius: v.$card-radius,
+    $shadow: v.$card-shadow,
+    $font-size: v.$card-fs,
+    $line-height: v.$card-lh
+) {
+    width: 100%;
+    padding: $padding;
+    display: flex;
+    flex-direction: $direction;
+    gap: $gap;
+    background: $background;
+    border: $border;
+    border-radius: $radius;
+    box-shadow: $shadow;
+    overflow: hidden;
+    transition: v.$card-transition;
+    font-size: $font-size;
+    line-height: $line-height;
+    color: v.$card-color;
+
+    @include m.reduced-motion {
+        transform: none;
+        transition: none;
+    }
+}
+
+@mixin card-icon(
+    $padding: v.$card-icon-padding,
+    $background: v.$card-icon-bg,
+    $border: v.$card-icon-border,
+    $radius: v.$card-icon-radius,
+    $shadow: v.$card-icon-shadow,
+    $size: v.$card-icon-svg-width,
+    $color: v.$card-icon-svg-color
+) {
+    padding: $padding;
+    background: $background;
+    border: $border;
+    border-radius: $radius;
+    box-shadow: $shadow;
+    transition: v.$card-icon-transition;
+
+    @include m.reduced-motion {
+        transition: none;
+    }
+
+    svg {
+        @include m.icon-size($size);
+        stroke: $color;
+    }
+}
+
+.card {
+    @include card-shell;
+
+    h3 {
+        font-size: v.$card-h-fs;
+        font-weight: v.$card-h-fw;
+        line-height: v.$card-h-lh;
+    }
+
+    figure {
+        flex-shrink: v.$card-figure-flex-shrink;
+        overflow: hidden;
+        position: relative;
+
+        img {
+            aspect-ratio: v.$card-figure-img-aspect-ratio;
+            object-fit: v.$card-figure-img-object-fit;
+            transition: v.$card-figure-img-transition;
+
+            @include m.reduced-motion {
+                transition: none;
+                transform: none;
+            }
+        }
+
+        figcaption {
+            inset-block-start: v.$card-figure-figcaption-inset;
+            inset-inline-start: v.$card-figure-figcaption-inset;
+            position: absolute;
+        }
+    }
+
+    .card__icon {
+        @include card-icon;
+    }
+
+    .card__header {
+        padding: v.$card-header-padding;
+        display: v.$card-header-display;
+        flex-direction: v.$card-header-direction;
+        flex-wrap: v.$card-header-wrap;
+        gap: v.$card-header-gap;
+        align-items: v.$card-header-align-items;
+        justify-content: v.$card-header-justify-content;
+        background: v.$card-header-bg;
+        border-block-end: v.$card-header-border;
+        border-radius: v.$card-header-border-radius;
+    }
+
+    .card__body {
+        padding: v.$card-body-padding;
+        display: flex;
+        flex-grow: 1;
+        background: v.$card-body-bg;
+    }
+
+    .card__body-wrapper {
+        padding: v.$card-body-wrapper-padding;
+        display: v.$card-body-wrapper-display;
+        flex-basis: 100%;
+        flex-direction: v.$card-body-wrapper-direction;
+        flex-wrap: v.$card-body-wrapper-wrap;
+        gap: v.$card-body-wrapper-gap;
+        align-items: v.$card-body-wrapper-align-items;
+        justify-content: v.$card-body-wrapper-justify-content;
+        border-block-start: v.$card-body-wrapper-border-block-start;
+        border-block-end: v.$card-body-wrapper-border-block-end;
+        text-align: v.$card-body-wrapper-text-align;
+    }
+
+    .card__body h3,
+    .card__body a {
+        
+        &:has(svg) span {
+            padding: v.$card-icon-padding;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: v.$card-icon-bg;
+            border: v.$card-icon-border;
+            border-radius: v.$card-icon-radius;
+
+            svg {
+                @include m.icon-size (v.$card-icon-svg-width);
+            }
+        }
+    }
+
+    .card__body a {
+        text-decoration: none;
+
+        &:has(svg) {
+            display: flex;
+            gap: v.$card-a-gap;
+            align-items: center;
+        }
+    }
+
+    .card__body h3 {
+        margin-block-end: v.$card-body-wrapper-h-margin-block-end;
+        position: relative;
+
+        &:has(svg) {
+            flex-basis: 100%;
+
+            span {
+                inset-block-start: -0.3rem;
+                inset-inline-end: 0;
+                position: absolute;
+            }
+        }
+    }
+
+    .card__body p {
+        &:not(:last-child) {
+            margin-block-end: v.$card-body-wrapper-p-margin-block-end;
+        }
+
+        &:not(.highlight) {
+            flex-grow: 1;
+        }
+    }
+
+    .card__footer {
+        margin-block-start: v.$card-footer-margin-block-start;
+        padding: v.$card-footer-padding;
+        display: v.$card-footer-display;
+        flex-direction: v.$card-footer-direction;
+        flex-wrap: v.$card-footer-wrap;
+        gap: v.$card-footer-gap;
+        align-items: v.$card-footer-align-items;
+        justify-content: v.$card-footer-justify-content;
+        flex-shrink: v.$card-footer-flex-shrink;
+        background: v.$card-footer-bg;
+        border-block-start: v.$card-footer-border;
+    }
+
+    &:hover {
+        border-color: v.$tertiary-bright;
+        box-shadow: v.$shadow-m;
+
+        .card__icon {
+            transform: v.$card-icon-transform;
+        }
+
+        figure img {
+            transform: scale(1.05);
+        }
+    }
+}
+
+.card--default {
+    
+    .card__header {
+        border-block-end: 0.1rem solid v.$border-color;
+    }
+
+    .card__footer {
+        border-block-start: 0.1rem solid v.$border-color;
+    }
+}
+
+.card--default-inner {
+    padding: v.$spacing-2xl;
+
+    .card__header {
+        padding: 0 0 v.$spacing-2xl;
+        border-block-end: 0.1rem solid v.$border-color;
+    }
+
+    .card__body-wrapper {
+        padding: v.$spacing-2xl 0;
+    }
+
+    .card__footer {
+        padding: v.$spacing-2xl 0 0;
+        border-block-start: 0.1rem solid v.$border-color;
+    }
+}
+
+.card--about-item {
+    padding: v.$about-item-padding;
+    flex-direction: v.$about-item-direction;
+    gap: v.$about-item-gap;
+
+    h3 {
+        font-size: v.$about-item-body-h-fs;
+        line-height: v.$about-item-body-h-lh;
+    }
+
+    .card__icon {
+        @include card-icon (v.$about-item-card-icon-padding, v.$about-item-card-icon-bg, null, v.$about-item-card-icon-radius, null);
+    }
+
+    .card__header {
+        padding: 0;
+        display: flex;
+        align-items: v.$about-item-header-align-items;
+    }
+
+    .card__body-wrapper {
+        padding: 0;
+    }
+}
+
+.card--skill-item {
+    padding: v.$skill-item-padding;
+    gap: v.$skill-item-gap;
+    background: v.$skill-item-bg;
+
+    h3 {
+        font-size: v.$skill-item-h-fs;
+        line-height: v.$skill-item-h-lh;
+    }
+
+    .card__icon {
+        @include card-icon (v.$skill-item-icon-padding, v.$skill-item-icon-bg, v.$skill-item-icon-border, v.$skill-item-icon-radius, v.$skill-item-icon-shadow, v.$skill-item-icon-svg-width);
+    }
+
+    .card__header,
+    .card__footer {
+        padding: 0;
+        display: flex;
+    }
+
+    .card__header {
+        gap: v.$skill-item-header-gap;
+        align-items: v.$skill-item-header-align-items;
+    }
+
+    .card__footer {
+        margin-block-start: 0;
+        gap: v.$skill-item-footer-gap;
+        align-items: v.$skill-item-footer-align-items;
+    }
+}
+
+.card--experience-item {
+    
+    h3 {
+        font-size: v.$experience-item-card-h-fs;
+        font-weight: v.$experience-item-card-h-fw;
+        line-height: v.$experience-item-card-h-lh;
+    }
+
+    .card__body-wrapper p:first-child {
+        margin-block-end: 0;
+        font-size: v.$experience-item-date-fs;
+        font-weight: v.$experience-item-date-fw;
+        color: v.$experience-item-date-color;
+        line-height: 2.3;
+
+        @include m.respond-from(tablet) {
+            display: none;
+        }
+    }
+
+    .workplace-point {
+        display: flex;
+        gap: v.$experience-item-card-workplace-gap;
+        align-items: v.$experience-item-card-workplace-align-items;
+
+        b {
+            font-size: v.$experience-item-card-workplace-point-fs;
+            color: v.$experience-item-card-workplace-point-color;
+        }
+
+        span {
+            display: flex;
+            gap: v.$spacing-xxs;
+            align-items: v.$experience-item-card-workplace-align-items;
+            font-size: v.$experience-item-card-workplace-city-fs;
+            font-weight: v.$experience-item-card-workplace-city-fw;
+
+            svg {
+                width: v.$experience-item-card-workplace-icon-width;
+                height: v.$experience-item-card-workplace-icon-height;
+                stroke: v.$experience-item-card-workplace-icon-color;
+            }
+        }
+    }
+}
+
+.card--project-item {
+    background: v.$project-item-bg;
+    font-size: v.$project-item-fs;
+    line-height: v.$project-item-lh;
+
+    h3 {
+        font-size: v.$project-item-h-fs;
+        line-height: v.$project-item-h-lh;
+
+        &:hover {
+            color: v.$a-hover-color;
+        }
+    }
+
+    .pill {
+        padding: v.$project-item-pill-padding;
+        font-size: v.$project-item-pill-fs;
+    }
+
+    .card__icon,
+    .card__body h3:has(svg) span,
+    .card__body a:has(svg) span {
+        @include card-icon (v.$project-item-icon-padding, v.$project-item-icon-bg, v.$project-item-icon-border, v.$project-item-icon-radius, null, v.$project-item-icon-svg-width, v.$project-item-icon-svg-color);
+    }
+
+    .card__body {
+        padding: v.$project-item-body-padding;
+    }
+
+    .card__body-wrapper {
+        padding: v.$project-item-body-wrapper-padding;
+        display: flex;
+        flex-direction: column;
+        border-block-end: v.$project-item-body-wrapper-border-block-end;
+    }
+
+    .card__footer {
+        display: flex;
+        gap: v.$project-item-footer-gap;
+    }
+
+    &:hover {
+        box-shadow: v.$shadow-xl-base-1 rgba (v.$color-violet-500, .1), v.$shadow-xl-base-2 rgba (v.$color-violet-500, .1);
+    }
+}
+
+.card--education-item {
+    padding: v.$education-item-padding;
+    background: v.$education-item-bg;
+    font-size: v.$education-item-fs;
+    line-height: v.$education-item-lh;
+
+    h3 {
+        font-size: v.$education-item-h-fs;
+        line-height: v.$education-item-h-lh;
+    }
+
+    .card__icon {
+        @include card-icon (v.$education-item-icon-padding, v.$education-item-icon-bg, null, v.$education-item-icon-radius, null, v.$education-item-icon-svg-width);
+    }
+
+    .card__header {
+        padding: 0;
+        display: flex;
+        justify-content: v.$education-item-header-justify-content;
+    }
+
+    .card__body-wrapper {
+        padding: v.$education-item-body-wrapper-padding;
+        border-block-end: v.$education-item-body-wrapper-border-block-end;
+        text-align: v.$education-item-body-wrapper-text-align;
+    }
+
+    .card__footer {
+        padding: v.$education-item-footer-padding;
+        display: flex;
+        gap: v.$education-item-footer-gap;
+        align-items: v.$education-item-footer-align-items;
+        justify-content: v.$education-item-footer-justify-content;
+    }
+
+    .highlight {
+        gap: v.$education-item-footer-highlight-gap;
+
+        svg {
+            @include m.icon-size (v.$education-item-footer-highlight-size);
+        }
+    }
+}
+
+.card--contact-item {
+    padding: v.$contact-item-padding;
+
+    .card__header {
+        padding: v.$contact-item-header-padding;
+        display: flex;
+        gap: v.$contact-item-header-gap;
+        align-items: v.$contact-item-header-align-items;
+        border-block-end: v.$contact-item-header-border;
+    }
+
+    .card__footer {
+        padding: v.$contact-item-footer-padding;
+        display: flex;
+        gap: v.$contact-item-form-card-footer-gap;
+        justify-content: v.$contact-item-form-card-footer-justify-content;
+        border-block-start: v.$contact-item-footer-border;
+    }
+
+    .card__body a:has(svg) span {
+        @include card-icon (v.$contact-item-icon-padding, v.$contact-item-icon-bg, v.$contact-item-icon-border, v.$contact-item-icon-radius, null, v.$contact-item-icon-svg-width);
+    }
+
+    &:first-child {
+        background: v.$contact-item-info-card-bg;
+
+        .card__body-wrapper {
+            padding: v.$contact-item-info-card-body-wrapper-padding;
+        }
+    }
+
+    &:last-child .card__body-wrapper {
+        padding: v.$contact-item-form-card-body-wrapper-padding;
+    }
+}

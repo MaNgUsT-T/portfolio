@@ -13,7 +13,8 @@ Entwicklungsabläufe ist `_docker/` die maßgebliche Arbeitsbasis.
 
 ### Kernmodule im Projekt
 - `_docker/` - Lokale Docker-Umgebung (Compose, Makefile, WP-CLI, Traefik).
-- `css/` - Projekt CSS.
+- `assets/scss/` - Sass-Quellen.
+- `css/` - Kompilierte CSS-Ausgabe.
 - `fonts/` - Projekt Fonts.
 - `img/` - Projekt Bilder.
 - `js/` - Projekt Js.

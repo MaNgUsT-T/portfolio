@@ -1,0 +1,180 @@
+@use "../variables" as v;
+@use "../mixins/mixins" as m;
+
+header {
+    inset-block-start: 0;
+    width: 100%;
+    padding-block: v.$header-padding-block;
+    transition: all .3s cubic-bezier(.4, 0, .2, 1);
+    position: fixed;
+    z-index: 100;
+
+    &::before {
+        content: "";
+        inset-block-start: 0;
+        inset-inline-start: 0;
+        width: 100%;
+        height: 100%;
+        background: transparent;
+        pointer-events: none;
+        transition: inherit;
+        position: absolute;
+        z-index: 2;
+    }
+
+    &.header--scrolled {
+        padding-block: v.$header-scrolled-padding;
+
+        &::before {
+            background: v.$header-scrolled-bg;
+            box-shadow: v.$header-scrolled-shadow;
+            backdrop-filter: v.$header-scrolled-backdrop-filter;
+        }
+    }
+    
+    a {
+        text-decoration: none;
+    }
+    
+    .header__wrapper,
+    .header__nav-wrapper {
+        display: flex;
+        align-items: center;
+    }
+
+    .header__wrapper {
+        gap: v.$spacing-l;
+        position: relative;
+    }
+
+    .header__nav-wrapper {
+        margin-inline-start: auto;
+        position: relative;
+        z-index: 3;
+
+        @include m.respond-until(mobile-nav) {
+            inset-inline-end: 0;
+            inset-block-end: 0;
+            width: v.$offcanvas-width;
+            padding: v.$offcanvas-padding;
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+            gap: v.$offcanvas-gap;
+            background: v.$white;
+            box-shadow: v.$shadow-m;
+            transform: translateX(100%);
+            transition: none;
+            position: fixed;
+        }
+    }
+
+    .logo {
+        margin-inline-end: auto;
+        z-index: 3;
+    }
+
+    .main-nav {
+        ul {
+            @include m.flex-cluster (v.$header-main-nav-d-gap, center, flex-start, nowrap);
+            list-style: none;
+            font-weight: v.$header-main-nav-fw;
+        }
+
+        li {
+            font-size: v.$header-main-nav-fs;
+        }
+
+        @include m.respond-until(mobile-nav) {
+            height: 100%;
+            overflow-x: hidden;
+            overflow-y: auto;
+
+            ul {
+                flex-direction: column;
+                align-items: stretch;
+                gap: unset;
+            }
+
+            li {
+                padding-block: v.$header-main-nav-m-li-padding;
+
+                &:last-child {
+                    padding-block: v.$header-main-nav-m-li-padding;
+                }
+            }
+        }
+
+        + * {
+            @include m.respond-from(desktop) {
+                margin-inline-start: v.$spacing-m;
+                padding-inline-start: v.$spacing-m;
+                border-inline-start: 1px solid v.$border-color-dark;
+            }
+
+            @include m.respond-until(mobile-nav) {
+                padding-block-start: v.$spacing-m;
+                border-block-start: 1px solid v.$border-color-dark;
+            }
+        }
+    }
+
+    .option-nav {
+        ul {
+            @include m.flex-cluster (v.$header-option-nav-gap, center, flex-start, nowrap);
+            list-style: none;
+        }
+    }
+
+    .mobile-nav-toggle {
+        margin-inline-start: auto;
+        display: block;
+        cursor: pointer;
+        position: relative;
+        z-index: 3;
+
+        @include m.respond-from(desktop) {
+            display: none;
+        }
+    }
+}
+
+.nav--animate,
+.nav--open {
+    header .header__nav-wrapper {
+        @include m.respond-until(mobile-nav) {
+            transition: transform .3s ease-in-out;
+        }
+    }
+}
+
+.nav--open {
+    overflow-y: clip;
+
+    header::before {
+        background: v.$white;
+        box-shadow: v.$header-scrolled-shadow;
+    }
+
+    header .header__nav-wrapper {
+        @include m.respond-until(mobile-nav) {
+            transform: translateX(0);
+        }
+    }
+    
+    header.header--scrolled::before {
+        background: v.$header-scrolled-bg;
+    }
+    
+    header.header--scrolled .header__nav-wrapper {
+        @include m.respond-until(mobile-nav) {
+            background: v.$header-scrolled-bg;
+        }
+    }
+
+    .backdrop {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+    }
+}

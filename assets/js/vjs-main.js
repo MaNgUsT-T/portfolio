@@ -39,10 +39,26 @@ function calculateHeaderVisualBottom(headerElement) {
  * @param {HTMLElement|Element|null} headerElement - Das Header-Element, dessen Höhe als Offcanvas-Offset verwendet wird.
  */
 function syncOffcanvasInsetWithHeader(headerElement) {
-    document.documentElement.style.setProperty(
-        '--offcanvas-inset-block-start',
-        calculateHeaderVisualBottom(headerElement) + 'px'
-    );
+    const navWrapper = document.querySelector('.header__nav-wrapper');
+
+    if (!navWrapper) {
+        return;
+    }
+
+    if (window.innerWidth < 1024) {
+        /** Mobile: Neuen Wert berechnen */
+        const newValue = calculateHeaderVisualBottom(headerElement) + 'px';
+
+        /** Nur ins DOM schreiben, wenn der Wert nicht sowieso schon exakt dieser ist! */
+        if (navWrapper.style.insetBlockStart !== newValue) {
+            navWrapper.style.insetBlockStart = newValue;
+        }
+    } else {
+        /** Desktop: Nur löschen, wenn überhaupt ein Inline-Style gesetzt ist! */
+        if (navWrapper.style.insetBlockStart) {
+            navWrapper.style.removeProperty('inset-block-start');
+        }
+    }
 }
 
 /**

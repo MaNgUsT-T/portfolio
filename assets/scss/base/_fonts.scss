@@ -1,3 +1,6 @@
+@use "../variables" as v;
+@use "../mixins/mixins" as m;
+
 @font-face {
     font-family: 'Playfair Display';
     font-weight: 400 900;

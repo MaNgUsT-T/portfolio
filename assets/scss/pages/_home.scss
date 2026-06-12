@@ -1,0 +1,12 @@
+@use "../variables" as v;
+@use "../mixins/mixins" as m;
+
+@use "../sections/all";
+@use "../sections/hero";
+@use "../sections/about";
+@use "../sections/skills";
+@use "../sections/experience";
+@use "../sections/projects";
+@use "../sections/education";
+@use "../sections/contact";
+

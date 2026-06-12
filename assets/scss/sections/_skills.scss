@@ -1,0 +1,13 @@
+@use "../variables" as v;
+@use "../mixins/mixins" as m;
+
+.skills {
+
+	.skills__wrapper {
+		row-gap: v.$skills-wrapper-gap;
+		column-gap: v.$skills-wrapper-gap;
+		@media (min-width: 75rem)  {
+			grid-template-columns: repeat(3, 1fr);
+		}
+	}
+}

@@ -36,7 +36,8 @@ vermeiden.
 ## Projektstruktur
 
 - `_docker/` - Lokale Docker-Umgebung (Compose, Makefile, WP-CLI, Traefik).
-- `css/` - Projekt CSS.
+- `assets/scss/` - Sass-Quellen.
+- `css/` - Kompilierte CSS-Ausgabe.
 - `fonts/` - Projekt Fonts.
 - `img/` - Projekt Bilder.
 - `js/` - Projekt Js.

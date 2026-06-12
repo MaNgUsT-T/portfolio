@@ -1,0 +1,29 @@
+@use "../variables" as v;
+@use "../mixins/mixins" as m;
+
+.about {
+
+	.about__wrapper {
+		row-gap: v.$about-wrapper-gap;
+	}
+
+	.about__col {
+		display: flex;
+		flex-direction: column;
+
+		&:first-child {
+			gap: v.$spacing-xl;
+
+			img {
+				aspect-ratio: 16 / 7.5;
+				border-radius: v.$about-item-img-radius;
+				box-shadow: v.$about-item-img-shadow;
+				object-fit: cover;
+			}
+		}
+
+		&:last-child {
+			gap: v.$spacing-2xl;
+		}
+	}
+}

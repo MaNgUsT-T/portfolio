@@ -7,16 +7,14 @@
  */
 
 /**
- * Berechnet die äußere Höhe (Outer Height) des übergebenen DOM-Elements.
- * Verwendet Math.ceil, um unschöne Sub-Pixel-Werte (z. B. 88.4px) aufzurunden
- * und Layout-Fehler zu vermeiden.
+ * Berechnet die äußere Höhe des übergebenen Header-Elements.
+ * Verwendet Math.ceil, um Sub-Pixel-Werte aufzurunden.
  *
- * @param {HTMLElement|Element|null} headerElement - Das HTML-Element, dessen Höhe berechnet werden soll.
  * @returns {number} Die aufgerundete Höhe des Elements in Pixeln. Gibt 0 zurück, falls das Element nicht existiert.
  */
-function calculateHeaderOuterHeight(headerElement) {
-    if (!headerElement) return 0;
-    return Math.ceil($(headerElement).outerHeight() || 0);
+function calculateHeaderOuterHeight($headerElement) {
+    if (!$headerElement || !$headerElement.length) return 0;
+    return Math.ceil($headerElement.outerHeight() || 0);
 }
 
 /**
@@ -24,50 +22,45 @@ function calculateHeaderOuterHeight(headerElement) {
  * Bei einem fixierten Header entspricht dies exakt dem sichtbaren Offset,
  * unter dem das mobile Offcanvas-Menü beginnen muss.
  *
- * @param {HTMLElement|Element|null} headerElement - Das Header-Element.
  * @returns {number} Die aufgerundete Unterkante des Headers in Pixeln.
  */
-function calculateHeaderVisualBottom(headerElement) {
-    if (!headerElement) return 0;
-    return Math.ceil(headerElement.getBoundingClientRect().bottom || 0);
+function calculateHeaderVisualBottom($headerElement) {
+    if (!$headerElement || !$headerElement.length) return 0;
+    return Math.ceil($headerElement[0].getBoundingClientRect().bottom || 0);
 }
 
 /**
  * Synchronisiert den Start-Offset des mobilen Offcanvas-Menüs mit der aktuellen Header-Höhe.
- *
- * @param {HTMLElement|Element|null} headerElement - Das Header-Element, dessen Höhe als Offcanvas-Offset verwendet wird.
  */
-function syncOffcanvasInsetWithHeader(headerElement) {
-    const navWrapper = document.querySelector('.header__nav-wrapper');
+function syncOffcanvasInsetWithHeader($headerElement) {
+    const $navWrapper = $('.header__nav-wrapper');
 
-    if (!navWrapper) {
+    if (!$navWrapper.length) {
         return;
     }
 
-    if (window.innerWidth < 1024) {
+    if ($(window).innerWidth() < 1024) {
         /** Mobile: Neuen Wert berechnen */
-        const newValue = calculateHeaderVisualBottom(headerElement) + 'px';
+        const newValue = calculateHeaderVisualBottom($headerElement) + 'px';
 
         /** Nur ins DOM schreiben, wenn der Wert nicht sowieso schon exakt dieser ist! */
-        if (navWrapper.style.insetBlockStart !== newValue) {
-            navWrapper.style.insetBlockStart = newValue;
+        if ($navWrapper[0].style.insetBlockStart !== newValue) {
+            $navWrapper.css('inset-block-start', newValue);
         }
     } else {
         /** Desktop: Nur löschen, wenn überhaupt ein Inline-Style gesetzt ist! */
-        if (navWrapper.style.insetBlockStart) {
-            navWrapper.style.removeProperty('inset-block-start');
+        if ($navWrapper[0].style.insetBlockStart) {
+            $navWrapper.css('inset-block-start', '');
         }
     }
 }
 
 /**
  * Plant eine Nachmessung, sobald der Browser die nächste Layout-/Paint-Phase erreicht hat.
- *
- * @param {HTMLElement|Element|null} headerElement - Das Header-Element.
  */
-function scheduleOffcanvasInsetSync(headerElement) {
+function scheduleOffcanvasInsetSync($headerElement) {
     window.requestAnimationFrame(function() {
-        syncOffcanvasInsetWithHeader(headerElement);
+        syncOffcanvasInsetWithHeader($headerElement);
     });
 }
 
@@ -77,71 +70,66 @@ function scheduleOffcanvasInsetSync(headerElement) {
  * Beinhaltet Logik zur Vermeidung von Layout-Thrashing und Scroll-Jitter ("Wackeln").
  */
 function headerScrollInitialize() {
-    const header = document.querySelector('header');
+    const $header = $('header');
 
-    if (!header) {
+    if (!$header.length) {
         return;
     }
 
     let isScrolled = false;
-    let initialHeight = calculateHeaderOuterHeight(header);
-    let windowWidth = window.innerWidth;
+    let initialHeight = calculateHeaderOuterHeight($header);
+    let windowWidth = $(window).innerWidth();
 
     function updateHeaderScrollState() {
-        const currentScroll = window.scrollY;
+        const currentScroll = $(window).scrollTop();
 
         if (!isScrolled && currentScroll > initialHeight) {
-            header.classList.add('header--scrolled');
-            syncOffcanvasInsetWithHeader(header);
-            scheduleOffcanvasInsetSync(header);
+            $header.addClass('header--scrolled');
+            syncOffcanvasInsetWithHeader($header);
+            scheduleOffcanvasInsetSync($header);
             isScrolled = true;
         }
-        else if (isScrolled && currentScroll <= calculateHeaderOuterHeight(header)) {
-            header.classList.remove('header--scrolled');
-            syncOffcanvasInsetWithHeader(header);
-            scheduleOffcanvasInsetSync(header);
+        else if (isScrolled && currentScroll <= calculateHeaderOuterHeight($header)) {
+            $header.removeClass('header--scrolled');
+            syncOffcanvasInsetWithHeader($header);
+            scheduleOffcanvasInsetSync($header);
             isScrolled = false;
         }
 
-        syncOffcanvasInsetWithHeader(header);
+        syncOffcanvasInsetWithHeader($header);
     }
 
     // Resize-Event: Aktualisiert die initiale Höhe nur, wenn sich die Viewport-Breite ändert.
-    // Verhindert Performance-Probleme auf Mobilgeräten (z. B. durch ein-/ausklappende Adressleisten).
-    window.addEventListener('resize', function() {
-        if (window.innerWidth !== windowWidth) {
-            windowWidth = window.innerWidth;
+    $(window).on('resize', function() {
+        if ($(window).innerWidth() !== windowWidth) {
+            windowWidth = $(window).innerWidth();
 
-            const currentlyScrolled = header.classList.contains('header--scrolled');
+            const currentlyScrolled = $header.hasClass('header--scrolled');
 
             // Um die echte Initialhöhe zu messen, muss die "scrolled"-Klasse kurzzeitig entfernt werden
             if (currentlyScrolled) {
-                header.classList.remove('header--scrolled');
+                $header.removeClass('header--scrolled');
             }
 
-            initialHeight = calculateHeaderOuterHeight(header);
+            initialHeight = calculateHeaderOuterHeight($header);
 
             // Ursprünglichen Zustand wiederherstellen
             if (currentlyScrolled) {
-                header.classList.add('header--scrolled');
+                $header.addClass('header--scrolled');
             }
 
             updateHeaderScrollState();
         }
-    }, { passive: true });
+    });
 
-    // Scroll-Event: Steuert das Hinzufügen/Entfernen der CSS-Klasse.
-    // { passive: true } sorgt für flüssiges Scrollen auf mobilen Endgeräten.
-    window.addEventListener('scroll', function() {
-        updateHeaderScrollState();
-    }, { passive: true });
+    // Scroll-Event: Aktualisiert den Scroll-Zustand des Headers.
+    $(window).on('scroll', updateHeaderScrollState);
 
-    header.addEventListener('transitionend', function(event) {
-        if (event.target !== header) {
+    $header.on('transitionend', function(event) {
+        if (event.target !== $header[0]) {
             return;
         }
-
-        syncOffcanvasInsetWithHeader(header);
+        syncOffcanvasInsetWithHeader($header);
     });
 
     updateHeaderScrollState();
@@ -154,27 +142,28 @@ function headerScrollInitialize() {
  * einen ResizeObserver für millimetergenaue CSS-Positionierungen.
  */
 function mobileNavigationInitialize() {
-    const header = document.querySelector('.header');
-    let headerOuterHeight = calculateHeaderOuterHeight(header);
-    const toggleButton = document.querySelector('[data-mobile-nav-toggle]');
-    const panel = document.querySelector('.header__nav-wrapper');
-    const overlay = document.querySelector('[data-overlay]');
+    const $header = $('.header');
+    const $toggleButton = $('[data-mobile-nav-toggle]');
+    const $panel = $('.header__nav-wrapper');
+    const $overlay = $('[data-overlay]');
     const transitionDuration = 300;
     let animationResetTimeout = null;
 
-    if (!header || !toggleButton || !overlay || !panel) {
+    if (!$header.length || !$toggleButton.length || !$overlay.length || !$panel.length) {
         return;
     }
 
-    // Selektoren für alle fokussierbaren Elemente innerhalb der Navigation (für Barrierefreiheit/Tastaturnavigation)
+    let headerOuterHeight = calculateHeaderOuterHeight($header);
+
+    // Selektoren für alle fokussierbaren Elemente innerhalb der Navigation.
     const focusableSelectors = 'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])';
 
     /**
-     * Aktualisiert die CSS-Variable für den vertikalen Offset des Offcanvas-Menüs.
+     * Aktualisiert den vertikalen Offset des Offcanvas-Menüs.
      */
     function headerHeightInitialize() {
-        headerOuterHeight = calculateHeaderOuterHeight(header);
-        syncOffcanvasInsetWithHeader(header);
+        headerOuterHeight = calculateHeaderOuterHeight($header);
+        syncOffcanvasInsetWithHeader($header);
     }
 
     /**
@@ -182,7 +171,7 @@ function mobileNavigationInitialize() {
      * @returns {number} Die Breite der Scrollbar in Pixeln.
      */
     function getScrollbarWidth() {
-        return window.innerWidth - document.documentElement.clientWidth;
+        return $(window).innerWidth() - $('html').prop('clientWidth');
     }
 
     /**
@@ -192,20 +181,20 @@ function mobileNavigationInitialize() {
      */
     function applyScrollLockCompensation(scrollbarWidth) {
         if (scrollbarWidth > 0) {
-            document.body.style.paddingRight = scrollbarWidth + 'px';
-            toggleButton.style.paddingRight = scrollbarWidth + 'px';
+            $('body').css('padding-right', scrollbarWidth + 'px');
+            $toggleButton.css('padding-right', scrollbarWidth + 'px');
             return;
         }
-        document.body.style.removeProperty('padding-right');
-        toggleButton.style.removeProperty('padding-right');
+        $('body').css('padding-right', '');
+        $toggleButton.css('padding-right', '');
     }
 
     /**
      * Entfernt die Scrollbar-Kompensation.
      */
     function clearScrollLockCompensation() {
-        document.body.style.removeProperty('padding-right');
-        toggleButton.style.removeProperty('padding-right');
+        $('body').css('padding-right', '');
+        $toggleButton.css('padding-right', '');
     }
 
     /**
@@ -216,9 +205,9 @@ function mobileNavigationInitialize() {
             clearTimeout(animationResetTimeout);
         }
 
-        document.body.classList.add('nav--animate');
-        animationResetTimeout = window.setTimeout(function() {
-            document.body.classList.remove('nav--animate');
+        $('body').addClass('nav--animate');
+        animationResetTimeout = setTimeout(function() {
+            $('body').removeClass('nav--animate');
             animationResetTimeout = null;
         }, transitionDuration);
     }
@@ -235,10 +224,10 @@ function mobileNavigationInitialize() {
         if (shouldAnimate) {
             enableNavigationAnimation();
         } else {
-            document.body.classList.remove('nav--animate');
+            $('body').removeClass('nav--animate');
         }
 
-        document.body.classList.toggle('nav--open', isOpen);
+        $('body').toggleClass('nav--open', isOpen);
 
         if (isOpen) {
             applyScrollLockCompensation(scrollbarWidth);
@@ -247,9 +236,9 @@ function mobileNavigationInitialize() {
         }
 
         // Aria-Attribute für Barrierefreiheit aktualisieren
-        toggleButton.setAttribute('aria-expanded', String(isOpen));
-        toggleButton.setAttribute('aria-label', isOpen ? 'Navigation schließen' : 'Navigation öffnen');
-        panel.setAttribute('aria-hidden', String(!isOpen));
+        $toggleButton.attr('aria-expanded', isOpen.toString());
+        $toggleButton.attr('aria-label', isOpen ? 'Navigation schließen' : 'Navigation öffnen');
+        $panel.attr('aria-hidden', (!isOpen).toString());
     }
 
     /**
@@ -257,7 +246,7 @@ function mobileNavigationInitialize() {
      */
     function closeNavigation() {
         setNavigationState(false, true);
-        toggleButton.focus();
+        $toggleButton.trigger('focus');
     }
 
     /**
@@ -266,9 +255,9 @@ function mobileNavigationInitialize() {
     function openNavigation() {
         setNavigationState(true, true);
 
-        const firstFocusableElement = panel.querySelector(focusableSelectors);
-        if (firstFocusableElement) {
-            firstFocusableElement.focus();
+        const $firstFocusableElement = $panel.find(focusableSelectors).first();
+        if ($firstFocusableElement.length) {
+            $firstFocusableElement.trigger('focus');
         }
     }
 
@@ -276,7 +265,7 @@ function mobileNavigationInitialize() {
      * Wechselt den Zustand der Navigation (Toggle).
      */
     function toggleNavigation() {
-        const isOpen = toggleButton.getAttribute('aria-expanded') === 'true';
+        const isOpen = $toggleButton.attr('aria-expanded') === 'true';
         if (isOpen) {
             closeNavigation();
         } else {
@@ -285,11 +274,11 @@ function mobileNavigationInitialize() {
     }
 
     // Event-Listener für Navigation Controls
-    toggleButton.addEventListener('click', toggleNavigation);
-    overlay.addEventListener('click', closeNavigation);
+    $toggleButton.on('click', toggleNavigation);
+    $overlay.on('click', closeNavigation);
 
     // Tastaturnavigation: Öffnen/Schließen per Enter- oder Leertaste
-    toggleButton.addEventListener('keydown', function(event) {
+    $toggleButton.on('keydown', function(event) {
         if (event.key === 'Enter' || event.key === ' ') {
             event.preventDefault();
             toggleNavigation();
@@ -297,20 +286,16 @@ function mobileNavigationInitialize() {
     });
 
     // Navigation schließen, wenn ein regulärer Link geklickt wird
-    panel.querySelectorAll('a[href]').forEach(function(link) {
-        link.addEventListener('click', function() {
-            closeNavigation();
-        });
-    });
+    $panel.find('a[href]').on('click', closeNavigation);
 
     // Navigation per Escape-Taste schließen (wichtig für Barrierefreiheit)
-    document.addEventListener('keydown', function(event) {
-        if (event.key === 'Escape' && toggleButton.getAttribute('aria-expanded') === 'true') {
+    $(document).on('keydown', function(event) {
+        if (event.key === 'Escape' && $toggleButton.attr('aria-expanded') === 'true') {
             closeNavigation();
         }
     });
 
-    // Initiale CSS-Variablen-Berechnung
+    // Initiale Offcanvas-Offset-Berechnung.
     headerHeightInitialize();
 
     // Moderner ResizeObserver: Überwacht Änderungen an der Header-Höhe (z. B. durch CSS-Animationen).
@@ -319,24 +304,24 @@ function mobileNavigationInitialize() {
         const headerObserver = new ResizeObserver(function() {
             headerHeightInitialize();
         });
-        headerObserver.observe(header);
+        headerObserver.observe($header[0]);
     }
 
     // Resize-Handling für Layout-Wechsel (Desktop <-> Mobile)
-    window.addEventListener('resize', function() {
+    $(window).on('resize', function() {
         headerHeightInitialize();
 
-        // Scrollbar-Kompensation bei geöffneter Navigations während eines Resizes neu berechnen
-        if (toggleButton.getAttribute('aria-expanded') === 'true') {
+        // Scrollbar-Kompensation bei geöffneter Navigation während eines Resizes neu berechnen.
+        if ($toggleButton.attr('aria-expanded') === 'true') {
             clearScrollLockCompensation();
-            document.body.classList.remove('nav--open');
+            $('body').removeClass('nav--open');
             const scrollbarWidth = getScrollbarWidth();
-            document.body.classList.add('nav--open');
+            $('body').addClass('nav--open');
             applyScrollLockCompensation(scrollbarWidth);
         }
 
-        // Navigation automatisch schließen, wenn der Breakpoint für Desktop (>= 1024px) erreicht wird
-        if (window.innerWidth >= 1024 && toggleButton.getAttribute('aria-expanded') === 'true') {
+        // Navigation automatisch schließen, wenn der Desktop-Breakpoint erreicht wird.
+        if ($(window).innerWidth() >= 1024 && $toggleButton.attr('aria-expanded') === 'true') {
             setNavigationState(false, false);
         }
     });
@@ -346,7 +331,7 @@ function mobileNavigationInitialize() {
  * Splide.js Carousels
  * ========================================================================== */
 
-// Ermittelt die Anzahl der Slides im DOM vor der Initialisierung.
+// Ermittelt die Anzahl der Demo-Slides im DOM vor der Initialisierung.
 let demoCarouselItems = $('#splide-carousel').find('.splide__slide').length;
 console.log('Demo Items:', demoCarouselItems);
 
@@ -362,7 +347,7 @@ function demoCarouselInitialize() {
             perPage: 1,
             perMove: 1,
             gap: '4rem',
-            destroy: 1 >= demoCarouselItems, // true, wenn zu wenige Items vorhanden
+            destroy: 1 >= demoCarouselItems,
             mediaQuery: 'min',
             breakpoints: {
                 768: {
@@ -381,7 +366,7 @@ function demoCarouselInitialize() {
     }
 }
 
-// Ermittelt die Anzahl der Slides im DOM vor der Initialisierung.
+// Ermittelt die Anzahl der Education-Slides im DOM vor der Initialisierung.
 let educationCarouselItems = $('#education-carousel').find('.splide__slide').length;
 console.log('Education Items:', educationCarouselItems);
 
@@ -425,15 +410,15 @@ function educationCarouselInitialize() {
  * Zeigt Statusmeldungen und Validierungsfehler (inkl. ARIA-Invalid) im Frontend an.
  */
 function contactFormInitialize() {
-    const form = document.querySelector('#contact-form');
+    const $form = $('#contact-form');
 
-    if (!form) {
+    if (!$form.length) {
         return;
     }
 
-    const submitButton = document.querySelector('[data-contact-submit]');
-    const statusElement = document.querySelector('[data-contact-status]');
-    const defaultSubmitHtml = submitButton ? submitButton.innerHTML : '';
+    const $submitButton = $('[data-contact-submit]');
+    const $statusElement = $('[data-contact-status]');
+    const defaultSubmitHtml = $submitButton.length ? $submitButton.html() : '';
 
     /**
      * Setzt die globale Statusmeldung (Erfolg oder Fehler) des Formulars.
@@ -441,23 +426,17 @@ function contactFormInitialize() {
      * @param {string} type - Der Typ der Meldung ('success' oder 'error').
      */
     function setStatus(message, type) {
-        if (!statusElement) return;
-
-        statusElement.textContent = message;
-        statusElement.dataset.contactStatus = type;
+        if (!$statusElement.length) return;
+        $statusElement.text(message);
+        $statusElement.attr('data-contact-status', type);
     }
 
     /**
      * Entfernt alle vorherigen Fehlermeldungen und Aria-Invalid Attribute von den Formularfeldern.
      */
     function clearErrors() {
-        form.querySelectorAll('[data-contact-error]').forEach(function(errorElement) {
-            errorElement.textContent = '';
-        });
-
-        form.querySelectorAll('[aria-invalid="true"]').forEach(function(field) {
-            field.removeAttribute('aria-invalid');
-        });
+        $form.find('[data-contact-error]').text('');
+        $form.find('[aria-invalid="true"]').removeAttr('aria-invalid');
     }
 
     /**
@@ -465,16 +444,15 @@ function contactFormInitialize() {
      * @param {Object} errors - Ein Objekt mit den Feldnamen als Keys und den Fehlermeldungen als Values.
      */
     function renderErrors(errors) {
-        Object.keys(errors).forEach(function(name) {
-            const errorElement = form.querySelector('[data-contact-error="' + name + '"]');
-            const field = form.elements[name];
+        $.each(errors, function(name, errorMsg) {
+            const $errorElement = $form.find('[data-contact-error="' + name + '"]');
+            const $field = $form.find('[name="' + name + '"]');
 
-            if (errorElement) {
-                errorElement.textContent = errors[name];
+            if ($errorElement.length) {
+                $errorElement.text(errorMsg);
             }
-
-            if (field) {
-                field.setAttribute('aria-invalid', 'true');
+            if ($field.length) {
+                $field.attr('aria-invalid', 'true');
             }
         });
     }
@@ -484,58 +462,62 @@ function contactFormInitialize() {
      * @param {boolean} isSubmitting - Status, ob das Formular aktuell gesendet wird.
      */
     function setSubmitting(isSubmitting) {
-        form.setAttribute('aria-busy', String(isSubmitting));
+        $form.attr('aria-busy', isSubmitting.toString());
 
-        if (!submitButton) return;
+        if (!$submitButton.length) return;
 
-        submitButton.disabled = isSubmitting;
-        submitButton.innerHTML = isSubmitting ? 'Nachricht wird gesendet...' : defaultSubmitHtml;
+        $submitButton.prop('disabled', isSubmitting);
+        $submitButton.html(isSubmitting ? 'Nachricht wird gesendet...' : defaultSubmitHtml);
     }
 
-    // Formular Submit Handler
-    form.addEventListener('submit', function(event) {
-        event.preventDefault(); // Standard-Weiterleitung blockieren
+    // Formular-Submit-Handler.
+    $form.on('submit', function(event) {
+        event.preventDefault(); // Standard-Weiterleitung blockieren.
 
         clearErrors();
         setStatus('', '');
         setSubmitting(true);
 
-        fetch(form.action, {
+        $.ajax({
+            url: $form.attr('action'),
             method: 'POST',
-            body: new FormData(form),
+            data: new FormData($form[0]),
+            processData: false,
+            contentType: false,
+            dataType: 'json',
             headers: {
                 'Accept': 'application/json'
             }
         })
-            .then(function(response) {
-                return response.json().then(function(payload) {
-                    return {
-                        ok: response.ok,
-                        payload: payload
-                    };
-                });
-            })
-            .then(function(result) {
-                // Server meldet einen Fehler (z.B. Validierung fehlgeschlagen)
-                if (!result.ok || !result.payload.ok) {
-                    if (result.payload.errors) {
-                        renderErrors(result.payload.errors);
+            .done(function(payload) {
+                // Server meldet einen Fehler.
+                if (!payload.ok) {
+                    if (payload.errors) {
+                        renderErrors(payload.errors);
                     }
-
-                    setStatus(result.payload.message || 'Die Nachricht konnte nicht gesendet werden.', 'error');
+                    setStatus(payload.message || 'Die Nachricht konnte nicht gesendet werden.', 'error');
                     return;
                 }
 
-                // Erfolgreich gesendet
-                form.reset();
-                setStatus(result.payload.message, 'success');
+                // Erfolgreich gesendet.
+                $form[0].reset();
+                setStatus(payload.message, 'success');
             })
-            .catch(function() {
-                // Netzwerkfehler (z.B. keine Internetverbindung)
+            .fail(function(jqXHR) {
+                const payload = jqXHR.responseJSON;
+
+                if (payload && payload.errors) {
+                    renderErrors(payload.errors);
+                    setStatus(payload.message || 'Die Nachricht konnte nicht gesendet werden.', 'error');
+                    return;
+                }
+
+                // Netzwerkfehler.
                 setStatus('Die Verbindung ist fehlgeschlagen. Bitte versuche es erneut.', 'error');
             })
-            .finally(function() {
-                setSubmitting(false); // Button am Ende immer wieder freigeben
+            .always(function() {
+                // Button am Ende immer wieder freigeben.
+                setSubmitting(false);
             });
     });
 }
@@ -544,8 +526,7 @@ function contactFormInitialize() {
  * Initialisierung bei Document Ready
  * ========================================================================== */
 
-// Wrapper stellt sicher, dass das DOM vollständig geladen ist, bevor Skripte greifen.
-// Zudem wird die $ Variable sicher auf jQuery gemappt, falls andere Bibliotheken verwendet werden.
+// Wartet, bis die HTML-Struktur vollständig geladen ist, bevor Funktionen ausgeführt werden.
 jQuery(function($) {
     headerScrollInitialize();
     mobileNavigationInitialize();

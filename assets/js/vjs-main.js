@@ -1,5 +1,5 @@
 /**
- * @fileoverview Haupt-JavaScript-Datei für das Frontend. (100% Vanilla JS)
+ * @fileoverview Haupt-JavaScript-Datei für das Frontend.
  * Beinhaltet die Logik für den scrollenden Header, die mobile Navigation,
  * Splide-Carousels und die asynchrone Verarbeitung des Kontaktformulars.
  *
@@ -7,16 +7,13 @@
  */
 
 /**
- * Berechnet die äußere Höhe (Outer Height) des übergebenen DOM-Elements nativ.
- * Ersetzt jQuerys .outerHeight() durch die native Eigenschaft .offsetHeight.
- * Verwendet Math.ceil, um unschöne Sub-Pixel-Werte aufzurunden.
+ * Berechnet die äußere Höhe des übergebenen Header-Elements.
+ * Verwendet Math.ceil, um Sub-Pixel-Werte aufzurunden.
  *
- * @param {HTMLElement|Element|null} headerElement - Das HTML-Element, dessen Höhe berechnet werden soll.
  * @returns {number} Die aufgerundete Höhe des Elements in Pixeln. Gibt 0 zurück, falls das Element nicht existiert.
  */
 function calculateHeaderOuterHeight(headerElement) {
     if (!headerElement) return 0;
-    // offsetHeight entspricht exakt dem jQuery-Verhalten (inkl. Padding + Border, ohne Margin)
     return Math.ceil(headerElement.offsetHeight || 0);
 }
 
@@ -25,7 +22,6 @@ function calculateHeaderOuterHeight(headerElement) {
  * Bei einem fixierten Header entspricht dies exakt dem sichtbaren Offset,
  * unter dem das mobile Offcanvas-Menü beginnen muss.
  *
- * @param {HTMLElement|Element|null} headerElement - Das Header-Element.
  * @returns {number} Die aufgerundete Unterkante des Headers in Pixeln.
  */
 function calculateHeaderVisualBottom(headerElement) {
@@ -35,8 +31,6 @@ function calculateHeaderVisualBottom(headerElement) {
 
 /**
  * Synchronisiert den Start-Offset des mobilen Offcanvas-Menüs mit der aktuellen Header-Höhe.
- *
- * @param {HTMLElement|Element|null} headerElement - Das Header-Element, dessen Höhe als Offcanvas-Offset verwendet wird.
  */
 function syncOffcanvasInsetWithHeader(headerElement) {
     const navWrapper = document.querySelector('.header__nav-wrapper');
@@ -63,8 +57,6 @@ function syncOffcanvasInsetWithHeader(headerElement) {
 
 /**
  * Plant eine Nachmessung, sobald der Browser die nächste Layout-/Paint-Phase erreicht hat.
- *
- * @param {HTMLElement|Element|null} headerElement - Das Header-Element.
  */
 function scheduleOffcanvasInsetSync(headerElement) {
     window.requestAnimationFrame(function() {
@@ -108,7 +100,6 @@ function headerScrollInitialize() {
     }
 
     // Resize-Event: Aktualisiert die initiale Höhe nur, wenn sich die Viewport-Breite ändert.
-    // Verhindert Performance-Probleme auf Mobilgeräten (z. B. durch ein-/ausklappende Adressleisten).
     window.addEventListener('resize', function() {
         if (window.innerWidth !== windowWidth) {
             windowWidth = window.innerWidth;
@@ -131,8 +122,7 @@ function headerScrollInitialize() {
         }
     }, { passive: true });
 
-    // Scroll-Event: Steuert das Hinzufügen/Entfernen der CSS-Klasse.
-    // { passive: true } sorgt für flüssiges Scrollen auf mobilen Endgeräten.
+    // Scroll-Event: Aktualisiert den Scroll-Zustand des Headers.
     window.addEventListener('scroll', function() {
         updateHeaderScrollState();
     }, { passive: true });
@@ -167,11 +157,11 @@ function mobileNavigationInitialize() {
         return;
     }
 
-    // Selektoren für alle fokussierbaren Elemente innerhalb der Navigation (für Barrierefreiheit/Tastaturnavigation)
+    // Selektoren für alle fokussierbaren Elemente innerhalb der Navigation.
     const focusableSelectors = 'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])';
 
     /**
-     * Aktualisiert die CSS-Variable für den vertikalen Offset des Offcanvas-Menüs.
+     * Aktualisiert den vertikalen Offset des Offcanvas-Menüs.
      */
     function headerHeightInitialize() {
         headerOuterHeight = calculateHeaderOuterHeight(header);
@@ -311,7 +301,7 @@ function mobileNavigationInitialize() {
         }
     });
 
-    // Initiale CSS-Variablen-Berechnung
+    // Initiale Offcanvas-Offset-Berechnung.
     headerHeightInitialize();
 
     // Moderner ResizeObserver: Überwacht Änderungen an der Header-Höhe (z. B. durch CSS-Animationen).
@@ -327,7 +317,7 @@ function mobileNavigationInitialize() {
     window.addEventListener('resize', function() {
         headerHeightInitialize();
 
-        // Scrollbar-Kompensation bei geöffneter Navigations während eines Resizes neu berechnen
+        // Scrollbar-Kompensation bei geöffneter Navigation während eines Resizes neu berechnen.
         if (toggleButton.getAttribute('aria-expanded') === 'true') {
             clearScrollLockCompensation();
             document.body.classList.remove('nav--open');
@@ -336,7 +326,7 @@ function mobileNavigationInitialize() {
             applyScrollLockCompensation(scrollbarWidth);
         }
 
-        // Navigation automatisch schließen, wenn der Breakpoint für Desktop (>= 1024px) erreicht wird
+        // Navigation automatisch schließen, wenn der Desktop-Breakpoint erreicht wird.
         if (window.innerWidth >= 1024 && toggleButton.getAttribute('aria-expanded') === 'true') {
             setNavigationState(false, false);
         }
@@ -347,8 +337,7 @@ function mobileNavigationInitialize() {
  * Splide.js Carousels
  * ========================================================================== */
 
-// Native Zählung der Demo-Slides per Vanilla JS querySelectorAll.
-// (Wenn keine vorhanden sind, ist die .length automatisch 0).
+// Ermittelt die Anzahl der Demo-Slides im DOM vor der Initialisierung.
 let demoCarouselItems = document.querySelectorAll('#splide-carousel .splide__slide').length;
 console.log('Demo Items:', demoCarouselItems);
 
@@ -364,7 +353,7 @@ function demoCarouselInitialize() {
             perPage: 1,
             perMove: 1,
             gap: '4rem',
-            destroy: 1 >= demoCarouselItems, // true, wenn zu wenige Items vorhanden
+            destroy: 1 >= demoCarouselItems,
             mediaQuery: 'min',
             breakpoints: {
                 768: {
@@ -383,7 +372,7 @@ function demoCarouselInitialize() {
     }
 }
 
-// Native Zählung der Education-Slides per Vanilla JS.
+// Ermittelt die Anzahl der Education-Slides im DOM vor der Initialisierung.
 let educationCarouselItems = document.querySelectorAll('#education-carousel .splide__slide').length;
 console.log('Education Items:', educationCarouselItems);
 
@@ -494,9 +483,9 @@ function contactFormInitialize() {
         submitButton.innerHTML = isSubmitting ? 'Nachricht wird gesendet...' : defaultSubmitHtml;
     }
 
-    // Formular Submit Handler
+    // Formular-Submit-Handler.
     form.addEventListener('submit', function(event) {
-        event.preventDefault(); // Standard-Weiterleitung blockieren
+        event.preventDefault(); // Standard-Weiterleitung blockieren.
 
         clearErrors();
         setStatus('', '');
@@ -518,7 +507,7 @@ function contactFormInitialize() {
                 });
             })
             .then(function(result) {
-                // Server meldet einen Fehler (z.B. Validierung fehlgeschlagen)
+                // Server meldet einen Fehler.
                 if (!result.ok || !result.payload.ok) {
                     if (result.payload.errors) {
                         renderErrors(result.payload.errors);
@@ -528,26 +517,26 @@ function contactFormInitialize() {
                     return;
                 }
 
-                // Erfolgreich gesendet
+                // Erfolgreich gesendet.
                 form.reset();
                 setStatus(result.payload.message, 'success');
             })
             .catch(function() {
-                // Netzwerkfehler (z.B. keine Internetverbindung)
+                // Netzwerkfehler.
                 setStatus('Die Verbindung ist fehlgeschlagen. Bitte versuche es erneut.', 'error');
             })
             .finally(function() {
-                setSubmitting(false); // Button am Ende immer wieder freigeben
+                // Button am Ende immer wieder freigeben.
+                setSubmitting(false);
             });
     });
 }
 
 /* ==========================================================================
- * Initialisierung bei Document Ready (Natives JavaScript)
+ * Initialisierung bei Document Ready
  * ========================================================================== */
 
-// Der DOMContentLoaded-Event-Listener ist die native Alternative zu $(document).ready()
-// Er wartet, bis die HTML-Struktur vollständig geladen ist, bevor Funktionen ausgeführt werden.
+// Wartet, bis die HTML-Struktur vollständig geladen ist, bevor Funktionen ausgeführt werden.
 document.addEventListener('DOMContentLoaded', function() {
     headerScrollInitialize();
     mobileNavigationInitialize();

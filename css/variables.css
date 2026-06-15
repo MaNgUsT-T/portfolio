@@ -231,6 +231,31 @@
     --card-border-radius:var(--radius-2xl);
     --card-shadow: var(--shadow-s);
 
+    --splide-track-margin-inline: ;
+    --splide-track-padding-block: ;
+    --splide-track-padding-inline: ;
+    --splide-list-gap: var(--spacing-2xl);
+    --splide-arrow-position: 0;
+    --splide-arrow-size: 3.6rem;
+    --splide-arrow-opacity: .7;
+    --splide-arrow-svg-size: ;
+    --splide-arrow-bg: var(--tertiary);
+    --splide-arrow-svg-color: var(--secondary);
+    --splide-pagination-block-start: ;
+    --splide-pagination-block-end: uset;
+    --splide-pagination-inline-start: 0;
+    --splide-pagination-inline-end: 0;
+    --splide-pagination-margin: ;
+    --splide-pagination-padding: var(--spacing-xs) var(--spacing-xs) 0 var(--spacing-xs);
+    --splide-pagination-display: flex;
+    --splide-pagination-flex-wrap: wrap;
+    --splide-pagination-gap: var(--spacing-xs);
+    --splide-pagination-align-items: center;
+    --splide-pagination-justify-content: center;
+    --splide-pagination-position: relative;
+    --splide-pagination-page-size: 0.8rem;
+    --splide-pagination-page-bg: var(--tertiary-bright);
+    --splide-pagination-page-active-bg: var(--tertiary);
 
     --header-padding: var(--spacing-xl);
     --header-scrolled-padding: var(--spacing-m);
@@ -310,7 +335,11 @@
     --education-item-direction: column;
     --education-item-gap:var(--spacing-xl);
 
-
+    --education-splide-track-margin-inline: calc(-1 * var(--spacing-xs));
+    --education-splide-track-padding-block: 0 var(--spacing-xs);
+    --education-splide-track-padding-inline: var(--spacing-xs);
+    --education-slider-arrow-bg: var(--tertiary);
+    --education-slider-arrow-storke: var(--secondary);
 
 
 

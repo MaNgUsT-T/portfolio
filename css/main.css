@@ -605,14 +605,6 @@
 	.education__wrapper {
 		--wrapper-gap: var(--spacing-2xl);
 
-		@media (min-width: 48rem) {
-			grid-template-columns: repeat(2, 1fr);
-		}
-
-		@media (min-width: 64rem) {
-			grid-template-columns: repeat(4, 1fr);
-		}
-
 		h3 {
 			font-size: 1.6rem;
 		}

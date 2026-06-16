@@ -42,8 +42,9 @@ vermeiden.
 - `js/` - Projekt Js.
 - `vendor/` - Drittanbieter Bibliotheken.
 - `index.html` - Einstiegspunkt.
-- `config.php` - Kontakt Formular Konfiguration.
+- `config.php` - Datenbank Konfiguration.
 - `contact.php` - Kontakt Formular.
+- `form-config.php` - Kontakt Formular Konfiguration
 
 ## Schnellstart (lokal)
 

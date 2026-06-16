@@ -19,8 +19,9 @@ Entwicklungsabläufe ist `_docker/` die maßgebliche Arbeitsbasis.
 - `js/` - Projekt Js.
 - `vendor/` - Drittanbieter Bibliotheken.
 - `index.html` - Einstiegspunkt.
-- `config.php` - Kontakt Formular Konfiguration.
+- `config.php` - Datenbank Konfiguration.
 - `contact.php` - Kontakt Formular.
+- `form-config.php` - Kontakt Formular Konfiguration.
 
 ### Infrastruktur und Hilfsverzeichnisse
 Die lokale Entwicklungsumgebung liegt unter `_docker/` (Compose, Makefile, Buildfiles, Dockerfiles, Skripte).

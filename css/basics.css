@@ -118,7 +118,7 @@ footer {
 
 .highlight {
     font-size: var(--highlight-fs) !important;
-    font-width: var(--highlight-fw) !important;
+    font-weight: var(--highlight-fw) !important;
     color: var(--highlight-color) !important;
     line-height: var(--highlight-lh) !important;
 

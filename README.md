@@ -37,14 +37,16 @@ vermeiden.
 
 - `_docker/` - Lokale Docker-Umgebung (Compose, Makefile, WP-CLI, Traefik).
 - `assets/scss/` - Sass-Quellen.
+- `assets/js/` - JS-Quellen.
 - `css/` - Kompilierte CSS-Ausgabe.
 - `fonts/` - Projekt Fonts.
 - `img/` - Projekt Bilder.
-- `js/` - Projekt Js.
+- `js/` - Projekt JS.
 - `vendor/` - Drittanbieter Bibliotheken.
 - `index.html` - Einstiegspunkt.
-- `config.php` - Kontakt Formular Konfiguration.
+- `config.php` - Datenbank Konfiguration.
 - `contact.php` - Kontakt Formular.
+- `form-config.php` - Kontakt Formular Konfiguration.
 
 ## Schnellstart (lokal)
 

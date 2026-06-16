@@ -963,14 +963,30 @@
 						</div>
 					</div>
 					<div class="contact__col">
-						<form method="post" action="" class="contact-form">
+						<form
+							method="post"
+							action="./contact.php"
+							id="contact-form"
+							class="contact-form"
+							novalidate
+						>
+							<div class="contact-form__status" data-contact-status aria-live="polite"></div>
+							<div class="form-group form-group--website">
+								<label for="website">Website</label>
+								<input type="text"
+									id="website"
+									name="website"
+									tabindex="-1"
+									autocomplete="off"
+								/>
+							</div>
 							<div class="form-group">
 								<label for="salutation">Anrede</label>
 								<select id="salutation" name="salutation">
 									<button>
 										<selectedcontent></selectedcontent>
 									</button>
-									<option value="">Anrede</option>
+									<option selected>Anrede</option>
 									<option value="Herr">Herr</option>
 									<option value="Frau">Frau</option>
 								</select>
@@ -979,81 +995,92 @@
 								<div class="form-group">
 									<label for="firstname">Vorname <sup>*</sup></label>
 									<input type="text"
-										   id="firstname"
-										   name="firstname"
-										   placeholder="Dein Vorname"
-										   max="30"
-										   required />
+										id="firstname"
+										name="firstname"
+										placeholder="Dein Vorname"
+									/>
+									<span data-contact-error="firstname"></span>
 								</div>
 								<div class="form-group">
 									<label for="lastname">Nachname <sup>*</sup></label>
 									<input type="text"
-										   id="lastname"
-										   name="ladtname"
-										   placeholder="Dein Nachname"
-										   max="30"
-										   required />
+										id="lastname"
+										name="lastname"
+										placeholder="Dein Nachname"
+									/>
+									<span data-contact-error="lastname"></span>
 								</div>
 							</div>
 							<div class="form-group">
 								<label for="email">E-Mail <sup>*</sup></label>
 								<input type="email"
-									   id="email"
-									   name="email"
-									   placeholder="hallo@beispiel.de"
-									   required />
+									id="email"
+									name="email"
+									placeholder="hallo@beispiel.de"
+								/>
+								<span data-contact-error="email"></span>
 							</div>
 							<div class="form-group">
-								<label for="subject">Betreff</label>
+								<label for="subject">Betreff <sup>*</sup></label>
 								<input type="text"
-									   id="subject"
-									   name="subject"
-									   placeholder="Worum geht es?" />
+									id="subject"
+									name="subject"
+									placeholder="Worum geht es?"
+								/>
+								<span data-contact-error="subject"></span>
 							</div>
 							<div class="form-group">
 								<div class="form-check">
 									<input type="radio"
-										   id="ci"
-										   name="radio-group"
-										   value="ci"
-										   required>
+										id="ci"
+										name="radio-group"
+										value="ci"
+									>
 									<label for="ci">Corporate Design</label>
 								</div>
 								<div class="form-check">
 									<input type="radio"
-										   id="radio-2"
-										   name="radio-group"
-										   value="print"
-										   required>
+										id="radio-2"
+										name="radio-group"
+										value="print"
+									>
 									<label for="radio-2">Print</label>
 								</div>
 								<div class="form-check">
 									<input type="radio"
-										   id="radio-3"
-										   name="radio-group"
-										   value="web"
-										   required>
-									<label for="radio-2">Web</label>
+										id="radio-3"
+										name="radio-group"
+										value="web"
+									>
+									<label for="radio-3">Web</label>
 								</div>
 							</div>
 							<div class="form-group">
-								<label for="message">Nachricht</label>
+								<label for="message">Nachricht <sup>*</sup></label>
 								<textarea id="message"
-										  name="message"
-										  placeholder="Erzähl mir von deinem Projekt.."
-										  rows="5"></textarea>
+									name="message"
+									placeholder="Erzähl mir von deinem Projekt.."
+									rows="5"
+								></textarea>
+								<span data-contact-error="message"></span>
 							</div>
 							<div class="form-group">
 								<div class="form-check">
 									<input type="checkbox"
-										   id="gdproptin"
-										   name="gdproptin"
-										   value="1"
-										   required>
-									<label for="gdproptin">Ich bin damit einverstanden, dass meine Daten dauerhaft verwendet werden. Ein Widerruf meiner Einwilligung ist jederzeit mit Wirkung für die Zukunft möglich.</label>
+										id="gdproptin"
+										name="gdproptin"
+										value="1"
+									>
+									<label for="gdproptin"><sup>*</sup> Ich bin damit einverstanden, dass meine Daten dauerhaft verwendet werden. Ein Widerruf meiner Einwilligung ist jederzeit mit Wirkung für die Zukunft möglich.</label>
 								</div>
+								<span data-contact-error="gdproptin"></span>
 							</div>
-							<button type="submit" class="btn btn--primary btn--large">
+							<button
+								type="submit"
+								form="contact-form"
+								class="btn btn--primary btn--large"
+								data-contact-submit
+							>
 								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
 									<path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z"></path>
 									<path d="m21.854 2.147-10.94 10.939"></path>
@@ -1064,7 +1091,7 @@
 				</div>
 			</div>
 		</section>
-</main>
+	</main>
 
 	<footer class="footer">
 		<div class="container footer__wrapper">

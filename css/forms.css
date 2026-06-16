@@ -5,7 +5,7 @@ form {
 }
 
 label {
-    margin-bottom: 0.8rem;
+    margin-block-end: 0.8rem;
     display: block;
     font-family: var(--font-text-family);
     font-size: var(--fs-xs);
@@ -33,7 +33,6 @@ textarea {
     }
 }
 
-
 select,
 select::picker(select) {
     appearance: base-select;
@@ -42,7 +41,7 @@ select::picker(select) {
 select {
 
     &::checkmark {
-        content: "data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='%23000' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='m6 10 3 3 6-6'/%3e%3c/svg%3e";
+        content: "data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='%23000' stroke-linecap='round' stroke-linejoin='round' stroke-width='3' d='m6 10 3 3 6-6'/%3e%3c/svg%3e;
     }
 
     &::picker-icon {
@@ -115,14 +114,48 @@ input[type="radio"] {
 
 .form-row {
     display: flex;
+    flex-direction: column;
     gap: var(--spacing-xl);
+    @media (min-width: 41.75rem)  {
+        flex-direction: row;
+    }
 }
 
 .form-group {
     width: 100%;
 }
 
+.form-group--website {
+    position: absolute;
+    inset-inline-start: -999rem;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+}
+
 .form-check {
     display: flex;
     gap: var(--spacing-xs);
+}
+
+.contact-form__status,
+[data-contact-error] {
+    display: none;
+    font-family: var(--font-text-family);
+    font-size: var(--fs-xs);
+}
+
+.contact-form__status[data-contact-status="success"],
+.contact-form__status[data-contact-status="error"],
+[data-contact-error]:not(:empty) {
+    display: block;
+}
+
+.contact-form__status[data-contact-status="success"] {
+    color: #146c43;
+}
+
+.contact-form__status[data-contact-status="error"],
+[data-contact-error]:not(:empty) {
+    color: #b42318;
 }

@@ -22,8 +22,6 @@
         }
 
         svg {
-            width: v.$splide-arrow-svg-size;
-            height: v.$splide-arrow-svg-size;
             fill: transparent;
             stroke: v.$splide-arrow-svg-color;
         }
@@ -34,11 +32,9 @@
     }
 
     .splide__pagination {
-        inset-block-start: v.$splide-pagination-block-start;
         inset-block-end: v.$splide-pagination-block-end;
         inset-inline-start: v.$splide-pagination-inline-start;
         inset-inline-end: v.$splide-pagination-inline-end;
-        margin: v.$splide-pagination-margin;
         padding: v.$splide-pagination-padding;
         display: flex;
         flex-wrap: v.$splide-pagination-flex-wrap;
@@ -80,9 +76,9 @@
 .splide--education {
     
     .splide__track {
-        margin-inline: v.$education-splide-track-margin-inline;
-        padding-block: v.$education-splide-track-padding-block;
-        padding-inline: v.$education-splide-track-padding-inline !important;
+        margin-inline: calc(-1 * #{v.$spacing-xs});
+        padding-block: 0 v.$spacing-xs;
+        padding-inline: v.$spacing-xs !important;
     }
 
     &.is-initialized:not(.is-active) .splide__list {

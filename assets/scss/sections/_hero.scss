@@ -15,32 +15,32 @@
 
 			.availability {
 				width: fit-content;
-				padding: v.$hero-availability-padding;
+				padding: v.$spacing-xxs v.$spacing-s;
 				display: inline-flex;
 				gap: v.$spacing-xs;
 				align-items: center;
-				background: v.$hero-availability-bg;
-				border-radius: v.$hero-availability-radius;
-				font-size: v.$hero-availability-fs;
-				font-weight: v.$hero-availability-fw;
-				color: v.$hero-availability-color;
-				line-height: v.$hero-availability-lh;
+				background: v.$highlight-bg;
+				border-radius: v.$radius-max;
+				font-size: v.$fs-range-fs-xs;
+				font-weight: 500;
+				color: v.$highlight-color;
+				line-height: v.$lh-l;
 
 				&::before {
 					content: '';
 					width: 0.8rem;
 					height: 0.8rem;
 					display: block;
-					background-color: v.$hero-availability-color;
-					border-radius: v.$hero-availability-radius;
+					background-color: v.$highlight-color;
+					border-radius: v.$radius-max;
 				}
 			}
 
 			h1 i {
 				padding-inline-end: v.$spacing-xs;
-				background: v.$tertiary;
+				background: v.$hero-h-1-i-bg;
 				background-clip: text;
-				background-image: linear-gradient(to right, v.$tertiary 20%, v.$quaternary-dark 100%);
+				background-image: v.$hero-h-1-i-bg-image;
 				color: transparent;
 			}
 
@@ -87,10 +87,10 @@
 				}
 
 				&:is(:nth-child(2), :nth-child(3)) {
-					padding: v.$hero-element-padding;
-					border-radius: v.$hero-element-radius;
-					box-shadow: v.$hero-element-shadow;
-					transition: v.$hero-element-transform;
+					padding: v.$spacing-xl;
+					border-radius: v.$radius-2xl;
+					box-shadow: v.$shadow-2xl;
+					transition: transform .5s cubic-bezier(.4, 0, .2, 1);
 					will-change: transform;
 					@media (prefers-reduced-motion: reduce) {
 						transition: none !important;
@@ -103,8 +103,8 @@
 					width: 6.4rem;
 					aspect-ratio: 1 / 1;
 					background: v.$hero-element-1-bg;
-					border-radius: v.$hero-element-radius;
-					box-shadow: v.$hero-element-shadow-soft;
+					border-radius: v.$radius-2xl;
+					box-shadow: v.$shadow-l;
 					animation: bounce 4s infinite;
 					will-change: transform;
 				}
@@ -128,14 +128,14 @@
 							height: 12.8rem;
 							margin-block-end: v.$spacing-m;
 							background: v.$hero-element-2-child-1-bg;
-							border-radius: v.$hero-element-2-child-1-radius;
+							border-radius: v.$radius-xl;
 						}
 
 						&:nth-child(2),
 						&:nth-child(3) {
 							height: 1.6rem;
 							background: v.$hero-element-2-child-2-bg;
-							border-radius: v.$hero-element-radius-max;
+							border-radius: v.$radius-max;
 						}
 
 						&:nth-child(2) {
@@ -155,7 +155,7 @@
 							span {
 								width: 3.2rem;
 								height: 3.2rem;
-								border-radius: v.$hero-element-radius-max;
+								border-radius: v.$radius-max;
 
 								&:nth-child(1) {
 									background: v.$hero-element-2-child-4-grandchild-1-bg;
@@ -185,7 +185,7 @@
 					}
 
 					> div {
-						border-radius: v.$hero-element-radius-max;
+						border-radius: v.$radius-max;
 
 						&:nth-child(1) {
 							margin-block-end: v.$spacing-xl;
@@ -194,12 +194,12 @@
 							gap: v.$spacing-m;
 
 							> div {
-								border-radius: v.$hero-element-radius-max;
+								border-radius: v.$radius-max;
 
 								&:nth-child(1) {
 									width: 4.8rem;
 									aspect-ratio: 1 / 1;
-									background: linear-gradient(125deg, v.$tertiary 20%, v.$quaternary-dark 100%);
+									background: v.$hero-element-3-child-1-grandchild-1-bg;
 								}
 
 								&:nth-child(2) {
@@ -210,20 +210,20 @@
 										&:nth-child(1),
 										&:nth-child(2) {
 											width: 100%;
-											border-radius: v.$hero-element-radius-max;
+											border-radius: v.$radius-max;
 										}
 
 										&:nth-child(1) {
 											max-width: 9.6rem;
 											height: 1.6rem;
 											margin-block-end: v.$spacing-xs;
-											background: v.$color-zinc-200;
+											background: v.$hero-element-3-child-1-grandchild-2-bg;
 										}
 
 										&:nth-child(2) {
 											max-width: 6.4rem;
 											height: 1.2rem;
-											background: v.$color-zinc-100;
+											background: v.$hero-element-3-child-1-grandchild-3-bg;
 										}
 
 									}
@@ -236,7 +236,7 @@
 						&:nth-child(4) {
 							width: 100%;
 							height: 1.2rem;
-							background: v.$color-zinc-100;
+							background: v.$hero-element-3-child-bg;
 
 
 							&:not(:last-child) {
@@ -256,8 +256,8 @@
 					width: 4.8rem;
 					aspect-ratio: 1 / 1;
 					background: v.$hero-element-4-bg;
-					border-radius: v.$hero-element-radius-max;
-					box-shadow: v.$hero-element-shadow-soft;
+					border-radius: v.$radius-max;
+					box-shadow: v.$shadow-l;
 					animation: bounce 5s 1s infinite;
 					will-change: transform;
 				}

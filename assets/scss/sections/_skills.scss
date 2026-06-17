@@ -4,8 +4,8 @@
 .skills {
 
 	.skills__wrapper {
-		row-gap: v.$skills-wrapper-gap;
-		column-gap: v.$skills-wrapper-gap;
+		row-gap: v.$spacing-3xl;
+		column-gap: v.$spacing-3xl;
 		@media (min-width: 75rem)  {
 			grid-template-columns: repeat(3, 1fr);
 		}

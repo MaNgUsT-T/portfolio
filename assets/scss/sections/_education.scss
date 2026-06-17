@@ -4,8 +4,8 @@
 .education {
 
 	.education__wrapper {
-		row-gap: v.$education-wrapper-gap;
-		column-gap: v.$education-wrapper-gap;
+		row-gap: v.$spacing-3xl;
+		column-gap: v.$spacing-3xl;
 		@media (min-width: 75rem)  {
 			grid-template-columns: repeat(4, 1fr);
 		}

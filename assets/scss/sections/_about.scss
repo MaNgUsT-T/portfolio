@@ -4,7 +4,7 @@
 .about {
 
 	.about__wrapper {
-		row-gap: v.$about-wrapper-gap;
+		row-gap: v.$spacing-2xl;
 	}
 
 	.about__col {
@@ -16,8 +16,8 @@
 
 			img {
 				aspect-ratio: 16 / 7.5;
-				border-radius: v.$about-item-img-radius;
-				box-shadow: v.$about-item-img-shadow;
+				border-radius: v.$radius-2xl;
+				box-shadow: v.$shadow-xl;
 				object-fit: cover;
 			}
 		}

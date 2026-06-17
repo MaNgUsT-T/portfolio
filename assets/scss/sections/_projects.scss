@@ -3,7 +3,7 @@
 
 .projects {
 	.projects__wrapper {
-		row-gap: v.$project-wrapper-row-gap;
-		column-gap: v.$project-wrapper-row-gap;
+		row-gap: v.$spacing-3xl;
+		column-gap: v.$spacing-3xl;
 	}
 }

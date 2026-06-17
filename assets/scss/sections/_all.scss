@@ -9,8 +9,8 @@
 .contact__wrapper {
 	display: grid;
 	grid-template-columns: repeat(1, 1fr);
-	row-gap: v.$wrapper-row-gap;
-	column-gap: v.$wrapper-column-gap;
+	row-gap: v.$spacing * 32;
+	column-gap: v.$spacing * 32;
 }
 
 .hero__wrapper,

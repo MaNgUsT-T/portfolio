@@ -34,11 +34,11 @@
 }
 
 @mixin card-icon(
-    $padding: v.$card-icon-padding,
-    $background: v.$card-icon-bg,
-    $border: v.$card-icon-border,
-    $radius: v.$card-icon-radius,
-    $shadow: v.$card-icon-shadow,
+    $padding: null,
+    $background: null,
+    $border: null,
+    $radius: null,
+    $shadow: null,
     $size: v.$card-icon-svg-width,
     $color: v.$card-icon-svg-color
 ) {
@@ -97,49 +97,29 @@
 
     .card__header {
         padding: v.$card-header-padding;
-        display: v.$card-header-display;
-        flex-direction: v.$card-header-direction;
         flex-wrap: v.$card-header-wrap;
         gap: v.$card-header-gap;
         align-items: v.$card-header-align-items;
-        justify-content: v.$card-header-justify-content;
-        background: v.$card-header-bg;
-        border-block-end: v.$card-header-border;
-        border-radius: v.$card-header-border-radius;
     }
 
     .card__body {
-        padding: v.$card-body-padding;
         display: flex;
         flex-grow: 1;
-        background: v.$card-body-bg;
     }
 
     .card__body-wrapper {
         padding: v.$card-body-wrapper-padding;
-        display: v.$card-body-wrapper-display;
         flex-basis: 100%;
-        flex-direction: v.$card-body-wrapper-direction;
         flex-wrap: v.$card-body-wrapper-wrap;
-        gap: v.$card-body-wrapper-gap;
-        align-items: v.$card-body-wrapper-align-items;
-        justify-content: v.$card-body-wrapper-justify-content;
-        border-block-start: v.$card-body-wrapper-border-block-start;
-        border-block-end: v.$card-body-wrapper-border-block-end;
-        text-align: v.$card-body-wrapper-text-align;
     }
 
     .card__body h3,
     .card__body a {
         
         &:has(svg) span {
-            padding: v.$card-icon-padding;
             display: flex;
             align-items: center;
             justify-content: center;
-            background: v.$card-icon-bg;
-            border: v.$card-icon-border;
-            border-radius: v.$card-icon-radius;
 
             svg {
                 @include m.icon-size (v.$card-icon-svg-width);
@@ -185,19 +165,12 @@
     .card__footer {
         margin-block-start: v.$card-footer-margin-block-start;
         padding: v.$card-footer-padding;
-        display: v.$card-footer-display;
-        flex-direction: v.$card-footer-direction;
         flex-wrap: v.$card-footer-wrap;
-        gap: v.$card-footer-gap;
-        align-items: v.$card-footer-align-items;
-        justify-content: v.$card-footer-justify-content;
         flex-shrink: v.$card-footer-flex-shrink;
-        background: v.$card-footer-bg;
-        border-block-start: v.$card-footer-border;
     }
 
     &:hover {
-        border-color: v.$tertiary-bright;
+        border-color: v.$card-hover-border-color;
         box-shadow: v.$shadow-m;
 
         .card__icon {
@@ -240,23 +213,23 @@
 }
 
 .card--about-item {
-    padding: v.$about-item-padding;
-    flex-direction: v.$about-item-direction;
-    gap: v.$about-item-gap;
+    padding: v.$spacing-2xl;
+    flex-direction: row;
+    gap: v.$spacing-2xl;
 
     h3 {
-        font-size: v.$about-item-body-h-fs;
-        line-height: v.$about-item-body-h-lh;
+        font-size: v.$fs-range-m-l;
+        line-height: v.$lh-m;
     }
 
     .card__icon {
-        @include card-icon (v.$about-item-card-icon-padding, v.$about-item-card-icon-bg, null, v.$about-item-card-icon-radius, null);
+        @include card-icon (v.$spacing-s, v.$about-item-card-icon-bg, null, v.$radius-xl, null);
     }
 
     .card__header {
         padding: 0;
         display: flex;
-        align-items: v.$about-item-header-align-items;
+        align-items: stretch;
     }
 
     .card__body-wrapper {
@@ -265,17 +238,17 @@
 }
 
 .card--skill-item {
-    padding: v.$skill-item-padding;
-    gap: v.$skill-item-gap;
+    padding: v.$spacing-2xl;
+    gap: v.$spacing-xl;
     background: v.$skill-item-bg;
 
     h3 {
-        font-size: v.$skill-item-h-fs;
-        line-height: v.$skill-item-h-lh;
+        font-size: v.$fs-range-s-m;
+        line-height: v.$lh-2xl;
     }
 
     .card__icon {
-        @include card-icon (v.$skill-item-icon-padding, v.$skill-item-icon-bg, v.$skill-item-icon-border, v.$skill-item-icon-radius, v.$skill-item-icon-shadow, v.$skill-item-icon-svg-width);
+        @include card-icon (v.$spacing-s, v.$skill-item-icon-bg, 0.1rem solid v.$border-color, v.$radius-xl, v.$shadow-s, 2rem);
     }
 
     .card__header,
@@ -285,29 +258,29 @@
     }
 
     .card__header {
-        gap: v.$skill-item-header-gap;
-        align-items: v.$skill-item-header-align-items;
+        gap: v.$spacing-m;
+        align-items: center;
     }
 
     .card__footer {
         margin-block-start: 0;
-        gap: v.$skill-item-footer-gap;
-        align-items: v.$skill-item-footer-align-items;
+        gap: v.$spacing-xs;
+        align-items: center;
     }
 }
 
 .card--experience-item {
     
     h3 {
-        font-size: v.$experience-item-card-h-fs;
-        font-weight: v.$experience-item-card-h-fw;
-        line-height: v.$experience-item-card-h-lh;
+        font-size: v.$fs-range-l-xl;
+        font-weight: 700;
+        line-height: v.$lh-s;
     }
 
     .card__body-wrapper p:first-child {
         margin-block-end: 0;
-        font-size: v.$experience-item-date-fs;
-        font-weight: v.$experience-item-date-fw;
+        font-size: v.$fs-xs;
+        font-weight: 500;
         color: v.$experience-item-date-color;
         line-height: 2.3;
 
@@ -318,24 +291,24 @@
 
     .workplace-point {
         display: flex;
-        gap: v.$experience-item-card-workplace-gap;
-        align-items: v.$experience-item-card-workplace-align-items;
+        gap: v.$spacing-m;
+        align-items: center;
 
         b {
-            font-size: v.$experience-item-card-workplace-point-fs;
+            font-size: v.$fs-range-xs-s;
             color: v.$experience-item-card-workplace-point-color;
         }
 
         span {
             display: flex;
             gap: v.$spacing-xxs;
-            align-items: v.$experience-item-card-workplace-align-items;
-            font-size: v.$experience-item-card-workplace-city-fs;
-            font-weight: v.$experience-item-card-workplace-city-fw;
+            align-items: center;
+            font-size: v.$fs-range-fs-xs;
+            font-weight: 400;
 
             svg {
-                width: v.$experience-item-card-workplace-icon-width;
-                height: v.$experience-item-card-workplace-icon-height;
+                width: 1.4rem;
+                height: 1.4rem;
                 stroke: v.$experience-item-card-workplace-icon-color;
             }
         }
@@ -344,12 +317,12 @@
 
 .card--project-item {
     background: v.$project-item-bg;
-    font-size: v.$project-item-fs;
-    line-height: v.$project-item-lh;
+    font-size: v.$fs-range-xs-s;
+    line-height: v.$lh-3xl;
 
     h3 {
-        font-size: v.$project-item-h-fs;
-        line-height: v.$project-item-h-lh;
+        font-size: v.$fs-range-l-xl;
+        line-height: v.$lh;
 
         &:hover {
             color: v.$a-hover-color;
@@ -357,113 +330,113 @@
     }
 
     .pill {
-        padding: v.$project-item-pill-padding;
-        font-size: v.$project-item-pill-fs;
+        padding: v.$spacing-xxs v.$spacing * 5;
+        font-size: v.$fs;
     }
 
     .card__icon,
     .card__body h3:has(svg) span,
     .card__body a:has(svg) span {
-        @include card-icon (v.$project-item-icon-padding, v.$project-item-icon-bg, v.$project-item-icon-border, v.$project-item-icon-radius, null, v.$project-item-icon-svg-width, v.$project-item-icon-svg-color);
+        @include card-icon (v.$spacing-xs, v.$project-item-icon-bg, 0.1rem solid v.$border-color-dark, v.$radius-max, null, 1.4rem, v.$project-item-icon-svg-color);
     }
 
     .card__body {
-        padding: v.$project-item-body-padding;
+        padding: 0 v.$spacing-2xl;
     }
 
     .card__body-wrapper {
-        padding: v.$project-item-body-wrapper-padding;
+        padding: v.$spacing-2xl 0;
         display: flex;
         flex-direction: column;
-        border-block-end: v.$project-item-body-wrapper-border-block-end;
+        border-block-end: 0.1rem solid v.$border-color-dark;
     }
 
     .card__footer {
         display: flex;
-        gap: v.$project-item-footer-gap;
+        gap: v.$spacing-xs;
     }
 
     &:hover {
-        box-shadow: v.$shadow-xl-base-1 rgba (v.$color-violet-500, .1), v.$shadow-xl-base-2 rgba (v.$color-violet-500, .1);
+        box-shadow: v.$project-item-card-hover-shadow;
     }
 }
 
 .card--education-item {
-    padding: v.$education-item-padding;
+    padding: v.$spacing-2xl;
     background: v.$education-item-bg;
-    font-size: v.$education-item-fs;
-    line-height: v.$education-item-lh;
+    font-size: v.$fs-range-fs-xs;
+    line-height: v.$lh-m;
 
     h3 {
-        font-size: v.$education-item-h-fs;
-        line-height: v.$education-item-h-lh;
+        font-size: v.$fs-range-s-m;
+        line-height: v.$lh-2xl;
     }
 
     .card__icon {
-        @include card-icon (v.$education-item-icon-padding, v.$education-item-icon-bg, null, v.$education-item-icon-radius, null, v.$education-item-icon-svg-width);
+        @include card-icon (v.$spacing-m, v.$education-item-icon-bg, null, v.$radius-max, null, 3.2rem);
     }
 
     .card__header {
         padding: 0;
         display: flex;
-        justify-content: v.$education-item-header-justify-content;
+        justify-content: center;
     }
 
     .card__body-wrapper {
-        padding: v.$education-item-body-wrapper-padding;
-        border-block-end: v.$education-item-body-wrapper-border-block-end;
-        text-align: v.$education-item-body-wrapper-text-align;
+        padding: v.$spacing-xl 0 ;
+        border-block-end: 0.1rem solid v.$border-color-dark;
+        text-align: center;
     }
 
     .card__footer {
-        padding: v.$education-item-footer-padding;
+        padding: v.$spacing-xl 0 0 0;
         display: flex;
-        gap: v.$education-item-footer-gap;
-        align-items: v.$education-item-footer-align-items;
-        justify-content: v.$education-item-footer-justify-content;
+        gap: v.$spacing-m;
+        align-items: center;
+        justify-content: space-between;
     }
 
     .highlight {
-        gap: v.$education-item-footer-highlight-gap;
+        gap: v.$spacing-xxs;
 
         svg {
-            @include m.icon-size (v.$education-item-footer-highlight-size);
+            @include m.icon-size (1.6rem);
         }
     }
 }
 
 .card--contact-item {
-    padding: v.$contact-item-padding;
+    padding: v.$spacing-2xl;
 
     .card__header {
-        padding: v.$contact-item-header-padding;
+        padding: 0 0 v.$spacing-xl 0;
         display: flex;
-        gap: v.$contact-item-header-gap;
-        align-items: v.$contact-item-header-align-items;
-        border-block-end: v.$contact-item-header-border;
+        gap: v.$spacing-m;
+        align-items: center;
+        border-block-end: 0.1rem solid v.$border-color-dark;
     }
 
     .card__footer {
-        padding: v.$contact-item-footer-padding;
+        padding: v.$spacing-xl 0 0 0 ;
         display: flex;
-        gap: v.$contact-item-form-card-footer-gap;
-        justify-content: v.$contact-item-form-card-footer-justify-content;
-        border-block-start: v.$contact-item-footer-border;
+        gap: v.$spacing-xl;
+        justify-content: center;
+        border-block-start: 0.1rem solid v.$border-color-dark;
     }
 
     .card__body a:has(svg) span {
-        @include card-icon (v.$contact-item-icon-padding, v.$contact-item-icon-bg, v.$contact-item-icon-border, v.$contact-item-icon-radius, null, v.$contact-item-icon-svg-width);
+        @include card-icon (v.$spacing-s, v.$contact-item-icon-bg, 0.1rem solid v.$border-color-dark, v.$radius-max, null, 2rem);
     }
 
     &:first-child {
         background: v.$contact-item-info-card-bg;
 
         .card__body-wrapper {
-            padding: v.$contact-item-info-card-body-wrapper-padding;
+            padding: v.$spacing-xl 0 0 0;
         }
     }
 
     &:last-child .card__body-wrapper {
-        padding: v.$contact-item-form-card-body-wrapper-padding;
+        padding: 0 0 v.$spacing-xl 0;
     }
 }

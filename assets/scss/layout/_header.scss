@@ -4,7 +4,7 @@
 header {
     inset-block-start: 0;
     width: 100%;
-    padding-block: v.$header-padding-block;
+    padding-block: 2.4rem;
     transition: all .3s cubic-bezier(.4, 0, .2, 1);
     position: fixed;
     z-index: 100;
@@ -23,11 +23,11 @@ header {
     }
 
     &.header--scrolled {
-        padding-block: v.$header-scrolled-padding;
+        padding-block: 1.6rem;
 
         &::before {
             background: v.$header-scrolled-bg;
-            box-shadow: v.$header-scrolled-shadow;
+            box-shadow: v.$shadow-s;
             backdrop-filter: v.$header-scrolled-backdrop-filter;
         }
     }
@@ -55,13 +55,13 @@ header {
         @include m.respond-until(mobile-nav) {
             inset-inline-end: 0;
             inset-block-end: 0;
-            width: v.$offcanvas-width;
+            width: min(100%, 32rem);
             padding: v.$offcanvas-padding;
             display: flex;
             flex-direction: column;
             align-items: stretch;
             gap: v.$offcanvas-gap;
-            background: v.$white;
+            background: v.$offcanvas-bg;
             box-shadow: v.$shadow-m;
             transform: translateX(100%);
             transition: none;
@@ -75,14 +75,15 @@ header {
     }
 
     .main-nav {
+        
         ul {
-            @include m.flex-cluster (v.$header-main-nav-d-gap, center, flex-start, nowrap);
+            @include m.flex-cluster (3.2rem, center, flex-start, nowrap);
             list-style: none;
-            font-weight: v.$header-main-nav-fw;
+            font-weight: 500;
         }
 
         li {
-            font-size: v.$header-main-nav-fs;
+            font-size: 1.4rem;
         }
 
         @include m.respond-until(mobile-nav) {
@@ -97,10 +98,10 @@ header {
             }
 
             li {
-                padding-block: v.$header-main-nav-m-li-padding;
+                padding-block: 0.8rem;
 
                 &:last-child {
-                    padding-block: v.$header-main-nav-m-li-padding;
+                    padding-block: 0.8rem;
                 }
             }
         }
@@ -120,8 +121,9 @@ header {
     }
 
     .option-nav {
+        
         ul {
-            @include m.flex-cluster (v.$header-option-nav-gap, center, flex-start, nowrap);
+            @include m.flex-cluster (1.6rem, center, flex-start, nowrap);
             list-style: none;
         }
     }
@@ -141,6 +143,7 @@ header {
 
 .nav--animate,
 .nav--open {
+    
     header .header__nav-wrapper {
         @include m.respond-until(mobile-nav) {
             transition: transform .3s ease-in-out;
@@ -152,8 +155,8 @@ header {
     overflow-y: clip;
 
     header::before {
-        background: v.$white;
-        box-shadow: v.$header-scrolled-shadow;
+        background: v.$header-bg;
+        box-shadow: v.$shadow-s;
     }
 
     header .header__nav-wrapper {

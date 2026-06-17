@@ -78,9 +78,6 @@ ul {
     padding: 0;
     display: block;
     list-style: disc;
-    font-size: v.$ul-fs;
-    font-weight: v.$ul-fw;
-    white-space: v.$ul-white-space;
 
     li {
         display: list-item;
@@ -88,7 +85,6 @@ ul {
         line-height: v.$li-lh;
 
         &::before {
-            content: v.$li-before-content;
             font-size: v.$li-before-fs;
             color: v.$li-before-color;
         }
@@ -108,11 +104,12 @@ svg {
 header,
 footer,
 section {
-    padding-inline: v.$section-padding-inline;
-    padding-block: v.$section-padding-block;
+    padding-inline: v.$spacing-range-m-3xl;
+    padding-block: v.$spacing * 48;
 }
 
 section {
+    
     &:nth-child(2n + 3) {
         background: v.$section-bg;
         border-block-start: v.$section-border;
@@ -141,36 +138,36 @@ section {
 }
 
 .highlight {
-    font-size: v.$highlight-fs !important;
-    font-weight: v.$highlight-fw !important;
+    font-size: v.$fs-range-fs-xs !important;
+    font-weight: 500 !important;
     color: v.$highlight-color !important;
-    line-height: v.$highlight-lh !important;
+    line-height: v.$lh !important;
 
     &:has(svg) {
-        @include m.flex-cluster (v.$highlight-gap, center, flex-start, nowrap);
+        @include m.flex-cluster (v.$spacing-xs, center, flex-start, nowrap);
     }
 
     svg {
-        @include m.icon-size (v.$highlight-svg-size);
+        @include m.icon-size (v.$fs-range-fs-xs);
         stroke: v.$highlight-color;
     }
 }
 
 .preheader {
-    margin-block-end: v.$preheader-margin-block-end;
+    margin-block-end: v.$spacing-m;
     display: flex;
-    gap: v.$preheader-gap;
-    align-items: v.$preheader-align-items;
-    font-size: v.$preheader-fs;
-    font-weight: v.$preheader-fw;
+    gap: v.$spacing-m;
+    align-items: center;
+    font-size: v.$fs-range-fs-xs;
+    font-weight: 500;
     color: v.$preheader-color;
-    line-height: v.$preheader-lh;
-    text-transform: v.$preheader-text-transform;
+    line-height: v.$lh-l;
+    text-transform: uppercase;
 
     &::before {
-        content: v.$preheader-content;
-        width: v.$preheader-w;
-        height: v.$preheader-h;
+        content: '';
+        width: 3.2rem;
+        height: 0.2rem;
         display: block;
         background: v.$preheader-bg;
     }
@@ -178,23 +175,22 @@ section {
 
 .social-icons {
     display: flex;
-    gap: v.$social-icons-gap;
-    align-items: v.$social-icons-align-items;
+    gap: v.$spacing-l;
+    align-items: center;
 
     svg {
-        @include m.icon-size (v.$social-icons-svg-size);
+        @include m.icon-size (2.4rem);
         stroke: v.$social-icon-color;
     }
 }
 
 .backdrop {
     inset: 0;
-    background: rgba (v.$color-zinc-900, .1);
     backdrop-filter: v.$backdrop-backdrop-filter;
     opacity: 0;
     visibility: hidden;
     pointer-events: none;
-    transition: v.$backdrop-transition;
+    transition: opacity .3s ease, visibility .3s ease;
     position: fixed;
     z-index: 90;
 }

@@ -4,7 +4,7 @@
 .experience {
 	
 	.experience__wrapper {
-		max-width: v.$experience-wrapper-max-w;
+		max-width: 87rem;
 		margin-inline: auto;
 		
 		ul li {
@@ -23,17 +23,17 @@
 		}
 		
 		.experience-item {
-			display: v.$experience-item-display;
-			gap: v.$experience-item-gap;
+			display: flex;
+			gap: clamp(2.8rem, 1.3714rem + 4.4643vw, 4.8rem);
 			position: relative;
 			
 			&:not(:first-child) {
-				padding-block-start: v.$experience-item-date-padding;
+				padding-block-start: v.$spacing * 21;
 				
 				.experience-item__timepoint {
 					
 					&::after {
-						inset-block-start: calc(-1 * #{v.$experience-item-date-padding});
+						inset-block-start: calc(-1 * #{v.$spacing * 21});
 					}
 				}
 			}
@@ -48,13 +48,13 @@
 				
 				&::before {
 					content: '';
-					inset-block-start: v.$experience-item-timepoint-padding;
-					width: v.$experience-item-timepoint-before-width;
-					height: v.$experience-item-timepoint-before-height;
+					inset-block-start: v.$spacing * 22;
+					width: 1.2rem;
+					height: 1.2rem;
 					background: v.$experience-item-timepoint-before-bg;
-					border: v.$experience-item-timepoint-before-border;
-					border-radius: v.$experience-item-timepoint-before-radius;
-					box-shadow: v.$experience-item-timepoint-before-shadow;
+					border: 0.2rem solid v.$experience-item-timepoint-before-border-color;
+					border-radius: v.$radius-max;
+					box-shadow: v.$shadow-s;
 					position: absolute;
 					z-index: 1;
 				}
@@ -62,8 +62,8 @@
 				&::after {
 					content: '';
 					inset-inline-end: -0.6rem;
-					width: v.$experience-item-timepoint-after-width;
-					height: v.$experience-item-timepoint-after-height;
+					width: 0.1rem;
+					height: 100%;
 					display: block;
 					background-color: v.$experience-item-timepoint-after-color;
 					position: absolute;
@@ -71,14 +71,14 @@
 			}
 			
 			.experience-item__date {
-				padding-block-start: v.$experience-item-date-padding;
-				display: v.$experience-item-date-display;
-				flex-shrink: v.$experience-item-date-flex-shrink;
-				justify-content: v.$experience-item-date-justify-content;
-				font-size: v.$experience-item-date-fs;
-				font-weight: v.$experience-item-date-fw;
+				padding-block-start: v.$spacing * 21;
+				display: flex;
+				flex-shrink: 0;
+				justify-content: flex-end;
+				font-size: v.$fs-xs;
+				font-weight: 500;
 				color: v.$experience-item-date-color;
-				line-height: v.$experience-item-date-lh;
+				line-height: v.$lh;
 				white-space: nowrap;
 				position: relative;
 				@media (min-width: 48rem)  {

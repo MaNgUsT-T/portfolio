@@ -65,6 +65,132 @@ function scheduleOffcanvasInsetSync($headerElement) {
 }
 
 /**
+ * Initialisiert die Theme-Umschaltung auf Basis von Browser-Einstellung und manueller Auswahl.
+ * Die manuelle Auswahl wird persistent gespeichert und überschreibt die Systempräferenz.
+ */
+function themeInitialize() {
+    const themeStorageKey = 'theme-preference';
+    const lightTheme = 'light';
+    const darkTheme = 'dark';
+    const themeMetaColors = {
+        light: '#ffffff',
+        dark: '#18181b'
+    };
+    const $root = $(document.documentElement);
+    const $toggleElements = $('[data-theme-toggle]');
+    const $themeColorMeta = $('meta[name="theme-color"]');
+    const mediaQuery = typeof window.matchMedia === 'function'
+        ? window.matchMedia('(prefers-color-scheme: dark)')
+        : null;
+
+    function normalizeThemePreference(value) {
+        return value === lightTheme || value === darkTheme ? value : null;
+    }
+
+    function getStoredTheme() {
+        try {
+            return normalizeThemePreference(window.localStorage.getItem(themeStorageKey));
+        } catch (error) {
+            return null;
+        }
+    }
+
+    function persistTheme(theme) {
+        try {
+            window.localStorage.setItem(themeStorageKey, theme);
+        } catch (error) {
+            // Zugriff auf localStorage kann blockiert sein. Dann bleibt nur die Laufzeitumschaltung aktiv.
+        }
+    }
+
+    function getThemeMetaColor(theme) {
+        return theme === darkTheme ? themeMetaColors.dark : themeMetaColors.light;
+    }
+
+    function syncToggleState(theme) {
+        const isDarkTheme = theme === darkTheme;
+        const toggleLabel = isDarkTheme ? 'Helles Theme aktivieren' : 'Dunkles Theme aktivieren';
+
+        $toggleElements.attr({
+            'aria-pressed': String(isDarkTheme),
+            'aria-label': toggleLabel,
+            'title': toggleLabel,
+            'data-theme-state': theme
+        });
+    }
+
+    function applyTheme(theme) {
+        const normalizedTheme = normalizeThemePreference(theme) || lightTheme;
+
+        $root.attr('data-theme', normalizedTheme);
+        document.documentElement.style.colorScheme = normalizedTheme;
+
+        if ($themeColorMeta.length) {
+            $themeColorMeta.attr('content', getThemeMetaColor(normalizedTheme));
+        }
+
+        syncToggleState(normalizedTheme);
+    }
+
+    function resolveThemePreference(storedTheme, prefersDark) {
+        const normalizedStoredTheme = normalizeThemePreference(storedTheme);
+
+        if (normalizedStoredTheme) {
+            return normalizedStoredTheme;
+        }
+
+        return prefersDark ? darkTheme : lightTheme;
+    }
+
+    function getNextTheme(currentTheme) {
+        return currentTheme === darkTheme ? lightTheme : darkTheme;
+    }
+
+    function getSystemPreference() {
+        return !!(mediaQuery && mediaQuery.matches);
+    }
+
+    function handleThemeToggle(event) {
+        event.preventDefault();
+
+        const activeTheme = normalizeThemePreference($root.attr('data-theme')) || lightTheme;
+        const nextTheme = getNextTheme(activeTheme);
+
+        persistTheme(nextTheme);
+        applyTheme(nextTheme);
+    }
+
+    function handleThemeToggleKeydown(event) {
+        if (event.key !== ' ' && event.key !== 'Spacebar') {
+            return;
+        }
+
+        handleThemeToggle(event);
+    }
+
+    if (!$toggleElements.length || $root.attr('data-theme-switch-initialized') === 'true') {
+        return;
+    }
+
+    applyTheme(resolveThemePreference(getStoredTheme(), getSystemPreference()));
+
+    $toggleElements.on('click', handleThemeToggle);
+    $toggleElements.on('keydown', handleThemeToggleKeydown);
+
+    if (mediaQuery && typeof mediaQuery.addEventListener === 'function') {
+        mediaQuery.addEventListener('change', function(event) {
+            if (getStoredTheme()) {
+                return;
+            }
+
+            applyTheme(event.matches ? darkTheme : lightTheme);
+        });
+    }
+
+    $root.attr('data-theme-switch-initialized', 'true');
+}
+
+/**
  * Initialisiert das Scroll-Verhalten des Headers.
  * Fügt dem Header eine Modifikator-Klasse hinzu, sobald über seine initiale Höhe hinaus gescrollt wird.
  * Beinhaltet Logik zur Vermeidung von Layout-Thrashing und Scroll-Jitter ("Wackeln").
@@ -528,6 +654,7 @@ function contactFormInitialize() {
 
 // Wartet, bis die HTML-Struktur vollständig geladen ist, bevor Funktionen ausgeführt werden.
 jQuery(function($) {
+    themeInitialize();
     headerScrollInitialize();
     mobileNavigationInitialize();
     demoCarouselInitialize();

@@ -22,6 +22,32 @@
 	<meta name="msapplication-TileColor" content="#ffffff">
 	<!-- Kachel-Farbe -->
 	<meta name="theme-color" content="#ffffff">
+	<script>
+		(function() {
+			const themeStorageKey = 'theme-preference';
+			const rootElement = document.documentElement;
+			const themeColorMeta = document.querySelector('meta[name="theme-color"]');
+
+			let storedTheme = null;
+
+			try {
+				storedTheme = localStorage.getItem(themeStorageKey);
+			} catch (error) {
+				storedTheme = null;
+			}
+
+			const resolvedTheme = storedTheme === 'light' || storedTheme === 'dark'
+				? storedTheme
+				: (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+
+			rootElement.dataset.theme = resolvedTheme;
+			rootElement.style.colorScheme = resolvedTheme;
+
+			if (themeColorMeta) {
+				themeColorMeta.setAttribute('content', resolvedTheme === 'dark' ? '#18181b' : '#ffffff');
+			}
+		})();
+	</script>
 	<meta name="msapplication-TileImage" content="./img/favicon_512x512.png">
 	<!-- Fluid -->
 	<link rel="fluid-icon" href="./img/favicon_512x512.png" title="Lisa Weber Portfolio - Siteelements">
@@ -79,7 +105,7 @@
 				<nav class="option-nav">
 					<ul>
 						<li>
-							<a href="#" title="dark">
+							<a href="#" title="Dunkles Theme aktivieren" aria-label="Dunkles Theme aktivieren" aria-pressed="false" data-theme-toggle>
 								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
 									<path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
 								</svg>

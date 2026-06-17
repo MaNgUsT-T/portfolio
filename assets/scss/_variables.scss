@@ -8,6 +8,13 @@ $yellow: #f0c000 !default;
 $green: #6aa029 !default;
 $blue: #005fcc !default;
 
+$black-rgb: 0, 0, 0;
+$white-rgb: 255, 255, 255;
+$red-rgb: 207, 26, 67;
+$yellow-rgb: 240, 192, 0;
+$green-rgb: 106, 160, 41;
+$blue-rgb: 0, 95, 204;
+
 $color-violet-50: #f5f3ff !default;
 $color-violet-100: #ede9fe !default;
 $color-violet-200: #ddd6fe !default;
@@ -19,6 +26,18 @@ $color-violet-700: #6d28d9 !default;
 $color-violet-800: #5d0ec0 !default;
 $color-violet-900: #4d179a !default;
 $color-violet-950: #2f0d68 !default;
+
+$color-violet-50-rgb: 245, 243, 255 !default;
+$color-violet-100-rgb: 237, 233, 254 !default;
+$color-violet-200-rgb: 221, 214, 254 !default;
+$color-violet-300-rgb: 196, 181, 253 !default;
+$color-violet-400-rgb: 166, 133, 255 !default;
+$color-violet-500-rgb: 139, 92, 246 !default;
+$color-violet-600-rgb: 124, 58, 237 !default;
+$color-violet-700-rgb: 109, 40, 217 !default;
+$color-violet-800-rgb: 93, 14, 192 !default;
+$color-violet-900-rgb: 77, 23, 154 !default;
+$color-violet-950-rgb: 47, 13, 104 !default;
 
 $color-rose-50: #fff1f2 !default;
 $color-rose-100: #ffe4e6 !default;
@@ -32,6 +51,18 @@ $color-rose-800: #a30037 !default;
 $color-rose-900: #8b0836 !default;
 $color-rose-950: #4d0218 !default;
 
+$color-rose-50-rgb: 255, 241, 242 !default;
+$color-rose-100-rgb: 255, 228, 230 !default;
+$color-rose-200-rgb: 255, 204, 211 !default;
+$color-rose-300-rgb: 255, 162, 174 !default;
+$color-rose-400-rgb: 251, 113, 133 !default;
+$color-rose-500-rgb: 244, 63, 94 !default;
+$color-rose-600-rgb: 231, 0, 68 !default;
+$color-rose-700-rgb: 194, 0, 57 !default;
+$color-rose-800-rgb: 163, 0, 55 !default;
+$color-rose-900-rgb: 139, 8, 54 !default;
+$color-rose-950-rgb: 77, 2, 24 !default;
+
 $color-zinc-50: #fafafa !default;
 $color-zinc-100: #f4f4f5 !default;
 $color-zinc-200: #e4e4e7 !default;
@@ -44,15 +75,17 @@ $color-zinc-800: #27272a !default;
 $color-zinc-900: #18181b !default;
 $color-zinc-950: #09090b !default;
 
-$primary: $black !default;
-$secondary: $white !default;
-$tertiary: $color-violet-600 !default;
-$tertiary-bright: $color-violet-100 !default;
-$tertiary-brighter: $color-violet-50 !default;
-$quaternary: $color-rose-400 !default;
-$quaternary-dark: $color-rose-500 !default;
-
-$focus-outline-color: $blue !default;
+$color-zinc-50-rgb: 250, 250, 250 !default;
+$color-zinc-100-rgb: 244, 244, 245 !default;
+$color-zinc-200-rgb: 228, 228, 231 !default;
+$color-zinc-300-rgb: 212, 212, 216 !default;
+$color-zinc-400-rgb: 161, 161, 170 !default;
+$color-zinc-500-rgb: 113, 113, 123 !default;
+$color-zinc-600-rgb: 82, 82, 92 !default;
+$color-zinc-700-rgb: 63, 63, 70 !default;
+$color-zinc-800-rgb: 39, 39, 42 !default;
+$color-zinc-900-rgb: 24, 24, 27 !default;
+$color-zinc-950-rgb: 9, 9, 11 !default;
 
 $spacing: 0.2rem !default;
 $spacing-xxs: 0.4rem !default;
@@ -103,13 +136,6 @@ $radius-2xl: 1.6rem !default;
 $radius-3xl: 2.4rem !default;
 $radius-max: 999.9rem !default;
 
-$border-color: $color-zinc-100 !default;
-$border-color-dark: $color-zinc-200 !default;
-
-$shadow-color-s: rgb($primary, .05) !default;
-$shadow-color-l: rgb($primary, .1) !default;
-$shadow-color-2xl: rgb($primary, .25) !default;
-
 $shadow-s-base-1: 0 1px 2px 0 !default;
 $shadow-m-base-1: 0 4px 6px -1px !default;
 $shadow-m-base-2: 0 2px 4px -2px !default;
@@ -118,6 +144,177 @@ $shadow-l-base-2: 0 4px 6px -4px !default;
 $shadow-xl-base-1: 0 20px 25px -5px !default;
 $shadow-xl-base-2: 0 8px 10px -6px !default;
 $shadow-2xl-base-1: 0 25px 50px -12px !default;
+
+:root {
+	--primary: #{$black};
+	--secondary: #{$white};
+	--tertiary: #{$color-violet-600};
+	--tertiary-bright: #{$color-violet-100};
+	--tertiary-brighter: #{$color-violet-50};
+	--quaternary: #{$color-rose-400};
+	--quaternary-dark: #{$color-rose-500};
+	
+	--primary-rgb: #{$black-rgb};
+	--secondary-rgb: #{$white-rgb};
+	--tertiary-rgb: #{$color-violet-600-rgb};
+	--tertiary-bright-rgb: #{$color-violet-100-rgb};
+	--tertiary-brighter-rgb: #{$color-violet-50-rgb};
+	--quaternary-rgb: #{$color-rose-400-rgb};
+	--quaternary-dark-rgb: #{$color-rose-500-rgb};
+	
+	--focus-outline-color: #{$blue};
+	
+	--border-color: #{$color-zinc-100};
+	--border-color-dark: #{$color-zinc-200};
+	
+	--shadow-color-rgb: #{$black-rgb};
+	
+	--body-bg: #{$color-zinc-50};
+	--body-color: #{$color-zinc-600};
+	
+	--h-color: #{$color-zinc-900};
+	
+	--input-bg: #{$color-zinc-50};
+	
+	--btn-secondary-hover-bg: #{$color-violet-50};
+	--btn-disabled-bg: #{$color-zinc-200};
+	--btn-disabled-border: #{$color-zinc-200};
+	--btn-disabled-color: #{$color-zinc-400};
+	
+	--pill-bg: #{$white};
+	--pill-border-color: #{$color-zinc-200};
+	
+	--card-hover-border-color: #{$color-violet-100};
+	
+	--offcanvas-bg: #{$white};
+	
+	--header-bg: #{$white};
+	--header-scrolled-bg: rgb(#{$white-rgb}, .8);
+	
+	--highlight-bg: #{$color-violet-100};
+	
+	--hero-element-border-color: #{$white};
+	--hero-element-2-child-1-bg: #{$color-zinc-100};
+	--hero-element-2-child-2-bg: #{$color-zinc-200};
+	--hero-element-3-child-bg: #{$color-zinc-100};
+	--hero-element-3-child-1-grandchild-2-bg: #{$color-zinc-200};
+	--hero-element-3-child-1-grandchild-3-bg: #{$color-zinc-100};
+	
+	--skill-item-bg: #{$color-zinc-50};
+	--skill-item-icon-bg: #{$white};
+	
+	--experience-item-card-workplace-point-color: #{$color-zinc-900};
+	
+	--project-item-bg: #{$color-zinc-50};
+	--project-item-card-hover-shadow-color: #{$color-violet-500-rgb};
+	--project-item-icon-bg: #{$white};
+	--project-item-icon-svg-color: #{$color-zinc-400};
+	
+	--education-item-bg: #{$white};
+	
+	--contact-item-info-card-bg: #{$color-zinc-50};
+	--contact-item-icon-bg: #{$white};
+	
+	--footer-bg: #{$color-zinc-50};
+}
+
+:root[data-theme="dark"] {
+	--primary: #{$white};
+	--secondary: #{$color-zinc-900};
+	--tertiary: #{$color-violet-400};
+	--tertiary-bright: #{$color-violet-100};
+	--tertiary-brighter: #{$color-violet-50};
+	--quaternary: #{$color-rose-400};
+	--quaternary-dark: #{$color-rose-500};
+	
+	--primary-rgb: #{$white-rgb};
+	--secondary-rgb: #{$color-zinc-900-rgb};
+	--tertiary-rgb: #{$color-violet-600-rgb};
+	--tertiary-bright-rgb: #{$color-violet-100-rgb};
+	--tertiary-brighter-rgb: #{$color-violet-50-rgb};
+	--quaternary-rgb: #{$color-rose-400-rgb};
+	--quaternary-dark-rgb: #{$color-rose-500-rgb};
+	
+	--focus-outline-color: #{$blue};
+	
+	--border-color: #{$color-zinc-800};
+	--border-color-dark: #{$color-zinc-800};
+	
+	--shadow-color-rgb: ;
+	
+	--body-bg: #{$color-zinc-950};
+	--body-color: #{$color-zinc-400};
+	
+	--h-color: #{$color-zinc-100};
+	
+	--input-bg: #{$color-zinc-950};
+	
+	--btn-secondary-hover-bg: #{$color-zinc-900-rgb};
+	--btn-disabled-bg: #{$color-zinc-200};
+	--btn-disabled-border: #{$color-zinc-200};
+	--btn-disabled-color: #{$color-zinc-400};
+	
+	--pill-bg: #{$color-zinc-800};
+	--pill-border-color: #{$color-zinc-700};
+	
+	--card-hover-border-color: rgb(#{$color-violet-500-rgb}, .3);
+	
+	--offcanvas-bg: #{$color-zinc-950};
+	
+	--header-bg: #{$color-zinc-950};
+	--header-scrolled-bg: rgb(#{$color-zinc-950-rgb}, .8);
+	
+	--highlight-bg: rgb(#{$color-violet-500-rgb}, .1);
+	
+	--hero-element-border-color: #{$color-zinc-800};
+	--hero-element-2-child-1-bg: #{$color-zinc-800};
+	--hero-element-2-child-2-bg: #{$color-zinc-700};
+	--hero-element-3-child-bg: #{$color-zinc-800};
+	--hero-element-3-child-1-grandchild-2-bg: #{$color-zinc-700};
+	--hero-element-3-child-1-grandchild-3-bg: #{$color-zinc-800};
+	
+	--skill-item-bg: #{$color-zinc-900};
+	--skill-item-icon-bg: #{$color-zinc-800};
+	
+	--experience-item-card-workplace-point-color: #{$color-zinc-400};
+	
+	--project-item-bg: #{$color-zinc-900};
+	--project-item-card-hover-shadow-color: #{$color-violet-500-rgb};
+	--project-item-icon-bg: #{$color-zinc-800};
+	--project-item-icon-svg-color: #{$color-zinc-400};
+	
+	--education-item-bg: #{$color-zinc-900};
+	
+	--contact-item-info-card-bg: #{$color-zinc-900};;
+	--contact-item-icon-bg: #{$color-zinc-800};
+	
+	--footer-bg: #{$color-zinc-950};
+}
+
+$primary: var(--primary) !default;
+$secondary: var(--secondary) !default;
+$tertiary: var(--tertiary) !default;
+$tertiary-bright: var(--tertiary-bright) !default;
+$tertiary-brighter: var(--tertiary-brighter) !default;
+$quaternary: var(--quaternary) !default;
+$quaternary-dark: var(--quaternary-dark) !default;
+
+$primary-rgb: var(--primary-rgb) !default;
+$secondary-rgb: var(--secondary-rgb) !default;
+$tertiary-rgb: var(--tertiary-rgb) !default;
+$tertiary-bright-rgb: var(--tertiary-bright-rgb) !default;
+$tertiary-brighter-rgb: var(--tertiary-brighter-rgb) !default;
+$quaternary-rgb: var(--quaternary-rgb) !default;
+$quaternary-dark-rgb: var(--quaternary-dark-rgb) !default;
+
+$focus-outline-color: var(--focus-outline-color) !default;
+
+$border-color: var(--border-color) !default;
+$border-color-dark: var(--border-color-dark) !default;
+
+$shadow-color-s: rgb(var(--shadow-color-rgb), .05) !default;
+$shadow-color-l: rgb(var(--shadow-color-rgb), .1) !default;
+$shadow-color-2xl: rgb(var(--shadow-color-rgb), .25) !default;
 
 $shadow-s: $shadow-s-base-1 $shadow-color-s !default;
 $shadow-m: $shadow-m-base-1 $shadow-color-l, $shadow-m-base-2 $shadow-color-l !default;
@@ -129,12 +326,12 @@ $body-ff: $font-text-family !default;
 $body-fs: $fs-range-xs-m !default;
 $body-fw: 300 !default;
 $body-lh: $lh-3xl !default;
-$body-color: $color-zinc-600 !default;
-$body-bg: $color-zinc-50 !default;
+$body-color: var(--body-color) !default;
+$body-bg: var(--body-bg) !default;
 
 /* Typo */
 $h-fw: 600 !default;
-$h-color: $color-zinc-900 !default;
+$h-color: var(--h-color) !default;
 $h1-fs: clamp(6.2rem, 5.7455rem + 1.4205vw, 7.2rem) !default;
 $h1-lh: $lh !default;
 $h1-ls: -0.18rem !default;
@@ -160,7 +357,7 @@ $hr-border: 0.1rem solid $border-color-dark !default;
 
 $svg-color: $tertiary !default;
 
-$input-bg: $color-zinc-50 !default;
+$input-bg: var(--input-bg) !default;
 $input-checked-bg: $tertiary-brighter !default;
 $input-border-color: $border-color-dark !default;
 
@@ -189,17 +386,17 @@ $btn-primary-hover-border: $tertiary !default;
 
 $btn-secondary-bg: $secondary !default;
 $btn-secondary-border: 0.1rem solid $border-color-dark !default;
-$btn-secondary-color: $h-color !default;
-$btn-secondary-hover-bg: $tertiary-brighter !default;
+$btn-secondary-color: $primary !default;
+$btn-secondary-hover-bg: var(--btn-secondary-hover-bg) !default;
 $btn-secondary-hover-border: $tertiary !default;
 
-$btn-disabled-bg: $color-zinc-200 !default;
-$btn-disabled-border: $color-zinc-200 !default;
-$btn-disabled-color: $color-zinc-400 !default;
+$btn-disabled-bg: var(--btn-disabled-bg) !default;
+$btn-disabled-border: var(--btn-disabled-border) !default;
+$btn-disabled-color: var(--btn-disabled-color) !default;
 
 $pill-padding: calc($spacing-xs + 0.2rem) !default;
-$pill-bg: $secondary !default;
-$pill-border: 0.1rem solid $border-color-dark !default;
+$pill-bg: var(--pill-bg) !default;
+$pill-border: 0.1rem solid var(--pill-border-color) !default;
 $pill-radius: $radius-max !default;
 $pill-shadow: $shadow-s !default;
 $pill-fs: $fs-range-fs-xs !default;
@@ -241,12 +438,12 @@ $card-footer-margin-block-start: auto !default;
 $card-footer-padding: $spacing-2xl !default;
 $card-footer-flex-shrink: 0 !default;
 $card-footer-wrap: wrap !default;
-$card-hover-border-color: $tertiary-bright !default;
+$card-hover-border-color: var(--card-hover-border-color) !default;
 
 $offcanvas-width: min(100%, 32rem) !default;
 $offcanvas-padding: $spacing-range-m-3xl !default;
 $offcanvas-gap: $spacing-s !default;
-$offcanvas-bg: $white !default;
+$offcanvas-bg: var(--offcanvas-bg) !default;
 
 $splide-list-gap: $spacing-2xl !default;
 $splide-arrow-position: -1rem !default;
@@ -267,14 +464,14 @@ $splide-pagination-page-bg: $tertiary-bright !default;
 $splide-pagination-page-active-bg: $tertiary !default;
 
 /* Layout */
-$header-bg: $white !default;
-$header-scrolled-bg: rgb($white, .8) !default;
+$header-bg: var(--header-bg) !default;
+$header-scrolled-bg: var(--header-scrolled-bg) !default;
 $header-scrolled-backdrop-filter: blur(10px) !default;
 
 $section-bg: $secondary !default;
 $section-border: 0.1rem solid $border-color !default;
 
-$highlight-bg: $tertiary-bright !default;
+$highlight-bg: var(--highlight-bg) !default;
 $highlight-color: $tertiary !default;
 
 $preheader-color: $tertiary !default;
@@ -284,44 +481,44 @@ $social-icon-color: $color-zinc-400 !default;
 
 $hero-h-1-i-bg: $tertiary !default;
 $hero-h-1-i-bg-image: linear-gradient(to right, $tertiary 20%, $quaternary-dark 100%) !default;
+$hero-element-border: 0.1rem solid var(--hero-element-border-color) !default;
 $hero-element-1-bg: $tertiary !default;
 $hero-element-2-bg: $secondary !default;
-$hero-element-2-child-1-bg: $color-zinc-100 !default;
-$hero-element-2-child-2-bg: $color-zinc-200 !default;
+$hero-element-2-child-1-bg: var(--hero-element-2-child-1-bg) !default;
+$hero-element-2-child-2-bg: var(--hero-element-2-child-2-bg) !default;
 $hero-element-2-child-4-grandchild-1-bg: rgb($tertiary, .1) !default;
 $hero-element-2-child-4-grandchild-2-bg: rgb($quaternary, .1) !default;
-$hero-element-3-bg: rgb($secondary, .9) !default;
-$hero-element-3-child-bg: $color-zinc-100 !default;
+$hero-element-3-bg: rgb($secondary-rgb, .9) !default;
+$hero-element-3-child-bg: var(--hero-element-3-child-bg) !default;
 $hero-element-3-child-1-grandchild-1-bg: linear-gradient(125deg, $tertiary 20%, $quaternary-dark 100%) !default;
-$hero-element-3-child-1-grandchild-2-bg: $color-zinc-200 !default;
-$hero-element-3-child-1-grandchild-3-bg: $color-zinc-100 !default;
+$hero-element-3-child-1-grandchild-2-bg: var(--hero-element-3-child-1-grandchild-2-bg) !default;
+$hero-element-3-child-1-grandchild-3-bg: var(--hero-element-3-child-1-grandchild-3-bg) !default;
 $hero-element-4-bg: $quaternary !default;
 
 $about-item-card-icon-bg: $highlight-bg !default;
 
-$skill-item-bg: $color-zinc-50 !default;
-$skill-item-icon-bg: $secondary !default;
+$skill-item-bg: var(--skill-item-bg) !default;
+$skill-item-icon-bg: var(--skill-item-icon-bg) !default;
 
 $experience-item-timepoint-before-bg: $secondary !default;
 $experience-item-timepoint-before-border-color: $tertiary !default;
 $experience-item-timepoint-after-color: $border-color-dark !default;
 $experience-item-date-color: $tertiary !default;
-$experience-item-card-workplace-point-color: $color-zinc-900 !default;
+$experience-item-card-workplace-point-color: var(--experience-item-card-workplace-point-color) !default;
 $experience-item-card-workplace-icon-color: $p-color !default;
 
-$project-item-bg: $color-zinc-50 !default;
-$project-item-card-hover-shadow: $shadow-xl-base-1 rgba($color-violet-500, .1), $shadow-xl-base-2 rgba($color-violet-500, .1);
-$project-item-icon-bg: $secondary !default;
-$project-item-icon-svg-color: $color-zinc-400 !default;
+$project-item-bg: var(--project-item-bg) !default;
+$project-item-card-hover-shadow: $shadow-xl-base-1 rgb(var(--project-item-card-hover-shadow-color), .1), $shadow-xl-base-2 rgb(var(--project-item-card-hover-shadow-color), .1);
+$project-item-icon-bg: var(--project-item-icon-bg) !default;
+$project-item-icon-svg-color: var(--project-item-icon-svg-color) !default;
 
-$education-item-bg: $secondary !default;
+$education-item-bg: var(--education-item-bg) !default;
 $education-item-icon-bg: $highlight-bg !default;
 
-$contact-item-icon-bg: $secondary !default;
-$contact-item-info-card-bg: $color-zinc-100 !default;
+$contact-item-icon-bg: var(--contact-item-icon-bg) !default;
+$contact-item-info-card-bg: var(--contact-item-info-card-bg) !default;
 
-
-$footer-bg: $color-zinc-50 !default;
+$footer-bg: var(--footer-bg) !default;
 $footer-social-icon-color: $social-icon-color !default;
 
 $backdrop-backdrop-filter: $header-scrolled-backdrop-filter;
@@ -342,14 +539,7 @@ $colors: (
   tertiary-bright: $tertiary-bright,
   tertiary-brighter: $tertiary-brighter,
   quaternary: $quaternary,
-  quaternary-dark: $quaternary-dark,
-  zinc-50: $color-zinc-50,
-  zinc-100: $color-zinc-100,
-  zinc-200: $color-zinc-200,
-  zinc-300: $color-zinc-300,
-  zinc-400: $color-zinc-400,
-  zinc-600: $color-zinc-600,
-  zinc-900: $color-zinc-900
+  quaternary-dark: $quaternary-dark
 ) !default;
 
 $spaces: (

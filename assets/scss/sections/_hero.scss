@@ -88,6 +88,7 @@
 
 				&:is(:nth-child(2), :nth-child(3)) {
 					padding: v.$spacing-xl;
+					border:  v.$hero-element-border;
 					border-radius: v.$radius-2xl;
 					box-shadow: v.$shadow-2xl;
 					transition: transform .5s cubic-bezier(.4, 0, .2, 1);

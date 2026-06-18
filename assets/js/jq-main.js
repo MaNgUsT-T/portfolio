@@ -7,64 +7,6 @@
  */
 
 /**
- * Berechnet die äußere Höhe des übergebenen Header-Elements.
- * Verwendet Math.ceil, um Sub-Pixel-Werte aufzurunden.
- *
- * @returns {number} Die aufgerundete Höhe des Elements in Pixeln. Gibt 0 zurück, falls das Element nicht existiert.
- */
-function calculateHeaderOuterHeight($headerElement) {
-    if (!$headerElement || !$headerElement.length) return 0;
-    return Math.ceil($headerElement.outerHeight() || 0);
-}
-
-/**
- * Ermittelt die visuelle Unterkante des Headers im aktuellen Layout.
- * Bei einem fixierten Header entspricht dies exakt dem sichtbaren Offset,
- * unter dem das mobile Offcanvas-Menü beginnen muss.
- *
- * @returns {number} Die aufgerundete Unterkante des Headers in Pixeln.
- */
-function calculateHeaderVisualBottom($headerElement) {
-    if (!$headerElement || !$headerElement.length) return 0;
-    return Math.ceil($headerElement[0].getBoundingClientRect().bottom || 0);
-}
-
-/**
- * Synchronisiert den Start-Offset des mobilen Offcanvas-Menüs mit der aktuellen Header-Höhe.
- */
-function syncOffcanvasInsetWithHeader($headerElement) {
-    const $navWrapper = $('.header__nav-wrapper');
-
-    if (!$navWrapper.length) {
-        return;
-    }
-
-    if ($(window).innerWidth() < 1024) {
-        /** Mobile: Neuen Wert berechnen */
-        const newValue = calculateHeaderVisualBottom($headerElement) + 'px';
-
-        /** Nur ins DOM schreiben, wenn der Wert nicht sowieso schon exakt dieser ist! */
-        if ($navWrapper[0].style.insetBlockStart !== newValue) {
-            $navWrapper.css('inset-block-start', newValue);
-        }
-    } else {
-        /** Desktop: Nur löschen, wenn überhaupt ein Inline-Style gesetzt ist! */
-        if ($navWrapper[0].style.insetBlockStart) {
-            $navWrapper.css('inset-block-start', '');
-        }
-    }
-}
-
-/**
- * Plant eine Nachmessung, sobald der Browser die nächste Layout-/Paint-Phase erreicht hat.
- */
-function scheduleOffcanvasInsetSync($headerElement) {
-    window.requestAnimationFrame(function() {
-        syncOffcanvasInsetWithHeader($headerElement);
-    });
-}
-
-/**
  * Initialisiert die Theme-Umschaltung auf Basis von Browser-Einstellung und manueller Auswahl.
  * Die manuelle Auswahl wird persistent gespeichert und überschreibt die Systempräferenz.
  */
@@ -188,6 +130,64 @@ function themeInitialize() {
     }
 
     $root.attr('data-theme-switch-initialized', 'true');
+}
+
+/**
+ * Berechnet die äußere Höhe des übergebenen Header-Elements.
+ * Verwendet Math.ceil, um Sub-Pixel-Werte aufzurunden.
+ *
+ * @returns {number} Die aufgerundete Höhe des Elements in Pixeln. Gibt 0 zurück, falls das Element nicht existiert.
+ */
+function calculateHeaderOuterHeight($headerElement) {
+    if (!$headerElement || !$headerElement.length) return 0;
+    return Math.ceil($headerElement.outerHeight() || 0);
+}
+
+/**
+ * Ermittelt die visuelle Unterkante des Headers im aktuellen Layout.
+ * Bei einem fixierten Header entspricht dies exakt dem sichtbaren Offset,
+ * unter dem das mobile Offcanvas-Menü beginnen muss.
+ *
+ * @returns {number} Die aufgerundete Unterkante des Headers in Pixeln.
+ */
+function calculateHeaderVisualBottom($headerElement) {
+    if (!$headerElement || !$headerElement.length) return 0;
+    return Math.ceil($headerElement[0].getBoundingClientRect().bottom || 0);
+}
+
+/**
+ * Synchronisiert den Start-Offset des mobilen Offcanvas-Menüs mit der aktuellen Header-Höhe.
+ */
+function syncOffcanvasInsetWithHeader($headerElement) {
+    const $navWrapper = $('.header__nav-wrapper');
+
+    if (!$navWrapper.length) {
+        return;
+    }
+
+    if ($(window).outerWidth() < 1024) {
+        /** Mobile: Neuen Wert berechnen */
+        const newValue = calculateHeaderVisualBottom($headerElement) + 'px';
+
+        /** Nur ins DOM schreiben, wenn der Wert nicht sowieso schon exakt dieser ist! */
+        if ($navWrapper[0].style.insetBlockStart !== newValue) {
+            $navWrapper.css('inset-block-start', newValue);
+        }
+    } else {
+        /** Desktop: Nur löschen, wenn überhaupt ein Inline-Style gesetzt ist! */
+        if ($navWrapper[0].style.insetBlockStart) {
+            $navWrapper.css('inset-block-start', '');
+        }
+    }
+}
+
+/**
+ * Plant eine Nachmessung, sobald der Browser die nächste Layout-/Paint-Phase erreicht hat.
+ */
+function scheduleOffcanvasInsetSync($headerElement) {
+    window.requestAnimationFrame(function() {
+        syncOffcanvasInsetWithHeader($headerElement);
+    });
 }
 
 /**
@@ -447,7 +447,7 @@ function mobileNavigationInitialize() {
         }
 
         // Navigation automatisch schließen, wenn der Desktop-Breakpoint erreicht wird.
-        if ($(window).innerWidth() >= 1024 && $toggleButton.attr('aria-expanded') === 'true') {
+        if ($(window).outerWidth() >= 1024 && $toggleButton.attr('aria-expanded') === 'true') {
             setNavigationState(false, false);
         }
     });

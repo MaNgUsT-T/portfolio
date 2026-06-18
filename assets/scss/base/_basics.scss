@@ -60,7 +60,11 @@ p {
 a {
     color: v.$a-color;
     text-decoration: v.$a-text-decoration;
-
+    
+    svg {
+        stroke: v.$a-color !important;
+    }
+    
     &:active,
     &:hover {
         &:not(.btn) {

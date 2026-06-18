@@ -167,7 +167,7 @@ function syncOffcanvasInsetWithHeader(headerElement) {
         return;
     }
 
-    if (window.outerWidth < 1024) {
+    if (window.innerWidth < 1024) {
         /** Mobile: Neuen Wert berechnen */
         const newValue = calculateHeaderVisualBottom(headerElement) + 'px';
 
@@ -455,7 +455,7 @@ function mobileNavigationInitialize() {
         }
 
         // Navigation automatisch schließen, wenn der Desktop-Breakpoint erreicht wird.
-        if (window.outerWidth >= 1024 && toggleButton.getAttribute('aria-expanded') === 'true') {
+        if (window.innerWidth >= 1024 && toggleButton.getAttribute('aria-expanded') === 'true') {
             setNavigationState(false, false);
         }
     });

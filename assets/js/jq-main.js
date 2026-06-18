@@ -204,7 +204,7 @@ function headerScrollInitialize() {
 
     let isScrolled = false;
     let initialHeight = calculateHeaderOuterHeight($header);
-    let windowWidth = $(window).innerWidth();
+    let windowWidth = $(window).outerWidth();
 
     function updateHeaderScrollState() {
         const currentScroll = $(window).scrollTop();
@@ -227,8 +227,8 @@ function headerScrollInitialize() {
 
     // Resize-Event: Aktualisiert die initiale Höhe nur, wenn sich die Viewport-Breite ändert.
     $(window).on('resize', function() {
-        if ($(window).innerWidth() !== windowWidth) {
-            windowWidth = $(window).innerWidth();
+        if ($(window).outerWidth() !== windowWidth) {
+            windowWidth = $(window).outerWidth();
 
             const currentlyScrolled = $header.hasClass('header--scrolled');
 
@@ -297,7 +297,7 @@ function mobileNavigationInitialize() {
      * @returns {number} Die Breite der Scrollbar in Pixeln.
      */
     function getScrollbarWidth() {
-        return $(window).innerWidth() - $('html').prop('clientWidth');
+        return $(window).outerWidth() - $('html').prop('clientWidth');
     }
 
     /**

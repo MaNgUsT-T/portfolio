@@ -104,7 +104,7 @@ services:
       - db
 
   mailhog:
-    image: mailhog/mailhog:latest
+    image: mailhog/mailhog:${MAILHOG_VERSION}
     container_name: ${PROJECT_NAME}_mailhog
     restart: always
     environment:

@@ -171,6 +171,7 @@ check_versions() {
   [[ -n "$DB_VERSION" ]] || missing+=("DB_VERSION")
   [[ -n "$APACHE_VERSION" ]] || missing+=("APACHE_VERSION")
   [[ -n "$PHPMYADMIN_VERSION" ]] || missing+=("PHPMYADMIN_VERSION")
+  [[ -n "$MAILHOG_VERSION" ]] || missing+=("MAILHOG_VERSION")
   [[ -n "$HOST_UID" ]] || missing+=("HOST_UID")
   [[ -n "$HOST_GID" ]] || missing+=("HOST_GID")
 
@@ -349,11 +350,11 @@ import_gzip_to_db() {
 PROJECT_NAME="$(get_cfg PROJECT_NAME)"
 PHP_IMAGE="$(get_cfg PHP_IMAGE)"
 PHP_VERSION="$(get_cfg PHP_VERSION)"
-MAILHOG_VERSION="$(get_cfg MAILHOG_VERSION)"
 WP_CLI_VERSION="$(get_cfg WP_CLI_VERSION)"
 DB_VERSION="$(get_cfg DB_VERSION)"
 APACHE_VERSION="$(get_cfg APACHE_VERSION)"
 PHPMYADMIN_VERSION="$(get_cfg PHPMYADMIN_VERSION)"
+MAILHOG_VERSION="$(get_cfg MAILHOG_VERSION)"
 HOST_UID="$(get_cfg HOST_UID)"
 HOST_GID="$(get_cfg HOST_GID)"
 LIVE_URL="$(get_cfg LIVE_URL)"
@@ -363,9 +364,6 @@ LOCAL_PATH="$(get_cfg LOCAL_PATH)"
 VIRTUAL_HOST="$(get_cfg VIRTUAL_HOST)"
 PHPMYADMIN_HOST="$(get_cfg PHPMYADMIN_HOST)"
 MAILHOG_HOST="$(get_cfg MAILHOG_HOST)"
-if [[ -z "$MAILHOG_VERSION" ]]; then
-  MAILHOG_VERSION="v1.0.1"
-fi
 if [[ -z "$MAILHOG_HOST" && -n "$VIRTUAL_HOST" ]]; then
   MAILHOG_HOST="mailhog.${VIRTUAL_HOST}"
 fi

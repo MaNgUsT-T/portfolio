@@ -344,6 +344,7 @@ function Invoke-CheckVersions {
   if (-not $dbVersion) { $missing += "DB_VERSION" }
   if (-not $apacheVersion) { $missing += "APACHE_VERSION" }
   if (-not $phpmyadminVersion) { $missing += "PHPMYADMIN_VERSION" }
+  if (-not $mailhogVersion) { $missing += "MAILHOG_VERSION" }
   if (-not $hostUid) { $missing += "HOST_UID" }
   if (-not $hostGid) { $missing += "HOST_GID" }
 
@@ -597,7 +598,6 @@ $localPath = Get-Cfg "LOCAL_PATH"
 $virtualHost = Get-Cfg "VIRTUAL_HOST"
 $phpmyadminHost = Get-Cfg "PHPMYADMIN_HOST"
 $mailhogHost = Get-Cfg "MAILHOG_HOST"
-if (-not $mailhogVersion) { $mailhogVersion = "v1.0.1" }
 if (-not $mailhogHost -and $virtualHost) { $mailhogHost = "mailhog.$virtualHost" }
 
 $mysqlDatabase = Get-Cfg "MYSQL_DATABASE"

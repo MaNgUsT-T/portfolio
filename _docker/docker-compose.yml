@@ -116,7 +116,7 @@ services:
       - traefik.enable=true
       - traefik.docker.network=dev-proxy
       - traefik.http.routers.${PROJECT_NAME}_mailhog.entrypoints=web
-      - traefik.http.routers.${PROJECT_NAME}_mailhog.rule=Host(`${MAILHOG_HOST:-mailhog.localhost}`)
+      - traefik.http.routers.${PROJECT_NAME}_mailhog.rule=Host(`${MAILHOG_HOST}`)
       - traefik.http.services.${PROJECT_NAME}_mailhog.loadbalancer.server.port=8025
 
 volumes:

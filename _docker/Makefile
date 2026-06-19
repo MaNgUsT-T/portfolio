@@ -21,16 +21,15 @@ get-env = $(shell sed -n 's/^$(1)=//p' $(ENV_FILE) | tail -n1)
 
 PROJECT_NAME := $(call get-env,PROJECT_NAME)
 PHP_VERSION  := $(call get-env,PHP_VERSION)
-MAILHOG_VERSION  := $(call get-env,MAILHOG_VERSION)
-MAILHOG_VERSION  := $(if $(MAILHOG_VERSION),$(MAILHOG_VERSION),v1.0.1)
 WP_CLI_VERSION  := $(call get-env,WP_CLI_VERSION)
 DB_VERSION   := $(call get-env,DB_VERSION)
 APACHE_VERSION := $(call get-env,APACHE_VERSION)
 PHPMYADMIN_VERSION := $(call get-env,PHPMYADMIN_VERSION)
+MAILHOG_VERSION := $(call get-env,MAILHOG_VERSION)
 HOST_UID := $(strip $(call get-env,HOST_UID))
 HOST_GID := $(strip $(call get-env,HOST_GID))
 
-export PHP_VERSION MAILHOG_VERSION WP_CLI_VERSION DB_VERSION APACHE_VERSION PHPMYADMIN_VERSION
+export PHP_VERSION WP_CLI_VERSION DB_VERSION APACHE_VERSION PHPMYADMIN_VERSION MAILHOG_VERSION
 export HOST_UID HOST_GID
 
 # Shared PHP-Image name (must be set in _docker/.env)
@@ -365,8 +364,8 @@ db-reset-from-live: db-pull-init
 
 .PHONY: check-versions
 check-versions:
-	@if [ -z "$(PHP_IMAGE)" ] || [ -z "$(PHP_VERSION)" ] || [ -z "$(WP_CLI_VERSION)" ] || [ -z "$(DB_VERSION)" ] || [ -z "$(APACHE_VERSION)" ] || [ -z "$(PHPMYADMIN_VERSION)" ] || [ -z "$(HOST_UID)" ] || [ -z "$(HOST_GID)" ]; then \
+	@if [ -z "$(PHP_IMAGE)" ] || [ -z "$(PHP_VERSION)" ] || [ -z "$(WP_CLI_VERSION)" ] || [ -z "$(DB_VERSION)" ] || [ -z "$(APACHE_VERSION)" ] || [ -z "$(PHPMYADMIN_VERSION)" ] || [ -z "$(MAILHOG_VERSION)" ] || [ -z "$(HOST_UID)" ] || [ -z "$(HOST_GID)" ]; then \
 	  echo "Fehlende Pflicht-Variablen. In _docker/.env setzen:" >&2; \
-	  echo "  PHP_IMAGE, PHP_VERSION, WP_CLI_VERSION, DB_VERSION, APACHE_VERSION, PHPMYADMIN_VERSION, HOST_UID, HOST_GID" >&2; \
+	  echo "  PHP_IMAGE, PHP_VERSION, WP_CLI_VERSION, DB_VERSION, APACHE_VERSION, PHPMYADMIN_VERSION, MAILHOG_VERSION, HOST_UID, HOST_GID" >&2; \
 	  exit 1; \
 	fi

@@ -1,0 +1,567 @@
+{
+  "meta": {
+    "title": "Lisa Weber Portfolio",
+    "description": "Lisa Weber Portfolio",
+    "keywords": "portfolio",
+    "ogTitle": "Lisa Weber Portfolio",
+    "ogDescription": "Lisa Weber Portfolio",
+    "ogImage": "./img/favicon_512x512.png",
+    "ogSiteName": "https://www.lisa-weber.de",
+    "fluidIconTitle": "Lisa Weber Portfolio"
+  },
+  "header": {
+    "logoText": "lisa.weber",
+    "navigationLabel": "Navigation",
+    "navigation": [
+      {
+        "href": "#about",
+        "label": "Über mich"
+      },
+      {
+        "href": "#skills",
+        "label": "Fähigkeiten"
+      },
+      {
+        "href": "#experience",
+        "label": "Erfarung"
+      },
+      {
+        "href": "#projects",
+        "label": "Projekte"
+      },
+      {
+        "href": "#contact",
+        "label": "Kontakt",
+        "title": "Kontakt"
+      }
+    ],
+    "resumeLink": {
+      "href": "#experience",
+      "label": "Lebenslauf"
+    }
+  },
+  "hero": {
+    "availability": "Verfügbar für Freelance-Projekte",
+    "headline": {
+      "beforeItalic": "Digitale ",
+      "italic": "Erlebnisse",
+      "afterItalic": " gestalten."
+    },
+    "intro": {
+      "beforeBold": "Hallo, ich bin ",
+      "bold": "Lisa Weber",
+      "afterBold": ". Eine Webdesignerin & UI/UX Experterin, die sich  darauf spezialisiert hat, ästhetische, nutzerzentrierte und zugängliche Interfaces zu kreieren."
+    },
+    "buttons": [
+      {
+        "href": "#projects",
+        "label": "Portfolio ansehen",
+        "variant": "primary"
+      },
+      {
+        "href": "#contact",
+        "label": "Kontakt",
+        "variant": "secondary"
+      }
+    ],
+    "socialLinks": [
+      {
+        "href": "#",
+        "title": "Dribbble",
+        "icon": "dribbble"
+      },
+      {
+        "href": "#",
+        "title": "LinkedIn",
+        "icon": "linkedin"
+      },
+      {
+        "href": "#",
+        "title": "Instagram",
+        "icon": "instagram"
+      }
+    ]
+  },
+  "about": {
+    "id": "about",
+    "preheader": "Philosophe & Ansatzt",
+    "title": "Über mich",
+    "paragraphs": [
+      "Schon währendmeines Design-Studiums war ich fasziniert von der Schnitstelle zwischen visueller Geestaltung und Technologie. Heute mit über 6 Jahren Erfahrung in der Branche, helfe ich Marken dabei, ihre digitale identität zu finden und in nutzerfreundliche Produkte zu übersetzen.",
+      "Mein Ansatz kombiniert strategisches Denken mit Liebe zum Detail. Ich glaube fest daran, dass herausragendes Webdesign nicht nur gut aussehen der Zielgruppe zugeschnitten sein sollte.",
+      "Wenn ich nicht gerade Pixel in Figma schubse oder Frontend-Code optimiere, findet man mich meistens mit einer analogen Kamera in der Natur oder beim Ausprobieren neuer Kaffeeröstereien in der Stadt."
+    ],
+    "image": {
+      "alt": "Computer",
+      "className": "img-fluid",
+      "loading": "lazy",
+      "fallback": {
+        "src": "./img/m_computer.jpg",
+        "width": "568px",
+        "height": "683px"
+      },
+      "sources": [
+        {
+          "media": "(min-width: 48rem)",
+          "srcset": "./img/d_computer.jpg",
+          "width": "1024px",
+          "height": "683px"
+        },
+        {
+          "media": "(min-width: 35.5rem)",
+          "srcset": "./img/t_computer.jpg",
+          "width": "768px",
+          "height": "683px"
+        }
+      ]
+    },
+    "cards": [
+      {
+        "title": "Ästhetik trifft Funktion",
+        "text": "Gutes Design ist unsichtbar. Ich gestalte interfaces, die nicht nur visuell ansprechend sind, sondern den Nutzer intuitiv an sein Ziel führen.",
+        "icon": "tag"
+      },
+      {
+        "title": "Struktur & Systeme",
+        "text": "Ich liebe es. konsistente Design-Systeme aufzubauen. Skalierbare Komponenten und klare Typografie-Hierarchien sind das Fundament meiner Arbeit.",
+        "icon": "layout"
+      },
+      {
+        "title": "Nutzerzentriert",
+        "text": "Der Nutzer steht immer im Mittelpunkt. Durch Research, Wireframing und Prototyping stelle ich sicher, dass echte Probleme gelöst werden.",
+        "icon": "smartphone"
+      }
+    ]
+  },
+  "skills": {
+    "id": "skills",
+    "preheader": "Expertise & Skills",
+    "title": "Meine Werkzeuge",
+    "groups": [
+      {
+        "title": "Design Tools",
+        "icon": "figma",
+        "items": [
+          "Figma",
+          "Sketch",
+          "Adobe XD",
+          "Photoshop",
+          "Illustrator",
+          "Framer"
+        ]
+      },
+      {
+        "title": "Frontend Entwicklung",
+        "icon": "code",
+        "items": [
+          "HTML 5",
+          "CSS3/SASS",
+          "Tailwind CSS",
+          "JavaScript",
+          "React",
+          "Webflow"
+        ]
+      },
+      {
+        "title": "UX Methoden",
+        "icon": "users",
+        "items": [
+          "User Research",
+          "Wireframing",
+          "Prototyping",
+          "Usability Testing",
+          "Personas"
+        ]
+      },
+      {
+        "title": "Design Systeme",
+        "icon": "layers",
+        "items": [
+          "Component Libraries",
+          "Design Tokens",
+          "Styleguides",
+          "Dokumentation"
+        ]
+      },
+      {
+        "title": "Visuelles Design",
+        "icon": "palette",
+        "items": [
+          "Typografie",
+          "Farbtheorie",
+          "Layout & Grid",
+          "Ikonografie",
+          "Branding"
+        ]
+      },
+      {
+        "title": "Motion & Interaktion",
+        "icon": "monitor-play",
+        "items": [
+          "Micro-Interactions",
+          "After Effects",
+          "Lottie",
+          "CSS Animations"
+        ]
+      }
+    ]
+  },
+  "experience": {
+    "id": "experience",
+    "preheader": "Mein Werdegang",
+    "title": "Berufserfahrung",
+    "items": [
+      {
+        "date": "2021 - Heute",
+        "title": "Creative Director Digital",
+        "company": "Studio Nord",
+        "location": "Hamburg",
+        "points": [
+          "Leitung eines 5-köpfigen Design-Teams für digitale Produkte und Markenauftritte.",
+          "Entwicklung und Implementierung von umfassenden Design-Systemen für Enterprise-Kunden.",
+          "Steigerung der Conversion-Rate bei E-Commerce-Projekten um durchschnittlich 25% durchUX-Optimierungen.",
+          "Einführung agiler Design-Prozesse und enge Zusammenarbeit mit dem Entwickler-Team."
+        ]
+      },
+      {
+        "date": "2018 - 2021",
+        "title": "Senior UI/UX Designerin",
+        "company": "TechFlow Agency",
+        "location": "Berlin",
+        "points": [
+          "Verantwortlich für das Redesign von 3 großen SaaS-Plattformen im B2B-Bereich.",
+          "Durchführung von Nutzerinterviews und Usability-Tests zur Validierung von Prototypen.",
+          "Erstellung von interaktiven High-Fidelity-Prototypen in Figma und Framer.",
+          "Mentoring von Junior-Designern und Organisation von internen Design-Workshops."
+        ]
+      },
+      {
+        "date": "2016 - 2018",
+        "title": "Junior Webdesignerin",
+        "company": "Pixel & Code",
+        "location": "München",
+        "points": [
+          "Gestaltung von responsiven Corporate Websites und Landingpages.",
+          "Umsetzung von Screendesigns in HTML, CSS und grundlegendem JavaScript.",
+          "Erstellung von Social-Media-Grafiken und digitalen Kampagnen-Assets.",
+          "Unterstützung bei der Entwicklung von Markenidentitäten und Styleguides."
+        ]
+      }
+    ]
+  },
+  "projects": {
+    "id": "projects",
+    "preheader": "Portfolio",
+    "title": "Ausgewählte Arbeiten",
+    "items": [
+      {
+        "category": "Webdesign & UX",
+        "href": "#",
+        "title": "Lumina E-Commerce",
+        "description": "Komplettes Redesign eines Premium-Möbelshops. Fokus auf emotionale bildsprache, vereinfachten Checkout-Prozess und Mobile-First-Ansatz.",
+        "highlight": "+35% Mobile Conversion Rate",
+        "tags": [
+          "Figma",
+          "Prototyping",
+          "Schopify"
+        ],
+        "image": {
+          "alt": "Computer",
+          "className": "img-fluid",
+          "loading": "lazy",
+          "fallback": {
+            "src": "./img/m_computer.jpg",
+            "width": "568px",
+            "height": "683px"
+          },
+          "sources": [
+            {
+              "media": "(min-width: 48rem)",
+              "srcset": "./img/d_computer.jpg",
+              "width": "1024px",
+              "height": "683px"
+            },
+            {
+              "media": "(min-width: 35.5rem)",
+              "srcset": "./img/t_computer.jpg",
+              "width": "768px",
+              "height": "683px"
+            }
+          ]
+        }
+      },
+      {
+        "category": "UI/UX Design",
+        "href": "#",
+        "title": "Fin Track SaaS Dashboard",
+        "description": "Gestaltung einer komplexen Finanz-Applikation für B2B-Kunden. Entwicklung eines modularen Design-Systems zur Darstellung von Daten und Metriken.",
+        "highlight": "Reduzierung der Onboarding-Zeit um 50%",
+        "tags": [
+          "Design System",
+          "User Research",
+          "React"
+        ],
+        "image": {
+          "alt": "Computer",
+          "className": "img-fluid",
+          "loading": "lazy",
+          "fallback": {
+            "src": "./img/m_dashboard.jpg",
+            "width": "568px",
+            "height": "683px"
+          },
+          "sources": [
+            {
+              "media": "(min-width: 48rem)",
+              "srcset": "./img/d_dashboard.jpg",
+              "width": "1024px",
+              "height": "683px"
+            },
+            {
+              "media": "(min-width: 35.5rem)",
+              "srcset": "./img/t_dashboard.jpg",
+              "width": "768px",
+              "height": "683px"
+            }
+          ]
+        }
+      },
+      {
+        "category": "Branding & Webdesign",
+        "href": "#",
+        "title": "Naturale Brand Identity",
+        "description": "Entwicklung der visuellen Identität und Gestaltung der Corpotate Website für ein nachhaltiges Kosmetik-Startup. Inklusive Art Direction für Produktfotos.",
+        "highlight": "Erfolgreicher Launch mit 10k+ Besuchen",
+        "tags": [
+          "Branding",
+          "Webflow",
+          "Art Direction"
+        ],
+        "image": {
+          "alt": "Computer",
+          "className": "img-fluid",
+          "loading": "lazy",
+          "fallback": {
+            "src": "./img/m_beauty.jpg",
+            "width": "568px",
+            "height": "683px"
+          },
+          "sources": [
+            {
+              "media": "(min-width: 48rem)",
+              "srcset": "./img/d_beauty.jpg",
+              "width": "1024px",
+              "height": "683px"
+            },
+            {
+              "media": "(min-width: 35.5rem)",
+              "srcset": "./img/t_beauty.jpg",
+              "width": "768px",
+              "height": "683px"
+            }
+          ]
+        }
+      },
+      {
+        "category": "Mobile App Design",
+        "href": "#",
+        "title": "Move Fitness App",
+        "description": "Konzeption und UI-Design einer IOS-app.",
+        "highlight": "4.8 Sterne im App Store",
+        "tags": [
+          "iOS Design",
+          "Micro-Interactions",
+          "Figma"
+        ],
+        "image": {
+          "alt": "Computer",
+          "className": "img-fluid",
+          "loading": "lazy",
+          "fallback": {
+            "src": "./img/m_app.jpg",
+            "width": "568px",
+            "height": "683px"
+          },
+          "sources": [
+            {
+              "media": "(min-width: 48rem)",
+              "srcset": "./img/d_app.jpg",
+              "width": "1024px",
+              "height": "683px"
+            },
+            {
+              "media": "(min-width: 35.5rem)",
+              "srcset": "./img/t_app.jpg",
+              "width": "768px",
+              "height": "683px"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "education": {
+    "preheader": "Zertifikate & Kurse",
+    "title": "Weiterbildung",
+    "carouselLabel": "Weiterbildung Slider",
+    "items": [
+      {
+        "title": "Google UX Design Professional Certificate",
+        "provider": "Google via Coursera",
+        "year": "2022",
+        "status": "Verifiziert"
+      },
+      {
+        "title": "UI Design Patterns for Successful Software",
+        "provider": "Interaction Design Foundation",
+        "year": "2021",
+        "status": "Verifiziert"
+      },
+      {
+        "title": "Adobe Certified Professional in Visual Design",
+        "provider": "Adobe",
+        "year": "2020",
+        "status": "Verifiziert"
+      },
+      {
+        "title": "Web Accessibility (WCAG 2.1)",
+        "provider": "W3C",
+        "year": "2023",
+        "status": "Verifiziert"
+      }
+    ]
+  },
+  "contact": {
+    "id": "contact",
+    "preheader": "Kontakt aufnehmen",
+    "title": "Lass uns sprechen",
+    "introCard": {
+      "title": "Auf einen Kaffee?",
+      "text": "Ich bin immer auf der Suche nach spannenden Projekten und neuen Herausforderungen. Egal ob es um ein Redesign, eine neue App oder einfach nur um einen kreativen Austausch geht - schreib mir gerne eine Nachricht!",
+      "emailHref": "mailto:hallo@lisaweber.design",
+      "emailLabel": "hallo@lisaweber.design"
+    },
+    "form": {
+      "action": "./contact.php",
+      "submitLabel": "Nachricht senden",
+      "salutationLabel": "Anrede",
+      "salutationOptions": [
+        {
+          "value": "",
+          "label": "Anrede",
+          "selected": true
+        },
+        {
+          "value": "Herr",
+          "label": "Herr"
+        },
+        {
+          "value": "Frau",
+          "label": "Frau"
+        }
+      ],
+      "fields": [
+        {
+          "type": "text",
+          "name": "website",
+          "id": "website",
+          "label": "Website",
+          "tabindex": "-1",
+          "autocomplete": "off",
+          "wrapperClass": "form-group form-group--website"
+        },
+        {
+          "type": "text",
+          "name": "firstname",
+          "id": "firstname",
+          "label": "Vorname",
+          "required": true,
+          "placeholder": "Dein Vorname",
+          "row": true
+        },
+        {
+          "type": "text",
+          "name": "lastname",
+          "id": "lastname",
+          "label": "Nachname",
+          "required": true,
+          "placeholder": "Dein Nachname",
+          "row": true
+        },
+        {
+          "type": "email",
+          "name": "email",
+          "id": "email",
+          "label": "E-Mail",
+          "required": true,
+          "placeholder": "deine@email.de"
+        },
+        {
+          "type": "text",
+          "name": "subject",
+          "id": "subject",
+          "label": "Betreff",
+          "placeholder": "Worum geht es?"
+        },
+        {
+          "type": "textarea",
+          "name": "message",
+          "id": "message",
+          "label": "Nachricht",
+          "required": true,
+          "placeholder": "Erzähl mir von deinem Projekt..",
+          "rows": "5"
+        }
+      ],
+      "radioGroup": {
+        "name": "radio-group",
+        "options": [
+          {
+            "id": "ci",
+            "value": "ci",
+            "label": "Corporate Design"
+          },
+          {
+            "id": "radio-2",
+            "value": "print",
+            "label": "Print"
+          },
+          {
+            "id": "radio-3",
+            "value": "web",
+            "label": "Web"
+          }
+        ]
+      },
+      "consent": {
+        "id": "gdproptin",
+        "name": "gdproptin",
+        "value": "1",
+        "label": "Ich bin damit einverstanden, dass meine Daten dauerhaft verwendet werden. Ein Widerruf meiner Einwilligung ist jederzeit mit Wirkung für die Zukunft möglich."
+      }
+    }
+  },
+  "footer": {
+    "logoText": "lisa.weber",
+    "text": "Gestaltet & Entwickelt mit liebe zum Detail",
+    "copyright": "2026",
+    "owner": "Lisa Weber. Alle Rechte vorbehalten.",
+    "socialLinks": [
+      {
+        "href": "#",
+        "title": "Dribbble",
+        "icon": "dribbble"
+      },
+      {
+        "href": "#",
+        "title": "LinkedIn",
+        "icon": "linkedin"
+      },
+      {
+        "href": "#",
+        "title": "Instagram",
+        "icon": "instagram"
+      }
+    ]
+  }
+}

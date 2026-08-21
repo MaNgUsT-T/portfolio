@@ -1,7 +1,8 @@
-@use "../variables" as v;
-@use "../mixins/mixins" as m;
+@use "../../variables" as v;
+@use "../../mixins/mixins" as m;
 
 .projects {
+	
 	.projects__wrapper {
 		row-gap: v.$spacing-3xl;
 		column-gap: v.$spacing-3xl;

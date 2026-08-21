@@ -1,0 +1,230 @@
+{
+  "meta": {
+    "title": "Lisa Weber Portfolio",
+    "description": "Lisa Weber Portfolio",
+    "keywords": "portfolio",
+    "ogTitle": "Lisa Weber Portfolio",
+    "ogDescription": "Lisa Weber Portfolio",
+    "ogImage": "./img/favicon_512x512.png",
+    "ogSiteName": "https://www.lisa-weber.de",
+    "fluidIconTitle": "Lisa Weber Portfolio"
+  },
+  "header": {
+    "logoIcon": "palette",
+    "logoText": "lisa.weber",
+    "navigationLabel": "Navigation",
+    "navigation": [
+      {
+        "href": "#about",
+        "label": "Über mich",
+        "title": ""
+      }
+    ],
+    "resumeLink": {
+      "href": "#experience",
+      "label": "Lebenslauf"
+    }
+  },
+  "hero": {
+    "availability": "Verfügbar für Freelance-Projekte",
+    "headline": {
+      "beforeItalic": "Digitale ",
+      "italic": "Erlebnisse",
+      "afterItalic": " gestalten."
+    },
+    "intro": {
+      "beforeBold": "Hallo, ich bin ",
+      "bold": "Lisa Weber",
+      "afterBold": ". Eine Webdesignerin & UI/UX Experterin, die sich darauf spezialisiert hat, ästhetische, nutzerzentrierte und zugängliche Interfaces zu kreieren."
+    },
+    "buttons": [
+      {
+        "href": "#projects",
+        "label": "Portfolio ansehen",
+        "variant": "primary"
+      }
+    ],
+    "socialLinks": [
+      {
+        "href": "#",
+        "title": "Dribbble",
+        "icon": "dribbble"
+      }
+    ]
+  },
+  "about": {
+    "id": "about",
+    "preheader": "Philosophe & Ansatzt",
+    "title": "Über mich",
+    "paragraphs": [
+      "Schon während meines Design-Studiums war ich fasziniert von der Schnittstelle zwischen visueller Gestaltung und Technologie."
+    ],
+    "image": {
+      "alt": "Computer",
+      "className": "img-fluid",
+      "loading": "lazy",
+      "fallback": {
+        "src": "./img/m_computer.jpg",
+        "width": "568px",
+        "height": "683px"
+      },
+      "sources": [
+        {
+          "media": "(min-width: 48rem)",
+          "srcset": "./img/d_computer.jpg",
+          "width": "1024px",
+          "height": "683px"
+        }
+      ]
+    },
+    "cards": [
+      {
+        "title": "Ästhetik trifft Funktion",
+        "text": "Gutes Design ist unsichtbar.",
+        "icon": "tag"
+      }
+    ]
+  },
+  "skills": {
+    "id": "skills",
+    "preheader": "Expertise & Skills",
+    "title": "Meine Werkzeuge",
+    "groups": [
+      {
+        "title": "Design Tools",
+        "icon": "figma",
+        "items": [
+          "Figma"
+        ]
+      }
+    ]
+  },
+  "experience": {
+    "id": "experience",
+    "preheader": "Mein Werdegang",
+    "title": "Berufserfahrung",
+    "items": [
+      {
+        "date": "2021 - Heute",
+        "title": "Creative Director Digital",
+        "company": "Studio Nord",
+        "location": "Hamburg",
+        "points": [
+          "Leitung eines Design-Teams."
+        ]
+      }
+    ]
+  },
+  "projects": {
+    "id": "projects",
+    "preheader": "Portfolio",
+    "title": "Ausgewählte Arbeiten",
+    "items": [
+      {
+        "category": "Webdesign & UX",
+        "href": "#",
+        "title": "Lumina E-Commerce",
+        "description": "Komplettes Redesign eines Premium-Möbelshops.",
+        "highlight": "+35% Mobile Conversion Rate",
+        "tags": [
+          "Figma"
+        ],
+        "image": {
+          "alt": "Computer",
+          "className": "img-fluid",
+          "loading": "lazy",
+          "fallback": {
+            "src": "./img/m_computer.jpg",
+            "width": "568px",
+            "height": "683px"
+          },
+          "sources": [
+            {
+              "media": "(min-width: 48rem)",
+              "srcset": "./img/d_computer.jpg",
+              "width": "1024px",
+              "height": "683px"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "education": {
+    "preheader": "Zertifikate & Kurse",
+    "title": "Weiterbildung",
+    "carouselLabel": "Weiterbildung Slider",
+    "items": [
+      {
+        "title": "Google UX Design Professional Certificate",
+        "provider": "Google via Coursera",
+        "year": "2022",
+        "status": "Verifiziert"
+      }
+    ]
+  },
+  "contact": {
+    "id": "contact",
+    "preheader": "Kontakt aufnehmen",
+    "title": "Lass uns sprechen",
+    "introCard": {
+      "title": "Auf einen Kaffee?",
+      "text": "Ich bin immer auf der Suche nach spannenden Projekten.",
+      "emailHref": "mailto:hallo@lisaweber.design",
+      "emailLabel": "hallo@lisaweber.design"
+    },
+    "form": {
+      "action": "./contact.php",
+      "submitLabel": "Nachricht senden",
+      "salutationLabel": "Anrede",
+      "salutationOptions": [
+        {
+          "value": "",
+          "label": "Anrede",
+          "selected": true
+        }
+      ],
+      "fields": [
+        {
+          "type": "text",
+          "name": "firstname",
+          "id": "firstname",
+          "label": "Vorname",
+          "required": true,
+          "placeholder": "Dein Vorname",
+          "row": true,
+          "tabindex": ""
+        }
+      ],
+      "radioGroup": {
+        "name": "radio-group",
+        "options": [
+          {
+            "id": "ci",
+            "value": "ci",
+            "label": "Corporate Design"
+          }
+        ]
+      },
+      "consent": {
+        "id": "gdproptin",
+        "name": "gdproptin",
+        "value": "1",
+        "label": "Ich bin damit einverstanden, dass meine Daten dauerhaft verwendet werden."
+      }
+    }
+  },
+  "footer": {
+    "logoText": "lisa.weber",
+    "text": "Gestaltet & Entwickelt mit liebe zum Detail",
+    "copyright": "2026",
+    "owner": "Lisa Weber. Alle Rechte vorbehalten.",
+    "socialLinks": [
+      {
+        "href": "#",
+        "title": "Dribbble",
+        "icon": "dribbble"
+      }
+    ]
+  }
+}

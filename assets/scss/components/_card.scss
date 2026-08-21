@@ -307,8 +307,7 @@
             font-weight: 400;
 
             svg {
-                width: 1.4rem;
-                height: 1.4rem;
+                @include m.icon-size (1.4rem);
                 stroke: v.$experience-item-card-workplace-icon-color;
             }
         }

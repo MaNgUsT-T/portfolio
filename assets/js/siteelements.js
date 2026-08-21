@@ -6,6 +6,64 @@
  * @version 1.0.0
  */
 
+let iconsCache = null;
+let iconsPromise = null;
+
+function icon(name) {
+    if (!iconsCache || typeof iconsCache[name] !== 'string') {
+        return '';
+    }
+
+    return iconsCache[name];
+}
+
+function resolveIconsPath() {
+    return './data/icons.json';
+}
+
+function loadIcons() {
+    if (iconsCache) {
+        return Promise.resolve(iconsCache);
+    }
+
+    if (iconsPromise) {
+        return iconsPromise;
+    }
+
+    iconsPromise = fetch(resolveIconsPath(), {
+        cache: 'no-store',
+        headers: {
+            Accept: 'application/json'
+        }
+    })
+        .then(function(response) {
+            if (!response.ok) {
+                throw new Error('icons.json konnte nicht geladen werden.');
+            }
+
+            return response.json();
+        })
+        .then(function(data) {
+            if (!data || typeof data !== 'object' || Array.isArray(data)) {
+                throw new Error('icons.json enthält kein gültiges Objekt.');
+            }
+
+            iconsCache = Object.fromEntries(
+                Object.entries(data).filter(function(entry) {
+                    return typeof entry[0] === 'string' && typeof entry[1] === 'string';
+                })
+            );
+
+            return iconsCache;
+        })
+        .catch(function(error) {
+            iconsPromise = null;
+            throw error;
+        });
+
+    return iconsPromise;
+}
+
 /**
  * Initialisiert die Theme-Umschaltung auf Basis von Browser-Einstellung und manueller Auswahl.
  * Die manuelle Auswahl wird persistent gespeichert und überschreibt die Systempräferenz.
@@ -18,14 +76,12 @@ function themeInitialize() {
         light: '#ffffff',
         dark: '#18181b'
     };
-    const $root = $(document.documentElement);
-    const $toggleElements = $('[data-theme-toggle]');
-    const $themeColorMeta = $('meta[name="theme-color"]');
+    const rootElement = document.documentElement;
+    const toggleElements = document.querySelectorAll('[data-theme-toggle]');
+    const themeColorMeta = document.querySelector('meta[name="theme-color"]');
     const mediaQuery = typeof window.matchMedia === 'function'
         ? window.matchMedia('(prefers-color-scheme: dark)')
         : null;
-    const sunIconSVG = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="m4.93 4.93 1.41 1.41"></path><path d="m17.66 17.66 1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="m6.34 17.66-1.41 1.41"></path><path d="m19.07 4.93-1.41 1.41"></path></svg>`;
-    const moonIconSVG = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path></svg>`;
 
     function normalizeThemePreference(value) {
         return value === lightTheme || value === darkTheme ? value : null;
@@ -54,24 +110,25 @@ function themeInitialize() {
     function syncToggleState(theme) {
         const isDarkTheme = theme === darkTheme;
         const toggleLabel = isDarkTheme ? 'Helles Theme aktivieren' : 'Dunkles Theme aktivieren';
-        const iconSVG = isDarkTheme ? sunIconSVG : moonIconSVG;
+        const iconSVG = isDarkTheme ? icon('sun') : icon('moon');
 
-        $toggleElements.attr({
-            'aria-pressed': String(isDarkTheme),
-            'aria-label': toggleLabel,
-            'title': toggleLabel,
-            'data-theme-state': theme
-        }).html(iconSVG);
+        toggleElements.forEach(function(toggleElement) {
+            toggleElement.setAttribute('aria-pressed', String(isDarkTheme));
+            toggleElement.setAttribute('aria-label', toggleLabel);
+            toggleElement.setAttribute('title', toggleLabel);
+            toggleElement.dataset.themeState = theme;
+            toggleElement.innerHTML = iconSVG;
+        });
     }
 
     function applyTheme(theme) {
         const normalizedTheme = normalizeThemePreference(theme) || lightTheme;
 
-        $root.attr('data-theme', normalizedTheme);
-        document.documentElement.style.colorScheme = normalizedTheme;
+        rootElement.dataset.theme = normalizedTheme;
+        rootElement.style.colorScheme = normalizedTheme;
 
-        if ($themeColorMeta.length) {
-            $themeColorMeta.attr('content', getThemeMetaColor(normalizedTheme));
+        if (themeColorMeta) {
+            themeColorMeta.setAttribute('content', getThemeMetaColor(normalizedTheme));
         }
 
         syncToggleState(normalizedTheme);
@@ -98,7 +155,7 @@ function themeInitialize() {
     function handleThemeToggle(event) {
         event.preventDefault();
 
-        const activeTheme = normalizeThemePreference($root.attr('data-theme')) || lightTheme;
+        const activeTheme = normalizeThemePreference(rootElement.dataset.theme) || lightTheme;
         const nextTheme = getNextTheme(activeTheme);
 
         persistTheme(nextTheme);
@@ -113,14 +170,16 @@ function themeInitialize() {
         handleThemeToggle(event);
     }
 
-    if (!$toggleElements.length || $root.attr('data-theme-switch-initialized') === 'true') {
+    if (!toggleElements.length || rootElement.dataset.themeSwitchInitialized === 'true') {
         return;
     }
 
     applyTheme(resolveThemePreference(getStoredTheme(), getSystemPreference()));
 
-    $toggleElements.on('click', handleThemeToggle);
-    $toggleElements.on('keydown', handleThemeToggleKeydown);
+    toggleElements.forEach(function(toggleElement) {
+        toggleElement.addEventListener('click', handleThemeToggle);
+        toggleElement.addEventListener('keydown', handleThemeToggleKeydown);
+    });
 
     if (mediaQuery && typeof mediaQuery.addEventListener === 'function') {
         mediaQuery.addEventListener('change', function(event) {
@@ -132,7 +191,7 @@ function themeInitialize() {
         });
     }
 
-    $root.attr('data-theme-switch-initialized', 'true');
+    rootElement.dataset.themeSwitchInitialized = 'true';
 }
 
 /**
@@ -141,9 +200,9 @@ function themeInitialize() {
  *
  * @returns {number} Die aufgerundete Höhe des Elements in Pixeln. Gibt 0 zurück, falls das Element nicht existiert.
  */
-function calculateHeaderOuterHeight($headerElement) {
-    if (!$headerElement || !$headerElement.length) return 0;
-    return Math.ceil($headerElement.outerHeight() || 0);
+function calculateHeaderOuterHeight(headerElement) {
+    if (!headerElement) return 0;
+    return Math.ceil(headerElement.offsetHeight || 0);
 }
 
 /**
@@ -153,33 +212,33 @@ function calculateHeaderOuterHeight($headerElement) {
  *
  * @returns {number} Die aufgerundete Unterkante des Headers in Pixeln.
  */
-function calculateHeaderVisualBottom($headerElement) {
-    if (!$headerElement || !$headerElement.length) return 0;
-    return Math.ceil($headerElement[0].getBoundingClientRect().bottom || 0);
+function calculateHeaderVisualBottom(headerElement) {
+    if (!headerElement) return 0;
+    return Math.ceil(headerElement.getBoundingClientRect().bottom || 0);
 }
 
 /**
  * Synchronisiert den Start-Offset des mobilen Offcanvas-Menüs mit der aktuellen Header-Höhe.
  */
-function syncOffcanvasInsetWithHeader($headerElement) {
-    const $navWrapper = $('.header__nav-wrapper');
+function syncOffcanvasInsetWithHeader(headerElement) {
+    const navWrapper = document.querySelector('.js-header-nav-wrapper');
 
-    if (!$navWrapper.length) {
+    if (!navWrapper) {
         return;
     }
 
-    if ($(window).outerWidth() < 1024) {
+    if (window.innerWidth < 1024) {
         /** Mobile: Neuen Wert berechnen */
-        const newValue = calculateHeaderVisualBottom($headerElement) + 'px';
+        const newValue = calculateHeaderVisualBottom(headerElement) + 'px';
 
         /** Nur ins DOM schreiben, wenn der Wert nicht sowieso schon exakt dieser ist! */
-        if ($navWrapper[0].style.insetBlockStart !== newValue) {
-            $navWrapper.css('inset-block-start', newValue);
+        if (navWrapper.style.insetBlockStart !== newValue) {
+            navWrapper.style.insetBlockStart = newValue;
         }
     } else {
         /** Desktop: Nur löschen, wenn überhaupt ein Inline-Style gesetzt ist! */
-        if ($navWrapper[0].style.insetBlockStart) {
-            $navWrapper.css('inset-block-start', '');
+        if (navWrapper.style.insetBlockStart) {
+            navWrapper.style.removeProperty('inset-block-start');
         }
     }
 }
@@ -187,9 +246,9 @@ function syncOffcanvasInsetWithHeader($headerElement) {
 /**
  * Plant eine Nachmessung, sobald der Browser die nächste Layout-/Paint-Phase erreicht hat.
  */
-function scheduleOffcanvasInsetSync($headerElement) {
+function scheduleOffcanvasInsetSync(headerElement) {
     window.requestAnimationFrame(function() {
-        syncOffcanvasInsetWithHeader($headerElement);
+        syncOffcanvasInsetWithHeader(headerElement);
     });
 }
 
@@ -199,66 +258,69 @@ function scheduleOffcanvasInsetSync($headerElement) {
  * Beinhaltet Logik zur Vermeidung von Layout-Thrashing und Scroll-Jitter ("Wackeln").
  */
 function headerScrollInitialize() {
-    const $header = $('header');
+    const header = document.querySelector('.js-header');
 
-    if (!$header.length) {
+    if (!header) {
         return;
     }
 
     let isScrolled = false;
-    let initialHeight = calculateHeaderOuterHeight($header);
-    let windowWidth = $(window).outerWidth();
+    let initialHeight = calculateHeaderOuterHeight(header);
+    let windowWidth = window.innerWidth;
 
     function updateHeaderScrollState() {
-        const currentScroll = $(window).scrollTop();
+        const currentScroll = window.scrollY;
 
         if (!isScrolled && currentScroll > initialHeight) {
-            $header.addClass('header--scrolled');
-            syncOffcanvasInsetWithHeader($header);
-            scheduleOffcanvasInsetSync($header);
+            header.classList.add('header--scrolled');
+            syncOffcanvasInsetWithHeader(header);
+            scheduleOffcanvasInsetSync(header);
             isScrolled = true;
         }
-        else if (isScrolled && currentScroll <= calculateHeaderOuterHeight($header)) {
-            $header.removeClass('header--scrolled');
-            syncOffcanvasInsetWithHeader($header);
-            scheduleOffcanvasInsetSync($header);
+        else if (isScrolled && currentScroll <= calculateHeaderOuterHeight(header)) {
+            header.classList.remove('header--scrolled');
+            syncOffcanvasInsetWithHeader(header);
+            scheduleOffcanvasInsetSync(header);
             isScrolled = false;
         }
 
-        syncOffcanvasInsetWithHeader($header);
+        syncOffcanvasInsetWithHeader(header);
     }
 
     // Resize-Event: Aktualisiert die initiale Höhe nur, wenn sich die Viewport-Breite ändert.
-    $(window).on('resize', function() {
-        if ($(window).outerWidth() !== windowWidth) {
-            windowWidth = $(window).outerWidth();
+    window.addEventListener('resize', function() {
+        if (window.innerWidth !== windowWidth) {
+            windowWidth = window.innerWidth;
 
-            const currentlyScrolled = $header.hasClass('header--scrolled');
+            const currentlyScrolled = header.classList.contains('header--scrolled');
 
             // Um die echte Initialhöhe zu messen, muss die "scrolled"-Klasse kurzzeitig entfernt werden
             if (currentlyScrolled) {
-                $header.removeClass('header--scrolled');
+                header.classList.remove('header--scrolled');
             }
 
-            initialHeight = calculateHeaderOuterHeight($header);
+            initialHeight = calculateHeaderOuterHeight(header);
 
             // Ursprünglichen Zustand wiederherstellen
             if (currentlyScrolled) {
-                $header.addClass('header--scrolled');
+                header.classList.add('header--scrolled');
             }
 
             updateHeaderScrollState();
         }
-    });
+    }, { passive: true });
 
     // Scroll-Event: Aktualisiert den Scroll-Zustand des Headers.
-    $(window).on('scroll', updateHeaderScrollState);
+    window.addEventListener('scroll', function() {
+        updateHeaderScrollState();
+    }, { passive: true });
 
-    $header.on('transitionend', function(event) {
-        if (event.target !== $header[0]) {
+    header.addEventListener('transitionend', function(event) {
+        if (event.target !== header) {
             return;
         }
-        syncOffcanvasInsetWithHeader($header);
+
+        syncOffcanvasInsetWithHeader(header);
     });
 
     updateHeaderScrollState();
@@ -271,18 +333,17 @@ function headerScrollInitialize() {
  * einen ResizeObserver für millimetergenaue CSS-Positionierungen.
  */
 function mobileNavigationInitialize() {
-    const $header = $('.header');
-    const $toggleButton = $('[data-mobile-nav-toggle]');
-    const $panel = $('.header__nav-wrapper');
-    const $overlay = $('[data-overlay]');
+    const header = document.querySelector('.js-header');
+    let headerOuterHeight = calculateHeaderOuterHeight(header);
+    const toggleButton = document.querySelector('[data-mobile-nav-toggle]');
+    const panel = document.querySelector('.js-header-nav-wrapper');
+    const overlay = document.querySelector('[data-overlay]');
     const transitionDuration = 300;
     let animationResetTimeout = null;
 
-    if (!$header.length || !$toggleButton.length || !$overlay.length || !$panel.length) {
+    if (!header || !toggleButton || !overlay || !panel) {
         return;
     }
-
-    let headerOuterHeight = calculateHeaderOuterHeight($header);
 
     // Selektoren für alle fokussierbaren Elemente innerhalb der Navigation.
     const focusableSelectors = 'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])';
@@ -291,8 +352,8 @@ function mobileNavigationInitialize() {
      * Aktualisiert den vertikalen Offset des Offcanvas-Menüs.
      */
     function headerHeightInitialize() {
-        headerOuterHeight = calculateHeaderOuterHeight($header);
-        syncOffcanvasInsetWithHeader($header);
+        headerOuterHeight = calculateHeaderOuterHeight(header);
+        syncOffcanvasInsetWithHeader(header);
     }
 
     /**
@@ -300,7 +361,7 @@ function mobileNavigationInitialize() {
      * @returns {number} Die Breite der Scrollbar in Pixeln.
      */
     function getScrollbarWidth() {
-        return $(window).outerWidth() - $('html').prop('clientWidth');
+        return window.innerWidth - document.documentElement.clientWidth;
     }
 
     /**
@@ -310,20 +371,20 @@ function mobileNavigationInitialize() {
      */
     function applyScrollLockCompensation(scrollbarWidth) {
         if (scrollbarWidth > 0) {
-            $('body').css('padding-right', scrollbarWidth + 'px');
-            $toggleButton.css('padding-right', scrollbarWidth + 'px');
+            document.body.style.paddingRight = scrollbarWidth + 'px';
+            toggleButton.style.paddingRight = scrollbarWidth + 'px';
             return;
         }
-        $('body').css('padding-right', '');
-        $toggleButton.css('padding-right', '');
+        document.body.style.removeProperty('padding-right');
+        toggleButton.style.removeProperty('padding-right');
     }
 
     /**
      * Entfernt die Scrollbar-Kompensation.
      */
     function clearScrollLockCompensation() {
-        $('body').css('padding-right', '');
-        $toggleButton.css('padding-right', '');
+        document.body.style.removeProperty('padding-right');
+        toggleButton.style.removeProperty('padding-right');
     }
 
     /**
@@ -334,9 +395,9 @@ function mobileNavigationInitialize() {
             clearTimeout(animationResetTimeout);
         }
 
-        $('body').addClass('nav--animate');
-        animationResetTimeout = setTimeout(function() {
-            $('body').removeClass('nav--animate');
+        document.body.classList.add('nav--animate');
+        animationResetTimeout = window.setTimeout(function() {
+            document.body.classList.remove('nav--animate');
             animationResetTimeout = null;
         }, transitionDuration);
     }
@@ -353,10 +414,10 @@ function mobileNavigationInitialize() {
         if (shouldAnimate) {
             enableNavigationAnimation();
         } else {
-            $('body').removeClass('nav--animate');
+            document.body.classList.remove('nav--animate');
         }
 
-        $('body').toggleClass('nav--open', isOpen);
+        document.body.classList.toggle('nav--open', isOpen);
 
         if (isOpen) {
             applyScrollLockCompensation(scrollbarWidth);
@@ -365,9 +426,9 @@ function mobileNavigationInitialize() {
         }
 
         // Aria-Attribute für Barrierefreiheit aktualisieren
-        $toggleButton.attr('aria-expanded', isOpen.toString());
-        $toggleButton.attr('aria-label', isOpen ? 'Navigation schließen' : 'Navigation öffnen');
-        $panel.attr('aria-hidden', (!isOpen).toString());
+        toggleButton.setAttribute('aria-expanded', String(isOpen));
+        toggleButton.setAttribute('aria-label', isOpen ? 'Navigation schließen' : 'Navigation öffnen');
+        panel.setAttribute('aria-hidden', String(!isOpen));
     }
 
     /**
@@ -375,7 +436,7 @@ function mobileNavigationInitialize() {
      */
     function closeNavigation() {
         setNavigationState(false, true);
-        $toggleButton.trigger('focus');
+        toggleButton.focus();
     }
 
     /**
@@ -384,9 +445,9 @@ function mobileNavigationInitialize() {
     function openNavigation() {
         setNavigationState(true, true);
 
-        const $firstFocusableElement = $panel.find(focusableSelectors).first();
-        if ($firstFocusableElement.length) {
-            $firstFocusableElement.trigger('focus');
+        const firstFocusableElement = panel.querySelector(focusableSelectors);
+        if (firstFocusableElement) {
+            firstFocusableElement.focus();
         }
     }
 
@@ -394,7 +455,7 @@ function mobileNavigationInitialize() {
      * Wechselt den Zustand der Navigation (Toggle).
      */
     function toggleNavigation() {
-        const isOpen = $toggleButton.attr('aria-expanded') === 'true';
+        const isOpen = toggleButton.getAttribute('aria-expanded') === 'true';
         if (isOpen) {
             closeNavigation();
         } else {
@@ -403,11 +464,11 @@ function mobileNavigationInitialize() {
     }
 
     // Event-Listener für Navigation Controls
-    $toggleButton.on('click', toggleNavigation);
-    $overlay.on('click', closeNavigation);
+    toggleButton.addEventListener('click', toggleNavigation);
+    overlay.addEventListener('click', closeNavigation);
 
     // Tastaturnavigation: Öffnen/Schließen per Enter- oder Leertaste
-    $toggleButton.on('keydown', function(event) {
+    toggleButton.addEventListener('keydown', function(event) {
         if (event.key === 'Enter' || event.key === ' ') {
             event.preventDefault();
             toggleNavigation();
@@ -415,11 +476,15 @@ function mobileNavigationInitialize() {
     });
 
     // Navigation schließen, wenn ein regulärer Link geklickt wird
-    $panel.find('a[href]').on('click', closeNavigation);
+    panel.querySelectorAll('a[href]').forEach(function(link) {
+        link.addEventListener('click', function() {
+            closeNavigation();
+        });
+    });
 
     // Navigation per Escape-Taste schließen (wichtig für Barrierefreiheit)
-    $(document).on('keydown', function(event) {
-        if (event.key === 'Escape' && $toggleButton.attr('aria-expanded') === 'true') {
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape' && toggleButton.getAttribute('aria-expanded') === 'true') {
             closeNavigation();
         }
     });
@@ -433,24 +498,24 @@ function mobileNavigationInitialize() {
         const headerObserver = new ResizeObserver(function() {
             headerHeightInitialize();
         });
-        headerObserver.observe($header[0]);
+        headerObserver.observe(header);
     }
 
     // Resize-Handling für Layout-Wechsel (Desktop <-> Mobile)
-    $(window).on('resize', function() {
+    window.addEventListener('resize', function() {
         headerHeightInitialize();
 
         // Scrollbar-Kompensation bei geöffneter Navigation während eines Resizes neu berechnen.
-        if ($toggleButton.attr('aria-expanded') === 'true') {
+        if (toggleButton.getAttribute('aria-expanded') === 'true') {
             clearScrollLockCompensation();
-            $('body').removeClass('nav--open');
+            document.body.classList.remove('nav--open');
             const scrollbarWidth = getScrollbarWidth();
-            $('body').addClass('nav--open');
+            document.body.classList.add('nav--open');
             applyScrollLockCompensation(scrollbarWidth);
         }
 
         // Navigation automatisch schließen, wenn der Desktop-Breakpoint erreicht wird.
-        if ($(window).outerWidth() >= 1024 && $toggleButton.attr('aria-expanded') === 'true') {
+        if (window.innerWidth >= 1024 && toggleButton.getAttribute('aria-expanded') === 'true') {
             setNavigationState(false, false);
         }
     });
@@ -461,7 +526,7 @@ function mobileNavigationInitialize() {
  * ========================================================================== */
 
 // Ermittelt die Anzahl der Demo-Slides im DOM vor der Initialisierung.
-let demoCarouselItems = $('#splide-carousel').find('.splide__slide').length;
+let demoCarouselItems = document.querySelectorAll('#splide-carousel .splide__slide').length;
 console.log('Demo Items:', demoCarouselItems);
 
 /**
@@ -496,7 +561,7 @@ function demoCarouselInitialize() {
 }
 
 // Ermittelt die Anzahl der Education-Slides im DOM vor der Initialisierung.
-let educationCarouselItems = $('#education-carousel').find('.splide__slide').length;
+let educationCarouselItems = document.querySelectorAll('#education-carousel .splide__slide').length;
 console.log('Education Items:', educationCarouselItems);
 
 /**
@@ -539,15 +604,15 @@ function educationCarouselInitialize() {
  * Zeigt Statusmeldungen und Validierungsfehler (inkl. ARIA-Invalid) im Frontend an.
  */
 function contactFormInitialize() {
-    const $form = $('#contact-form');
+    const form = document.querySelector('#contact-form');
 
-    if (!$form.length) {
+    if (!form) {
         return;
     }
 
-    const $submitButton = $('[data-contact-submit]');
-    const $statusElement = $('[data-contact-status]');
-    const defaultSubmitHtml = $submitButton.length ? $submitButton.html() : '';
+    const submitButton = document.querySelector('[data-contact-submit]');
+    const statusElement = document.querySelector('[data-form-status]');
+    const defaultSubmitHtml = submitButton ? submitButton.innerHTML : '';
 
     /**
      * Setzt die globale Statusmeldung (Erfolg oder Fehler) des Formulars.
@@ -555,17 +620,23 @@ function contactFormInitialize() {
      * @param {string} type - Der Typ der Meldung ('success' oder 'error').
      */
     function setStatus(message, type) {
-        if (!$statusElement.length) return;
-        $statusElement.text(message);
-        $statusElement.attr('data-contact-status', type);
+        if (!statusElement) return;
+
+        statusElement.textContent = message;
+        statusElement.dataset.formStatus = type;
     }
 
     /**
      * Entfernt alle vorherigen Fehlermeldungen und Aria-Invalid Attribute von den Formularfeldern.
      */
     function clearErrors() {
-        $form.find('[data-contact-error]').text('');
-        $form.find('[aria-invalid="true"]').removeAttr('aria-invalid');
+        form.querySelectorAll('[data-form-error]').forEach(function(errorElement) {
+            errorElement.textContent = '';
+        });
+
+        form.querySelectorAll('[aria-invalid="true"]').forEach(function(field) {
+            field.removeAttribute('aria-invalid');
+        });
     }
 
     /**
@@ -573,15 +644,16 @@ function contactFormInitialize() {
      * @param {Object} errors - Ein Objekt mit den Feldnamen als Keys und den Fehlermeldungen als Values.
      */
     function renderErrors(errors) {
-        $.each(errors, function(name, errorMsg) {
-            const $errorElement = $form.find('[data-contact-error="' + name + '"]');
-            const $field = $form.find('[name="' + name + '"]');
+        Object.keys(errors).forEach(function(name) {
+            const errorElement = form.querySelector('[data-form-error="' + name + '"]');
+            const field = form.elements[name];
 
-            if ($errorElement.length) {
-                $errorElement.text(errorMsg);
+            if (errorElement) {
+                errorElement.textContent = errors[name];
             }
-            if ($field.length) {
-                $field.attr('aria-invalid', 'true');
+
+            if (field) {
+                field.setAttribute('aria-invalid', 'true');
             }
         });
     }
@@ -591,60 +663,57 @@ function contactFormInitialize() {
      * @param {boolean} isSubmitting - Status, ob das Formular aktuell gesendet wird.
      */
     function setSubmitting(isSubmitting) {
-        $form.attr('aria-busy', isSubmitting.toString());
+        form.setAttribute('aria-busy', String(isSubmitting));
 
-        if (!$submitButton.length) return;
+        if (!submitButton) return;
 
-        $submitButton.prop('disabled', isSubmitting);
-        $submitButton.html(isSubmitting ? 'Nachricht wird gesendet...' : defaultSubmitHtml);
+        submitButton.disabled = isSubmitting;
+        submitButton.innerHTML = isSubmitting ? 'Nachricht wird gesendet...' : defaultSubmitHtml;
     }
 
     // Formular-Submit-Handler.
-    $form.on('submit', function(event) {
+    form.addEventListener('submit', function(event) {
         event.preventDefault(); // Standard-Weiterleitung blockieren.
 
         clearErrors();
         setStatus('', '');
         setSubmitting(true);
 
-        $.ajax({
-            url: $form.attr('action'),
+        fetch(form.action, {
             method: 'POST',
-            data: new FormData($form[0]),
-            processData: false,
-            contentType: false,
-            dataType: 'json',
+            body: new FormData(form),
             headers: {
                 'Accept': 'application/json'
             }
         })
-            .done(function(payload) {
+            .then(function(response) {
+                return response.json().then(function(payload) {
+                    return {
+                        ok: response.ok,
+                        payload: payload
+                    };
+                });
+            })
+            .then(function(result) {
                 // Server meldet einen Fehler.
-                if (!payload.ok) {
-                    if (payload.errors) {
-                        renderErrors(payload.errors);
+                if (!result.ok || !result.payload.ok) {
+                    if (result.payload.errors) {
+                        renderErrors(result.payload.errors);
                     }
-                    setStatus(payload.message || 'Die Nachricht konnte nicht gesendet werden.', 'error');
+
+                    setStatus(result.payload.message || 'Die Nachricht konnte nicht gesendet werden.', 'error');
                     return;
                 }
 
                 // Erfolgreich gesendet.
-                $form[0].reset();
-                setStatus(payload.message, 'success');
+                form.reset();
+                setStatus(result.payload.message, 'success');
             })
-            .fail(function(jqXHR) {
-                const payload = jqXHR.responseJSON;
-
-                if (payload && payload.errors) {
-                    renderErrors(payload.errors);
-                    setStatus(payload.message || 'Die Nachricht konnte nicht gesendet werden.', 'error');
-                    return;
-                }
-
+            .catch(function() {
                 // Netzwerkfehler.
                 setStatus('Die Verbindung ist fehlgeschlagen. Bitte versuche es erneut.', 'error');
             })
-            .always(function() {
+            .finally(function() {
                 // Button am Ende immer wieder freigeben.
                 setSubmitting(false);
             });
@@ -656,7 +725,13 @@ function contactFormInitialize() {
  * ========================================================================== */
 
 // Wartet, bis die HTML-Struktur vollständig geladen ist, bevor Funktionen ausgeführt werden.
-jQuery(function($) {
+document.addEventListener('DOMContentLoaded', async function() {
+    try {
+        await loadIcons();
+    } catch (error) {
+        console.error(error);
+    }
+
     themeInitialize();
     headerScrollInitialize();
     mobileNavigationInitialize();

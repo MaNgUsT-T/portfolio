@@ -1,0 +1,29 @@
+User-agent: *
+Disallow: /admin/
+
+User-agent: GPTBot
+Disallow: /admin/
+
+User-agent: ChatGPT-User
+Disallow: /admin/
+
+User-agent: Google-Extended
+Disallow: /admin/
+
+User-agent: ClaudeBot
+Disallow: /admin/
+
+User-agent: Claude-Web
+Disallow: /admin/
+
+User-agent: anthropic-ai
+Disallow: /admin/
+
+User-agent: CCBot
+Disallow: /admin/
+
+User-agent: PerplexityBot
+Disallow: /admin/
+
+User-agent: Bytespider
+Disallow: /admin/

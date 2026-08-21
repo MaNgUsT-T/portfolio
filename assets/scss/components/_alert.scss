@@ -1,0 +1,27 @@
+@use "../variables" as v;
+@use "../mixins/mixins" as m;
+
+.alert {
+	padding: v.$spacing-m v.$spacing-l;
+	border: 0.1rem solid currentColor;
+	border-radius: v.$radius-xl;
+	font-size: v.$fs-range-xs-s;
+	line-height: v.$lh-3xl;
+
+	ul
+	&.alert--success {
+		@include m.alert-variant(v.$green);
+	}
+
+	&.alert--error {
+		@include m.alert-variant(v.$red);
+	}
+
+	&.alert--warning {
+		@include m.alert-variant(v.$yellow);
+	}
+
+	&.alert--info {
+		@include m.alert-variant(v.$blue);
+	}
+}

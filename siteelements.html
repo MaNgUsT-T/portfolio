@@ -73,7 +73,7 @@
 	</style>
 </head>
 <body>
-	<header class="header">
+	<header class="header js-header">
 		<div class="container header__wrapper">
 			<div class="logo">
 				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -88,7 +88,7 @@
 			<div
 				id="header-navigation"
 				aria-hidden="true"
-				class="header__nav-wrapper"
+				class="header__nav-wrapper js-header-nav-wrapper"
 			>
 				<nav
 					role="navigation"
@@ -316,6 +316,13 @@
 		<section id="elements">
 			<div class="container">
 				<p class="preheader"></p>
+				<h2>Alerts</h2>
+				<div style="margin-block-end:2.4rem; display:flex; flex-direction:column; gap:1.2rem;">
+					<div class="alert alert--success">Lorem Ipsum</div>
+					<div class="alert alert--error">Lorem Ipsum</div>
+					<div class="alert alert--warning">Lorem Ipsum</div>
+					<div class="alert alert--info">Lorem Ipsum</div>
+				</div>
 				<h2>Buttons</h2>
 				<div style="margin-block-end:2.4rem; display:flex; flex-wrap:wrap; align-items:center; gap:1.2rem;">
 					<a href="#"
@@ -1074,13 +1081,7 @@
 		class="backdrop"
 		data-overlay
 	></div>
-	<!-- JQuery
-	<script src="./vendor/jquery/jquery-3.7.1.min.js" crossorigin="anonymous"></script>
-    <script src="./vendor/splide/splide.min.js" crossorigin="anonymous"></script>
-    <script src="./js/jq-main.min.js"></script>
-    -->
-	<!-- Vanilla JS-->
 	<script src="./vendor/splide/splide.min.js" crossorigin="anonymous"></script>
-	<script src="./js/vjs-main.min.js"></script>
+	<script src="./js/siteelements.min.js"></script>
 </body>
 </html>

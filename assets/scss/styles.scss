@@ -7,6 +7,7 @@
 @use "base/fonts";
 @use "base/basics";
 
+@use "components/alert";
 @use "components/button";
 @use "components/card";
 @use "components/form";
@@ -17,3 +18,4 @@
 @use "layout/footer";
 
 @use "pages/home";
+@use "pages/admin";

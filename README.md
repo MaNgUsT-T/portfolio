@@ -7,6 +7,15 @@ Docker-Umgebung. Die öffentliche Seite lädt ihre Inhalte aus `data/data.json`,
 `js/app.min.js` und nutzt `contact.php` als JSON-Endpunkt für das Kontaktformular. `README.md` ist der Einstieg für den
 täglichen Projektkontext. Operative Details werden in den jeweils führenden Dokumenten gepflegt.
 
+## Wichtig
+
+Bevor Sie das Projekt produktiv oder gemeinsam nutzen, müssen Sie das initiale Admin-Passwort über `admin/change-password.php`
+in der Oberfläche ändern und nicht durch eine Änderung im Repository. Dabei müssen Sie `change-me-admin-password` als
+aktuelles altes Passwort eintragen.
+
+Außerdem müssen Sie die E-Mail-Konfiguration in `contact-config.php` an Ihre Zieladresse anpassen, weil dort der Empfänger
+für Kontaktanfragen definiert ist.
+
 ## Funktionsumfang
 
 - **Dynamische Inhaltsausgabe:** `assets/js/app.js` lädt `data/data.json`, setzt Metadaten und rendert Header, Hero,

@@ -1,26 +1,34 @@
-﻿# DevOps Portfolio
+﻿# Portfolio mit JSON-Content und Admin-Oberfläche
 
-Stand: 2026-06-05
+Stand: 2026-08-26
 
-Dieses Repository enthält die PHP-Anwendung für ein modernes, responsives Portfolio-Template, das speziell für
-DevOps-Ingenieure entwickelt wurde. Die Anwendung ermöglicht es, technische Fähigkeiten, Cloud-Infrastrukturen und 
-I/CD-Projekte professionell zu präsentieren.. Der projektrelevante Code liegt im Repo-Root. `README.md` ist der Einstieg
-für den täglichen Projektkontext. Operative Details werden in den jeweils führenden Dokumenten gepflegt.
+Dieses Repository enthält ein datengetriebenes Portfolio auf Basis von `index.html`, PHP-Endpunkten und einer lokalen
+Docker-Umgebung. Die öffentliche Seite lädt ihre Inhalte aus `data/data.json`, rendert die Bereiche clientseitig über
+`js/app.min.js` und nutzt `contact.php` als JSON-Endpunkt für das Kontaktformular. `README.md` ist der Einstieg für den
+täglichen Projektkontext. Operative Details werden in den jeweils führenden Dokumenten gepflegt.
 
-## Features
+## Funktionsumfang
 
-- **Modernes Design:** Cleanere Look mit Fokus auf Lesbarkeit und Ästhetik.
-- **Tech-Stack Visualisierung:** Kategorisierte Darstellung von Werkzeugen (IaC, Monitoring, Cloud).
-- **Projekt-Showcase:** Interaktive Karten für Fallstudien und Dashboards.
-- **Berufliche Laufbahn:** Strukturierte Timeline für Arbeitserfahrung.
-- **Kontaktformular:** Integrierte Sektion für Anfragen und Networking.
+- **Dynamische Inhaltsausgabe:** `assets/js/app.js` lädt `data/data.json`, setzt Metadaten und rendert Header, Hero,
+  About, Skills, Experience, Projects, Education, Contact und Footer in den Mount-Point `#app`.
+- **Admin-Oberfläche:** `admin/admin.php` lädt `data/data.json` und `data/data.admin-template.json` und bietet eine
+  strukturierte Bearbeitung sowie eine Raw-JSON-Ansicht mit direktem Speichern.
+- **Kontaktformular:** `contact.php` validiert Formularfelder anhand der Konfiguration in `data/data.json` und liefert
+  JSON-Antworten an das Frontend zurück.
+- **Frontend-Interaktionen:** Das Frontend initialisiert Theme-Umschaltung, Mobile-Navigation, Custom-Selects und ein
+  Splide-Karussell für den Education-Bereich.
+- **Lokale Entwicklungsumgebung:** `_docker/` stellt Apache, PHP, MariaDB, Traefik, phpMyAdmin und MailHog für lokale
+  Entwicklung und Tests bereit.
 
 ## Technologien
 
-- **Frontend:** Next.js / React
-- **Styling:** Tailwind CSS
-- **Sprache:** TypeScript
-- **Icons:** Lucide Icons
+- **Frontend-Markup:** `index.html` als Einstiegspunkt
+- **Frontend-Logik:** Vanilla JavaScript in `assets/js/` mit kompilierten Artefakten in `js/`
+- **Styling:** SCSS in `assets/scss/` mit kompilierter Ausgabe in `css/styles.min.css`
+- **Backend:** PHP-Endpunkte wie `contact.php` sowie PHP-basierte Admin-Seiten unter `admin/`
+- **Datenhaltung:** JSON-Dateien unter `data/`, insbesondere `data/data.json` und `data/icons.json`
+- **Bibliotheken:** Splide unter `vendor/splide/` und Lucide unter `vendor/luside/`
+- **Build-Sync:** `prepros.config` definiert die Zuordnung von SCSS- und JS-Quellen zu den ausgelieferten Minified-Dateien
 
 
 ## Dokumentationsstruktur
@@ -37,16 +45,19 @@ vermeiden.
 
 - `_docker/` - Lokale Docker-Umgebung (Compose, Makefile, WP-CLI, Traefik).
 - `assets/scss/` - Sass-Quellen.
-- `assets/js/` - JS-Quellen.
+- `assets/js/` - JavaScript-Quellen für Frontend, Admin und Hilfsfunktionen.
 - `css/` - Kompilierte CSS-Ausgabe.
 - `fonts/` - Projekt Fonts.
 - `img/` - Projekt Bilder.
-- `js/` - Projekt JS.
+- `js/` - Ausgelieferte minifizierte JavaScript-Dateien.
 - `vendor/` - Drittanbieter Bibliotheken.
 - `index.html` - Einstiegspunkt.
-- `config.php` - Datenbank Konfiguration.
-- `contact.php` - Kontakt Formular.
-- `data/data.json` - Content- und Kontaktformular-Konfiguration.
+- `admin/` - PHP-basierte Admin-Oberfläche für Inhalts- und JSON-Bearbeitung.
+- `contact.php` - JSON-Endpunkt für das Kontaktformular.
+- `contact-config.php` - Empfänger-Konfiguration für Kontaktanfragen.
+- `data/data.json` - Inhalts-, Meta- und Kontaktformular-Konfiguration.
+- `data/data.admin-template.json` - Strukturvorlage für die Admin-Oberfläche.
+- `siteelements.html` - zusätzliche HTML-Bausteine für statische Seitenelemente.
 
 ## Schnellstart (lokal)
 
@@ -61,6 +72,16 @@ make -C _docker logs # Logs (Apache)
 
 Nach dem Start gibt die Docker-Umgebung zusätzlich zur Projekt-URL auch die lokalen phpMyAdmin- und MailHog-URLs aus.
 MailHog zeigt lokal abgefangene Kontaktformular-Mails an; Details stehen in `_docker/README.md`.
+
+### Relevante Laufzeitdateien
+
+Für den öffentlichen Seitenaufbau ist diese Kette maßgeblich:
+
+1. `data/data.json` liefert Inhalte und Metadaten.
+2. `assets/js/app.js` ist die Quelllogik für Rendering und Initialisierung.
+3. `js/app.min.js` ist das ausgelieferte Frontend-Artefakt, das `index.html` tatsächlich lädt.
+4. `assets/scss/styles.scss` liefert die Styling-Quellen.
+5. `css/styles.min.css` ist die ausgelieferte CSS-Datei.
 
 ### Falls Traefik nicht läuft
 `make -C _docker proxy-up` oder erneut `make -C _docker up-all-build` ausführen.
@@ -84,12 +105,20 @@ oder
 ```
 
 Für DB-Import, URL-/Pfad-Lokalisierung, WP-CLI und Troubleshooting ist `_docker/README.md` die operative Referenz.
-`AGENTS.md` beschreibt Rollen und Arbeitsweise von Agenten. Die Makefile-Flags (`CLEAN_IMAGES`, `CLEAN_BASE_IMAGE`,
-`CLEAN_WP_SETUP`, `FORCE_DB_SANITIZE`, `FORCE_PHP_BUILD`, `PULL`, `RECREATE_PHP`) sind in `_docker/.env.example` und
-`_docker/README.md` dokumentiert.
+`AGENTS.md` beschreibt Rollen und Arbeitsweise von Agenten. Die Makefile-Flags `CLEAN_IMAGES`, `CLEAN_BASE_IMAGE`,
+`FORCE_PHP_BUILD`, `PULL` und `RECREATE_PHP` sind in `_docker/Makefile`, `_docker/.env.example` und `_docker/README.md`
+dokumentiert.
 
 ## Tests
-Derzeit keine automatisierten Tests. Manuelle QA-Schritte bitte in PRs dokumentieren.
+Derzeit gibt es keine automatisierte Test-Suite im Repository. Manuelle QA-Schritte gehören deshalb in jeden PR.
+
+Typische QA-Schritte:
+
+- Start der lokalen Umgebung prüfen.
+- Öffentliche Seite über die lokale URL laden.
+- Admin-Oberfläche unter `admin/` öffnen, wenn eine Änderung den Inhalts- oder Auth-Bereich betrifft.
+- Kontaktformular und MailHog prüfen, wenn Formularlogik oder Kontaktkonfiguration geändert wurde.
+- Sicherstellen, dass Quell- und Minified-Artefakte synchron sind, wenn `assets/js/` oder `assets/scss/` geändert wurden.
 
 ## Regeln & Zusammenarbeit
 

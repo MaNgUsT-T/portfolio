@@ -1,6 +1,6 @@
 # AGENTS.md
 
-Stand: 2026-06-05
+Stand: 2026-08-26
 
 Dieses Dokument beschreibt, wie menschliche Teammitglieder und KI‑Agenten effektiv in diesem Projekt zusammenarbeiten.
 Es enthält Rollenprofile, typische Workflows, erlaubte Werkzeuge/Befehle sowie Sicherheits- und Qualitätsleitlinien
@@ -86,9 +86,9 @@ in nachvollziehbaren Review-Berichten.
 (Datei: <HOME_DIR>/.agents/skills/code-reviewer/SKILL.md)
 
 ##### Aufgaben
-Prüft Änderungen im Repo-Root (`index.php`, `index.html`, `config.php`), in `css/`, `js/`,
-`vendor/` und `_docker/` auf technische Risiken. Validiert bei Doku-Änderungen, dass referenzierte Befehle und Pfade
-mit dem tatsächlichen Repository-Stand übereinstimmen.
+Prüft Änderungen im Repo-Root (`index.html`, `contact.php`, `config.php`, `contact-config.php`), in `assets/`, `css/`,
+`js/`, `admin/`, `data/`, `vendor/` und `_docker/` auf technische Risiken. Validiert bei Doku-Änderungen, dass
+referenzierte Befehle und Pfade mit dem tatsächlichen Repository-Stand übereinstimmen.
 
 ##### Checkliste (typisch)
 - [ ] Funktionsänderungen auf Regressionsrisiken und Seiteneffekte prüfen.
@@ -121,9 +121,9 @@ Keine technischen Codeänderungen als Teil einer Dokuaufgab. Keine widersprüchl
 sondern auf das führende Dokument verweisen.
 
 #### docker-expert
-Docker-Experte für die lokale WordPress-Containerumgebung dieses Repositories. Fokus auf den Compose-Stack unter
-`_docker/` (PHP-Image, Apache, MariaDB, Traefik), reproduzierbare Start-/Build-Abläufe über Make/Buildfiles sowie die
-Analyse von Container-, Netzwerk- und Berechtigungsproblemen.
+Docker-Experte für die lokale Containerumgebung dieses Repositories. Fokus auf den Compose-Stack unter `_docker/`
+(PHP-Image, Apache, MariaDB, Traefik, phpMyAdmin, MailHog), reproduzierbare Start-/Build-Abläufe über Make/Buildfiles
+sowie die Analyse von Container-, Netzwerk- und Berechtigungsproblemen.
 (Datei: <HOME_DIR>/.agents/skills/docker-expert/SKILL.md)
 
 ##### Aufgaben
@@ -147,11 +147,11 @@ kreative, hochwertige UI-Umsetzungen und vermeidet generische KI-Ästhetik.
 (Datei: <HOME_DIR>/.agents/skills/frontend-design/SKILL.md)
 
 ##### Aufgaben
-UI-Änderungen primär in `templates/`, `assets/` und `dpp-admin/` umsetzen. Bestehende visuelle Sprache des Projekts
-respektieren, sofern kein Redesign angefordert ist.
+UI-Änderungen primär in `index.html`, `assets/`, `css/`, `js/` und `admin/` umsetzen. Bestehende visuelle Sprache des
+Projekts respektieren, sofern kein Redesign angefordert ist.
 
 ##### Checkliste (typisch)
-- [ ] UI-Änderungen in `templates/`, `assets/` oder `dpp-admin/` umsetzen.
+- [ ] UI-Änderungen in `index.html`, `assets/`, `css/`, `js/` oder `admin/` umsetzen.
 - [ ] Darstellung auf Desktop und Mobile prüfen.
 - [ ] Bestehende visuelle Sprache beibehalten, sofern kein explizites Redesign angefordert ist.
 - [ ] Keine externen Design-Assets oder Fonts einbinden, die nicht im Projekt vorhanden oder lizenzrechtlich geklärt
@@ -168,11 +168,12 @@ Integrationen.
 (Datei: <HOME_DIR>/.agents/skills/php-pro/SKILL.md)
 
 ##### Aufgaben
-Code-Änderungen auf `index.php`, `index.html`, `css/` und `js/` fokussieren. Kompatibilität
-zur lokalen Containerkonfiguration (`PHP_VERSION` in `_docker/.env`) sicherstellen.
+Code-Änderungen auf `contact.php`, `contact-mailto.php`, `config.php`, `contact-config.php`, `admin/*.php`,
+`index.html`, `assets/`, `css/` und `js/` fokussieren. Kompatibilität zur lokalen Containerkonfiguration
+(`PHP_VERSION` in `_docker/.env`) sicherstellen.
 
 ##### Checkliste (typisch)
-- [ ] PHP-Syntax prüfen: `php -l index.php` (gegebenenfalls weitere geänderte PHP-Dateien).
+- [ ] PHP-Syntax prüfen: `php -l contact.php` und gegebenenfalls weitere geänderte PHP-Dateien.
 - [ ] Lokale Laufzeit prüfen: `make -C _docker up` und `make -C _docker logs`.
 
 ##### Grenzen

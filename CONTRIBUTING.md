@@ -1,6 +1,6 @@
 # Repository Guidelines (CONTRIBUTING)
 
-Stand: 2026-06-25
+Stand: 2026-08-26
 
 Dieses Dokument beschreibt die verbindlichen Beitragsregeln für dieses Repository: Struktur, Entwicklungsabläufe,
 Qualitätsanforderungen, Sicherheit sowie Anforderungen an Commits und Pull Requests. `CONTRIBUTING.md` ergänzt
@@ -14,16 +14,18 @@ Entwicklungsabläufe ist `_docker/` die maßgebliche Arbeitsbasis.
 ### Kernmodule im Projekt
 - `_docker/` - Lokale Docker-Umgebung (Compose, Makefile, WP-CLI, Traefik).
 - `assets/scss/` - Sass-Quellen.
-- `assets/js/` - JS-Quellen.
+- `assets/js/` - JavaScript-Quellen für Frontend, Admin und Hilfsfunktionen.
 - `css/` - Kompilierte CSS-Ausgabe.
 - `fonts/` - Projekt Fonts.
 - `img/` - Projekt Bilder.
-- `js/` - Projekt JS.
+- `js/` - ausgelieferte minifizierte JavaScript-Dateien.
 - `vendor/` - Drittanbieter Bibliotheken.
 - `index.html` - Einstiegspunkt.
-- `config.php` - Datenbank Konfiguration.
-- `contact.php` - Kontakt Formular.
-- `data/data.json` - Content- und Kontaktformular-Konfiguration.
+- `admin/` - Admin-Oberfläche für Inhalts- und JSON-Bearbeitung.
+- `contact.php` - JSON-Endpunkt für das Kontaktformular.
+- `contact-config.php` - Empfänger-Konfiguration für Kontaktanfragen.
+- `data/data.json` - Inhalts-, Meta- und Kontaktformular-Konfiguration.
+- `data/data.admin-template.json` - Strukturvorlage für die Admin-Oberfläche.
 
 ### Infrastruktur und Hilfsverzeichnisse
 Die lokale Entwicklungsumgebung liegt unter `_docker/` (Compose, Makefile, Buildfiles, Dockerfiles, Skripte).
@@ -67,11 +69,19 @@ Für lokale Syntax- und Stilprüfungen:
 php -l <file.php>
 ```
 
+Bei Frontend-Änderungen müssen Quell- und Auslieferungsdateien synchron bleiben:
+
+- Änderungen an `assets/js/app.js`, `assets/js/admin.js` oder `assets/js/siteelements.js` gehören zusammen mit den
+  zugehörigen Artefakten in `js/`.
+- Änderungen an `assets/scss/styles.scss` und den Partials gehören zusammen mit `css/styles.min.css`.
+- Maßgeblich für diese Zuordnungen ist `prepros.config`.
+
 ## Code- und Sicherheitsstandards
 Neue Änderungen folgen dem bestehenden Projektstil und vermeiden unnötige Groß-Refactorings in stabilem Altbestand.
 
 ### Stil und Benennung
 In PHP am bestehenden Stil der jeweiligen Datei orientieren. Neue Bezeichner klar und sprechend benennen.
+In JavaScript und SCSS die vorhandene Struktur unter `assets/js/` und `assets/scss/` beibehalten.
 
 ### Ein-/Ausgabehärtung
 Ausgaben kontextgerecht escapen (zum Beispiel `htmlspecialchars` für HTML-Ausgabe). Eingaben validieren/sanitisieren.
@@ -84,6 +94,12 @@ Es gibt aktuell keine PHPUnit-Suite. Daher müssen Pull Requests nachvollziehbar
 
 - Nach DB-Import die Erreichbarkeit von App und Admin prüfen.
 - Apache-Logs bei Fehlern prüfen (`make -C _docker logs`).
+- Bei Änderungen an `data/data.json`, `assets/js/` oder `js/` die öffentliche Seite vollständig laden und die betroffenen
+  Bereiche visuell prüfen.
+- Bei Änderungen an `admin/` oder `data/data.admin-template.json` die Admin-Oberfläche unter `admin/` öffnen und die
+  betroffenen Bearbeitungsflüsse prüfen.
+- Bei Änderungen an `contact.php`, `contact-config.php` oder der Kontaktformular-Konfiguration MailHog und
+  Formularvalidierung prüfen.
 
 ## Commits und Pull Requests
 Commit-Messages folgen dem Ticket-Präfix aus der Projekthistorie, zum Beispiel `8401 – Änderung kurz
@@ -109,6 +125,7 @@ referenziert:
 - `VIRTUAL_HOST`/`PHPMYADMIN_HOST`: Hostnamen für Traefik-Routing.
 - `dev-proxy`: gemeinsames Docker-Netz für Traefik.
 - `config.php.local`: lokale Konfiguration, die im Container `config.php` überschreibt.
+- `js/*.min.js`: ausgelieferte JavaScript-Artefakte, die laut `prepros.config` aus `assets/js/` erzeugt werden.
 
 ## ToDo (Code-Review)
 Die ToDo-Liste wird mit Priorität, Owner und Zieltermin gepflegt.

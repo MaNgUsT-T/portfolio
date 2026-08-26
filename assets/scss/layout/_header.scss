@@ -34,8 +34,16 @@ header {
     
     a {
         text-decoration: none;
+        white-space: nowrap;
     }
     
+    ul {
+
+        
+        li {
+            margin-inline-start: unset;
+        }
+    }
     .header__wrapper,
     .header__nav-wrapper {
         display: flex;

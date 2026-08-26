@@ -56,22 +56,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         : '';
 
     if (!adminVerifyCsrfToken($csrfToken)) {
-        $passwordChangeErrors[] = 'Das Formular konnte nicht bestätigt werden. Bitte erneut versuchen.';
+        $passwordChangeErrors[] = adminT('auth.invalid_csrf');
     } else {
         if ($currentPassword === '') {
-            $passwordFieldErrors['current_password'][] = 'Bitte gib das aktuelle Passwort ein.';
+            $passwordFieldErrors['current_password'][] = adminT('auth.current_password_required');
         } elseif (!adminVerifyPassword($currentPassword)) {
-            $passwordFieldErrors['current_password'][] = 'Das aktuelle Passwort ist nicht korrekt.';
+            $passwordFieldErrors['current_password'][] = adminT('auth.current_password_wrong');
         }
 
         if ($newPassword === '') {
-            $passwordFieldErrors['new_password'][] = 'Bitte gib ein neues Passwort ein.';
+            $passwordFieldErrors['new_password'][] = adminT('auth.new_password_required');
         } else {
             $passwordFieldErrors['new_password'] = adminPasswordRequirementErrors($newPassword);
         }
 
         if ($confirmPassword === '') {
-            $passwordFieldErrors['confirm_password'][] = 'Bitte wiederhole das neue Passwort.';
+            $passwordFieldErrors['confirm_password'][] = adminT('auth.confirm_password_required');
         } else {
             $passwordFieldErrors['confirm_password'] = adminPasswordRequirementErrors($confirmPassword);
         }
@@ -81,8 +81,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             && $confirmPassword !== ''
             && $newPassword !== $confirmPassword
         ) {
-            $passwordFieldErrors['new_password'][] = 'Die beiden neuen Passwortfelder stimmen nicht überein.';
-            $passwordFieldErrors['confirm_password'][] = 'Die beiden neuen Passwortfelder stimmen nicht überein.';
+            $passwordFieldErrors['new_password'][] = adminT('auth.passwords_mismatch');
+            $passwordFieldErrors['confirm_password'][] = adminT('auth.passwords_mismatch');
         }
 
         $hasFieldErrors = false;
@@ -97,7 +97,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($hasFieldErrors && passwordChangeWantsJson()) {
             passwordChangeRespond(422, [
                 'ok' => false,
-                'message' => 'Bitte korrigiere die markierten Felder.',
+                'message' => adminT('auth.fix_fields'),
                 'errors' => $passwordFieldErrors,
             ]);
         }
@@ -105,7 +105,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (!$hasFieldErrors) {
             try {
                 adminUpdatePassword($newPassword);
-                $passwordChangeSuccess = 'Das Passwort wurde geändert. Du kannst dich jetzt mit dem neuen Passwort einloggen.';
+                $passwordChangeSuccess = adminT('auth.change_password_success');
             } catch (RuntimeException $exception) {
                 $passwordChangeErrors[] = $exception->getMessage();
             }
@@ -123,20 +123,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         passwordChangeRespond(200, [
             'ok' => true,
-            'message' => $passwordChangeSuccess ?? 'Das Passwort wurde geändert.',
+            'message' => $passwordChangeSuccess ?? adminT('auth.change_password_success_short'),
         ]);
     }
 }
 ?>
 <!DOCTYPE html>
-<html lang="de">
+<html lang="<?= adminEscape(adminDocumentLanguage()) ?>">
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= adminEscape(adminTitle()) ?> Passwort ändern</title>
-    <meta name="description" content="<?= adminEscape(adminTitle()) ?> Passwort ändern">
+    <title><?= adminEscape(adminTitle()) ?> <?= adminEscape(adminT('auth.change_password_suffix')) ?></title>
+    <meta name="description" content="<?= adminEscape(adminTitle()) ?> <?= adminEscape(adminT('auth.change_password_suffix')) ?>">
     <meta name="keywords" content="portfolio, admin">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex, notranslate">
@@ -150,8 +150,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta name="anthropic-ai" content="noindex, nofollow, noarchive, nosnippet, noimageindex, notranslate">
     <meta name="CCBot" content="noindex, nofollow, noarchive, nosnippet, noimageindex, notranslate">
     <meta name="PerplexityBot" content="noindex, nofollow, noarchive, nosnippet, noimageindex, notranslate">
-    <meta property="og:title" content="<?= adminEscape(adminTitle()) ?> Passwort ändern">
-    <meta property="og:description" content="<?= adminEscape(adminTitle()) ?> Passwort ändern">
+    <meta property="og:title" content="<?= adminEscape(adminTitle()) ?> <?= adminEscape(adminT('auth.change_password_suffix')) ?>">
+    <meta property="og:description" content="<?= adminEscape(adminTitle()) ?> <?= adminEscape(adminT('auth.change_password_suffix')) ?>">
     <meta property="og:image" content="../img/favicon_512x512.png">
     <meta property="og:site_name" content="https://www.lisa-weber.de">
 	<!-- iOS Homescreen Icon -->
@@ -192,7 +192,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	</script>
 	<meta name="msapplication-TileImage" content="../img/favicon_512x512.png">
 	<!-- Fluid -->
-	<link rel="fluid-icon" href="../img/favicon_512x512.png" title="<?= adminEscape(adminTitle()) ?> Login">
+	<link rel="fluid-icon" href="../img/favicon_512x512.png" title="<?= adminEscape(adminTitle()) ?> <?= adminEscape(adminT('auth.change_password_suffix')) ?>">
 	<!-- Shortcut Icons -->
 	<link rel="shortcut icon" href="../img/favicon.ico?rand=1" type="image/x-icon">
 	<link rel="icon" href="../img/favicon_16x16.png" sizes="16x16">
@@ -209,7 +209,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	<link rel="stylesheet" href="../css/styles.min.css">
 </head>
 <body class="admin-auth">
-    <?= adminRenderSiteHeader($siteData, adminIsAuthenticated()) ?>
+    <?= adminRenderSiteHeader($siteData) ?>
 	<main>
 		<section>
 			<div class="container">
@@ -219,14 +219,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 							<div class="admin-logo">
 								<?= adminIconSvg(adminHeaderLogoIconName($siteData)) ?>
 							</div>
-							<h3>Neues Passwort setzen</h3>
+							<h3><?= adminEscape(adminT('auth.change_password_heading')) ?></h3>
 							<div class="alert alert--info">
-								<strong>Passwort-Regeln:</strong>
+								<strong><?= adminEscape(adminT('auth.password_rules_heading')) ?></strong>
 								<ul>
-									<li>Das neue Passwort muss mindestens 10 Zeichen lang sein.</li>
-									<li>Mindestens eine Zahl.</li>
-									<li>Einen Großbuchstaben.</li>
-									<li>ein Sonderzeichen enthalten.</li>
+									<li><?= adminEscape(adminT('auth.password_rule_length')) ?></li>
+									<li><?= adminEscape(adminT('auth.password_rule_number')) ?></li>
+									<li><?= adminEscape(adminT('auth.password_rule_uppercase')) ?></li>
+									<li><?= adminEscape(adminT('auth.password_rule_special')) ?></li>
 								</ul>
 							</div>
 							<div
@@ -236,26 +236,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 							<form method="post" id="change-password-form" novalidate>
 								<input type="hidden" name="csrf_token" value="<?= adminEscape(adminCsrfToken()) ?>">
 								<div class="form-group">
-									<label for="current_password">Aktuelles Passwort</label>
+									<label for="current_password"><?= adminEscape(adminT('auth.current_password_label')) ?></label>
 									<div class="input-group js-password-input">
 										<input
 											type="password"
 											id="current_password"
 											name="current_password"
 											autocomplete="current-password"
-											placeholder="Aktuelles Passwort"
+											placeholder="<?= adminEscape(adminT('auth.current_password_placeholder')) ?>"
 											data-password-field
 											required
 										>
 										<button
 											type="button"
-											title="Passwort anzeigen"
+											title="<?= adminEscape(adminT('auth.show_password')) ?>"
 											class="admin-password-icon-button"
-											aria-label="Passwort anzeigen"
+											aria-label="<?= adminEscape(adminT('auth.show_password')) ?>"
 											data-password-toggle
 											class="icon-button"
 										>
-											<?= adminIconSvg('eye', ['class' => 'admin-password-icon', 'data-password-icon' => 'eye']) ?>
+											<?= adminIconSvg('eye') ?>
 										</button>
 									</div>
 									<span data-form-error="current_password">
@@ -263,25 +263,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 									</span>
 								</div>
 								<div class="form-group">
-									<label for="new_password">Neues Passwort</label>
+									<label for="new_password"><?= adminEscape(adminT('auth.new_password_label')) ?></label>
 									<div class="input-group js-password-input">
 										<input
 											type="password"
 											id="new_password"
 											name="new_password"
 											autocomplete="new-password"
-											placeholder="Neues Passwort"
+											placeholder="<?= adminEscape(adminT('auth.new_password_placeholder')) ?>"
 											data-password-field
 											required
 										>
 										<button
 											type="button"
-											title="Passwort anzeigen"
-											aria-label="Passwort anzeigen"
+											title="<?= adminEscape(adminT('auth.show_password')) ?>"
+											aria-label="<?= adminEscape(adminT('auth.show_password')) ?>"
 											data-password-toggle
 											class="icon-button"
 										>
-											<?= adminIconSvg('eye', ['class' => 'admin-password-icon', 'data-password-icon' => 'eye']) ?>
+											<?= adminIconSvg('eye') ?>
 										</button>
 									</div>
 									<span data-form-error="new_password">
@@ -289,25 +289,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 									</span>
 								</div>
 								<div class="form-group">
-									<label for="confirm_password">Neues Passwort wiederholen</label>
+									<label for="confirm_password"><?= adminEscape(adminT('auth.confirm_password_label')) ?></label>
 									<div class="input-group js-password-input">
 										<input
 											type="password"
 											id="confirm_password"
 											name="confirm_password"
 											autocomplete="new-password"
-											placeholder="Neues Passwort wiederholen"
+											placeholder="<?= adminEscape(adminT('auth.confirm_password_placeholder')) ?>"
 											data-password-field
 											required
 										>
 										<button
 											type="button"
-											title="Passwort anzeigen"
-											aria-label="Passwort anzeigen"
+											title="<?= adminEscape(adminT('auth.show_password')) ?>"
+											aria-label="<?= adminEscape(adminT('auth.show_password')) ?>"
 											data-password-toggle
 											class="icon-button"
 										>
-											<?= adminIconSvg('eye', ['class' => 'admin-password-icon', 'data-password-icon' => 'eye']) ?>
+											<?= adminIconSvg('eye') ?>
 										</button>
 									</div>
 									<span data-form-error="confirm_password">
@@ -324,12 +324,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 							form="change-password-form"
 							class="btn btn--primary btn--large"
 						>
-							Passwort speichern
+							<?= adminEscape(adminT('auth.change_password_submit')) ?>
 						</button>
 						<?php if (adminIsAuthenticated()): ?>
-							<a href="./admin.php">Zur Admin-Seite</a>
+							<a href="./admin.php"><?= adminEscape(adminT('auth.back_to_admin')) ?></a>
 						<?php else: ?>
-							<a href="./index.php">Zur Login-Seite</a>
+							<a href="./index.php"><?= adminEscape(adminT('auth.back_to_login')) ?></a>
 						<?php endif; ?>
 
 					</div>
@@ -340,7 +340,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     <?= adminRenderSiteFooter($siteData) ?>
     <div class="backdrop" data-overlay></div>
-
+    <?= adminRenderClientConfigScript() ?>
     <script src="../js/admin.min.js"></script>
 </body>
 </html>

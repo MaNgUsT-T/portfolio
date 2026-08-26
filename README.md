@@ -46,7 +46,7 @@ vermeiden.
 - `index.html` - Einstiegspunkt.
 - `config.php` - Datenbank Konfiguration.
 - `contact.php` - Kontakt Formular.
-- `form-config.php` - Kontakt Formular Konfiguration.
+- `data/data.json` - Content- und Kontaktformular-Konfiguration.
 
 ## Schnellstart (lokal)
 

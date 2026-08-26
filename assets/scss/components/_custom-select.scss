@@ -1,0 +1,108 @@
+@use "../variables" as v;
+@use "../mixins/mixins" as m;
+
+.custom-select-field {
+    position: relative;
+    z-index: 2;
+    
+    .custom-select {
+        position: relative;
+        
+        .custom-select__ui {
+            display: none;
+        }
+        
+        .custom-select__toggle {
+            width: 100%;
+            padding: v.$spacing-s v.$spacing-m;
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) 2.4rem;
+            gap: v.$spacing-s;
+            align-items: center;
+            background: v.$input-bg;
+            border: 0.1rem solid v.$input-border-color;
+            border-radius: v.$radius-xl;
+            color: v.$body-color;
+            text-align: start;
+            
+            .custom-select__toggle-label {
+                min-width: 0;
+                overflow: hidden;
+                color: v.$h-color;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+            
+            .custom-select__toggle-indicator {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                transition: transform 0.18s ease;
+                
+                svg {
+                    @include m.icon-size(2rem);
+                }
+            }
+        }
+        
+        .custom-select__panel {
+            width: 100%;
+            margin-block-start: v.$spacing-xs;
+            padding: v.$spacing-s;
+            border: 0.1rem solid v.$border-color-dark;
+            border-radius: v.$radius-2xl;
+            background: v.$secondary;
+            box-shadow: v.$shadow-s;
+            inset-inline-start: 0;
+            position: absolute;
+            z-index: 35;
+        }
+        
+        .custom-select__options {
+            display: grid;
+            gap: v.$spacing-xs;
+        }
+        
+        .custom-select__option {
+            width: 100%;
+            padding: v.$spacing-s v.$spacing-m;
+            border: none;
+            border-radius: v.$radius-xl;
+            text-align: start;
+            
+            &:hover,
+            &:focus-visible,
+            &.is-selected {
+                background: v.$tertiary;
+                color: v.$secondary;
+            }
+        }
+        
+        &.is-enhanced {
+            
+            .custom-select__native {
+                width: 0.1rem;
+                height: 0.1rem;
+                margin: -0.1rem;
+                padding: 0;
+                border: 0;
+                clip: rect(0, 0, 0, 0);
+                overflow: hidden;
+                white-space: nowrap;
+                position: absolute;
+            }
+            
+            .custom-select__ui {
+                display: block;
+            }
+        }
+        
+        &.is-open {
+            z-index: 30;
+            
+            .custom-select__toggle-indicator {
+                transform: rotate(180deg);
+            }
+        }
+    }
+}

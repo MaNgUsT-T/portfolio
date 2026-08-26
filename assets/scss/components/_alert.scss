@@ -7,8 +7,7 @@
 	border-radius: v.$radius-xl;
 	font-size: v.$fs-range-xs-s;
 	line-height: v.$lh-3xl;
-
-	ul
+	
 	&.alert--success {
 		@include m.alert-variant(v.$green);
 	}

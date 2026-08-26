@@ -5,47 +5,205 @@ declare(strict_types=1);
 header('Content-Type: application/json; charset=utf-8');
 
 /**
- * Lädt die Formular-Konfiguration aus `form-config.php`.
- *
- * Die Konfiguration wird nur beim ersten Aufruf eingelesen und danach
- * in einer statischen Variable zwischengespeichert.
- *
  * @return array<string, mixed>
  */
 function contactConfig(): array
 {
     static $config = null;
 
-    if ($config === null) {
-        $config = require __DIR__ . '/form-config.php';
+    if ($config !== null) {
+        return $config;
     }
+
+    $loadedConfig = require __DIR__ . '/contact-config.php';
+    $config = is_array($loadedConfig) ? $loadedConfig : [];
 
     return $config;
 }
 
 /**
- * Liest die Empfängeradresse aus der Formular-Konfiguration.
+ * Lädt die Portfoliodaten aus `data/data.json`.
  *
- * Diese Adresse wird später als Ziel für die Formular-E-Mail verwendet.
+ * Die Konfiguration wird nur beim ersten Aufruf eingelesen und danach
+ * in einer statischen Variable zwischengespeichert.
  *
- * @return string
+ * @return array<string, mixed>
  */
-function contactRecipient(): string
+function siteData(): array
 {
-    return contactConfig()['recipient'];
+    static $data = null;
+
+    if ($data !== null) {
+        return $data;
+    }
+
+    $filePath = __DIR__ . '/data/data.json';
+    $content = file_get_contents($filePath);
+
+    if ($content === false) {
+        respond(500, [
+            'ok' => false,
+            'message' => 'Die Kontaktdaten konnten nicht geladen werden.',
+        ]);
+    }
+
+    try {
+        $decoded = json_decode($content, true, 512, JSON_THROW_ON_ERROR);
+    } catch (JsonException $exception) {
+        respond(500, [
+            'ok' => false,
+            'message' => 'Die Kontaktdaten sind ungültig.',
+        ]);
+    }
+
+    if (!is_array($decoded)) {
+        respond(500, [
+            'ok' => false,
+            'message' => 'Die Kontaktdaten sind ungültig.',
+        ]);
+    }
+
+    $data = $decoded;
+
+    return $data;
 }
 
 /**
- * Liest einen Meldungstext aus der Formular-Konfiguration.
- *
- * So kommen Erfolgs- und Fehlermeldungen immer aus einer zentralen Stelle.
- *
- * @param string $key Schlüssel der gewünschten Meldung.
- * @return string
+ * @return array<string, mixed>
  */
+function contactFormConfig(): array
+{
+    $siteData = siteData();
+    $contact = isset($siteData['contact']) && is_array($siteData['contact']) ? $siteData['contact'] : [];
+    $form = isset($contact['form']) && is_array($contact['form']) ? $contact['form'] : [];
+
+    return $form;
+}
+
+function contactRecipient(): string
+{
+    $config = contactConfig();
+    $recipient = $config['recipient'] ?? '';
+
+    return is_string($recipient) && $recipient !== '' ? $recipient : '';
+}
+
+/**
+ * @return array<string, string>
+ */
+function contactMessages(): array
+{
+    $form = contactFormConfig();
+    $messages = isset($form['messages']) && is_array($form['messages']) ? $form['messages'] : [];
+    $fallbacks = [
+        'methodNotAllowed' => 'Diese Anfrage ist nicht erlaubt.',
+        'honeypotSuccess' => 'Danke, deine Nachricht wurde gesendet.',
+        'validationFailed' => 'Bitte prüfe deine Angaben.',
+        'mailFailed' => 'Die Nachricht konnte nicht gesendet werden. Bitte versuche es später erneut.',
+        'mailSuccess' => 'Danke, deine Nachricht wurde gesendet.',
+        'defaultTooLong' => 'Bitte kürzer formulieren.',
+        'mailSubjectPrefix' => 'Kontaktformular:',
+        'emptySubjectFallback' => 'Ohne Betreff',
+    ];
+
+    foreach ($fallbacks as $key => $value) {
+        if (!isset($messages[$key]) || !is_string($messages[$key]) || $messages[$key] === '') {
+            $messages[$key] = $value;
+        }
+    }
+
+    /** @var array<string, string> $messages */
+    return $messages;
+}
+
 function contactMessage(string $key): string
 {
-    return contactConfig()['messages'][$key];
+    $messages = contactMessages();
+
+    return $messages[$key] ?? '';
+}
+
+/**
+ * @return array<int, array<string, mixed>>
+ */
+function contactFields(): array
+{
+    $form = contactFormConfig();
+    $fields = isset($form['fields']) && is_array($form['fields']) ? $form['fields'] : [];
+
+    return array_values(array_filter($fields, static fn ($field): bool => is_array($field)));
+}
+
+/**
+ * @return array<string, mixed>|null
+ */
+function contactFieldConfig(string $name): ?array
+{
+    foreach (contactFields() as $fieldConfig) {
+        if (($fieldConfig['name'] ?? null) === $name) {
+            return $fieldConfig;
+        }
+    }
+
+    return null;
+}
+
+function contactFieldMessage(string $name, string $messageKey, string $fallback = ''): string
+{
+    $fieldConfig = contactFieldConfig($name);
+
+    if (is_array($fieldConfig) && isset($fieldConfig[$messageKey]) && is_string($fieldConfig[$messageKey]) && $fieldConfig[$messageKey] !== '') {
+        return $fieldConfig[$messageKey];
+    }
+
+    return $fallback;
+}
+
+/**
+ * @return array<string, int>
+ */
+function contactMaxLengths(): array
+{
+    $lengths = [];
+
+    foreach (contactFields() as $fieldConfig) {
+        $name = $fieldConfig['name'] ?? null;
+        $maxLength = $fieldConfig['maxLength'] ?? null;
+
+        if (!is_string($name) || $name === '' || !is_numeric($maxLength)) {
+            continue;
+        }
+
+        $lengths[$name] = (int) $maxLength;
+    }
+
+    return $lengths;
+}
+
+/**
+ * @return array<string, string>
+ */
+function contactRequiredFields(): array
+{
+    $required = [];
+
+    foreach (contactFields() as $fieldConfig) {
+        $name = $fieldConfig['name'] ?? null;
+        $isRequired = $fieldConfig['required'] ?? false;
+
+        if (!is_string($name) || $name === '' || $isRequired !== true) {
+            continue;
+        }
+
+        $required[$name] = contactFieldMessage($name, 'errorRequired');
+    }
+
+    return $required;
+}
+
+function contactHoneypotName(): string
+{
+    return 'honeypot';
 }
 
 /**
@@ -128,10 +286,10 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 
 // Schritt 2: Das Feld "website" ist eine Bot-Falle.
 // Wenn dort etwas steht, brechen wir still ab und melden trotzdem Erfolg.
-if (field('website') !== '') {
+if (field(contactHoneypotName()) !== '') {
     respond(200, [
         'ok' => true,
-        'message' => contactMessage('honeypot_success'),
+        'message' => contactMessage('honeypotSuccess'),
     ]);
 }
 
@@ -147,21 +305,21 @@ $message = field('message');
 $errors = [];
 
 // Schritt 4: Hier prüfen wir, ob einzelne Felder zu lang sind.
-foreach (contactConfig()['max_lengths'] as $name => $maxLength) {
+foreach (contactMaxLengths() as $name => $maxLength) {
     if (textLength(field($name)) > $maxLength) {
-        $errors[$name] = contactMessage('too_long');
+        $errors[$name] = contactFieldMessage($name, 'errorTooLong', contactMessage('defaultTooLong'));
     }
 }
 
 // Schritt 5: Die E-Mail prüfen wir nur, wenn der Nutzer etwas eingegeben hat.
 if ($email !== '' && filter_var($email, FILTER_VALIDATE_EMAIL) === false) {
-    $errors['email'] = contactMessage('email_invalid');
+    $errors['email'] = contactFieldMessage('email', 'errorInvalid', 'Bitte gib eine gültige E-Mail-Adresse ein.');
 }
 
 // Schritt 6: Pflichtfelder prüfen wir über die Regeln aus der Konfiguration.
-foreach (contactConfig()['required_fields'] as $name => $messageKey) {
+foreach (contactRequiredFields() as $name => $message) {
     if (field($name) === '') {
-        $errors[$name] = contactMessage($messageKey);
+        $errors[$name] = $message;
     }
 }
 
@@ -169,14 +327,16 @@ foreach (contactConfig()['required_fields'] as $name => $messageKey) {
 if ($errors !== []) {
     respond(422, [
         'ok' => false,
-        'message' => contactMessage('validation_failed'),
+        'message' => contactMessage('validationFailed'),
         'errors' => $errors,
     ]);
 }
 
 // Schritt 8: Aus den geprüften Daten bauen wir jetzt die E-Mail zusammen.
 $senderName = trim($firstname . ' ' . $lastname);
-$mailSubject = 'Kontaktformular: ' . $subject;
+$mailSubjectPrefix = contactMessage('mailSubjectPrefix');
+$mailSubjectValue = $subject !== '' ? $subject : contactMessage('emptySubjectFallback');
+$mailSubject = trim($mailSubjectPrefix . ' ' . $mailSubjectValue);
 $mailBody = implode("\n", [
     'Neue Nachricht über das Kontaktformular:',
     '',
@@ -200,12 +360,12 @@ $sent = mail(contactRecipient(), $mailSubject, $mailBody, implode("\r\n", $heade
 if (!$sent) {
     respond(500, [
         'ok' => false,
-        'message' => contactMessage('mail_failed'),
+        'message' => contactMessage('mailFailed'),
     ]);
 }
 
 // Schritt 10: Wenn alles klappt, senden wir eine Erfolgsmeldung zurück.
 respond(200, [
     'ok' => true,
-    'message' => contactMessage('mail_success'),
+    'message' => contactMessage('mailSuccess'),
 ]);

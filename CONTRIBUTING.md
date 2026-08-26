@@ -23,7 +23,7 @@ Entwicklungsabläufe ist `_docker/` die maßgebliche Arbeitsbasis.
 - `index.html` - Einstiegspunkt.
 - `config.php` - Datenbank Konfiguration.
 - `contact.php` - Kontakt Formular.
-- `form-config.php` - Kontakt Formular Konfiguration.
+- `data/data.json` - Content- und Kontaktformular-Konfiguration.
 
 ### Infrastruktur und Hilfsverzeichnisse
 Die lokale Entwicklungsumgebung liegt unter `_docker/` (Compose, Makefile, Buildfiles, Dockerfiles, Skripte).

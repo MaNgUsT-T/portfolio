@@ -9,10 +9,18 @@
     "ogSiteName": "https://www.lisa-weber.de",
     "fluidIconTitle": "Lisa Weber Portfolio"
   },
-  "header": {
+  "site": {
     "logoIcon": "palette",
     "logoText": "lisa.weber",
-    "navigationLabel": "Navigation",
+    "socialLinks": [
+      {
+        "href": "#",
+        "title": "Dribbble",
+        "icon": "dribbble"
+      }
+    ]
+  },
+  "header": {
     "navigation": [
       {
         "href": "#about",
@@ -27,28 +35,15 @@
   },
   "hero": {
     "availability": "Verfügbar für Freelance-Projekte",
-    "headline": {
-      "beforeItalic": "Digitale ",
-      "italic": "Erlebnisse",
-      "afterItalic": " gestalten."
-    },
-    "intro": {
-      "beforeBold": "Hallo, ich bin ",
-      "bold": "Lisa Weber",
-      "afterBold": ". Eine Webdesignerin & UI/UX Experterin, die sich darauf spezialisiert hat, ästhetische, nutzerzentrierte und zugängliche Interfaces zu kreieren."
-    },
+    "headline": "Digitale <i>Erlebnisse</i> gestalten.",
+    "intro": "Hallo, ich bin <b>Lisa Weber</b>. Eine Webdesignerin & UI/UX Experterin, die sich darauf spezialisiert hat, ästhetische, nutzerzentrierte und zugängliche Interfaces zu kreieren.",
     "buttons": [
       {
         "href": "#projects",
         "label": "Portfolio ansehen",
-        "variant": "primary"
-      }
-    ],
-    "socialLinks": [
-      {
-        "href": "#",
-        "title": "Dribbble",
-        "icon": "dribbble"
+        "variant": "btn--primary",
+        "large": true,
+        "icon": "arrow-right"
       }
     ]
   },
@@ -59,24 +54,24 @@
     "paragraphs": [
       "Schon während meines Design-Studiums war ich fasziniert von der Schnittstelle zwischen visueller Gestaltung und Technologie."
     ],
-    "image": {
-      "alt": "Computer",
-      "className": "img-fluid",
-      "loading": "lazy",
-      "fallback": {
+    "images": [
+      {
         "src": "./img/m_computer.jpg",
+        "alt": "Computer",
         "width": "568px",
-        "height": "683px"
-      },
-      "sources": [
-        {
-          "media": "(min-width: 48rem)",
-          "srcset": "./img/d_computer.jpg",
-          "width": "1024px",
-          "height": "683px"
-        }
-      ]
-    },
+        "height": "683px",
+        "loading": "lazy",
+        "className": "img-fluid",
+        "responsive": [
+          {
+            "media": "(min-width: 48rem)",
+            "srcset": "./img/d_computer.jpg",
+            "width": "1024px",
+            "height": "683px"
+          }
+        ]
+      }
+    ],
     "cards": [
       {
         "title": "Ästhetik trifft Funktion",
@@ -89,7 +84,7 @@
     "id": "skills",
     "preheader": "Expertise & Skills",
     "title": "Meine Werkzeuge",
-    "groups": [
+    "skills": [
       {
         "title": "Design Tools",
         "icon": "figma",
@@ -103,7 +98,7 @@
     "id": "experience",
     "preheader": "Mein Werdegang",
     "title": "Berufserfahrung",
-    "items": [
+    "experience": [
       {
         "date": "2021 - Heute",
         "title": "Creative Director Digital",
@@ -119,7 +114,7 @@
     "id": "projects",
     "preheader": "Portfolio",
     "title": "Ausgewählte Arbeiten",
-    "items": [
+    "projects": [
       {
         "category": "Webdesign & UX",
         "href": "#",
@@ -130,15 +125,13 @@
           "Figma"
         ],
         "image": {
+          "src": "./img/m_computer.jpg",
           "alt": "Computer",
-          "className": "img-fluid",
+          "width": "568px",
+          "height": "683px",
           "loading": "lazy",
-          "fallback": {
-            "src": "./img/m_computer.jpg",
-            "width": "568px",
-            "height": "683px"
-          },
-          "sources": [
+          "className": "img-fluid",
+          "responsive": [
             {
               "media": "(min-width: 48rem)",
               "srcset": "./img/d_computer.jpg",
@@ -154,7 +147,7 @@
     "preheader": "Zertifikate & Kurse",
     "title": "Weiterbildung",
     "carouselLabel": "Weiterbildung Slider",
-    "items": [
+    "courses": [
       {
         "title": "Google UX Design Professional Certificate",
         "provider": "Google via Coursera",
@@ -170,61 +163,127 @@
     "introCard": {
       "title": "Auf einen Kaffee?",
       "text": "Ich bin immer auf der Suche nach spannenden Projekten.",
-      "emailHref": "mailto:hallo@lisaweber.design",
-      "emailLabel": "hallo@lisaweber.design"
+      "linkLabel": "E-Mail senden"
     },
     "form": {
       "action": "./contact.php",
-      "submitLabel": "Nachricht senden",
-      "salutationLabel": "Anrede",
-      "salutationOptions": [
-        {
-          "value": "",
-          "label": "Anrede",
-          "selected": true
-        }
-      ],
       "fields": [
         {
-          "type": "text",
-          "name": "firstname",
-          "id": "firstname",
+          "label": "Anrede",
+          "type": "select",
+          "id": "salutation",
+          "name": "salutation",
+          "row": false,
+          "required": false,
+          "errorRequired": "Bitte wähle eine Anrede aus.",
+          "options": [
+            {
+              "value": "",
+              "label": "Anrede",
+              "selected": true
+            }
+          ]
+        },
+        {
           "label": "Vorname",
-          "required": true,
+          "type": "text",
+          "id": "firstname",
+          "name": "firstname",
           "placeholder": "Dein Vorname",
+          "maxLength": 30,
           "row": true,
-          "tabindex": ""
+          "required": true,
+          "errorRequired": "Bitte gib deinen Vornamen ein."
+        },
+        {
+          "label": "Nachname",
+          "type": "text",
+          "id": "lastname",
+          "name": "lastname",
+          "placeholder": "Dein Nachname",
+          "maxLength": 30,
+          "row": true,
+          "required": true,
+          "errorRequired": "Bitte gib deinen Nachnamen ein."
+        },
+        {
+          "label": "E-Mail",
+          "type": "email",
+          "id": "email",
+          "name": "email",
+          "placeholder": "deine@email.de",
+          "maxLength": 120,
+          "row": false,
+          "required": true,
+          "errorRequired": "Bitte gib deine E-Mail-Adresse ein."
+        },
+        {
+          "label": "Betreff",
+          "type": "text",
+          "id": "subject",
+          "name": "subject",
+          "placeholder": "Worum geht es?",
+          "maxLength": 80,
+          "row": true,
+          "required": true,
+          "errorRequired": "Bitte gib Betreff ein."
+        },
+        {
+          "label": "Nachricht",
+          "type": "textarea",
+          "id": "message",
+          "name": "message",
+          "placeholder": "Erzähl mir von deinem Projekt..",
+          "maxLength": 2000,
+          "row": false,
+          "required": true,
+          "errorRequired": "Bitte gib eine Nachricht ein."
+        },
+        {
+          "label": "Interesse",
+          "type": "radio",
+          "name": "radio-group",
+          "required": false,
+          "errorRequired": "Bitte wähle ein Interesse aus.",
+          "options": [
+            {
+              "id": "ci",
+              "value": "ci",
+              "label": "Corporate Design"
+            }
+          ]
+        },
+        {
+          "label": "Ich bin damit einverstanden, dass meine Daten dauerhaft verwendet werden.",
+          "type": "checkbox",
+          "id": "gdproptin",
+          "name": "gdproptin",
+          "value": "1",
+          "required": true,
+          "errorRequired": "Bitte bestätige die Datenschutzhinweise."
         }
       ],
-      "radioGroup": {
-        "name": "radio-group",
-        "options": [
-          {
-            "id": "ci",
-            "value": "ci",
-            "label": "Corporate Design"
-          }
-        ]
+      "submitButton": {
+        "label": "Nachricht senden",
+        "variant": "btn--primary",
+        "large": true,
+        "icon": "send"
       },
-      "consent": {
-        "id": "gdproptin",
-        "name": "gdproptin",
-        "value": "1",
-        "label": "Ich bin damit einverstanden, dass meine Daten dauerhaft verwendet werden."
+      "messages": {
+        "methodNotAllowed": "Diese Anfrage ist nicht erlaubt.",
+        "honeypotSuccess": "Danke, deine Nachricht wurde gesendet.",
+        "validationFailed": "Bitte prüfe deine Angaben.",
+        "mailFailed": "Die Nachricht konnte nicht gesendet werden. Bitte versuche es später erneut.",
+        "mailSuccess": "Danke, deine Nachricht wurde gesendet.",
+        "defaultTooLong": "Bitte kürzer formulieren.",
+        "mailSubjectPrefix": "Kontaktformular:",
+        "emptySubjectFallback": "Ohne Betreff"
       }
     }
   },
   "footer": {
-    "logoText": "lisa.weber",
     "text": "Gestaltet & Entwickelt mit liebe zum Detail",
     "copyright": "2026",
-    "owner": "Lisa Weber. Alle Rechte vorbehalten.",
-    "socialLinks": [
-      {
-        "href": "#",
-        "title": "Dribbble",
-        "icon": "dribbble"
-      }
-    ]
+    "owner": "Lisa Weber. Alle Rechte vorbehalten."
   }
 }

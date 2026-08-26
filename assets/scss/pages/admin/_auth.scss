@@ -1,0 +1,83 @@
+@use "../../variables" as v;
+@use "../../mixins/mixins" as m;
+
+.admin-auth {
+	
+	main {
+		margin-block: auto;
+		
+		.card {
+			width: clamp(29rem, 100%, 50rem);
+			margin-inline: auto;
+			
+			.admin-logo {
+				display: flex;
+				justify-content: center;
+				
+				svg {
+					@include m.icon-size (10rem);
+					stroke-width: 1.5;
+				}
+			}
+			
+			.card__body h3 {
+				margin-block-end: unset;
+				text-align: center;
+			}
+			
+			.card__body-wrapper {
+				display: flex;
+				flex-direction: column;
+				gap: v.$spacing-2xl;
+			}
+			
+			.admin-password-icon-button {
+				top: 50%;
+				right: 1.4rem;
+				width: 2.4rem;
+				height: 2.4rem;
+				padding: 0;
+				display: inline-flex;
+				align-items: center;
+				justify-content: center;
+				background: transparent;
+				border: none;
+				cursor: pointer;
+				transform: translateY(-50%);
+				position: absolute;
+				
+				&:hover,
+				&:focus-visible {
+					color: v.$tertiary;
+				}
+				
+				svg {
+					width: 1.8rem;
+					height: 1.8rem;
+					stroke-width: 1.8;
+					pointer-events: none;
+				}
+			}
+			
+			.card__footer {
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				gap: v.$spacing-2xl;
+			}
+			
+			.card__footer .btn {
+				width: 100%;
+				justify-content: center;
+			}
+			
+			.card__footer a {
+				text-align: center;
+			}
+		}
+	}
+	
+	footer {
+		margin-block-start: unset;
+	}
+}

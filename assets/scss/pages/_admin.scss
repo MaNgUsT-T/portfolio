@@ -2,3 +2,5 @@
 @use "../mixins/mixins" as m;
 
 @use "admin/all";
+@use "admin/auth";
+@use "admin/content";

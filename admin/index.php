@@ -37,21 +37,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $password = isset($_POST['password']) && is_string($_POST['password']) ? $_POST['password'] : '';
 
     if (!adminVerifyCsrfToken($csrfToken)) {
-        $loginError = 'Das Formular konnte nicht bestätigt werden. Bitte erneut versuchen.';
+        $loginError = adminT('auth.invalid_csrf');
     } elseif ($password === '') {
-        $loginFieldErrors['password'][] = 'Bitte gib dein Passwort ein.';
+        $loginFieldErrors['password'][] = adminT('auth.password_required');
     } elseif (!adminLogin($password)) {
-        $loginFieldErrors['password'][] = 'Das Passwort ist nicht korrekt.';
+        $loginFieldErrors['password'][] = adminT('auth.password_wrong');
     } else {
         if (loginWantsJson()) {
             loginRespond(200, [
                 'ok' => true,
-                'message' => 'Die Admin-Oberfläche wurde geöffnet.',
+                'message' => adminT('auth.login_success'),
                 'redirect' => './admin.php',
             ]);
         }
 
-        adminFlash('success', 'Die Admin-Oberfläche wurde geöffnet.');
+        adminFlash('success', adminT('auth.login_success'));
         header('Location: ./admin.php');
         exit;
     }
@@ -60,14 +60,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($loginFieldErrors['password'] !== []) {
             loginRespond(422, [
                 'ok' => false,
-                'message' => 'Bitte korrigiere die markierten Felder.',
+                'message' => adminT('auth.fix_fields'),
                 'errors' => $loginFieldErrors,
             ]);
         }
 
         loginRespond(422, [
             'ok' => false,
-            'message' => $loginError ?? 'Der Login ist fehlgeschlagen.',
+            'message' => $loginError ?? adminT('auth.login_failed'),
             'errors' => $loginFieldErrors,
         ]);
     }
@@ -83,14 +83,14 @@ try {
 }
 ?>
 <!DOCTYPE html>
-<html lang="de">
+<html lang="<?= adminEscape(adminDocumentLanguage()) ?>">
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= adminEscape(adminTitle()) ?> Login</title>
-    <meta name="description" content="<?= adminEscape(adminTitle()) ?> Login">
+    <title><?= adminEscape(adminTitle()) ?> <?= adminEscape(adminT('auth.login_suffix')) ?></title>
+    <meta name="description" content="<?= adminEscape(adminTitle()) ?> <?= adminEscape(adminT('auth.login_suffix')) ?>">
     <meta name="keywords" content="portfolio, admin">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex, notranslate">
@@ -104,8 +104,8 @@ try {
     <meta name="anthropic-ai" content="noindex, nofollow, noarchive, nosnippet, noimageindex, notranslate">
     <meta name="CCBot" content="noindex, nofollow, noarchive, nosnippet, noimageindex, notranslate">
     <meta name="PerplexityBot" content="noindex, nofollow, noarchive, nosnippet, noimageindex, notranslate">
-    <meta property="og:title" content="<?= adminEscape(adminTitle()) ?> Login">
-    <meta property="og:description" content="<?= adminEscape(adminTitle()) ?> Login">
+    <meta property="og:title" content="<?= adminEscape(adminTitle()) ?> <?= adminEscape(adminT('auth.login_suffix')) ?>">
+    <meta property="og:description" content="<?= adminEscape(adminTitle()) ?> <?= adminEscape(adminT('auth.login_suffix')) ?>">
     <meta property="og:image" content="../img/favicon_512x512.png">
     <meta property="og:site_name" content="https://www.lisa-weber.de">
 	<!-- iOS Homescreen Icon -->
@@ -146,7 +146,7 @@ try {
     </script>
     <meta name="msapplication-TileImage" content="../img/favicon_512x512.png">
 	<!-- Fluid -->
-    <link rel="fluid-icon" href="../img/favicon_512x512.png" title="<?= adminEscape(adminTitle()) ?> Login">
+    <link rel="fluid-icon" href="../img/favicon_512x512.png" title="<?= adminEscape(adminTitle()) ?> <?= adminEscape(adminT('auth.login_suffix')) ?>">
 	<!-- Shortcut Icons -->
     <link rel="shortcut icon" href="../img/favicon.ico?rand=1" type="image/x-icon">
     <link rel="icon" href="../img/favicon_16x16.png" sizes="16x16">
@@ -173,7 +173,7 @@ try {
 							<div class="admin-logo">
 								<?= adminIconSvg(adminHeaderLogoIconName($siteData)) ?>
 							</div>
-							<h3><?= adminEscape(adminTitle()) ?></h3>
+							<h3><?= adminEscape(adminT('auth.login_heading')) ?></h3>
 							<div
 								data-form-status="<?= $loginError !== null ? 'error' : '' ?>"
 								aria-live="polite"
@@ -181,30 +181,30 @@ try {
 							<form method="post" id="auth-form" novalidate>
 								<input type="hidden" name="csrf_token" value="<?= adminEscape(adminCsrfToken()) ?>">
 								<div class="form-group">
-									<label for="password">Passwort</label>
+									<label for="password"><?= adminEscape(adminT('auth.password_label')) ?></label>
 									<div class="input-group js-password-input">
 										<input
 											type="password"
 											id="password"
 											name="password"
 											autocomplete="current-password"
-											placeholder="Passwort"
+											placeholder="<?= adminEscape(adminT('auth.password_placeholder')) ?>"
 											required
 											data-password-field
 										>
 										<button
 											type="button"
-											title="Passwort anzeigen"
-											aria-label="Passwort anzeigen"
+											title="<?= adminEscape(adminT('auth.show_password')) ?>"
+											aria-label="<?= adminEscape(adminT('auth.show_password')) ?>"
 											data-password-toggle
 											class="icon-button"
 										>
-											<?= adminIconSvg('eye', ['class' => 'admin-password-icon', 'data-password-icon' => 'eye']) ?>
+											<?= adminIconSvg('eye') ?>
 										</button>
 									</div>
 									<span data-form-error="password"><?= implode('<br>', array_map('adminEscape', $loginFieldErrors['password'])) ?></span>
 								</div>
-								<p><a href="./change-password.php">Passwort ändern</a></p>
+								<p><a href="./change-password.php"><?= adminEscape(adminT('auth.change_password_link')) ?></a></p>
 							</form>
 						</div>
 					</div>
@@ -214,7 +214,7 @@ try {
 							form="auth-form"
 							class="btn btn--primary btn--large"
 						>
-							Einloggen
+							<?= adminEscape(adminT('auth.login_submit')) ?>
 						</button>
 					</div>
 				</div>
@@ -223,6 +223,7 @@ try {
     </main>
     <?= adminRenderSiteFooter($siteData) ?>
     <div class="backdrop" data-overlay></div>
+    <?= adminRenderClientConfigScript() ?>
     <script src="../js/admin.min.js"></script>
 </body>
 </html>

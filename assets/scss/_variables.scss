@@ -390,6 +390,12 @@ $btn-secondary-color: $primary !default;
 $btn-secondary-hover-bg: var(--btn-secondary-hover-bg) !default;
 $btn-secondary-hover-border: $tertiary !default;
 
+$btn-danger-bg: $quaternary-dark !default;
+$btn-danger-border: 0.1rem solid $color-rose-700 !default;
+$btn-danger-color: $secondary !default;
+$btn-danger-hover-bg: $quaternary-dark  !default;
+$btn-danger-hover-border: $color-rose-700 !default;
+
 $btn-disabled-bg: var(--btn-disabled-bg) !default;
 $btn-disabled-border: var(--btn-disabled-border) !default;
 $btn-disabled-color: var(--btn-disabled-color) !default;

@@ -1,0 +1,134 @@
+@use "../../variables" as v;
+@use "../../mixins/mixins" as m;
+
+.admin-icon-picker__toggle-preview,
+.admin-icon-picker__option-preview {
+	width: 4rem;
+	height: 4rem;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	border: .1rem solid rgb(var(--tertiary-rgb), .12);
+	border-radius: v.$radius-xl;
+	background: rgb(var(--secondary-rgb), .72);
+}
+
+.admin-icon-picker__toggle-preview svg,
+.admin-icon-picker__option-preview svg,
+.admin-icon-picker__toggle-indicator svg {
+	@include m.icon-size(2rem);
+}
+
+.admin-icon-picker {
+	position: relative;
+	
+	.admin-icon-picker__toggle {
+		width: 100%;
+		padding: v.$spacing-s;
+		display: grid;
+		grid-template-columns: 4rem minmax(0, 1fr) 2.4rem;
+		gap: v.$spacing-s;
+		align-items: center;
+		background: v.$input-bg;
+		border: .1rem solid v.$border-color-dark;
+		border-radius: v.$radius-2xl;
+		color: v.$body-color;
+		text-align: start;
+		
+		.admin-icon-picker__toggle-label {
+			min-width: 0;
+			overflow: hidden;
+			color: v.$h-color;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+		}
+		
+		.admin-icon-picker__toggle-indicator {
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			transition: transform .18s ease;
+			color: v.$body-color;
+		}
+	}
+	
+	&.is-open {
+		
+		.admin-icon-picker__toggle-indicator {
+			transform: rotate(180deg);
+		}
+	}
+}
+
+.admin-icon-picker__panel {
+	width: 100%;
+	margin-block-start: v.$spacing-xs;
+	padding: v.$spacing-m;
+	border: .1rem solid v.$border-color-dark;
+	border-radius: v.$radius-2xl;
+	background: v.$secondary;
+	box-shadow: v.$shadow-s;
+	inset-inline-start: 0;
+	position: absolute;
+	z-index: 20;
+	
+	.admin-icon-picker__panel-header {
+		margin-block-end: v.$spacing-m;
+		display: flex;
+		flex-direction: column;
+		gap: v.$spacing-xs;
+		
+		.admin-icon-picker__search {
+			width: 100%;
+			padding-inline-start: v.$spacing-l;
+		}
+		
+		.admin-icon-picker__meta {
+			font-size: v.$fs-range-xs-s;
+		}
+	}
+	
+	.admin-icon-picker__options {
+		max-height: 32rem;
+		padding: v.$spacing;
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(4.2rem, 1fr));
+		gap: v.$spacing-s;
+		overflow: auto;
+		
+		.admin-icon-picker__option {
+			width: 100%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			aspect-ratio: 1;
+			border: none;
+			border-radius: v.$radius-xl;
+			
+			.admin-icon-picker__option-label {
+				width: .1rem;
+				height: .1rem;
+				margin: -.1rem;
+				padding: 0;
+				border: 0;
+				clip: rect(0, 0, 0, 0);
+				overflow: hidden;
+				white-space: nowrap;
+				position: absolute;
+			}
+			
+			&:hover,
+			&:focus-visible,
+			&.is-selected {
+				
+				.admin-icon-picker__option-preview {
+					background: v.$tertiary;
+					
+					svg {
+						stroke: v.$secondary;
+					}
+				}
+			}
+		}
+	}
+}

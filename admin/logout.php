@@ -17,15 +17,15 @@ try {
 adminLogout();
 ?>
 <!DOCTYPE html>
-<html lang="de">
+<html lang="<?= adminEscape(adminDocumentLanguage()) ?>">
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="refresh" content="5;url=./index.php">
-    <title><?= adminEscape(adminTitle()) ?> Logout</title>
-    <meta name="description" content="<?= adminEscape(adminTitle()) ?> Logout">
+    <title><?= adminEscape(adminTitle()) ?> <?= adminEscape(adminT('logout.suffix')) ?></title>
+    <meta name="description" content="<?= adminEscape(adminTitle()) ?> <?= adminEscape(adminT('logout.suffix')) ?>">
     <meta name="keywords" content="portfolio, admin">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex, notranslate">
@@ -39,8 +39,8 @@ adminLogout();
     <meta name="anthropic-ai" content="noindex, nofollow, noarchive, nosnippet, noimageindex, notranslate">
     <meta name="CCBot" content="noindex, nofollow, noarchive, nosnippet, noimageindex, notranslate">
     <meta name="PerplexityBot" content="noindex, nofollow, noarchive, nosnippet, noimageindex, notranslate">
-    <meta property="og:title" content="<?= adminEscape(adminTitle()) ?> Logout">
-    <meta property="og:description" content="<?= adminEscape(adminTitle()) ?> Logout">
+    <meta property="og:title" content="<?= adminEscape(adminTitle()) ?> <?= adminEscape(adminT('logout.suffix')) ?>">
+    <meta property="og:description" content="<?= adminEscape(adminTitle()) ?> <?= adminEscape(adminT('logout.suffix')) ?>">
     <meta property="og:image" content="../img/favicon_512x512.png">
     <meta property="og:site_name" content="https://www.lisa-weber.de">
 	<!-- iOS Homescreen Icon -->
@@ -85,7 +85,7 @@ adminLogout();
 	</script>
 	<meta name="msapplication-TileImage" content="../img/favicon_512x512.png">
 	<!-- Fluid -->
-	<link rel="fluid-icon" href="../img/favicon_512x512.png" title="<?= adminEscape(adminTitle()) ?> Login">
+	<link rel="fluid-icon" href="../img/favicon_512x512.png" title="<?= adminEscape(adminTitle()) ?> <?= adminEscape(adminT('logout.suffix')) ?>">
 	<!-- Shortcut Icons -->
 	<link rel="shortcut icon" href="../img/favicon.ico?rand=1" type="image/x-icon">
 	<link rel="icon" href="../img/favicon_16x16.png" sizes="16x16">
@@ -112,12 +112,12 @@ adminLogout();
 							<div class="admin-logo">
 								<?= adminIconSvg(adminHeaderLogoIconName($siteData)) ?>
 							</div>
-							<h3>Du bist ausgeloggt</h3>
-							<p>Die Sitzung wurde beendet. Du wirst in wenigen Sekunden automatisch zur Login-Seite weitergeleitet.</p>
+							<h3><?= adminEscape(adminT('logout.heading')) ?></h3>
+							<p><?= adminEscape(adminT('logout.message')) ?></p>
 						</div>
 					</div>
 					<div class="card__footer">
-						<a href="./index.php" class="btn btn--primary btn--large">Zur Login-Seite</a>
+						<a href="./index.php" class="btn btn--primary btn--large"><?= adminEscape(adminT('auth.back_to_login')) ?></a>
 					</div>
 				</div>
 			</div>
@@ -125,6 +125,7 @@ adminLogout();
 	</main>
     <?= adminRenderSiteFooter($siteData) ?>
     <div class="backdrop" data-overlay></div>
+    <?= adminRenderClientConfigScript() ?>
     <script src="../js/admin.min.js"></script>
 </body>
 </html>

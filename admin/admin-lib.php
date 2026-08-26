@@ -26,6 +26,141 @@ function adminStartSession(): void
     session_start();
 }
 
+function adminDefaultLocale(): string
+{
+    return 'de';
+}
+
+/**
+ * @return array<int, string>
+ */
+function adminAllowedLocales(): array
+{
+    return ['de', 'en'];
+}
+
+function adminLocaleSessionKey(): string
+{
+    return 'admin_locale';
+}
+
+function adminNormalizeLocale(?string $locale): string
+{
+    return in_array($locale, adminAllowedLocales(), true) ? $locale : adminDefaultLocale();
+}
+
+function adminCurrentLocale(): string
+{
+    adminStartSession();
+
+    $locale = $_SESSION[adminLocaleSessionKey()] ?? adminDefaultLocale();
+
+    return adminNormalizeLocale(is_string($locale) ? $locale : null);
+}
+
+function adminSetLocale(?string $locale): void
+{
+    adminStartSession();
+    $_SESSION[adminLocaleSessionKey()] = adminNormalizeLocale($locale);
+}
+
+function adminDocumentLanguage(): string
+{
+    return adminCurrentLocale();
+}
+
+function adminLangFile(string $locale): string
+{
+    return __DIR__ . '/lang/' . $locale . '.php';
+}
+
+/**
+ * @return array<string, string>
+ */
+function adminTranslations(string $locale): array
+{
+    static $cache = [];
+
+    $resolvedLocale = adminNormalizeLocale($locale);
+
+    if (isset($cache[$resolvedLocale])) {
+        return $cache[$resolvedLocale];
+    }
+
+    $file = adminLangFile($resolvedLocale);
+    $translations = is_file($file) ? require $file : [];
+    $cache[$resolvedLocale] = is_array($translations) ? $translations : [];
+
+    return $cache[$resolvedLocale];
+}
+
+function adminTranslationValue(string $key, ?string $locale = null): ?string
+{
+    $resolvedLocale = $locale ?? adminCurrentLocale();
+    $translations = adminTranslations($resolvedLocale);
+
+    if (isset($translations[$key]) && is_string($translations[$key])) {
+        return $translations[$key];
+    }
+
+    return null;
+}
+
+/**
+ * @param array<string, string> $replace
+ */
+function adminT(string $key, array $replace = []): string
+{
+    $translation = adminTranslationValue($key) ?? adminTranslationValue($key, adminDefaultLocale()) ?? $key;
+
+    if ($replace === []) {
+        return $translation;
+    }
+
+    $tokens = [];
+
+    foreach ($replace as $replaceKey => $replaceValue) {
+        $tokens['{' . $replaceKey . '}'] = $replaceValue;
+    }
+
+    return strtr($translation, $tokens);
+}
+
+/**
+ * @return array<string, string>
+ */
+function adminJsTranslations(): array
+{
+    return [
+        'admin.remove_confirm' => adminT('admin.remove_confirm'),
+        'auth.show_password' => adminT('auth.show_password'),
+        'auth.hide_password' => adminT('auth.hide_password'),
+        'auth.login_submitting' => adminT('auth.login_submitting'),
+        'auth.login_failed' => adminT('auth.login_failed'),
+        'auth.login_success' => adminT('auth.login_success'),
+        'auth.connection_failed' => adminT('auth.connection_failed'),
+        'auth.change_password_submitting' => adminT('auth.change_password_submitting'),
+        'auth.change_password_failed' => adminT('auth.change_password_failed'),
+        'auth.change_password_success_short' => adminT('auth.change_password_success_short'),
+    ];
+}
+
+function adminRenderClientConfigScript(): string
+{
+    $payload = [
+        'locale' => adminCurrentLocale(),
+        'translations' => adminJsTranslations(),
+    ];
+
+    $json = json_encode($payload, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+
+    if (!is_string($json)) {
+        return '';
+    }
+
+    return '<script>window.adminUi=' . $json . ';</script>';
+}
+
 function adminTitle(): string
 {
     return (string) adminConfig()['admin_title'];
@@ -130,19 +265,19 @@ function adminUpdatePassword(string $newPassword): void
     $configFile = adminConfigFile();
 
     if (!is_file($configFile) || !is_readable($configFile) || !is_writable($configFile)) {
-        throw new RuntimeException('Die Passwort-Konfiguration ist nicht beschreibbar.');
+        throw new RuntimeException(adminT('error.password_config_not_writable'));
     }
 
     $configContent = file_get_contents($configFile);
 
     if ($configContent === false) {
-        throw new RuntimeException('Die Passwort-Konfiguration konnte nicht gelesen werden.');
+        throw new RuntimeException(adminT('error.password_config_read_failed'));
     }
 
     $hash = password_hash($newPassword, PASSWORD_DEFAULT);
 
     if ($hash === false) {
-        throw new RuntimeException('Das neue Passwort konnte nicht gehasht werden.');
+        throw new RuntimeException(adminT('error.password_hash_failed'));
     }
 
     $updatedContent = preg_replace_callback(
@@ -154,11 +289,11 @@ function adminUpdatePassword(string $newPassword): void
     );
 
     if ($updatedContent === null || $replacementCount !== 1) {
-        throw new RuntimeException('Der Passwort-Hash konnte nicht aktualisiert werden.');
+        throw new RuntimeException(adminT('error.password_hash_update_failed'));
     }
 
     if (file_put_contents($configFile, $updatedContent) === false) {
-        throw new RuntimeException('Die Passwort-Konfiguration konnte nicht geschrieben werden.');
+        throw new RuntimeException(adminT('error.password_config_not_writable'));
     }
 }
 
@@ -175,19 +310,19 @@ function adminPasswordRequirementErrors(string $password): array
     $errors = [];
 
     if (strlen($password) < 10) {
-        $errors[] = 'Das neue Passwort muss mindestens 10 Zeichen lang sein.';
+        $errors[] = adminT('auth.password_rule_length');
     }
 
     if (!preg_match('/[0-9]/', $password)) {
-        $errors[] = 'Das neue Passwort muss mindestens eine Zahl enthalten.';
+        $errors[] = adminT('auth.password_rule_number');
     }
 
     if (!preg_match('/[A-Z]/', $password)) {
-        $errors[] = 'Das neue Passwort muss mindestens einen Großbuchstaben enthalten.';
+        $errors[] = adminT('auth.password_rule_uppercase');
     }
 
     if (preg_match('/[^a-zA-Z0-9]/', $password) !== 1) {
-        $errors[] = 'Das neue Passwort muss mindestens ein Sonderzeichen enthalten.';
+        $errors[] = adminT('auth.password_rule_special');
     }
 
     return $errors;
@@ -242,10 +377,51 @@ function adminIconExists(string $iconName): bool
 /**
  * @param array<string, mixed> $siteData
  */
+function adminSiteBranding(array $siteData): array
+{
+    $site = isset($siteData['site']) && is_array($siteData['site']) ? $siteData['site'] : [];
+    $header = isset($siteData['header']) && is_array($siteData['header']) ? $siteData['header'] : [];
+    $footer = isset($siteData['footer']) && is_array($siteData['footer']) ? $siteData['footer'] : [];
+    $hero = isset($siteData['hero']) && is_array($siteData['hero']) ? $siteData['hero'] : [];
+
+    $logoIcon = isset($site['logoIcon']) ? trim((string) $site['logoIcon']) : '';
+    $logoText = isset($site['logoText']) ? (string) $site['logoText'] : '';
+    $socialLinks = isset($site['socialLinks']) && is_array($site['socialLinks']) ? $site['socialLinks'] : [];
+
+    if ($logoIcon === '') {
+        $logoIcon = isset($header['logoIcon']) ? trim((string) $header['logoIcon']) : '';
+    }
+
+    if ($logoText === '') {
+        if (isset($header['logoText'])) {
+            $logoText = (string) $header['logoText'];
+        } elseif (isset($footer['logoText'])) {
+            $logoText = (string) $footer['logoText'];
+        }
+    }
+
+    if ($socialLinks === []) {
+        if (isset($hero['socialLinks']) && is_array($hero['socialLinks'])) {
+            $socialLinks = $hero['socialLinks'];
+        } elseif (isset($footer['socialLinks']) && is_array($footer['socialLinks'])) {
+            $socialLinks = $footer['socialLinks'];
+        }
+    }
+
+    return [
+        'logoIcon' => $logoIcon,
+        'logoText' => $logoText,
+        'socialLinks' => $socialLinks,
+    ];
+}
+
+/**
+ * @param array<string, mixed> $siteData
+ */
 function adminHeaderLogoIconName(array $siteData): string
 {
-    $header = isset($siteData['header']) && is_array($siteData['header']) ? $siteData['header'] : [];
-    $logoIcon = isset($header['logoIcon']) ? trim((string) $header['logoIcon']) : '';
+    $branding = adminSiteBranding($siteData);
+    $logoIcon = trim((string) ($branding['logoIcon'] ?? ''));
 
     if ($logoIcon !== '' && adminIconExists($logoIcon)) {
         return $logoIcon;
@@ -284,12 +460,17 @@ function adminIcons(): array
  */
 function adminRenderSiteFooter(array $siteData): string
 {
+    $branding = adminSiteBranding($siteData);
     $footer = isset($siteData['footer']) && is_array($siteData['footer']) ? $siteData['footer'] : [];
-    $logoText = isset($footer['logoText']) ? (string) $footer['logoText'] : adminTitle();
+    $logoText = (string) ($branding['logoText'] ?? '');
     $text = isset($footer['text']) ? (string) $footer['text'] : '';
     $copyright = isset($footer['copyright']) ? (string) $footer['copyright'] : '';
     $owner = isset($footer['owner']) ? (string) $footer['owner'] : '';
-    $socialLinks = isset($footer['socialLinks']) && is_array($footer['socialLinks']) ? $footer['socialLinks'] : [];
+    $socialLinks = isset($branding['socialLinks']) && is_array($branding['socialLinks']) ? $branding['socialLinks'] : [];
+
+    if ($logoText === '') {
+        $logoText = adminTitle();
+    }
 
     $socialMarkup = '';
 
@@ -316,7 +497,7 @@ function adminRenderSiteFooter(array $siteData): string
     }
 
     return '<footer class="footer"><div class="container footer__wrapper"><div class="logo">' .
-        adminIconSvg('palette') .
+        adminIconSvg(adminHeaderLogoIconName($siteData)) .
         '<span>' . adminEscape($logoText) . '</span></div><p>' . $footerText . '</p><div class="social-icons">' .
         $socialMarkup .
         '</div></div></footer>';
@@ -337,12 +518,36 @@ function adminFrontendHref(string $href): string
 
 function adminRenderHeaderActionLink(string $href, string $label, string $iconSvg, bool $openInNewTab = false): string
 {
-    $attributes = $openInNewTab ? ' target="_blank" rel="noreferrer"' : '';
+    $externalAttributes = $openInNewTab ? ' target="_blank" rel="noreferrer"' : '';
 
-    return '<li><a class="btn btn--secondary admin-header-action" href="' . adminEscape($href) . '"' . $attributes . '>' .
-        '<span class="admin-header-action__icon">' . $iconSvg . '</span>' .
-        '<span>' . adminEscape($label) . '</span>' .
-        '</a></li>';
+    return '<li><a href="' . adminEscape($href) . '" title="' . adminEscape($label) . '" aria-label="' . adminEscape($label) . '"' . $externalAttributes . '>' . $iconSvg . '</a></li>';
+}
+
+function adminCurrentRequestUri(): string
+{
+    $requestUri = $_SERVER['REQUEST_URI'] ?? './admin.php';
+
+    return is_string($requestUri) && $requestUri !== '' ? $requestUri : './admin.php';
+}
+
+function adminRenderLocaleSwitcher(string $redirect): string
+{
+    $currentLocale = adminCurrentLocale();
+    $options = '';
+
+    foreach (adminAllowedLocales() as $locale) {
+        $label = adminT('locale.code.' . $locale);
+        $selected = $locale === $currentLocale ? ' selected' : '';
+        $options .= '<option value="' . adminEscape($locale) . '"' . $selected . '>' . adminEscape($label) . '</option>';
+    }
+
+    return '<li><form method="post" action="./admin-locale.php" class="admin-locale-switcher">' .
+        '<input type="hidden" name="csrf_token" value="' . adminEscape(adminCsrfToken()) . '">' .
+        '<input type="hidden" name="redirect" value="' . adminEscape($redirect) . '">' .
+        '<select id="admin-locale-switcher" name="locale" title="' . adminEscape(adminT('header.language_switch')) . '" aria-label="' . adminEscape(adminT('header.language_switch')) . '" onchange="this.form.submit()">' .
+        $options .
+        '</select>' .
+    '</form></li>';
 }
 
 /**
@@ -350,55 +555,57 @@ function adminRenderHeaderActionLink(string $href, string $label, string $iconSv
  */
 function adminRenderSiteHeader(array $siteData, bool $showMainNavigation = false): string
 {
+    $branding = adminSiteBranding($siteData);
     $header = isset($siteData['header']) && is_array($siteData['header']) ? $siteData['header'] : [];
-    $logoText = isset($header['logoText']) ? (string) $header['logoText'] : 'lisa.weber';
+    $logoText = isset($branding['logoText']) && $branding['logoText'] !== '' ? (string) $branding['logoText'] : 'lisa.weber';
     $logoIcon = adminHeaderLogoIconName($siteData);
-    $navigation = isset($header['navigation']) && is_array($header['navigation']) ? $header['navigation'] : [];
 
     $mainNavigationMarkup = '';
 
     if ($showMainNavigation) {
         $mainNavigationItems = '';
 
-        foreach ($navigation as $item) {
-            if (!is_array($item)) {
-                continue;
-            }
-
-            $href = isset($item['href']) ? adminFrontendHref((string) $item['href']) : '../index.html';
-            $label = isset($item['label']) ? (string) $item['label'] : '';
-
-            if ($label === '') {
-                continue;
-            }
-
+        foreach (adminNavigationItems() as $item) {
+            $href = $item['href'];
+            $label = $item['label'];
             $mainNavigationItems .= '<li><a href="' . adminEscape($href) . '">' . adminEscape($label) . '</a></li>';
         }
 
         if ($mainNavigationItems !== '') {
-            $mainNavigationMarkup = '<nav role="navigation" aria-label="Navigation" class="main-nav"><ul>' .
-                $mainNavigationItems .
-                '</ul></nav>';
+            $mainNavigationMarkup = '<nav role="navigation" aria-label="' . adminEscape(adminT('header.navigation')) . '" class="main-nav"><ul>' . $mainNavigationItems . '</ul></nav>';
         }
     }
 
-    $optionItems = '<li><a href="#" title="Dunkles Theme aktivieren" aria-label="Dunkles Theme aktivieren" aria-pressed="false" data-theme-toggle>' .
-        adminIconSvg('moon') .
-        '</a></li>';
+    $optionItems = '';
 
     if ($showMainNavigation) {
-        $optionItems .= adminRenderHeaderActionLink('../index.html', 'Frontend öffnen', adminIconSvg('switch-camera'), true);
-        $optionItems .= adminRenderHeaderActionLink('./change-password.php', 'Passwort ändern', adminIconSvg('rotate-ccw-key'));
-        $optionItems .= adminRenderHeaderActionLink('./logout.php', 'Logout', adminIconSvg('log-out'));
+        // $optionItems .= adminRenderLocaleSwitcher(adminCurrentRequestUri());
+        $optionItems .= adminRenderHeaderActionLink('../index.html', adminT('header.open_frontend'), adminIconSvg('switch-camera'), true);
+        $optionItems .= adminRenderHeaderActionLink('./change-password.php', adminT('header.change_password'), adminIconSvg('rotate-ccw-key'));
+        $optionItems .= adminRenderHeaderActionLink('./logout.php', adminT('header.logout'), adminIconSvg('log-out'));
     }
 
-    return '<header class="header js-header"><div class="container header__wrapper"><div class="logo">' .
+    $navigationMarkup = '';
+
+    if ($showMainNavigation) {
+        $navigationMarkup = '<div id="header-navigation" aria-hidden="true" class="header__nav-wrapper js-header-nav-wrapper">' .
+            $mainNavigationMarkup .
+            '<nav class="option-nav"><ul>' . $optionItems . '</ul></nav>' .
+            '</div>' .
+            '<div role="button" aria-expanded="false" aria-controls="header-navigation" aria-label="' . adminEscape(adminT('header.open_navigation')) . '" tabindex="0" class="mobile-nav-toggle" data-mobile-nav-toggle>' .
+            adminIconSvg('menu') .
+            '</div>';
+    }
+
+    return '<header class="header js-header">' .
+        '<div class="container header__wrapper">' .
+        '<div class="logo">' .
         adminIconSvg($logoIcon) .
-        '<span>' . adminEscape($logoText) . '</span></div><div id="header-navigation" aria-hidden="true" class="header__nav-wrapper js-header-nav-wrapper">' .
-        $mainNavigationMarkup .
-        '<nav class="option-nav"><ul>' . $optionItems . '</ul></nav></div><div role="button" aria-expanded="false" aria-controls="header-navigation" aria-label="Navigation öffnen" tabindex="0" class="mobile-nav-toggle" data-mobile-nav-toggle>' .
-        adminIconSvg('menu') .
-        '</div></div></header>';
+        '<span>' . adminEscape($logoText) . '</span>' .
+        '</div>' .
+        $navigationMarkup .
+        '</div>' .
+        '</header>';
 }
 
 function adminLogout(): void
@@ -417,7 +624,7 @@ function adminEnsureAuthenticated(): void
     header('Content-Type: application/json; charset=utf-8');
     echo json_encode([
         'ok' => false,
-        'message' => 'Der Zugriff wurde verweigert.',
+        'message' => adminT('error.access_denied'),
     ], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
     exit;
 }
@@ -458,27 +665,27 @@ function adminVerifyCsrfToken(?string $token): bool
 function adminReadJsonFile(string $filePath): array
 {
     if (!is_file($filePath) || !is_readable($filePath)) {
-        throw new RuntimeException(sprintf('Die Datei "%s" konnte nicht gelesen werden.', $filePath));
+        throw new RuntimeException(adminT('error.file_unreadable', ['file' => $filePath]));
     }
 
     $content = file_get_contents($filePath);
 
     if ($content === false) {
-        throw new RuntimeException(sprintf('Die Datei "%s" konnte nicht gelesen werden.', $filePath));
+        throw new RuntimeException(adminT('error.file_unreadable', ['file' => $filePath]));
     }
 
     try {
         $decoded = json_decode($content, true, 512, JSON_THROW_ON_ERROR);
     } catch (JsonException $exception) {
         throw new RuntimeException(
-            sprintf('Die JSON-Datei "%s" ist ungültig: %s', $filePath, $exception->getMessage()),
+            adminT('error.json_invalid_file', ['file' => $filePath, 'message' => $exception->getMessage()]),
             0,
             $exception
         );
     }
 
     if (!is_array($decoded)) {
-        throw new RuntimeException(sprintf('Die JSON-Datei "%s" muss ein Objekt enthalten.', $filePath));
+        throw new RuntimeException(adminT('error.json_file_object_required', ['file' => $filePath]));
     }
 
     return $decoded;
@@ -501,6 +708,33 @@ function adminLoadTemplateData(): array
 }
 
 /**
+ * @return array<int, array{href:string,label:string}>
+ */
+function adminNavigationItems(): array
+{
+    $items = [];
+
+    try {
+        $template = adminLoadTemplateData();
+    } catch (RuntimeException $exception) {
+        return $items;
+    }
+
+    foreach ($template as $key => $value) {
+        if (!is_string($key)) {
+            continue;
+        }
+
+        $items[] = [
+            'href' => './admin.php#' . adminFieldId([$key]),
+            'label' => adminFieldLabel($key),
+        ];
+    }
+
+    return $items;
+}
+
+/**
  * @param array<string, mixed> $data
  */
 function adminSaveSiteData(array $data): void
@@ -508,30 +742,30 @@ function adminSaveSiteData(array $data): void
     $directory = dirname(adminDataFile());
 
     if (!is_dir($directory) || !is_writable($directory)) {
-        throw new RuntimeException('Das Datenverzeichnis ist nicht beschreibbar.');
+        throw new RuntimeException(adminT('error.data_dir_not_writable'));
     }
 
     $json = json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
 
     if ($json === false) {
-        throw new RuntimeException('Die Daten konnten nicht in JSON umgewandelt werden.');
+        throw new RuntimeException(adminT('error.json_encode_failed'));
     }
 
     $json .= PHP_EOL;
     $temporaryFile = tempnam($directory, 'data-json-');
 
     if ($temporaryFile === false) {
-        throw new RuntimeException('Es konnte keine temporäre Datei erzeugt werden.');
+        throw new RuntimeException(adminT('error.temp_file_failed'));
     }
 
     if (file_put_contents($temporaryFile, $json, LOCK_EX) === false) {
         @unlink($temporaryFile);
-        throw new RuntimeException('Die temporäre JSON-Datei konnte nicht geschrieben werden.');
+        throw new RuntimeException(adminT('error.temp_json_write_failed'));
     }
 
     if (!rename($temporaryFile, adminDataFile())) {
         @unlink($temporaryFile);
-        throw new RuntimeException('Die JSON-Datei konnte nicht atomar ersetzt werden.');
+        throw new RuntimeException(adminT('error.atomic_replace_failed'));
     }
 }
 
@@ -580,6 +814,16 @@ function adminHumanize(string $value): string
     return ucfirst(trim($humanized));
 }
 
+function adminFieldLabel(string $key): string
+{
+    return adminTranslationValue('field.' . $key) ?? adminHumanize($key);
+}
+
+function adminRepeatableLabel(string $key, string $label): string
+{
+    return adminTranslationValue('repeatable.' . $key) ?? $label;
+}
+
 /**
  * @param array<int, string|int> $path
  */
@@ -608,6 +852,20 @@ function adminFieldId(array $path): string
     );
 
     return implode('-', $parts);
+}
+
+/**
+ * @param array<int, string|int> $path
+ */
+function adminPathContainsArrayIndex(array $path): bool
+{
+    foreach ($path as $segment) {
+        if (is_int($segment)) {
+            return true;
+        }
+    }
+
+    return false;
 }
 
 /**
@@ -641,7 +899,7 @@ function adminShouldUseTextarea(string $key, $value): bool
 
     $length = function_exists('mb_strlen') ? mb_strlen($value, 'UTF-8') : strlen($value);
 
-    return in_array($key, ['description', 'text', 'message', 'afterBold'], true) || $length > 120;
+    return in_array($key, ['description', 'text', 'message', 'afterBold', 'intro', 'headline'], true) || $length > 120;
 }
 
 /**
@@ -654,28 +912,46 @@ function adminIsAssoc($value): bool
 
 /**
  * @param mixed $value
+ * @param mixed $existingValue
  * @return mixed
  */
-function adminNormalizeSubmittedValue($value, $template)
+function adminNormalizeSubmittedValue($value, $template, $existingValue = null)
 {
     if (is_array($template)) {
         if (adminIsAssoc($template)) {
             $source = is_array($value) ? $value : [];
+            $existing = is_array($existingValue) ? $existingValue : [];
             $result = [];
 
             foreach ($template as $key => $templateValue) {
-                $result[$key] = adminNormalizeSubmittedValue($source[$key] ?? null, $templateValue);
+                if (array_key_exists($key, $source)) {
+                    $result[$key] = adminNormalizeSubmittedValue(
+                        $source[$key],
+                        $templateValue,
+                        $existing[$key] ?? null
+                    );
+                    continue;
+                }
+
+                if (array_key_exists($key, $existing)) {
+                    $result[$key] = $existing[$key];
+                    continue;
+                }
+
+                $result[$key] = adminNormalizeSubmittedValue(null, $templateValue, null);
             }
 
             return $result;
         }
 
         $source = is_array($value) ? array_values($value) : [];
-        $itemTemplate = $template[0] ?? '';
+        $fallbackTemplate = $template[0] ?? '';
         $result = [];
 
-        foreach ($source as $item) {
-            $result[] = adminNormalizeSubmittedValue($item, $itemTemplate);
+        foreach ($source as $index => $item) {
+            $existingItem = is_array($existingValue) && array_key_exists($index, $existingValue) ? $existingValue[$index] : null;
+            $itemTemplate = adminResolveArrayItemTemplate($item, $template, $fallbackTemplate);
+            $result[] = adminNormalizeSubmittedValue($item, $itemTemplate, $existingItem);
         }
 
         return $result;
@@ -701,19 +977,75 @@ function adminNormalizeSubmittedValue($value, $template)
 }
 
 /**
+ * @param mixed $template
+ * @return mixed
+ */
+function adminEmptyValueFromTemplate($template)
+{
+    if (is_array($template)) {
+        if (adminIsAssoc($template)) {
+            $result = [];
+
+            foreach ($template as $key => $templateValue) {
+                $result[$key] = adminEmptyValueFromTemplate($templateValue);
+            }
+
+            return $result;
+        }
+
+        return [];
+    }
+
+    if (is_bool($template)) {
+        return false;
+    }
+
+    if (is_int($template)) {
+        return 0;
+    }
+
+    if (is_float($template)) {
+        return 0.0;
+    }
+
+    return '';
+}
+
+/**
  * @param array<string, mixed> $template
+ * @param array<string, mixed> $existingData
  * @param array<string, mixed> $submittedData
  * @return array<string, mixed>
  */
-function adminBuildStructuredPayload(array $template, array $submittedData): array
+function adminBuildStructuredPayload(array $template, array $existingData, array $submittedData): array
 {
     $payload = [];
 
     foreach ($template as $key => $value) {
-        $payload[$key] = adminNormalizeSubmittedValue($submittedData[$key] ?? null, $value);
+        if (array_key_exists($key, $submittedData)) {
+            $payload[$key] = adminNormalizeSubmittedValue($submittedData[$key], $value, $existingData[$key] ?? null);
+            continue;
+        }
+
+        if (array_key_exists($key, $existingData)) {
+            $payload[$key] = $existingData[$key];
+            continue;
+        }
+
+        $payload[$key] = $value;
     }
 
     return $payload;
+}
+
+/**
+ * @param mixed $data
+ */
+function adminHeadingTagForDepth(int $depth): string
+{
+    $level = min(max($depth + 2, 2), 6);
+
+    return 'h' . (string) $level;
 }
 
 /**
@@ -725,28 +1057,61 @@ function adminRenderFields($data, array $template, array $path = ['data'], int $
 
     foreach ($template as $key => $templateValue) {
         $currentPath = [...$path, $key];
-        $currentValue = is_array($data) && array_key_exists($key, $data) ? $data[$key] : $templateValue;
-        $label = adminHumanize((string) $key);
+        $currentValue = is_array($data) && array_key_exists($key, $data)
+            ? $data[$key]
+            : (adminPathContainsArrayIndex($path) ? adminEmptyValueFromTemplate($templateValue) : $templateValue);
+        $label = adminFieldLabel((string) $key);
 
         if (is_array($templateValue)) {
             if (adminIsAssoc($templateValue)) {
-                $markup .= '<section class="admin-group admin-group--object" data-depth="' . $depth . '">';
-                $markup .= '<div class="admin-group__header">';
-                $markup .= '<h3>' . adminEscape($label) . '</h3>';
-                $markup .= '<p>' . adminEscape('Objektfelder für ' . $label) . '</p>';
-                $markup .= '</div>';
-                $markup .= '<div class="admin-group__body">';
-                $markup .= adminRenderFields(
-                    is_array($currentValue) ? $currentValue : [],
-                    $templateValue,
-                    $currentPath,
-                    $depth + 1
-                );
-                $markup .= '</div></section>';
+                $headingTag = adminHeadingTagForDepth($depth);
+
+                if ($depth === 0) {
+                    $formId = adminFieldId([$key, 'form']);
+
+                    $markup .= '<section id="' . adminEscape(adminFieldId([$key])) . '" data-depth="' . $depth . '"><div class="container">';
+						$markup .= '<p class="preheader">' . adminEscape(adminT('admin.object_fields_for', ['label' => $label])) . '</p>';
+						$markup .= '<' . $headingTag . '>' . adminEscape($label) . '</' . $headingTag . '>';
+						$markup .= '<div class="card card--default-inner">';
+							$markup .= '<div class="card__body">';
+								$markup .= '<div class="card__body-wrapper">';
+									$markup .= '<form method="post" action="./admin-save.php" id="' . adminEscape($formId) . '" class="admin-form">';
+									$markup .= '<input type="hidden" name="mode" value="structured">';
+									$markup .= '<input type="hidden" name="csrf_token" value="' . adminEscape(adminCsrfToken()) . '">';
+										$markup .= adminRenderFields(
+											is_array($currentValue) ? $currentValue : [],
+											$templateValue,
+											$currentPath,
+											$depth + 1
+										);
+									$markup .= '</form>';
+								$markup .= '</div>';
+							$markup .= '</div>';
+							$markup .= '<div class="card__footer">';
+								$markup .= '<button type="submit" form="' . adminEscape($formId) . '" class="btn btn--primary btn--large">' . adminEscape(adminT('admin.save_structure')) . '</button>';
+							$markup .= '</div>';
+						$markup .= '</div>';
+                    $markup .= '</div></section>';
+                } else {
+
+					$markup .= '<div data-depth="' . $depth . '" class="admin-nonrepeatable">';
+						$markup .= '<' . $headingTag . '>' . adminEscape($label) . '</' . $headingTag . '>';
+
+						$markup .= '<div class="admin-nonrepeatable__items">';
+							$markup .= adminRenderFields(
+							is_array($currentValue) ? $currentValue : [],
+							$templateValue,
+							$currentPath,
+							$depth + 1
+						);
+						$markup .= '</div>';
+					$markup .= '</div>';
+                }
+
                 continue;
             }
 
-            $markup .= adminRenderArrayField($label, $currentPath, $currentValue, $templateValue, $depth);
+            $markup .= adminRenderArrayField((string) $key, $label, $currentPath, $currentValue, $templateValue, $depth);
             continue;
         }
 
@@ -769,29 +1134,255 @@ function adminRenderScalarField(string $label, array $path, $currentValue, strin
     $input = '';
 
     if (is_bool($currentValue)) {
-        $input .= '<label class="admin-checkbox">';
-        $input .= '<input type="hidden" name="' . adminEscape($name) . '" value="0">';
-        $input .= '<input type="checkbox" name="' . adminEscape($name) . '" value="1"' .
-            ($currentValue ? ' checked' : '') . '>';
-        $input .= '<span>' . adminEscape($label) . '</span>';
-        $input .= '</label>';
+		$input .= '<input type="hidden" id="' . adminEscape($id) . '" name="' . adminEscape($name) . '" value="0">';
+		$input .= '<input type="checkbox" id="' . adminEscape($id) . '" name="' . adminEscape($name) . '" value="1"' .
+			($currentValue ? ' checked' : '') . '>';
+        $input .= '<label for="' . adminEscape($id) . '">' . adminEscape($label) . '</label>';
 
-        return '<div class="admin-field admin-field--checkbox">' . $input . '</div>';
+		return '<div class="form-group"><div class="form-check">' . $input . '</div></div>';
+    }
+
+    if (adminIsIconField($key, $currentValue)) {
+        return adminRenderIconPickerField($label, $name, $id, $value);
+    }
+
+    if (adminIsButtonVariantField($key, $currentValue)) {
+        return adminRenderButtonVariantField($label, $name, $id, $value);
+    }
+
+    $customSelectOptions = adminCustomSelectOptions($path, $key, $currentValue);
+
+    if ($customSelectOptions !== []) {
+        return adminRenderCustomSelectField($label, $name, $id, $value, $customSelectOptions);
     }
 
     if (adminShouldUseTextarea($key, $currentValue)) {
-        $input .= '<label class="admin-label" for="' . adminEscape($id) . '">' . adminEscape($label) . '</label>';
+        $input .= '<label for="' . adminEscape($id) . '">' . adminEscape($label) . '</label>';
         $input .= '<textarea id="' . adminEscape($id) . '" name="' . adminEscape($name) .
-            '" rows="4">' . adminEscape($value) . '</textarea>';
+            '" rows="">' . adminEscape($value) . '</textarea>';
 
-        return '<div class="admin-field admin-field--textarea">' . $input . '</div>';
+        return '<div class=form-group">' . $input . '</div>';
     }
 
-    $input .= '<label class="admin-label" for="' . adminEscape($id) . '">' . adminEscape($label) . '</label>';
-    $input .= '<input id="' . adminEscape($id) . '" type="' . adminEscape($type) . '" name="' .
-        adminEscape($name) . '" value="' . adminEscape($value) . '">';
+    $input .= '<label for="' . adminEscape($id) . '">' . adminEscape($label) . '</label>';
+    $input .= '<input type="' . adminEscape($type) . '" id="' . adminEscape($id) . '" name="' .
+        adminEscape($name) . '" placeholder="' . adminEscape($label) . '" value="' . adminEscape($value) . '">';
 
-    return '<div class="admin-field">' . $input . '</div>';
+    return '<div class="form-group">' . $input . '</div>';
+}
+
+function adminIsIconField(string $key, $currentValue): bool
+{
+    if (!is_string($currentValue) && !is_numeric($currentValue) && $currentValue !== null) {
+        return false;
+    }
+
+    return (bool) preg_match('/icon$/i', $key);
+}
+
+function adminRenderIconPickerField(string $label, string $name, string $id, string $value): string
+{
+    $previewIcon = $value !== '' ? adminIconSvg($value) : '';
+    $buttonId = $id . '-picker';
+    $searchId = $id . '-search';
+    $displayValue = $value !== '' ? $value : adminT('admin.icon_picker_placeholder');
+    $searchPlaceholder = adminT('admin.icon_picker_search');
+    $emptyMessage = adminT('admin.icon_picker_empty');
+
+    $markup = '<div class="form-group admin-icon-picker-field js-admin-icon-picker-field" data-icon-picker>';
+    $markup .= '<label for="' . adminEscape($buttonId) . '">' . adminEscape($label) . '</label>';
+    $markup .= '<div class="admin-icon-picker js-admin-icon-picker">';
+    $markup .= '<input type="hidden" id="' . adminEscape($id) . '" name="' . adminEscape($name) . '" value="' . adminEscape($value) . '" data-icon-picker-input>';
+    $markup .= '<button type="button" id="' . adminEscape($buttonId) . '" class="admin-icon-picker__toggle js-admin-icon-picker__toggle" aria-expanded="false" aria-controls="' . adminEscape($id) . '-panel">';
+    $markup .= '<span class="admin-icon-picker__toggle-preview js-admin-icon-picker__toggle-preview" data-icon-picker-preview>' . $previewIcon . '</span>';
+    $markup .= '<span class="admin-icon-picker__toggle-label js-admin-icon-picker__toggle-label" data-icon-picker-label>' . adminEscape($displayValue) . '</span>';
+    $markup .= '<span class="admin-icon-picker__toggle-indicator">' . adminIconSvg('chevron-down') . '</span>';
+    $markup .= '</button>';
+    $markup .= '<div id="' . adminEscape($id) . '-panel" class="admin-icon-picker__panel js-admin-icon-picker__panel" hidden>';
+    $markup .= '<div class="admin-icon-picker__panel-header">';
+    $markup .= '<input type="search" id="' . adminEscape($searchId) . '" class="admin-icon-picker__search js-admin-icon-picker__search" placeholder="' . adminEscape($searchPlaceholder) . '" autocomplete="off">';
+    $markup .= '<p class="admin-icon-picker__meta js-admin-icon-picker__meta"></p>';
+    $markup .= '</div>';
+    $markup .= '<div class="admin-icon-picker__options js-admin-icon-picker__options" data-empty-message="' . adminEscape($emptyMessage) . '"></div>';
+    $markup .= '</div>';
+    $markup .= '</div>';
+    $markup .= '</div>';
+
+    return $markup;
+}
+
+function adminIsButtonVariantField(string $key, $currentValue): bool
+{
+    if ($key !== 'variant') {
+        return false;
+    }
+
+    return is_string($currentValue) || is_numeric($currentValue) || $currentValue === null;
+}
+
+function adminButtonVariantOptions(): array
+{
+    return [
+        'btn--primary' => 'btn--primary',
+        'btn--secondary' => 'btn--secondary',
+        'btn--danger' => 'btn--danger',
+    ];
+}
+
+function adminRenderButtonVariantField(string $label, string $name, string $id, string $value): string
+{
+    return adminRenderCustomSelectField($label, $name, $id, $value, adminButtonVariantOptions());
+}
+
+/**
+ * @param array<int, string|int> $path
+ * @param mixed $currentValue
+ * @return array<string, string>
+ */
+function adminCustomSelectOptions(array $path, string $key, $currentValue): array
+{
+    if (!is_string($currentValue) && !is_numeric($currentValue) && $currentValue !== null) {
+        return [];
+    }
+
+    $value = adminValueToString($currentValue);
+
+    if ($key === 'type' && adminPathContains($path, 'fields')) {
+        return adminContactFieldTypeOptions();
+    }
+
+    if ($key === 'label' && adminIsSalutationOptionPath($path) && array_key_exists($value, adminSalutationLabelOptions())) {
+        return adminSalutationLabelOptions();
+    }
+
+    if ($key === 'value' && adminIsSalutationOptionPath($path) && array_key_exists($value, adminSalutationValueOptions())) {
+        return adminSalutationValueOptions();
+    }
+
+    return [];
+}
+
+/**
+ * @return array<string, string>
+ */
+function adminContactFieldTypeOptions(): array
+{
+    return [
+        'text' => 'text',
+        'email' => 'email',
+        'textarea' => 'textarea',
+        'select' => 'select',
+        'radio' => 'radio',
+        'checkbox' => 'checkbox',
+    ];
+}
+
+/**
+ * @return array<string, string>
+ */
+function adminSalutationLabelOptions(): array
+{
+    return [
+        'Anrede' => 'Anrede',
+        'Herr' => 'Herr',
+        'Frau' => 'Frau',
+        'Diverse' => 'Diverse',
+    ];
+}
+
+/**
+ * @return array<string, string>
+ */
+function adminSalutationValueOptions(): array
+{
+    return [
+        '' => adminT('admin.empty_value'),
+        'Herr' => 'Herr',
+        'Frau' => 'Frau',
+        'Diverse' => 'Diverse',
+    ];
+}
+
+/**
+ * @param array<int, string|int> $path
+ */
+function adminPathContains(array $path, string $segment): bool
+{
+    foreach ($path as $pathSegment) {
+        if ((string) $pathSegment === $segment) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+/**
+ * @param array<int, string|int> $path
+ */
+function adminIsSalutationOptionPath(array $path): bool
+{
+    $segments = array_map(static fn ($segment): string => (string) $segment, $path);
+
+    return (bool) preg_match(
+        '#^data/contact/form/fields/\d+/options/\d+/(label|value)$#',
+        implode('/', $segments)
+    );
+}
+
+/**
+ * @param array<string, string> $options
+ */
+function adminRenderCustomSelectField(string $label, string $name, string $id, string $value, array $options): string
+{
+    $buttonId = $id . '-picker';
+    $panelId = $id . '-panel';
+    $selectedLabel = $options[$value] ?? adminT('admin.custom_select_placeholder');
+    $placeholder = adminT('admin.custom_select_placeholder');
+    $optionsMarkup = '';
+    $nativeOptionsMarkup = '';
+
+    foreach ($options as $optionValue => $optionLabel) {
+        $isSelected = $value === (string) $optionValue;
+        $selectedClass = $isSelected ? ' is-selected' : '';
+        $selectedAttribute = $isSelected ? ' selected' : '';
+
+        if ($placeholder === '' && $optionLabel !== '') {
+            $placeholder = $optionLabel;
+        }
+
+        $nativeOptionsMarkup .= '<option value="' . adminEscape((string) $optionValue) . '"' . $selectedAttribute . '>' .
+            adminEscape($optionLabel) . '</option>';
+
+        $optionsMarkup .= '<button type="button" class="custom-select__option js-custom-select__option' .
+            $selectedClass . '" data-custom-select-option data-option-value="' . adminEscape((string) $optionValue) .
+            '" aria-selected="' . ($isSelected ? 'true' : 'false') . '" title="' . adminEscape($optionLabel) . '">' .
+            adminEscape($optionLabel) . '</button>';
+    }
+
+    $markup = '<div class="form-group custom-select-field" data-custom-select data-custom-select-placeholder="' .
+        adminEscape($placeholder) . '">';
+    $markup .= '<label for="' . adminEscape($buttonId) . '">' . adminEscape($label) . '</label>';
+    $markup .= '<div class="custom-select js-custom-select">';
+    $markup .= '<select id="' . adminEscape($id) . '" name="' . adminEscape($name) .
+        '" class="custom-select__native js-custom-select__native" data-custom-select-native>' .
+        $nativeOptionsMarkup . '</select>';
+    $markup .= '<div class="custom-select__ui js-custom-select__ui">';
+    $markup .= '<button type="button" id="' . adminEscape($buttonId) .
+        '" class="custom-select__toggle js-custom-select__toggle" aria-expanded="false" aria-haspopup="listbox" ' .
+        'aria-controls="' . adminEscape($panelId) . '">';
+    $markup .= '<span class="custom-select__toggle-label js-custom-select__toggle-label" data-custom-select-label>' .
+        adminEscape($selectedLabel) . '</span>';
+    $markup .= '<span class="custom-select__toggle-indicator">' . adminIconSvg('chevron-down') . '</span>';
+    $markup .= '</button>';
+    $markup .= '<div id="' . adminEscape($panelId) . '" class="custom-select__panel js-custom-select__panel" role="listbox" hidden>';
+    $markup .= '<div class="custom-select__options">' . $optionsMarkup . '</div>';
+    $markup .= '</div>';
+    $markup .= '</div>';
+    $markup .= '</div>';
+    $markup .= '</div>';
+
+    return $markup;
 }
 
 /**
@@ -799,47 +1390,89 @@ function adminRenderScalarField(string $label, array $path, $currentValue, strin
  * @param mixed $currentValue
  * @param array<int, mixed> $template
  */
-function adminRenderArrayField(string $label, array $path, $currentValue, array $template, int $depth): string
+function adminRenderArrayField(string $key, string $label, array $path, $currentValue, array $template, int $depth): string
 {
     $items = is_array($currentValue) ? array_values($currentValue) : [];
     $prototypeValue = $template[0] ?? '';
+    $emptyPrototypeValue = adminEmptyValueFromTemplate($prototypeValue);
     $arrayPrefix = adminFieldName($path);
+    $headingTag = adminHeadingTagForDepth($depth);
+    $singularLabel = adminRepeatableLabel($key, $label);
     $prototypeMarkup = adminRenderRepeatableItem(
-        $label,
+        $singularLabel,
         [...$path, '__INDEX__'],
-        $prototypeValue,
+        $emptyPrototypeValue,
         $prototypeValue,
         $depth + 1,
         true
     );
 
-    $markup = '<section class="admin-group admin-group--array" data-depth="' . $depth . '">';
-    $markup .= '<div class="admin-group__header">';
-    $markup .= '<h3>' . adminEscape($label) . '</h3>';
-    $markup .= '<p>' . adminEscape('Liste mit wiederholbaren Einträgen') . '</p>';
-    $markup .= '</div>';
-    $markup .= '<div class="admin-repeatable" data-repeatable data-array-prefix="' . adminEscape($arrayPrefix) . '">';
-    $markup .= '<template data-repeatable-template>' . $prototypeMarkup . '</template>';
-    $markup .= '<div class="admin-repeatable__items" data-repeatable-items>';
+    $markup = '<div data-repeatable data-array-prefix="' . adminEscape($arrayPrefix) . '" data-depth="' . $depth . '" class="admin-repeatable">';
+		$markup .= '<' . $headingTag . '>' . adminEscape($label) . '</' . $headingTag . '>';
+    	$markup .= '<template data-repeatable-template>' . $prototypeMarkup . '</template>';
+		$markup .= '<div data-repeatable-items class="admin-repeatable__items">';
 
-    foreach ($items as $index => $item) {
-        $markup .= adminRenderRepeatableItem(
-            $label,
-            [...$path, $index],
-            $item,
-            $prototypeValue,
-            $depth + 1,
-            false
-        );
-    }
+			foreach ($items as $index => $item) {
+                $itemTemplate = adminResolveArrayItemTemplate($item, $template, $prototypeValue);
+				$markup .= adminRenderRepeatableItem(
+					$singularLabel,
+					[...$path, $index],
+					$item,
+					$itemTemplate,
+					$depth + 1,
+					false
+				);
+			}
 
-    $markup .= '</div>';
-    $markup .= '<div class="admin-repeatable__footer">';
-    $markup .= '<button type="button" class="admin-button admin-button--ghost" data-repeatable-add>' .
-        adminEscape($label . ' hinzufügen') . '</button>';
-    $markup .= '</div></div></section>';
+    	$markup .= '</div>';
+    	$markup .= '<div class="admin-repeatable__footer">';
+    		$markup .= '<button type="button" class="btn btn--secondary" data-repeatable-add>' . adminEscape(adminT('admin.add_item', ['label' => $singularLabel])) . '</button>';
+    $markup .= '</div></div>';
 
     return $markup;
+}
+
+/**
+ * @param mixed $item
+ * @param array<int, mixed> $template
+ * @param mixed $fallbackTemplate
+ * @return mixed
+ */
+function adminResolveArrayItemTemplate($item, array $template, $fallbackTemplate)
+{
+    if (!is_array($item) || !adminIsAssoc($item)) {
+        return $fallbackTemplate;
+    }
+
+    $itemType = isset($item['type']) && is_scalar($item['type']) ? (string) $item['type'] : null;
+    $itemName = isset($item['name']) && is_scalar($item['name']) ? (string) $item['name'] : null;
+
+    foreach ($template as $candidate) {
+        if (!is_array($candidate) || !adminIsAssoc($candidate)) {
+            continue;
+        }
+
+        $candidateType = isset($candidate['type']) && is_scalar($candidate['type']) ? (string) $candidate['type'] : null;
+        $candidateName = isset($candidate['name']) && is_scalar($candidate['name']) ? (string) $candidate['name'] : null;
+
+        if ($itemType !== null && $candidateType === $itemType && $itemName !== null && $candidateName === $itemName) {
+            return $candidate;
+        }
+    }
+
+    foreach ($template as $candidate) {
+        if (!is_array($candidate) || !adminIsAssoc($candidate)) {
+            continue;
+        }
+
+        $candidateType = isset($candidate['type']) && is_scalar($candidate['type']) ? (string) $candidate['type'] : null;
+
+        if ($itemType !== null && $candidateType === $itemType) {
+            return $candidate;
+        }
+    }
+
+    return $fallbackTemplate;
 }
 
 /**
@@ -856,6 +1489,7 @@ function adminRenderRepeatableItem(
     bool $isPrototype
 ): string {
     $body = '';
+    $itemTitle = adminT('admin.item_entry', ['label' => $label]);
 
     if (is_array($templateValue) && adminIsAssoc($templateValue)) {
         $body = adminRenderFields(
@@ -864,10 +1498,33 @@ function adminRenderRepeatableItem(
             $path,
             $depth
         );
+
+        if (is_array($value)) {
+            foreach (['label', 'title', 'name'] as $titleKey) {
+                if (!isset($value[$titleKey]) || !is_scalar($value[$titleKey])) {
+                    continue;
+                }
+
+                $candidate = trim((string) $value[$titleKey]);
+
+                if ($candidate !== '') {
+                    $itemTitle = $candidate;
+                    break;
+                }
+            }
+        }
     } elseif (is_array($templateValue)) {
-        $body = adminRenderArrayField($label, $path, $value, $templateValue, $depth);
+        $body = adminRenderArrayField((string) end($path), $label, $path, $value, $templateValue, $depth);
     } else {
-        $body = adminRenderScalarField($label . ' Eintrag', $path, $value, (string) end($path));
+        if (is_scalar($value)) {
+            $candidate = trim((string) $value);
+
+            if ($candidate !== '') {
+                $itemTitle = $candidate;
+            }
+        }
+
+        $body = adminRenderScalarField(adminT('admin.item_entry', ['label' => $label]), $path, $value, (string) end($path));
     }
 
     $classes = 'admin-repeatable-item';
@@ -876,14 +1533,16 @@ function adminRenderRepeatableItem(
         $classes .= ' is-prototype';
     }
 
-    $markup = '<article class="' . $classes . '" data-repeatable-item>';
-    $markup .= '<div class="admin-repeatable-item__header">';
-    $markup .= '<strong>' . adminEscape($label . ' Eintrag') . '</strong>';
-    $markup .= '<button type="button" class="admin-button admin-button--danger" data-repeatable-remove>' .
-        adminEscape('Entfernen') . '</button>';
-    $markup .= '</div>';
-    $markup .= '<div class="admin-repeatable-item__body">' . $body . '</div>';
-    $markup .= '</article>';
+    $markup = '<details class="form-group ' . $classes . '" data-repeatable-item data-default-title="' . adminEscape(adminT('admin.item_entry', ['label' => $label])) . '">';
+		$markup .= '<summary class="admin-repeatable-item__summary">';
+			$markup .= '<strong data-repeatable-title>' . adminEscape($itemTitle) . '</strong>';
+			$markup .= '<span class="btn btn--summary-open" data-repeatable-toggle tabindex="0" role="button" aria-label="' . adminEscape(adminT('admin.toggle_item', ['label' => $itemTitle])) . '">' . adminIconSvg('square-pen') . '</span>';
+			$markup .= '<button type="button" class="btn btn--danger" data-repeatable-remove title="' . adminEscape(adminT('admin.remove')) . '" aria-label="' . adminEscape(adminT('admin.remove')) . '">' . adminIconSvg('trash-2') . '</button>';
+		$markup .= '</summary>';
+    	$markup .= '<div class="admin-repeatable-item__body">';
+    		$markup .= $body;
+		$markup .= '</div>';
+    $markup .= '</details>';
 
     return $markup;
 }

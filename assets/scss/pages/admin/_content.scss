@@ -1,0 +1,132 @@
+@use "../../variables" as v;
+@use "../../mixins/mixins" as m;
+
+.admin-content {
+	
+	.card,
+	.card__body,
+	.card__body-wrapper {
+		overflow: visible;
+	}
+	
+	#json-form textarea {
+		height: unset;
+	}
+	
+	.admin-tabs {
+		
+		.tab-button {
+			appearance: none;
+			border: none;
+			border-radius: v.$radius-max;
+			padding: 1rem v.$spacing-m;
+			font-weight: v.$btn-fw;
+			transition: v.$btn-transition;
+			
+			&.is-active {
+				background: v.$primary;
+				color: v.$secondary;
+			}
+		}
+		
+		.tab-panel {
+			display: none;
+			
+			&.is-active {
+				display: block;
+			}
+		}
+	}
+	
+	.admin-nonrepeatable,
+	.admin-repeatable {
+		gap: v.$spacing-m;
+		
+		&:not(:first-of-type) {
+			margin-block-start: v.$spacing-m;
+		}
+	}
+	
+	.admin-nonrepeatable {
+		
+		@for $level from 1 through 6 {
+			h#{$level} {
+				margin-block-end: v.$spacing-m !important;
+			}
+		}
+		
+		.admin-nonrepeatable__items {
+			display: flex;
+			flex-direction: column;
+			gap: v.$spacing-m;
+		}
+	}
+	
+	.admin-repeatable {
+		
+		@for $level from 1 through 6 {
+			h#{$level} {
+				margin-block-end: unset;
+			}
+		}
+		
+		.admin-repeatable-item {
+			
+			.admin-repeatable-item__summary {
+				padding: v.$spacing-m;
+				display: flex;
+				gap: v.$spacing-s;
+				align-items: center;
+				justify-content: space-between;
+				cursor: pointer;
+				list-style: none;
+				
+				> *:nth-child(2) {
+					margin-inline-start: auto;
+				}
+				
+				.btn {
+					width: 4rem;
+					height: 4rem;
+					padding: unset;
+					flex-shrink: 0;
+					justify-content: center;
+					background: unset;
+					border: unset;
+				}
+				
+				.btn--summary-open,
+				.btn--danger {
+					
+					svg {
+						width: unset;
+						height: unset;
+					}
+				}
+				
+				.btn--danger svg {
+					stroke: v.$btn-danger-hover-border !important;
+				}
+				
+				&::-webkit-details-marker {
+					display: none;
+				}
+			}
+			
+			.admin-repeatable-item__body {
+				padding: 0 v.$spacing-l v.$spacing-l;
+				display: flex;
+				flex-direction: column;
+				gap: v.$spacing-s;
+			}
+			
+			&:not(:last-child) {
+				border-block-end: v.$hr-border;
+			}
+			
+			&.is-prototype {
+				display: none;
+			}
+		}
+	}
+}

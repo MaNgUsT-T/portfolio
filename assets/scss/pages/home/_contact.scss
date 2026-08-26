@@ -8,6 +8,12 @@
 		column-gap: v.$spacing-3xl;
 	}
 
+	.card--contact-item,
+	.card--contact-item .card__body,
+	.card--contact-item .card__body-wrapper {
+		overflow: visible;
+	}
+
 	.btn {
 		width: 100%;
 		justify-content: center;

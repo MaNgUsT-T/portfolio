@@ -201,14 +201,28 @@
         padding: 0 0 v.$spacing-2xl;
         border-block-end: 0.1rem solid v.$border-color;
     }
-
+    
     .card__body-wrapper {
-        padding: v.$spacing-2xl 0;
+        padding-inline: 0;
     }
 
     .card__footer {
         padding: v.$spacing-2xl 0 0;
         border-block-start: 0.1rem solid v.$border-color;
+    }
+    
+    &:not(:has(>.card__header)) {
+        
+        .card__body-wrapper {
+            padding-block-start: 0;
+        }
+    }
+    
+    &:not(:has(>.card__footer)) {
+        
+        .card__body-wrapper {
+            padding-block-end: 0;
+        }
     }
 }
 

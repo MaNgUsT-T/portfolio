@@ -8,7 +8,7 @@ adminEnsureAuthenticated();
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     http_response_code(405);
-    adminFlash('error', 'Diese Anfrage ist nicht erlaubt.');
+    adminFlash('error', adminT('error.request_not_allowed'));
     header('Location: ./admin.php');
     exit;
 }
@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 $csrfToken = isset($_POST['csrf_token']) && is_string($_POST['csrf_token']) ? $_POST['csrf_token'] : null;
 
 if (!adminVerifyCsrfToken($csrfToken)) {
-    adminFlash('error', 'Die Anfrage konnte nicht bestätigt werden.');
+    adminFlash('error', adminT('error.request_unconfirmed'));
     header('Location: ./admin.php');
     exit;
 }
@@ -25,15 +25,15 @@ $mode = isset($_POST['mode']) && is_string($_POST['mode']) ? $_POST['mode'] : 's
 
 try {
     if ($mode === 'json') {
-        $jsonPayload = isset($_POST['json_payload']) && is_string($_POST['json_payload']) ? $_POST['json_payload'] : '';
+        $jsonPayload = isset($_POST['json-payload']) && is_string($_POST['json-payload']) ? $_POST['json-payload'] : '';
         $decoded = json_decode($jsonPayload, true, 512, JSON_THROW_ON_ERROR);
 
         if (!is_array($decoded)) {
-            throw new RuntimeException('Das JSON muss ein Objekt enthalten.');
+            throw new RuntimeException(adminT('error.json_object_required'));
         }
 
         adminSaveSiteData($decoded);
-        adminFlash('success', 'Die JSON-Datei wurde gespeichert.');
+        adminFlash('success', adminT('success.json_saved'));
         header('Location: ./admin.php');
         exit;
     }
@@ -41,15 +41,16 @@ try {
     $submittedData = $_POST['data'] ?? null;
 
     if (!is_array($submittedData)) {
-        throw new RuntimeException('Die strukturierten Formulardaten fehlen.');
+        throw new RuntimeException(adminT('error.structured_data_missing'));
     }
 
     $template = adminLoadTemplateData();
-    $payload = adminBuildStructuredPayload($template, $submittedData);
+    $existingData = adminLoadSiteData();
+    $payload = adminBuildStructuredPayload($template, $existingData, $submittedData);
     adminSaveSiteData($payload);
-    adminFlash('success', 'Die Inhalte wurden gespeichert.');
+    adminFlash('success', adminT('success.content_saved'));
 } catch (JsonException $exception) {
-    adminFlash('error', 'Das JSON ist ungültig: ' . $exception->getMessage());
+    adminFlash('error', adminT('error.json_invalid_prefix', ['message' => $exception->getMessage()]));
 } catch (RuntimeException $exception) {
     adminFlash('error', $exception->getMessage());
 }

@@ -84,7 +84,7 @@ ul {
     list-style: disc;
 
     li {
-        margin-left: 2rem;
+        margin-inline-start: 2rem;
         display: list-item;
         font-size: v.$li-fs;
         line-height: v.$li-lh;

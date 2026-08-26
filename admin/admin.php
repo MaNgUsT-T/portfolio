@@ -24,14 +24,14 @@ try {
 }
 ?>
 <!DOCTYPE html>
-<html lang="de">
+<html lang="<?= adminEscape(adminDocumentLanguage()) ?>">
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= adminEscape(adminTitle()) ?></title>
-    <meta name="description" content="<?= adminEscape(adminTitle()) ?> Admin">
+    <title><?= adminEscape(adminTitle()) ?> <?= adminEscape(adminT('admin.page_suffix')) ?></title>
+    <meta name="description" content="<?= adminEscape(adminTitle()) ?> <?= adminEscape(adminT('admin.page_suffix')) ?>">
     <meta name="keywords" content="portfolio, admin">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex, notranslate">
@@ -45,8 +45,8 @@ try {
     <meta name="anthropic-ai" content="noindex, nofollow, noarchive, nosnippet, noimageindex, notranslate">
     <meta name="CCBot" content="noindex, nofollow, noarchive, nosnippet, noimageindex, notranslate">
     <meta name="PerplexityBot" content="noindex, nofollow, noarchive, nosnippet, noimageindex, notranslate">
-    <meta property="og:title" content="<?= adminEscape(adminTitle()) ?> Admin">
-    <meta property="og:description" content="<?= adminEscape(adminTitle()) ?> Admin">
+    <meta property="og:title" content="<?= adminEscape(adminTitle()) ?> <?= adminEscape(adminT('admin.page_suffix')) ?>">
+    <meta property="og:description" content="<?= adminEscape(adminTitle()) ?> <?= adminEscape(adminT('admin.page_suffix')) ?>">
     <meta property="og:image" content="../img/favicon_512x512.png">
     <meta property="og:site_name" content="https://www.lisa-weber.de">
 	<!-- iOS Homescreen Icon -->
@@ -87,7 +87,7 @@ try {
 	</script>
 	<meta name="msapplication-TileImage" content="../img/favicon_512x512.png">
 	<!-- Fluid -->
-	<link rel="fluid-icon" href="../img/favicon_512x512.png" title="<?= adminEscape(adminTitle()) ?> Login">
+	<link rel="fluid-icon" href="../img/favicon_512x512.png" title="<?= adminEscape(adminTitle()) ?> <?= adminEscape(adminT('admin.page_suffix')) ?>">
 	<!-- Shortcut Icons -->
 	<link rel="shortcut icon" href="../img/favicon.ico?rand=1" type="image/x-icon">
 	<link rel="icon" href="../img/favicon_16x16.png" sizes="16x16">
@@ -103,103 +103,105 @@ try {
 
 	<link rel="stylesheet" href="../css/styles.min.css">
 </head>
-<body>
+<body class="admin-content">
     <?= adminRenderSiteHeader($siteData, true) ?>
 
-    <main class="admin-main">
-        <section class="admin-section admin-section--intro">
-            <div class="container admin-layout">
-                <div class="admin-hero">
-                    <div class="admin-hero__copy">
-                        <p class="admin-eyebrow">Content Backend</p>
-                        <h1>Inhalte bearbeiten</h1>
-                        <p>Die strukturierte Ansicht deckt alle aktuellen Bereiche aus <code>data/data.json</code> ab.</p>
-                    </div>
 
-                    <div class="admin-panel__meta admin-panel__meta--hero">
-                        <span>Direktes Dateispeichern</span>
-                        <span>CSRF geschützt</span>
-                        <span>UTF-8 JSON</span>
-                    </div>
-                </div>
 
-                <?php if ($flash !== null): ?>
-                    <div class="admin-alert admin-alert--<?= adminEscape($flash['type']) ?>">
-                        <?= adminEscape($flash['message']) ?>
-                    </div>
-                <?php endif; ?>
+	<main>
+		<section>
+			<div class="container">
+				<h1><?= adminEscape(adminT('admin.heading')) ?></h1>
+				<p><?= adminEscape(adminT('admin.structured_intro')) ?> <code>data/data.json</code>.</p>
+				<p><span class="pill"><?= adminEscape(adminT('admin.badge.direct_save')) ?></span> <span class="pill"><?= adminEscape(adminT('admin.badge.csrf')) ?></span> <span class="pill"><?= adminEscape(adminT('admin.badge.utf8_json')) ?></span></p>
 
-                <?php if ($loadError !== null): ?>
-                    <div class="admin-alert admin-alert--error"><?= adminEscape($loadError) ?></div>
-                <?php else: ?>
-                    <div class="admin-panel">
-                        <div class="admin-panel__intro">
-                            <div>
-                                <p class="admin-eyebrow">Editor</p>
-                                <h2>Struktur und JSON</h2>
-                                <p>Grob nach dem Aufbau der Siteelements: Header, Intro-Bereich und klare Editor-Sektionen.</p>
-                            </div>
-                        </div>
+				<?php if ($flash !== null): ?>
+					<div class="alert alert--<?= adminEscape($flash['type']) ?>">
+						<?= adminEscape($flash['message']) ?>
+					</div>
+				<?php endif; ?>
 
-                        <div class="admin-tabs" data-tabs>
-                            <div class="admin-tabs__list" role="tablist" aria-label="Editor Modi">
-                                <button type="button" class="admin-tab is-active" data-tab-trigger="structured" role="tab">
-                                    Inhalte
-                                </button>
-                                <button type="button" class="admin-tab" data-tab-trigger="json" role="tab">
-                                    JSON
-                                </button>
-                            </div>
+				<?php if ($loadError !== null): ?>
+					<div class="alert alert--error"><?= adminEscape($loadError) ?></div>
+				<?php endif; ?>
 
-                            <div class="admin-tab-panel is-active" data-tab-panel="structured" role="tabpanel">
-                                <form method="post" action="./admin-save.php" class="admin-form admin-editor">
-                                    <input type="hidden" name="mode" value="structured">
-                                    <input type="hidden" name="csrf_token" value="<?= adminEscape(adminCsrfToken()) ?>">
+			</div>
+		</section>
 
-                                    <div class="admin-section-grid">
-                                        <?= adminRenderFields($siteData, $templateData) ?>
-                                    </div>
 
-                                    <div class="admin-sticky-actions">
-                                        <button type="submit" class="admin-button admin-button--primary">Struktur speichern</button>
-                                    </div>
-                                </form>
-                            </div>
 
-                            <div class="admin-tab-panel" data-tab-panel="json" role="tabpanel" hidden>
-                                <form method="post" action="./admin-save.php" class="admin-form admin-editor">
-                                    <input type="hidden" name="mode" value="json">
-                                    <input type="hidden" name="csrf_token" value="<?= adminEscape(adminCsrfToken()) ?>">
+		<?php if ($loadError == null): ?>
+			<div class="admin-tabs" data-tabs>
 
-                                    <div class="admin-group admin-group--json">
-                                        <div class="admin-group__header">
-                                            <h3>Rohes JSON</h3>
-                                            <p>Nur verwenden, wenn die strukturierte Ansicht nicht ausreicht.</p>
-                                        </div>
-                                        <div class="admin-group__body">
-                                            <textarea name="json_payload" rows="32" class="admin-json-field"><?= adminEscape(
-                                                json_encode(
-                                                    $siteData,
-                                                    JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES
-                                                ) ?: ''
-                                            ) ?></textarea>
-                                        </div>
-                                    </div>
 
-                                    <div class="admin-sticky-actions">
-                                        <button type="submit" class="admin-button admin-button--primary">JSON speichern</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                <?php endif; ?>
-            </div>
-        </section>
-    </main>
+
+				<section role="tablist" aria-label="<?= adminEscape(adminT('tabs.editor_modes')) ?>">
+					<div class="container">
+							<button type="button" class="tab-button is-active" data-tab-trigger="structured" role="tab">
+								<?= adminEscape(adminT('tabs.content')) ?>
+							</button>
+							<button type="button" class="tab-button" data-tab-trigger="json" role="tab">
+								<?= adminEscape(adminT('tabs.json')) ?>
+							</button>
+					</div>
+				</section>
+
+				<div class="tab-panel is-active" data-tab-panel="structured" role="tabpanel">
+					<?= adminRenderFields($siteData, $templateData) ?>
+				</div>
+
+
+
+				<div class="tab-panel" data-tab-panel="json" role="tabpanel" hidden>
+					<section>
+						<div class="container">
+							<p class="preheader"><?= adminEscape(adminT('admin.raw_json_hint')) ?></p>
+							<h2><?= adminEscape(adminT('admin.raw_json_heading')) ?></h2>
+							<div class="card card--default-inner">
+								<div class="card__body">
+									<div class="card__body-wrapper">
+										<form method="post" action="./admin-save.php" id="json-form" class="admin-form">
+											<input type="hidden" name="mode" value="json">
+											<input type="hidden" name="csrf_token" value="<?= adminEscape(adminCsrfToken()) ?>">
+											<div class="form-group">
+												<textarea
+													name="json-payload"
+													rows="32"
+												><?= adminEscape(
+												json_encode(
+														$siteData,
+														JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES
+													) ?: ''
+												) ?></textarea>
+												<span data-form-error="message"></span></div>
+										</form>
+									</div>
+								</div>
+								<div class="card__footer">
+									<button
+										type="submit"
+										form="json-form"
+										class="btn btn--primary btn--large"
+									>
+										<?= adminEscape(adminT('admin.save_json')) ?>
+									</button>
+								</div>
+							</div>
+						</div>
+					</section>
+				</div>
+
+			</div>
+		<?php endif; ?>
+
+
+	</main>
+
+
 
     <?= adminRenderSiteFooter($siteData) ?>
     <div class="backdrop" data-overlay></div>
+    <?= adminRenderClientConfigScript() ?>
     <script src="../js/admin.min.js"></script>
 </body>
 </html>

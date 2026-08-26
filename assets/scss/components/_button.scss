@@ -51,6 +51,16 @@ button {
     );
 }
 
+.btn--danger {
+    @include m.button-surface(
+            v.$btn-danger-bg,
+            v.$btn-danger-border,
+            v.$btn-danger-color,
+            v.$btn-danger-hover-bg,
+            v.$btn-danger-hover-border
+    );
+}
+
 button:disabled,
 .btn--disabled {
     cursor: default;

@@ -1,3 +1,4 @@
+// Renders the timeline and project gallery from already normalized view models.
 function renderExperience(viewModel) {
     return [
         '<section id="' + escapeAttribute(viewModel.id) + '" class="experience">',
@@ -6,6 +7,8 @@ function renderExperience(viewModel) {
                 '<h2>' + escapeHtml(viewModel.title) + '</h2>',
                 '<div class="experience__wrapper">',
                     viewModel.items.map(function(item, index) {
+                        // The first item keeps the highlighted body class from
+                        // the legacy design; later entries render as cards.
                         const itemClass = index === 0 ? 'experience-item__body' : 'experience-item__card';
 
                         return [
@@ -43,6 +46,9 @@ function renderProjects(viewModel) {
                 '<h2>' + escapeHtml(viewModel.title) + '</h2>',
                 '<div class="projects__wrapper">',
                     viewModel.items.map(function(item) {
+                        // Each project card is fully assembled here so image,
+                        // metadata, CTA and tech tags stay in one predictable
+                        // markup block for styling.
                         return [
                             '<article class="card card--project-item">',
                                 '<figure>',

@@ -1,3 +1,5 @@
+// Composes the full page from normalized section view models in the same order
+// that the static template and navigation expect.
 function renderApp(data) {
     const siteData = normalizeSiteData(data);
 

@@ -9,7 +9,8 @@ der Agenten.
 
 ## Projektstruktur
 Das Repository ist eine PHP-Anwendung mit projektspezifischem Code im Repo-Root. Für Infrastruktur und lokale
-Entwicklungsabläufe ist `_docker/` die maßgebliche Arbeitsbasis.
+Entwicklungsabläufe ist `_docker/` die maßgebliche Arbeitsbasis. Für technische Implementierungsdetails ist `_docs/`
+die führende Entwicklerdokumentation.
 
 ### Kernmodule im Projekt
 - `_docker/` - Lokale Docker-Umgebung (Compose, Makefile, WP-CLI, Traefik).
@@ -116,6 +117,7 @@ Secrets werden niemals committed oder in Tickets/Chats abgelegt. Für lokale Kon
 Operative Abläufe und Ziel-Implementierungen werden nicht dupliziert gepflegt, sondern über diese Quellen
 referenziert:
 
+- `_docs/README.md` und die Detailseiten darunter (Architektur, Data JSON, Frontend, Admin, Contact form)
 - `_docker/README.md` (Abläufe, Troubleshooting)
 - `_docker/Makefile`, `_docker/Buildfile.sh`, `_docker/Buildfile.ps1` (ausführbare Targets)
 - `AGENTS.md` (Rollen und Zusammenarbeit)

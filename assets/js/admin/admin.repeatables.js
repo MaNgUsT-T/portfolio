@@ -7,6 +7,8 @@ function initializeRepeatables() {
 }
 
 function bindRepeatable(repeatable) {
+    // Each repeatable root is bound once and then manages add/remove, keyboard
+    // support and title updates for all current and future child items.
     if (!(repeatable instanceof HTMLElement) || repeatable.dataset.repeatableInitialized === 'true') {
         return;
     }
@@ -34,6 +36,8 @@ function bindRepeatable(repeatable) {
                 if (insertedItem instanceof HTMLDetailsElement) {
                     insertedItem.open = true;
                 }
+                // Newly inserted markup can contain nested repeatables and
+                // custom widgets, so those hooks must be rebound immediately.
                 insertedItem.querySelectorAll('[data-repeatable]').forEach((nestedRepeatable) => {
                     bindRepeatable(nestedRepeatable);
                 });
@@ -144,6 +148,9 @@ function normalizeRepeatableIndexes(repeatable) {
 
 function updateNamesForIndex(item, prefix, index) {
     const escapedPrefix = escapeRegExp(prefix);
+    // The same positional token appears in field names, ids and nested data
+    // attributes. Rewriting all of them together keeps cloned items unique and
+    // preserves the submitted JSON structure expected by the backend.
     const indexPattern = new RegExp(`${escapedPrefix}\\[(?:__INDEX__|\\d+)\\]`);
     const idIndexPattern = /(?:__INDEX__|\d+)(?=(?:-[a-z0-9]+)*$)/i;
     const fields = item.querySelectorAll('input[name], textarea[name], select[name]');
@@ -233,6 +240,8 @@ function updateRepeatableTitle(item) {
     ];
     let titleValue = '';
 
+    // Prefer semantic label/title/name fields before falling back to the first
+    // visible input so collapsed cards keep a useful summary in the UI.
     for (const selector of titleSelectors) {
         const titleField = item.querySelector(selector);
 

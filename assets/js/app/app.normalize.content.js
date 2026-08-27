@@ -1,3 +1,5 @@
+// Normalizes the content-heavy sections of `data/data.json` into predictable
+// view models so the render layer can work without branching on legacy shapes.
 function normalizeHeaderData(data) {
     const header = objectOrEmpty(data);
 
@@ -30,6 +32,8 @@ function normalizeHeroData(data) {
 
 function normalizeAboutData(data) {
     const about = objectOrEmpty(data);
+    // Accept both the current `images` array and the older single `image`
+    // object to keep historical data files renderable.
     const images = objectArrayOrEmpty(about.images).length
         ? objectArrayOrEmpty(about.images)
         : (isPlainObject(about.image) ? [about.image] : []);
@@ -54,6 +58,8 @@ function normalizeAboutData(data) {
 
 function normalizeSkillsData(data) {
     const skillsSection = objectOrEmpty(data);
+    // Support `skills` and `groups` as equivalent sources because the admin and
+    // earlier JSON exports did not always use the same key.
     const groups = objectArrayOrEmpty(skillsSection.skills).length
         ? objectArrayOrEmpty(skillsSection.skills)
         : objectArrayOrEmpty(skillsSection.groups);
@@ -76,6 +82,8 @@ function normalizeSkillsData(data) {
 
 function normalizeExperienceData(data) {
     const experienceSection = objectOrEmpty(data);
+    // Keep the timeline compatible with both nested `experience` payloads and
+    // generic `items` arrays from earlier content revisions.
     const items = objectArrayOrEmpty(experienceSection.experience).length
         ? objectArrayOrEmpty(experienceSection.experience)
         : objectArrayOrEmpty(experienceSection.items);
@@ -100,6 +108,8 @@ function normalizeExperienceData(data) {
 
 function normalizeProjectsData(data) {
     const projectsSection = objectOrEmpty(data);
+    // Project cards follow the same fallback pattern as experience entries so
+    // old exports do not break the current card renderer.
     const items = objectArrayOrEmpty(projectsSection.projects).length
         ? objectArrayOrEmpty(projectsSection.projects)
         : objectArrayOrEmpty(projectsSection.items);
@@ -126,6 +136,8 @@ function normalizeProjectsData(data) {
 
 function normalizeEducationData(data) {
     const educationSection = objectOrEmpty(data);
+    // The carousel historically used `items`; the current editor writes
+    // `courses`, so both shapes are normalized to one output contract.
     const items = objectArrayOrEmpty(educationSection.courses).length
         ? objectArrayOrEmpty(educationSection.courses)
         : objectArrayOrEmpty(educationSection.items);

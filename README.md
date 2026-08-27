@@ -2,10 +2,11 @@
 
 Stand: 2026-08-26
 
-Dieses Repository enthält ein datengetriebenes Portfolio auf Basis von `index.html`, PHP-Endpunkten und einer lokalen
-Docker-Umgebung. Die öffentliche Seite lädt ihre Inhalte aus `data/data.json`, rendert die Bereiche clientseitig über
-`js/app.min.js` und nutzt `contact.php` als JSON-Endpunkt für das Kontaktformular. `README.md` ist der Einstieg für den
-täglichen Projektkontext. Operative Details werden in den jeweils führenden Dokumenten gepflegt.
+Dieses Repository enthält ein datengetriebenes Portfolio auf Basis von
+`index.html`, PHP-Endpunkten und einer lokalen Docker-Umgebung. Die
+öffentliche Seite lädt Inhalte aus `data/data.json`, rendert sie clientseitig
+über `js/app.min.js` und nutzt `contact.php` als JSON-Endpunkt für das
+Kontaktformular.
 
 ## Wichtig
 
@@ -16,57 +17,13 @@ aktuelles altes Passwort eintragen.
 Außerdem müssen Sie die E-Mail-Konfiguration in `contact-config.php` an Ihre Zieladresse anpassen, weil dort der Empfänger
 für Kontaktanfragen definiert ist.
 
-## Funktionsumfang
+## Übersicht
 
-- **Dynamische Inhaltsausgabe:** `assets/js/app.js` lädt `data/data.json`, setzt Metadaten und rendert Header, Hero,
-  About, Skills, Experience, Projects, Education, Contact und Footer in den Mount-Point `#app`.
-- **Admin-Oberfläche:** `admin/admin.php` lädt `data/data.json` und `data/data.admin-template.json` und bietet eine
-  strukturierte Bearbeitung sowie eine Raw-JSON-Ansicht mit direktem Speichern.
-- **Kontaktformular:** `contact.php` validiert Formularfelder anhand der Konfiguration in `data/data.json` und liefert
-  JSON-Antworten an das Frontend zurück.
-- **Frontend-Interaktionen:** Das Frontend initialisiert Theme-Umschaltung, Mobile-Navigation, Custom-Selects und ein
-  Splide-Karussell für den Education-Bereich.
-- **Lokale Entwicklungsumgebung:** `_docker/` stellt Apache, PHP, MariaDB, Traefik, phpMyAdmin und MailHog für lokale
-  Entwicklung und Tests bereit.
-
-## Technologien
-
-- **Frontend-Markup:** `index.html` als Einstiegspunkt
-- **Frontend-Logik:** Vanilla JavaScript in `assets/js/` mit kompilierten Artefakten in `js/`
-- **Styling:** SCSS in `assets/scss/` mit kompilierter Ausgabe in `css/styles.min.css`
-- **Backend:** PHP-Endpunkte wie `contact.php` sowie PHP-basierte Admin-Seiten unter `admin/`
-- **Datenhaltung:** JSON-Dateien unter `data/`, insbesondere `data/data.json` und `data/icons.json`
-- **Bibliotheken:** Splide unter `vendor/splide/` und Lucide unter `vendor/luside/`
-- **Build-Sync:** `prepros.config` definiert die Zuordnung von SCSS- und JS-Quellen zu den ausgelieferten Minified-Dateien
-
-
-## Dokumentationsstruktur
-
-- `_docker/README.md` - Detaildokumentation der lokalen Docker-Umgebung.
-- `AGENTS.md` - Rollen, Verantwortlichkeiten und Arbeitsweise für Agenten.
-- `CONTRIBUTING.md` - Beitragsregeln (Codestyle, QA, Commits, PRs).
-- `README.md` - Einstieg und Orientierung für den täglichen Projektkontext.
-
-Ziel: Die Dokumente ergänzen sich. Operative Details werden zentral in `_docker/README.md` gepflegt, um Dopplungen zu
-vermeiden.
-
-## Projektstruktur
-
-- `_docker/` - Lokale Docker-Umgebung (Compose, Makefile, WP-CLI, Traefik).
-- `assets/scss/` - Sass-Quellen.
-- `assets/js/` - JavaScript-Quellen für Frontend, Admin und Hilfsfunktionen.
-- `css/` - Kompilierte CSS-Ausgabe.
-- `fonts/` - Projekt Fonts.
-- `img/` - Projekt Bilder.
-- `js/` - Ausgelieferte minifizierte JavaScript-Dateien.
-- `vendor/` - Drittanbieter Bibliotheken.
-- `index.html` - Einstiegspunkt.
-- `admin/` - PHP-basierte Admin-Oberfläche für Inhalts- und JSON-Bearbeitung.
-- `contact.php` - JSON-Endpunkt für das Kontaktformular.
-- `contact-config.php` - Empfänger-Konfiguration für Kontaktanfragen.
-- `data/data.json` - Inhalts-, Meta- und Kontaktformular-Konfiguration.
-- `data/data.admin-template.json` - Strukturvorlage für die Admin-Oberfläche.
-- `siteelements.html` - zusätzliche HTML-Bausteine für statische Seitenelemente.
+- Öffentliche Seite: `index.html` + `js/app.min.js`
+- Inhaltsquelle: `data/data.json`
+- Admin-Bereich: `admin/admin.php`
+- Kontakt-Endpunkt: `contact.php`
+- Lokale Laufzeit: `_docker/`
 
 ## Schnellstart (lokal)
 
@@ -82,15 +39,19 @@ make -C _docker logs # Logs (Apache)
 Nach dem Start gibt die Docker-Umgebung zusätzlich zur Projekt-URL auch die lokalen phpMyAdmin- und MailHog-URLs aus.
 MailHog zeigt lokal abgefangene Kontaktformular-Mails an; Details stehen in `_docker/README.md`.
 
-### Relevante Laufzeitdateien
+## Technische Dokumentation
 
-Für den öffentlichen Seitenaufbau ist diese Kette maßgeblich:
+Die technische Detaildokumentation liegt unter `_docs/`.
 
-1. `data/data.json` liefert Inhalte und Metadaten.
-2. `assets/js/app.js` ist die Quelllogik für Rendering und Initialisierung.
-3. `js/app.min.js` ist das ausgelieferte Frontend-Artefakt, das `index.html` tatsächlich lädt.
-4. `assets/scss/styles.scss` liefert die Styling-Quellen.
-5. `css/styles.min.css` ist die ausgelieferte CSS-Datei.
+- `_docs/architecture.md` beschreibt Gesamtaufbau und Datenfluss.
+- `_docs/data-json.md` beschreibt die Struktur von `data/data.json` und
+  `data/data.admin-template.json`.
+- `_docs/frontend.md` beschreibt `assets/js/app/`, Rendering,
+  Normalisierung und Build.
+- `_docs/admin.md` beschreibt Admin-Flow, Validierung, Save-Flow und
+  Session-Verhalten.
+- `_docs/contact-form.md` beschreibt den Vertrag von `contact.php`,
+  Felder, Antworten und Fehlerfälle.
 
 ### Falls Traefik nicht läuft
 `make -C _docker proxy-up` oder erneut `make -C _docker up-all-build` ausführen.
@@ -118,28 +79,9 @@ Für DB-Import, URL-/Pfad-Lokalisierung, WP-CLI und Troubleshooting ist `_docker
 `FORCE_PHP_BUILD`, `PULL` und `RECREATE_PHP` sind in `_docker/Makefile`, `_docker/.env.example` und `_docker/README.md`
 dokumentiert.
 
-## Tests
-Derzeit gibt es keine automatisierte Test-Suite im Repository. Manuelle QA-Schritte gehören deshalb in jeden PR.
-PHP-Prüfungen werden in der laufenden lokalen Docker-Umgebung ausgeführt und nicht über ein lokal installiertes
-`php`-Binary.
-
-Typische QA-Schritte:
-
-- Start der lokalen Umgebung prüfen.
-- PHP-Syntaxprüfungen im laufenden Docker-Container ausführen, zum Beispiel mit
-  `docker exec portfolio_de_php php -l /var/www/html/contact.php`.
-- Öffentliche Seite über die lokale URL laden.
-- Admin-Oberfläche unter `admin/` öffnen, wenn eine Änderung den Inhalts- oder Auth-Bereich betrifft.
-- Kontaktformular und MailHog prüfen, wenn Formularlogik oder Kontaktkonfiguration geändert wurde.
-- Sicherstellen, dass Quell- und Minified-Artefakte synchron sind, wenn `assets/js/` oder `assets/scss/` geändert wurden.
-
-## Regeln & Zusammenarbeit
-
-- Vor Codeänderungen: `CONTRIBUTING.md` beachten.
-- Für Infrastruktur- und Laufzeitfragen: `_docker/README.md` nutzen.
-- Für Rollen- und Agentenregeln: `AGENTS.md` nutzen.
-- Bei Dokumentationsänderungen auf Konsistenz zwischen `README.md`, `AGENTS.md`, `CONTRIBUTING.md` und
-  `_docker/README.md` achten.
+Weitere Beitragsregeln und QA-Anforderungen stehen in `CONTRIBUTING.md`.
+Operative Docker- und Laufzeitdetails stehen in `_docker/README.md`.
+Rollen und Agentenregeln stehen in `AGENTS.md`.
 
 ## Lizenz
 

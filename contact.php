@@ -80,6 +80,10 @@ function contactFormConfig(): array
     return $form;
 }
 
+/**
+ * Reads the recipient from `contact-config.php` instead of the public JSON
+ * content file so content exports never expose the target inbox.
+ */
 function contactRecipient(): string
 {
     $config = contactConfig();
@@ -88,11 +92,18 @@ function contactRecipient(): string
     return is_string($recipient) && $recipient !== '' ? $recipient : '';
 }
 
+/**
+ * Rejects line breaks in mail header values to block header-injection payloads.
+ */
 function contactHeaderValueIsSafe(string $value): bool
 {
     return !preg_match('/[\r\n]/', $value);
 }
 
+/**
+ * Returns the configured recipient only if the address is present, valid and
+ * safe to use in mail headers. Otherwise the request stops with a server error.
+ */
 function validatedContactRecipient(): string
 {
     $recipient = contactRecipient();
@@ -112,6 +123,9 @@ function validatedContactRecipient(): string
 }
 
 /**
+ * Merges message overrides from the JSON form config with backend fallbacks so
+ * every response key is always available to validation and mail handling.
+ *
  * @return array<string, string>
  */
 function contactMessages(): array
@@ -139,6 +153,9 @@ function contactMessages(): array
     return $messages;
 }
 
+/**
+ * Resolves a single frontend-facing message by key from the merged message set.
+ */
 function contactMessage(string $key): string
 {
     $messages = contactMessages();
@@ -147,6 +164,9 @@ function contactMessage(string $key): string
 }
 
 /**
+ * Returns only array-shaped field definitions from the form config so later
+ * validators can iterate on a predictable structure.
+ *
  * @return array<int, array<string, mixed>>
  */
 function contactFields(): array
@@ -171,6 +191,10 @@ function contactFieldConfig(string $name): ?array
     return null;
 }
 
+/**
+ * Resolves a field-specific message override and falls back to the supplied
+ * default if the JSON config does not provide a usable string for that key.
+ */
 function contactFieldMessage(string $name, string $messageKey, string $fallback = ''): string
 {
     $fieldConfig = contactFieldConfig($name);
@@ -183,6 +207,9 @@ function contactFieldMessage(string $name, string $messageKey, string $fallback 
 }
 
 /**
+ * Extracts max-length rules from the JSON form definition so backend validation
+ * stays aligned with the rendered frontend fields.
+ *
  * @return array<string, int>
  */
 function contactMaxLengths(): array
@@ -204,6 +231,9 @@ function contactMaxLengths(): array
 }
 
 /**
+ * Builds the required-field map from the same JSON config as the frontend
+ * renderer, including any field-specific required-message overrides.
+ *
  * @return array<string, string>
  */
 function contactRequiredFields(): array

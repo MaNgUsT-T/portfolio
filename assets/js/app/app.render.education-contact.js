@@ -1,3 +1,5 @@
+// Renders the education carousel and the full contact section, including the
+// dynamic form controls used by the frontend validation layer.
 function renderEducation(viewModel) {
     return [
         '<section class="education">',
@@ -83,6 +85,8 @@ function renderField(viewModel) {
     }
 
     if (viewModel.type === 'select') {
+        // The native select remains the source of truth; the custom UI mirrors
+        // it so keyboard, submission and validation still behave predictably.
         const selectedOption = viewModel.options.find(function(option) {
             return option.selected;
         }) || viewModel.options[0] || { value: '', label: '' };
@@ -167,6 +171,7 @@ function renderField(viewModel) {
 }
 
 function renderContactHoneypotField() {
+    // Hidden bot trap that is ignored by users and checked server-side.
     return [
         '<div class="form-group form-group--honeypot" aria-hidden="true">',
             '<input ',
@@ -190,6 +195,8 @@ function renderContactFields(fields) {
             const nextField = fields[index + 1];
 
             if (nextField && nextField.row) {
+                // Pair adjacent row fields into one two-column wrapper while
+                // leaving every other field in the natural document flow.
                 markup.push([
                     '<div class="form-row">',
                         renderField(field),
@@ -232,6 +239,9 @@ function renderContact(viewModel) {
                         '<div class="card__body">',
                             '<div class="card__body-wrapper">',
                                 '<div class="contact-form__status" data-form-status aria-live="polite"></div>',
+                                // The submit button lives in the card footer,
+                                // so the form keeps a stable `id` for the
+                                // external `form` attribute binding.
                                 '<form method="post" action="' + escapeAttribute(viewModel.form.action) + '" id="contact-form" class="contact-form" novalidate>',
                                     renderContactHoneypotField(),
                                     renderContactFields(viewModel.form.fields),

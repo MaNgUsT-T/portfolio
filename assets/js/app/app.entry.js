@@ -1,3 +1,5 @@
+// Bootstraps content first so all DOM-dependent enhancements run against the
+// rendered markup instead of an empty placeholder.
 document.addEventListener('DOMContentLoaded', async function() {
     try {
         await loadIcons();

@@ -19,21 +19,8 @@ Die folgenden Punkte dokumentieren die aktuelle Codeauswertung. Die Prüfung bez
 - `modern`: teilweise. Positiv sind `strict_types`, `async/await`, defensive Guards und atomisches JSON-Schreiben.
   Ich kann aber nicht bestätigen, dass der Code insgesamt modern im Sinn einer durchgängig fein geschnittenen
   modularen Architektur ist, weil einzelne zentrale Module weiterhin relativ groß bleiben.
-- `gut auskommentiert`: nur teilweise. Der Code ist verständlich, aber nicht umfassend dokumentiert. Viele Funktionen
-  sind selbsterklärend benannt; eine besonders starke oder systematische Kommentierung ist nicht durchgehend
-  erkennbar.
-- `dokumentiert`: nur eingeschränkt. Ich kann nicht bestätigen, dass die Implementierung selbst umfassend dokumentiert
-  ist. Es gibt Projekt-Dokumente, aber aus dem aktuell geprüften Code folgt keine vollständige technische
-  Entwicklerdokumentation.
+
 
 ## Offene Aufgaben
 
-- [ ] [Priorität: P3] [Owner: TBD] [Zieltermin: offen] Die bereits umgesetzte Grobaufteilung von `app.js` und
-  `admin.js` fachlich weiter schärfen, ohne die bestehende Build-Pipeline zu verändern. Im Frontend betrifft das vor
-  allem die noch großen Module [assets/js/app/app.render.js](assets/js/app/app.render.js) und
-  [assets/js/app/app.normalize.js](assets/js/app/app.normalize.js). `app.render.js` weiter nach Sections wie
-  `header`, `hero`, `about`, `projects` und `contact` schneiden, `app.normalize.js` nach Datenbereichen wie `meta`,
-  `site`, `projects` und `contact` aufteilen und gemeinsame Hilfsfunktionen wie Escaping- und
-  Typ-Normalisierungshelfer in ein kleines gemeinsames Frontend-Utility-Modul verschieben. Optional danach prüfen, ob
-  sich ähnliche Formularlogik zwischen Frontend und Admin weiter vereinheitlichen lässt, damit Fehler- und
-  Statusbehandlung nicht doppelt gepflegt werden.
+Aktuell sind aus dem letzten Prüfbericht keine offenen Aufgaben mehr in dieser Datei vorhanden.

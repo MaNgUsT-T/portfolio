@@ -1,3 +1,5 @@
+// Shared coercion and escaping helpers keep the normalize and render layers
+// defensive when older or incomplete JSON payloads are loaded.
 function isPlainObject(value) {
     return value !== null && typeof value === 'object' && !Array.isArray(value);
 }
@@ -23,6 +25,8 @@ function numberOrEmpty(value) {
 }
 
 function objectArrayOrEmpty(value) {
+    // Normalize mixed arrays into object-only collections so downstream mappers
+    // can read keys without repeating guard clauses in every section module.
     return arrayOrEmpty(value).map(function(item) {
         return objectOrEmpty(item);
     });
@@ -44,5 +48,7 @@ function escapeHtml(value) {
 }
 
 function escapeAttribute(value) {
+    // Attribute escaping intentionally mirrors HTML escaping because all
+    // current call sites write into quoted attribute values.
     return escapeHtml(value);
 }

@@ -49,6 +49,7 @@ versehen? Wenn nicht, schreibe die Antwort um, bis dies der Fall ist."
 Wichtige Einstiegspunkte:
 - `_docker/docker-compose.yml` – Start der lokalen Umgebung
 - `_docker/Makefile` – wiederkehrende Aufgaben als Targets
+- `_docs/README.md` - technische Entwicklerdokumentation des aktuellen Projektstands
 - `_docker/README.md` - Details zu Docker, Traefik, Build, Env-Variablen und Container-Verhalten
 - `README.md` - Überblick über Projekt und tägliche Nutzung
 
@@ -57,6 +58,7 @@ Wichtige Einstiegspunkte:
 - für verbindliche Repo-Richtlinien (Struktur, Befehle, Codestyle, Commits/PRs, Sicherheit) `CONTRIBUTING.md` vor
   Änderungen kurz prüfen.
 - Für Arbeitsabläufe und Teamkonventionen zuerst `README.md` prüfen.
+- Für technische Implementierungsdetails `_docs/README.md` und die Detailseiten darunter verwenden.
 - Für Infrastruktur, Startablauf und Umgebungsvariablen `_docker/README.md` und `_docker/Makefile` als maßgebliche
   Quelle verwenden.
 - Bei Widersprüchen zwischen Dokumenten gelten die tatsächlich im Repository vorhandenen Skripte/Konfigurationen
@@ -330,6 +332,8 @@ Am Anfang der Antwort zwei kurze Zeilen ausgeben:
 
 ## Operative Referenz (Single Source)
 
+- Technische Implementierungsdetails zu Architektur, Data JSON, Frontend, Admin und Contact form werden zentral unter
+  `_docs/` gepflegt.
 - Operative Abläufe für Docker/Proxy/DB/WP‑CLI werden zentral in `_docker/README.md` gepflegt.
 - Verfügbare Targets und deren tatsächliche Implementierung gelten aus:
   - `_docker/Buildfile.ps1`
@@ -342,6 +346,8 @@ Am Anfang der Antwort zwei kurze Zeilen ausgeben:
 
 - Verbindliche Beitragsregeln (Codestyle, Tests, PR‑Anforderungen, Security) stehen in `CONTRIBUTING.md`.
 - `AGENTS.md` bleibt für Rollen, Verantwortlichkeiten und Arbeitsweise der Agenten zuständig.
+- `README.md`, `AGENTS.md` und `CONTRIBUTING.md` verweisen auf `_docs/`, statt technische Detailinhalte parallel zu
+  pflegen.
 - Keine fachlichen Ablaufdetails aus `_docker/README.md` doppelt in `AGENTS.md` oder `CONTRIBUTING.md` pflegen.
 
 Fragen oder Ergänzungen? Bitte dieses Dokument via PR aktualisieren und im Teamkanal ankündigen.

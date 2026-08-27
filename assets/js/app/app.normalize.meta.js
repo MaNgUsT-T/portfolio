@@ -13,6 +13,8 @@ function normalizeButtonVariant(value) {
 }
 
 function normalizeRichText(value, segments) {
+    // Rich-text fragments are stored as small structured objects in JSON so the
+    // renderer can preserve emphasis without trusting raw HTML from content.
     if (typeof value === 'string') {
         return value;
     }
@@ -31,6 +33,8 @@ function normalizeRichText(value, segments) {
 function normalizePictureData(image) {
     const imageData = objectOrEmpty(image);
     const fallbackImage = objectOrEmpty(imageData.fallback);
+    // Support both `responsive` and older `sources` arrays so legacy exports do
+    // not need a dedicated migration step before rendering.
     const responsiveSources = objectArrayOrEmpty(imageData.responsive).length
         ? objectArrayOrEmpty(imageData.responsive)
         : objectArrayOrEmpty(imageData.sources);
@@ -93,6 +97,8 @@ function normalizeSiteConfig(data) {
     const header = objectOrEmpty(data.header);
     const footer = objectOrEmpty(data.footer);
     const hero = objectOrEmpty(data.hero);
+    // Social links moved between top-level sections over time; collapse all
+    // historical locations into one stable site-level output contract.
     const socialLinks = objectArrayOrEmpty(site.socialLinks).length
         ? objectArrayOrEmpty(site.socialLinks)
         : objectArrayOrEmpty(hero.socialLinks).length

@@ -1,3 +1,5 @@
+// Centralizes async auth-form behavior so login and password change can share
+// the same status, validation and submit-state handling.
 function createAdminFormState(form, submitButton, statusElement, submittingLabel) {
     const defaultSubmitHtml = submitButton ? submitButton.innerHTML : '';
 
@@ -42,6 +44,8 @@ function createAdminFormState(form, submitButton, statusElement, submittingLabel
     }
 
     function renderErrors(errors) {
+        // The backend can return one or multiple messages per field. Normalize
+        // both cases so the inline error slots stay simple in the markup.
         Object.keys(errors).forEach((name) => {
             const messages = normalizeMessages(errors[name]);
             const errorElement = form.querySelector('[data-form-error="' + name + '"]');
@@ -69,6 +73,8 @@ function createAdminFormState(form, submitButton, statusElement, submittingLabel
     }
 
     function submitForm(onSuccess, onErrorMessage) {
+        // All admin auth requests post the current form and expect JSON so both
+        // forms can reuse the same request and response contract.
         return fetch(form.getAttribute('action') || window.location.href, {
             method: 'POST',
             body: new FormData(form),
@@ -129,6 +135,8 @@ function initializeLoginForm() {
 
         formState.submitForm(
             (payload) => {
+                // Successful login usually redirects into the admin. The status
+                // fallback only matters if the backend intentionally stays put.
                 if (typeof payload.redirect === 'string' && payload.redirect !== '') {
                     window.location.href = payload.redirect;
                     return;
@@ -178,6 +186,8 @@ function initializeChangePasswordForm() {
 
         formState.submitForm(
             (payload) => {
+                // Clear sensitive input after a successful password change so
+                // the new value does not remain in the browser fields.
                 form.reset();
                 formState.setStatus(
                     payload.message || adminTranslate('auth.change_password_success_short', 'Das Passwort wurde geändert.'),

@@ -7,6 +7,56 @@
 
 const SITE_DATA_PATH = './data/data.json';
 
+function isPlainObject(value) {
+    return value !== null && typeof value === 'object' && !Array.isArray(value);
+}
+
+function objectOrEmpty(value) {
+    return isPlainObject(value) ? value : {};
+}
+
+function arrayOrEmpty(value) {
+    return Array.isArray(value) ? value : [];
+}
+
+function stringOrEmpty(value) {
+    return typeof value === 'string' ? value : '';
+}
+
+function booleanOrFalse(value) {
+    return value === true;
+}
+
+function numberOrEmpty(value) {
+    return typeof value === 'number' && Number.isFinite(value) ? String(value) : stringOrEmpty(value);
+}
+
+function objectArrayOrEmpty(value) {
+    return arrayOrEmpty(value).map(function(item) {
+        return objectOrEmpty(item);
+    });
+}
+
+function stringArrayOrEmpty(value) {
+    return arrayOrEmpty(value).filter(function(item) {
+        return typeof item === 'string';
+    });
+}
+
+function normalizeButtonVariant(value) {
+    const variant = stringOrEmpty(value);
+
+    if (variant === '') {
+        return 'btn--primary';
+    }
+
+    if (variant === 'primary' || variant === 'secondary' || variant === 'danger') {
+        return 'btn--' + variant;
+    }
+
+    return variant;
+}
+
 function escapeHtml(value) {
     return String(value)
         .replace(/&/g, '&amp;')
@@ -20,24 +70,359 @@ function escapeAttribute(value) {
     return escapeHtml(value);
 }
 
-function renderPicture(image) {
-    const imageSrc = image.src || (image.fallback && image.fallback.src) || '';
-    const imageWidth = image.width || (image.fallback && image.fallback.width) || '';
-    const imageHeight = image.height || (image.fallback && image.fallback.height) || '';
-    const responsiveSources = Array.isArray(image.responsive)
-        ? image.responsive
-        : (Array.isArray(image.sources) ? image.sources : []);
+function normalizeRichText(value, segments) {
+    if (typeof value === 'string') {
+        return value;
+    }
 
+    const richText = objectOrEmpty(value);
+
+    return segments.map(function(segment) {
+        if (typeof segment === 'string') {
+            return escapeHtml(stringOrEmpty(richText[segment]));
+        }
+
+        return '<' + segment.tag + '>' + escapeHtml(stringOrEmpty(richText[segment.key])) + '</' + segment.tag + '>';
+    }).join('');
+}
+
+function normalizePictureData(image) {
+    const imageData = objectOrEmpty(image);
+    const fallbackImage = objectOrEmpty(imageData.fallback);
+    const responsiveSources = objectArrayOrEmpty(imageData.responsive).length
+        ? objectArrayOrEmpty(imageData.responsive)
+        : objectArrayOrEmpty(imageData.sources);
+
+    return {
+        src: stringOrEmpty(imageData.src) || stringOrEmpty(fallbackImage.src),
+        width: numberOrEmpty(imageData.width) || numberOrEmpty(fallbackImage.width),
+        height: numberOrEmpty(imageData.height) || numberOrEmpty(fallbackImage.height),
+        alt: stringOrEmpty(imageData.alt),
+        loading: stringOrEmpty(imageData.loading),
+        className: stringOrEmpty(imageData.className),
+        responsive: responsiveSources.map(function(source) {
+            const sourceData = objectOrEmpty(source);
+
+            return {
+                media: stringOrEmpty(sourceData.media),
+                srcset: stringOrEmpty(sourceData.srcset),
+                width: numberOrEmpty(sourceData.width),
+                height: numberOrEmpty(sourceData.height),
+            };
+        }),
+    };
+}
+
+function normalizeSocialLinkData(item) {
+    const link = objectOrEmpty(item);
+
+    return {
+        href: stringOrEmpty(link.href),
+        title: stringOrEmpty(link.title),
+        icon: stringOrEmpty(link.icon),
+    };
+}
+
+function normalizeButtonLinkData(button, fallbackLabel) {
+    const buttonData = objectOrEmpty(button);
+
+    return {
+        href: stringOrEmpty(buttonData.href) || '#',
+        label: stringOrEmpty(buttonData.label) || stringOrEmpty(fallbackLabel),
+        variant: normalizeButtonVariant(buttonData.variant),
+        large: booleanOrFalse(buttonData.large),
+        icon: stringOrEmpty(buttonData.icon),
+    };
+}
+
+function normalizeButtonElementData(button, fallbackLabel) {
+    const buttonData = normalizeButtonLinkData(button, fallbackLabel);
+
+    return {
+        label: buttonData.label,
+        variant: buttonData.variant,
+        large: buttonData.large,
+        icon: buttonData.icon,
+    };
+}
+
+function normalizeSiteConfig(data) {
+    const site = objectOrEmpty(data.site);
+    const header = objectOrEmpty(data.header);
+    const footer = objectOrEmpty(data.footer);
+    const hero = objectOrEmpty(data.hero);
+    const socialLinks = objectArrayOrEmpty(site.socialLinks).length
+        ? objectArrayOrEmpty(site.socialLinks)
+        : objectArrayOrEmpty(hero.socialLinks).length
+            ? objectArrayOrEmpty(hero.socialLinks)
+            : objectArrayOrEmpty(footer.socialLinks);
+
+    return {
+        logoIcon: stringOrEmpty(site.logoIcon) || stringOrEmpty(header.logoIcon) || 'palette',
+        logoText: stringOrEmpty(site.logoText) || stringOrEmpty(header.logoText) || stringOrEmpty(footer.logoText) || 'lisa.weber',
+        socialLinks: socialLinks.map(normalizeSocialLinkData),
+    };
+}
+
+function normalizeMetaData(data) {
+    const meta = objectOrEmpty(data);
+
+    return {
+        title: stringOrEmpty(meta.title),
+        description: stringOrEmpty(meta.description),
+        keywords: stringOrEmpty(meta.keywords),
+        ogTitle: stringOrEmpty(meta.ogTitle),
+        ogDescription: stringOrEmpty(meta.ogDescription),
+        ogImage: stringOrEmpty(meta.ogImage),
+        ogSiteName: stringOrEmpty(meta.ogSiteName),
+        fluidIconTitle: stringOrEmpty(meta.fluidIconTitle),
+    };
+}
+
+function normalizeHeaderData(data) {
+    const header = objectOrEmpty(data);
+
+    return {
+        navigation: objectArrayOrEmpty(header.navigation).map(function(item) {
+            const navigationItem = objectOrEmpty(item);
+
+            return {
+                href: stringOrEmpty(navigationItem.href),
+                label: stringOrEmpty(navigationItem.label),
+                title: stringOrEmpty(navigationItem.title),
+            };
+        }),
+        resumeLink: normalizeButtonLinkData(header.resumeLink, ''),
+    };
+}
+
+function normalizeHeroData(data) {
+    const hero = objectOrEmpty(data);
+
+    return {
+        availability: stringOrEmpty(hero.availability),
+        headlineMarkup: normalizeRichText(hero.headline, ['beforeItalic', { key: 'italic', tag: 'i' }, 'afterItalic']),
+        introMarkup: normalizeRichText(hero.intro, ['beforeBold', { key: 'bold', tag: 'b' }, 'afterBold']),
+        buttons: objectArrayOrEmpty(hero.buttons).map(function(button) {
+            return normalizeButtonLinkData(button, '');
+        }),
+    };
+}
+
+function normalizeAboutData(data) {
+    const about = objectOrEmpty(data);
+    const images = objectArrayOrEmpty(about.images).length
+        ? objectArrayOrEmpty(about.images)
+        : (isPlainObject(about.image) ? [about.image] : []);
+
+    return {
+        id: stringOrEmpty(about.id),
+        preheader: stringOrEmpty(about.preheader),
+        title: stringOrEmpty(about.title),
+        paragraphs: stringArrayOrEmpty(about.paragraphs),
+        images: images.map(normalizePictureData),
+        cards: objectArrayOrEmpty(about.cards).map(function(card) {
+            const aboutCard = objectOrEmpty(card);
+
+            return {
+                title: stringOrEmpty(aboutCard.title),
+                text: stringOrEmpty(aboutCard.text),
+                icon: stringOrEmpty(aboutCard.icon),
+            };
+        }),
+    };
+}
+
+function normalizeSkillsData(data) {
+    const skillsSection = objectOrEmpty(data);
+    const groups = objectArrayOrEmpty(skillsSection.skills).length
+        ? objectArrayOrEmpty(skillsSection.skills)
+        : objectArrayOrEmpty(skillsSection.groups);
+
+    return {
+        id: stringOrEmpty(skillsSection.id),
+        preheader: stringOrEmpty(skillsSection.preheader),
+        title: stringOrEmpty(skillsSection.title),
+        groups: groups.map(function(group) {
+            const skillGroup = objectOrEmpty(group);
+
+            return {
+                title: stringOrEmpty(skillGroup.title),
+                icon: stringOrEmpty(skillGroup.icon),
+                items: stringArrayOrEmpty(skillGroup.items),
+            };
+        }),
+    };
+}
+
+function normalizeExperienceData(data) {
+    const experienceSection = objectOrEmpty(data);
+    const items = objectArrayOrEmpty(experienceSection.experience).length
+        ? objectArrayOrEmpty(experienceSection.experience)
+        : objectArrayOrEmpty(experienceSection.items);
+
+    return {
+        id: stringOrEmpty(experienceSection.id),
+        preheader: stringOrEmpty(experienceSection.preheader),
+        title: stringOrEmpty(experienceSection.title),
+        items: items.map(function(item) {
+            const experienceItem = objectOrEmpty(item);
+
+            return {
+                date: stringOrEmpty(experienceItem.date),
+                title: stringOrEmpty(experienceItem.title),
+                company: stringOrEmpty(experienceItem.company),
+                location: stringOrEmpty(experienceItem.location),
+                points: stringArrayOrEmpty(experienceItem.points),
+            };
+        }),
+    };
+}
+
+function normalizeProjectsData(data) {
+    const projectsSection = objectOrEmpty(data);
+    const items = objectArrayOrEmpty(projectsSection.projects).length
+        ? objectArrayOrEmpty(projectsSection.projects)
+        : objectArrayOrEmpty(projectsSection.items);
+
+    return {
+        id: stringOrEmpty(projectsSection.id),
+        preheader: stringOrEmpty(projectsSection.preheader),
+        title: stringOrEmpty(projectsSection.title),
+        items: items.map(function(item) {
+            const project = objectOrEmpty(item);
+
+            return {
+                category: stringOrEmpty(project.category),
+                href: stringOrEmpty(project.href),
+                title: stringOrEmpty(project.title),
+                description: stringOrEmpty(project.description),
+                highlight: stringOrEmpty(project.highlight),
+                tags: stringArrayOrEmpty(project.tags),
+                image: normalizePictureData(project.image),
+            };
+        }),
+    };
+}
+
+function normalizeEducationData(data) {
+    const educationSection = objectOrEmpty(data);
+    const items = objectArrayOrEmpty(educationSection.courses).length
+        ? objectArrayOrEmpty(educationSection.courses)
+        : objectArrayOrEmpty(educationSection.items);
+
+    return {
+        preheader: stringOrEmpty(educationSection.preheader),
+        title: stringOrEmpty(educationSection.title),
+        carouselLabel: stringOrEmpty(educationSection.carouselLabel),
+        courses: items.map(function(item) {
+            const course = objectOrEmpty(item);
+
+            return {
+                title: stringOrEmpty(course.title),
+                provider: stringOrEmpty(course.provider),
+                year: stringOrEmpty(course.year),
+                status: stringOrEmpty(course.status),
+            };
+        }),
+    };
+}
+
+function normalizeContactOptionData(option) {
+    const optionData = objectOrEmpty(option);
+
+    return {
+        id: stringOrEmpty(optionData.id),
+        value: stringOrEmpty(optionData.value),
+        label: stringOrEmpty(optionData.label),
+        selected: booleanOrFalse(optionData.selected),
+    };
+}
+
+function normalizeContactFieldData(field) {
+    const fieldConfig = objectOrEmpty(field);
+    const options = objectArrayOrEmpty(fieldConfig.options).map(normalizeContactOptionData);
+
+    return {
+        type: stringOrEmpty(fieldConfig.type) || 'text',
+        id: stringOrEmpty(fieldConfig.id),
+        name: stringOrEmpty(fieldConfig.name),
+        label: stringOrEmpty(fieldConfig.label),
+        placeholder: stringOrEmpty(fieldConfig.placeholder),
+        rows: numberOrEmpty(fieldConfig.rows),
+        required: booleanOrFalse(fieldConfig.required),
+        row: booleanOrFalse(fieldConfig.row),
+        wrapperClass: stringOrEmpty(fieldConfig.wrapperClass) || 'form-group',
+        maxLength: typeof fieldConfig.maxLength === 'number' ? fieldConfig.maxLength : null,
+        errorRequired: stringOrEmpty(fieldConfig.errorRequired),
+        errorTooLong: stringOrEmpty(fieldConfig.errorTooLong),
+        errorInvalid: stringOrEmpty(fieldConfig.errorInvalid),
+        value: stringOrEmpty(fieldConfig.value),
+        options: options,
+    };
+}
+
+function normalizeContactData(data) {
+    const contact = objectOrEmpty(data);
+    const introCard = objectOrEmpty(contact.introCard);
+    const form = objectOrEmpty(contact.form);
+
+    return {
+        id: stringOrEmpty(contact.id),
+        preheader: stringOrEmpty(contact.preheader),
+        title: stringOrEmpty(contact.title),
+        introCard: {
+            title: stringOrEmpty(introCard.title),
+            text: stringOrEmpty(introCard.text),
+            linkLabel: stringOrEmpty(introCard.linkLabel) || 'E-Mail senden',
+        },
+        form: {
+            action: stringOrEmpty(form.action) || './contact.php',
+            fields: objectArrayOrEmpty(form.fields).map(normalizeContactFieldData),
+            submitButton: normalizeButtonElementData(form.submitButton, stringOrEmpty(form.submitLabel)),
+        },
+    };
+}
+
+function normalizeFooterData(data) {
+    const footer = objectOrEmpty(data);
+
+    return {
+        text: stringOrEmpty(footer.text),
+        copyright: stringOrEmpty(footer.copyright),
+        owner: stringOrEmpty(footer.owner),
+    };
+}
+
+function normalizeSiteData(data) {
+    const siteData = objectOrEmpty(data);
+
+    return {
+        meta: normalizeMetaData(siteData.meta),
+        siteConfig: normalizeSiteConfig(siteData),
+        header: normalizeHeaderData(siteData.header),
+        hero: normalizeHeroData(siteData.hero),
+        about: normalizeAboutData(siteData.about),
+        skills: normalizeSkillsData(siteData.skills),
+        experience: normalizeExperienceData(siteData.experience),
+        projects: normalizeProjectsData(siteData.projects),
+        education: normalizeEducationData(siteData.education),
+        contact: normalizeContactData(siteData.contact),
+        footer: normalizeFooterData(siteData.footer),
+    };
+}
+
+function renderPicture(image) {
     return [
         '<picture>',
-        responsiveSources.map(function(source) {
+        image.responsive.map(function(source) {
             return [
                 '<source media="' + escapeAttribute(source.media) + '" srcset="' + escapeAttribute(source.srcset) +
                     '" width="' + escapeAttribute(source.width) + '" height="' + escapeAttribute(source.height) + '">',
             ].join('');
         }).join(''),
-        '<img src="' + escapeAttribute(imageSrc) + '" width="' + escapeAttribute(imageWidth) +
-            '" height="' + escapeAttribute(imageHeight) + '" alt="' + escapeAttribute(image.alt) +
+        '<img src="' + escapeAttribute(image.src) + '" width="' + escapeAttribute(image.width) +
+            '" height="' + escapeAttribute(image.height) + '" alt="' + escapeAttribute(image.alt) +
             '" loading="' + escapeAttribute(image.loading) + '" class="' + escapeAttribute(image.className) + '">',
         '</picture>'
     ].join('');
@@ -53,26 +438,40 @@ function renderSocialLinks(items) {
     }).join('');
 }
 
-function resolveSiteConfig(data) {
-    const site = data && typeof data.site === 'object' && data.site !== null ? data.site : {};
-    const header = data && typeof data.header === 'object' && data.header !== null ? data.header : {};
-    const footer = data && typeof data.footer === 'object' && data.footer !== null ? data.footer : {};
-    const hero = data && typeof data.hero === 'object' && data.hero !== null ? data.hero : {};
+function renderButtonLink(button) {
+    const classNames = ['btn', button.variant];
 
-    return {
-        logoIcon: site.logoIcon || header.logoIcon || 'palette',
-        logoText: site.logoText || header.logoText || footer.logoText || 'lisa.weber',
-        socialLinks: Array.isArray(site.socialLinks)
-            ? site.socialLinks
-            : Array.isArray(hero.socialLinks)
-                ? hero.socialLinks
-                : Array.isArray(footer.socialLinks)
-                    ? footer.socialLinks
-                    : [],
-    };
+    if (button.large) {
+        classNames.push('btn--large');
+    }
+
+    return [
+        '<a href="' + escapeAttribute(button.href) + '" class="' + escapeAttribute(classNames.join(' ')) + '">',
+        escapeHtml(button.label),
+        button.icon !== '' ? icon(button.icon) : '',
+        '</a>',
+    ].join('');
 }
 
-function renderHeader(data, siteConfig) {
+function renderButtonElement(button, attributes) {
+    const classNames = ['btn', button.variant || 'btn--primary'];
+    const htmlAttributes = Array.isArray(attributes) ? attributes.slice() : [];
+
+    if (button.large) {
+        classNames.push('btn--large');
+    }
+
+    htmlAttributes.push('class="' + escapeAttribute(classNames.join(' ')) + '"');
+
+    return [
+        '<button ' + htmlAttributes.join(' ') + '>',
+            escapeHtml(button.label),
+            button.icon !== '' ? icon(button.icon) : '',
+        '</button>',
+    ].join('');
+}
+
+function renderHeader(viewModel, siteConfig) {
     return [
         '<header class="header js-header">',
             '<div class="container header__wrapper">',
@@ -80,8 +479,9 @@ function renderHeader(data, siteConfig) {
                 '<div id="header-navigation" aria-hidden="true" class="header__nav-wrapper js-header-nav-wrapper">',
                     '<nav role="navigation" aria-label="Navigation" class="main-nav">',
                         '<ul>',
-                            data.navigation.map(function(item) {
-                                const title = item.title ? ' title="' + escapeAttribute(item.title) + '"' : '';
+                            viewModel.navigation.map(function(item) {
+                                const title = item.title !== '' ? ' title="' + escapeAttribute(item.title) + '"' : '';
+
                                 return [
                                     '<li><a href="' + escapeAttribute(item.href) + '"' + title + '>' + escapeHtml(item.label) + '</a></li>',
                                 ].join('');
@@ -91,7 +491,8 @@ function renderHeader(data, siteConfig) {
                     '<nav class="option-nav">',
                         '<ul>',
                             '<li><a href="#" title="Dunkles Theme aktivieren" aria-label="Dunkles Theme aktivieren" aria-pressed="false" data-theme-toggle>' + icon('moon') + '</a></li>',
-                            '<li><a href="' + escapeAttribute(data.resumeLink.href) + '" class="btn btn--primary">' + escapeHtml(data.resumeLink.label) + '</a></li>',
+                            '<li><a href="' + escapeAttribute(viewModel.resumeLink.href) + '" class="btn btn--primary">' +
+                                escapeHtml(viewModel.resumeLink.label) + '</a></li>',
                         '</ul>',
                     '</nav>',
                 '</div>',
@@ -101,25 +502,15 @@ function renderHeader(data, siteConfig) {
     ].join('');
 }
 
-function renderHero(data, siteConfig) {
-    const heroButtons = Array.isArray(data.buttons) ? data.buttons : [];
-    const headlineMarkup = typeof data.headline === 'string'
-        ? data.headline
-        : escapeHtml(data.headline.beforeItalic) + '<i>' + escapeHtml(data.headline.italic) + '</i>' +
-            escapeHtml(data.headline.afterItalic);
-    const introMarkup = typeof data.intro === 'string'
-        ? data.intro
-        : escapeHtml(data.intro.beforeBold) + '<b>' + escapeHtml(data.intro.bold) + '</b>' +
-            escapeHtml(data.intro.afterBold);
-
+function renderHero(viewModel, siteConfig) {
     return [
         '<section id="hero" class="hero">',
             '<div class="container hero__wrapper">',
                 '<div class="hero__col">',
-                    '<p class="availability">' + escapeHtml(data.availability) + '</p>',
-                    '<h1>' + headlineMarkup + '</h1>',
-                    '<p>' + introMarkup + '</p>',
-                    heroButtons.length ? '<div class="hero__buttons">' + heroButtons.map(renderButtonLink).join('') + '</div>' : '',
+                    '<p class="availability">' + escapeHtml(viewModel.availability) + '</p>',
+                    '<h1>' + viewModel.headlineMarkup + '</h1>',
+                    '<p>' + viewModel.introMarkup + '</p>',
+                    viewModel.buttons.length ? '<div class="hero__buttons">' + viewModel.buttons.map(renderButtonLink).join('') + '</div>' : '',
                     '<div class="social-icons">' + renderSocialLinks(siteConfig.socialLinks) + '</div>',
                 '</div>',
                 '<div class="hero__col">',
@@ -135,93 +526,21 @@ function renderHero(data, siteConfig) {
     ].join('');
 }
 
-function renderButtonLink(button) {
-    if (!button || typeof button !== 'object') {
-        return '';
-    }
-
-    const variant = typeof button.variant === 'string' && ['btn--primary', 'btn--secondary', 'btn--danger'].includes(button.variant)
-        ? button.variant
-        : 'btn--primary';
-    const classNames = ['btn', variant];
-
-    if (button.large === true) {
-        classNames.push('btn--large');
-    }
-
-    const iconMarkup = typeof button.icon === 'string' && button.icon !== '' ? icon(button.icon) : '';
-
+function renderAbout(viewModel) {
     return [
-        '<a href="' + escapeAttribute(button.href || '#') + '" class="' + escapeAttribute(classNames.join(' ')) + '">',
-        escapeHtml(button.label || ''),
-        iconMarkup,
-        '</a>',
-    ].join('');
-}
-
-function resolveButtonConfig(button, fallbackLabel) {
-    if (!button || typeof button !== 'object') {
-        return {
-            label: fallbackLabel || '',
-            variant: 'btn--primary',
-            large: false,
-            icon: '',
-        };
-    }
-
-    return {
-        label: typeof button.label === 'string' ? button.label : (fallbackLabel || ''),
-        variant: typeof button.variant === 'string' ? button.variant : 'btn--primary',
-        large: button.large === true,
-        icon: typeof button.icon === 'string' ? button.icon : '',
-    };
-}
-
-function renderButtonElement(button, attributes) {
-    const buttonConfig = resolveButtonConfig(button, '');
-    const variant = ['btn--primary', 'btn--secondary', 'btn--danger'].includes(buttonConfig.variant)
-        ? buttonConfig.variant
-        : 'btn--primary';
-    const classNames = ['btn', variant];
-    const htmlAttributes = Array.isArray(attributes) ? attributes.slice() : [];
-
-    if (buttonConfig.large === true) {
-        classNames.push('btn--large');
-    }
-
-    htmlAttributes.push('class="' + escapeAttribute(classNames.join(' ')) + '"');
-
-    return [
-        '<button ' + htmlAttributes.join(' ') + '>',
-            escapeHtml(buttonConfig.label),
-            buttonConfig.icon !== '' ? icon(buttonConfig.icon) : '',
-        '</button>',
-    ].join('');
-}
-
-function renderAbout(data) {
-    const aboutImages = Array.isArray(data.images)
-        ? data.images
-        : (data.image ? [data.image] : []);
-
-    return [
-        '<section id="' + escapeAttribute(data.id) + '" class="about">',
+        '<section id="' + escapeAttribute(viewModel.id) + '" class="about">',
             '<div class="container">',
-                '<p class="preheader">' + escapeHtml(data.preheader) + '</p>',
-                '<h2>' + escapeHtml(data.title) + '</h2>',
+                '<p class="preheader">' + escapeHtml(viewModel.preheader) + '</p>',
+                '<h2>' + escapeHtml(viewModel.title) + '</h2>',
                 '<div class="about__wrapper">',
                     '<div class="about__col">',
-                        data.paragraphs.map(function(paragraph) {
-                            return [
-                                '<p>' + escapeHtml(paragraph) + '</p>',
-                            ].join('');
+                        viewModel.paragraphs.map(function(paragraph) {
+                            return '<p>' + escapeHtml(paragraph) + '</p>';
                         }).join(''),
-                        '<div class="about__images">' + aboutImages.map(function(image) {
-                            return renderPicture(image);
-                        }).join('') + '</div>',
+                        '<div class="about__images">' + viewModel.images.map(renderPicture).join('') + '</div>',
                     '</div>',
                     '<div class="about__col">',
-                        data.cards.map(function(card) {
+                        viewModel.cards.map(function(card) {
                             return [
                                 '<div class="card card--about-item">',
                                     '<div class="card__header">',
@@ -243,18 +562,14 @@ function renderAbout(data) {
     ].join('');
 }
 
-function renderSkills(data) {
-    const skillGroups = Array.isArray(data.skills)
-        ? data.skills
-        : (Array.isArray(data.groups) ? data.groups : []);
-
+function renderSkills(viewModel) {
     return [
-        '<section id="' + escapeAttribute(data.id) + '" class="skills">',
+        '<section id="' + escapeAttribute(viewModel.id) + '" class="skills">',
             '<div class="container">',
-                '<p class="preheader">' + escapeHtml(data.preheader) + '</p>',
-                '<h2>' + escapeHtml(data.title) + '</h2>',
+                '<p class="preheader">' + escapeHtml(viewModel.preheader) + '</p>',
+                '<h2>' + escapeHtml(viewModel.title) + '</h2>',
                 '<div class="skills__wrapper">',
-                    skillGroups.map(function(group) {
+                    viewModel.groups.map(function(group) {
                         return [
                             '<div class="card card--skill-item">',
                                 '<div class="card__header">',
@@ -262,9 +577,7 @@ function renderSkills(data) {
                                      '<h3>' + escapeHtml(group.title) + '</h3>',
                                 '</div>',
                                 '<div class="card__footer">' + group.items.map(function(item) {
-                                    return [
-                                        '<p class="pill">'+ escapeHtml(item) + '</p>',
-                                    ].join('');
+                                    return '<p class="pill">' + escapeHtml(item) + '</p>';
                                 }).join('') + '</div>',
                             '</div>',
                         ].join('');
@@ -275,19 +588,16 @@ function renderSkills(data) {
     ].join('');
 }
 
-function renderExperience(data) {
-    const experienceItems = Array.isArray(data.experience)
-        ? data.experience
-        : (Array.isArray(data.items) ? data.items : []);
-
+function renderExperience(viewModel) {
     return [
-        '<section id="' + escapeAttribute(data.id) + '" class="experience">',
+        '<section id="' + escapeAttribute(viewModel.id) + '" class="experience">',
             '<div class="container">',
-                '<p class="preheader">' + escapeHtml(data.preheader) + '</p>',
-                '<h2>' + escapeHtml(data.title) + '</h2>',
+                '<p class="preheader">' + escapeHtml(viewModel.preheader) + '</p>',
+                '<h2>' + escapeHtml(viewModel.title) + '</h2>',
                 '<div class="experience__wrapper">',
-                    experienceItems.map(function(item, index) {
+                    viewModel.items.map(function(item, index) {
                         const itemClass = index === 0 ? 'experience-item__body' : 'experience-item__card';
+
                         return [
                             '<div class="experience-item">',
                                 '<div class="experience-item__timepoint"></div>',
@@ -301,13 +611,8 @@ function renderExperience(data) {
                                             '<h3>' + escapeHtml(item.title) + '</h3>',
                                             '<p class="workplace-point"><b>' + escapeHtml(item.company) + '</b><span>' + icon('location') + escapeHtml(item.location) + '</span></p>',
                                             '<ul>' + item.points.map(function(point) {
-                                                    return [
-                                                        '<li>',
-                                                        escapeHtml(point),
-                                                        '</li>',
-                                                    ].join('');
-                                                }).join(''),
-                                            '</ul>',
+                                                return '<li>' + escapeHtml(point) + '</li>';
+                                            }).join('') + '</ul>',
                                         '</div>',
                                     '</div>',
                                 '</div>',
@@ -320,18 +625,14 @@ function renderExperience(data) {
     ].join('');
 }
 
-function renderProjects(data) {
-    const projectItems = Array.isArray(data.projects)
-        ? data.projects
-        : (Array.isArray(data.items) ? data.items : []);
-
+function renderProjects(viewModel) {
     return [
-        '<section id="' + escapeAttribute(data.id) + '" class="projects">',
+        '<section id="' + escapeAttribute(viewModel.id) + '" class="projects">',
             '<div class="container">',
-                '<p class="preheader">' + escapeHtml(data.preheader) + '</p>',
-                '<h2>' + escapeHtml(data.title) + '</h2>',
+                '<p class="preheader">' + escapeHtml(viewModel.preheader) + '</p>',
+                '<h2>' + escapeHtml(viewModel.title) + '</h2>',
                 '<div class="projects__wrapper">',
-                    projectItems.map(function(item) {
+                    viewModel.items.map(function(item) {
                         return [
                             '<article class="card card--project-item">',
                                 '<figure>',
@@ -349,9 +650,7 @@ function renderProjects(data) {
                                 '</div>',
                                 '<div class="card__footer">',
                                     item.tags.map(function(tag) {
-                                        return [
-                                            '<p class="pill">' + escapeHtml(tag) + '</p>',
-                                        ].join('');
+                                        return '<p class="pill">' + escapeHtml(tag) + '</p>';
                                     }).join(''),
                                 '</div>',
                             '</article>',
@@ -363,20 +662,16 @@ function renderProjects(data) {
     ].join('');
 }
 
-function renderEducation(data) {
-    const courseItems = Array.isArray(data.courses)
-        ? data.courses
-        : (Array.isArray(data.items) ? data.items : []);
-
+function renderEducation(viewModel) {
     return [
         '<section class="education">',
             '<div class="container">',
-                '<p class="preheader">' + escapeHtml(data.preheader) + '</p>',
-                '<h2>' + escapeHtml(data.title) + '</h2>',
-                '<div id="education-carousel" role="group" aria-label="' + escapeAttribute(data.carouselLabel) + '" class="splide splide--education">',
+                '<p class="preheader">' + escapeHtml(viewModel.preheader) + '</p>',
+                '<h2>' + escapeHtml(viewModel.title) + '</h2>',
+                '<div id="education-carousel" role="group" aria-label="' + escapeAttribute(viewModel.carouselLabel) + '" class="splide splide--education">',
                     '<div class="splide__track">',
                         '<ul class="splide__list">',
-                            courseItems.map(function(item) {
+                            viewModel.courses.map(function(item) {
                                 return [
                                     '<li class="splide__slide">',
                                         '<div class="card card--education-item">',
@@ -411,42 +706,35 @@ function renderEducation(data) {
     ].join('');
 }
 
-function renderField(field) {
-    if (!field || typeof field !== 'object') {
-        return '';
-    }
+function renderField(viewModel) {
+    const requiredSuffix = viewModel.required ? ' <sup>*</sup>' : '';
+    const errorMarkup = '<span data-form-error="' + escapeAttribute(viewModel.name) + '"></span>';
 
-    const requiredSuffix = field.required ? ' <sup>*</sup>' : '';
-    const errorMarkup = '<span data-form-error="' + escapeAttribute(field.name) + '"></span>';
-    const wrapperClass = field.wrapperClass || 'form-group';
-
-    if (field.type === 'textarea') {
+    if (viewModel.type === 'textarea') {
         return [
-            '<div class="' + wrapperClass + '">' +
-                '<label for="' + escapeAttribute(field.id) + '">' + escapeHtml(field.label) + requiredSuffix + '</label>',
+            '<div class="' + viewModel.wrapperClass + '">' +
+                '<label for="' + escapeAttribute(viewModel.id) + '">' + escapeHtml(viewModel.label) + requiredSuffix + '</label>',
                 '<textarea ',
-                    'id="' + escapeAttribute(field.id) + '" ',
-                    'name="' + escapeAttribute(field.name) + '" ',
-                    'placeholder="' + escapeAttribute(field.placeholder) + '" ',
-                    'rows="' + escapeAttribute(field.rows) + '"></textarea>',
+                    'id="' + escapeAttribute(viewModel.id) + '" ',
+                    'name="' + escapeAttribute(viewModel.name) + '" ',
+                    'placeholder="' + escapeAttribute(viewModel.placeholder) + '" ',
+                    'rows="' + escapeAttribute(viewModel.rows) + '"></textarea>',
                 errorMarkup,
             '</div>',
         ].join('');
     }
 
-    if (field.type === 'radio') {
-        const options = Array.isArray(field.options) ? field.options : [];
-
+    if (viewModel.type === 'radio') {
         return [
-            '<div class="' + wrapperClass + '">',
-                '<label>' + escapeHtml(field.label) + requiredSuffix + '</label>',
-                options.map(function(option) {
+            '<div class="' + viewModel.wrapperClass + '">',
+                '<label>' + escapeHtml(viewModel.label) + requiredSuffix + '</label>',
+                viewModel.options.map(function(option) {
                     return [
                         '<div class="form-check">',
                             '<input ',
                                 'type="radio" ',
                                 'id="' + escapeAttribute(option.id) + '" ',
-                                'name="' + escapeAttribute(field.name) + '" ',
+                                'name="' + escapeAttribute(viewModel.name) + '" ',
                                 'value="' + escapeAttribute(option.value) + '" ',
                             '>',
                             '<label for="' + escapeAttribute(option.id) + '">' + escapeHtml(option.label) + '</label>',
@@ -458,49 +746,41 @@ function renderField(field) {
         ].join('');
     }
 
-    if (field.type === 'select') {
-        const options = Array.isArray(field.options) ? field.options : [];
-        const selectedOption = options.find(function(option) {
-            return option && option.selected;
-        }) || options[0] || { value: '', label: '' };
-        const placeholder = options[0] && typeof options[0].label === 'string'
-            ? options[0].label
-            : (field.label || '');
+    if (viewModel.type === 'select') {
+        const selectedOption = viewModel.options.find(function(option) {
+            return option.selected;
+        }) || viewModel.options[0] || { value: '', label: '' };
+        const placeholder = viewModel.options[0] ? viewModel.options[0].label : viewModel.label;
 
         return [
-            '<div class="' + wrapperClass + ' custom-select-field" data-custom-select data-custom-select-placeholder="' +
+            '<div class="' + viewModel.wrapperClass + ' custom-select-field" data-custom-select data-custom-select-placeholder="' +
                 escapeAttribute(placeholder) + '">',
-                '<label for="' + escapeAttribute(field.id) + '">' + escapeHtml(field.label) + requiredSuffix + '</label>',
+                '<label for="' + escapeAttribute(viewModel.id) + '">' + escapeHtml(viewModel.label) + requiredSuffix + '</label>',
                 '<div class="custom-select js-custom-select">',
-                    '<select id="' + escapeAttribute(field.id) + '" name="' + escapeAttribute(field.name) +
+                    '<select id="' + escapeAttribute(viewModel.id) + '" name="' + escapeAttribute(viewModel.name) +
                         '" class="custom-select__native js-custom-select__native" data-custom-select-native>',
-                        options.map(function(option) {
+                        viewModel.options.map(function(option) {
                             const selected = option.selected ? ' selected' : '';
 
-                            return [
-                                '<option value="' + escapeAttribute(option.value) + '"' + selected + '>' +
-                                    escapeHtml(option.label) + '</option>',
-                            ].join('');
+                            return '<option value="' + escapeAttribute(option.value) + '"' + selected + '>' + escapeHtml(option.label) + '</option>';
                         }).join(''),
                     '</select>',
                     '<div class="custom-select__ui js-custom-select__ui">',
                         '<button type="button" class="custom-select__toggle js-custom-select__toggle" aria-expanded="false" ' +
-                            'aria-haspopup="listbox" aria-controls="' + escapeAttribute(field.id) + '-panel">',
+                            'aria-haspopup="listbox" aria-controls="' + escapeAttribute(viewModel.id) + '-panel">',
                             '<span class="custom-select__toggle-label js-custom-select__toggle-label" data-custom-select-label>' +
                                 escapeHtml(selectedOption.label || placeholder) + '</span>',
                             '<span class="custom-select__toggle-indicator">' + icon('chevron-down') + '</span>',
                         '</button>',
-                        '<div id="' + escapeAttribute(field.id) + '-panel" class="custom-select__panel js-custom-select__panel" ' +
-                            'role="listbox" hidden>',
+                        '<div id="' + escapeAttribute(viewModel.id) + '-panel" class="custom-select__panel js-custom-select__panel" role="listbox" hidden>',
                             '<div class="custom-select__options">',
-                                options.map(function(option) {
+                                viewModel.options.map(function(option) {
                                     const isSelected = option.selected ? ' is-selected' : '';
 
                                     return [
                                         '<button type="button" class="custom-select__option js-custom-select__option' + isSelected +
                                             '" data-custom-select-option data-option-value="' + escapeAttribute(option.value) +
-                                            '" aria-selected="' + String(!!option.selected) + '" title="' +
-                                            escapeAttribute(option.label) + '">',
+                                            '" aria-selected="' + String(option.selected) + '" title="' + escapeAttribute(option.label) + '">',
                                             escapeHtml(option.label),
                                         '</button>',
                                     ].join('');
@@ -514,17 +794,17 @@ function renderField(field) {
         ].join('');
     }
 
-    if (field.type === 'checkbox') {
+    if (viewModel.type === 'checkbox') {
         return [
-            '<div class="' + wrapperClass + '">',
+            '<div class="' + viewModel.wrapperClass + '">',
                 '<div class="form-check">',
                     '<input ',
                         'type="checkbox" ',
-                        'id="' + escapeAttribute(field.id) + '" ',
-                        'name="' + escapeAttribute(field.name) + '" ',
-                        'value="' + escapeAttribute(field.value || '1') + '" ',
+                        'id="' + escapeAttribute(viewModel.id) + '" ',
+                        'name="' + escapeAttribute(viewModel.name) + '" ',
+                        'value="' + escapeAttribute(viewModel.value || '1') + '" ',
                     '>',
-                    '<label for="' + escapeAttribute(field.id) + '">' + escapeHtml(field.label) + '</label>',
+                    '<label for="' + escapeAttribute(viewModel.id) + '">' + escapeHtml(viewModel.label) + '</label>',
                 '</div>',
                 errorMarkup,
             '</div>',
@@ -532,17 +812,18 @@ function renderField(field) {
     }
 
     const attributes = [
-        'type="' + escapeAttribute(field.type) + '"',
-        'id="' + escapeAttribute(field.id) + '"',
-        'name="' + escapeAttribute(field.name) + '"'
+        'type="' + escapeAttribute(viewModel.type) + '"',
+        'id="' + escapeAttribute(viewModel.id) + '"',
+        'name="' + escapeAttribute(viewModel.name) + '"'
     ];
 
-    if (field.placeholder) {
-        attributes.push('placeholder="' + escapeAttribute(field.placeholder) + '"');
+    if (viewModel.placeholder) {
+        attributes.push('placeholder="' + escapeAttribute(viewModel.placeholder) + '"');
     }
+
     return [
-        '<div class="' + wrapperClass + '">',
-            '<label for="' + escapeAttribute(field.id) + '">' + escapeHtml(field.label) + requiredSuffix + '</label>',
+        '<div class="' + viewModel.wrapperClass + '">',
+            '<label for="' + escapeAttribute(viewModel.id) + '">' + escapeHtml(viewModel.label) + requiredSuffix + '</label>',
             '<input ' + attributes.join(' ') + '>',
             errorMarkup,
         '</div>',
@@ -569,10 +850,10 @@ function renderContactFields(fields) {
     for (let index = 0; index < fields.length; index += 1) {
         const field = fields[index];
 
-        if (field && field.row === true) {
+        if (field.row) {
             const nextField = fields[index + 1];
 
-            if (nextField && nextField.row === true) {
+            if (nextField && nextField.row) {
                 markup.push([
                     '<div class="form-row">',
                         renderField(field),
@@ -590,28 +871,23 @@ function renderContactFields(fields) {
     return markup.join('');
 }
 
-function renderContact(data) {
-    const fields = Array.isArray(data.form.fields) ? data.form.fields : [];
-    const introEmailHref = './contact-mailto.php';
-    const introEmailLabel = data.introCard.linkLabel || 'E-Mail senden';
-    const submitButton = resolveButtonConfig(data.form.submitButton, data.form.submitLabel || '');
-
+function renderContact(viewModel) {
     return [
-        '<section id="' + escapeAttribute(data.id) + '" class="contact">',
+        '<section id="' + escapeAttribute(viewModel.id) + '" class="contact">',
             '<div class="container">',
-                '<p class="preheader">' + escapeHtml(data.preheader) + '</p>',
-                '<h2>' + escapeHtml(data.title) + '</h2>',
+                '<p class="preheader">' + escapeHtml(viewModel.preheader) + '</p>',
+                '<h2>' + escapeHtml(viewModel.title) + '</h2>',
                 '<div class="contact__wrapper">',
                     [
                         '<div class="card card--contact-item">',
                             '<div class="card__header">',
                                 '<div class="card__icon">' + icon('coffee') + '</div>',
-                                '<h3>' + escapeHtml(data.introCard.title) + '</h3>',
+                                '<h3>' + escapeHtml(viewModel.introCard.title) + '</h3>',
                             '</div>',
                             '<div class="card__body">',
                                 '<div class="card__body-wrapper">',
-                                    '<p>' + escapeHtml(data.introCard.text) + '</p>',
-                                    '<a href="' + escapeAttribute(introEmailHref) + '"><span>' + icon('mail') + '</span><b>' + escapeHtml(introEmailLabel) + '</b></a>',
+                                    '<p>' + escapeHtml(viewModel.introCard.text) + '</p>',
+                                    '<a href="./contact-mailto.php"><span>' + icon('mail') + '</span><b>' + escapeHtml(viewModel.introCard.linkLabel) + '</b></a>',
                                 '</div>',
                             '</div>',
                         '</div>',
@@ -620,34 +896,32 @@ function renderContact(data) {
                         '<div class="card__body">',
                             '<div class="card__body-wrapper">',
                                 '<div class="contact-form__status" data-form-status aria-live="polite"></div>',
-                                '<form method="post" action="' + escapeAttribute(data.form.action) + '" id="contact-form" class="contact-form" novalidate>',
+                                '<form method="post" action="' + escapeAttribute(viewModel.form.action) + '" id="contact-form" class="contact-form" novalidate>',
                                     renderContactHoneypotField(),
-                                    renderContactFields(fields),
-                                    [
+                                    renderContactFields(viewModel.form.fields),
                                 '</form>',
                             '</div>',
                         '</div>',
                         '<div class="card__footer">',
-                            renderButtonElement(submitButton, [
+                            renderButtonElement(viewModel.form.submitButton, [
                                 'type="submit"',
                                 'form="contact-form"',
                                 'data-contact-submit',
                             ]),
                         '</div>',
                     '</div>',
-                    ].join(''),
                 '</div>',
             '</div>',
         '</section>'
     ].join('');
 }
 
-function renderFooter(data, siteConfig) {
+function renderFooter(viewModel, siteConfig) {
     return [
         '<footer class="footer">',
             '<div class="container footer__wrapper">',
                 '<div class="logo">' + icon(siteConfig.logoIcon) + '<span>' + escapeHtml(siteConfig.logoText) + '</span></div>',
-                '<p>' + escapeHtml(data.text) + ' <span class="text-nowrap">&copy; ' + escapeHtml(data.copyright) + '</span> ' + escapeHtml(data.owner) + '</p>',
+                '<p>' + escapeHtml(viewModel.text) + ' <span class="text-nowrap">&copy; ' + escapeHtml(viewModel.copyright) + '</span> ' + escapeHtml(viewModel.owner) + '</p>',
                 '<div class="social-icons">' + renderSocialLinks(siteConfig.socialLinks) + '</div>',
             '</div>',
         '</footer>'
@@ -655,20 +929,20 @@ function renderFooter(data, siteConfig) {
 }
 
 function renderApp(data) {
-    const siteConfig = resolveSiteConfig(data);
+    const siteData = normalizeSiteData(data);
 
     return [
-        renderHeader(data.header, siteConfig),
+        renderHeader(siteData.header, siteData.siteConfig),
         '<main>',
-        renderHero(data.hero, siteConfig),
-        renderAbout(data.about),
-        renderSkills(data.skills),
-        renderExperience(data.experience),
-        renderProjects(data.projects),
-        renderEducation(data.education),
-        renderContact(data.contact),
+        renderHero(siteData.hero, siteData.siteConfig),
+        renderAbout(siteData.about),
+        renderSkills(siteData.skills),
+        renderExperience(siteData.experience),
+        renderProjects(siteData.projects),
+        renderEducation(siteData.education),
+        renderContact(siteData.contact),
         '</main>',
-        renderFooter(data.footer, siteConfig),
+        renderFooter(siteData.footer, siteData.siteConfig),
         '<div class="backdrop" data-overlay></div>'
     ].join('');
 }
@@ -682,18 +956,20 @@ function setMetaContent(selector, value) {
 }
 
 function applyMeta(data) {
-    document.title = data.title;
+    const meta = normalizeMetaData(data);
 
-    setMetaContent('meta[name="description"]', data.description);
-    setMetaContent('meta[name="keywords"]', data.keywords);
-    setMetaContent('meta[property="og:title"]', data.ogTitle);
-    setMetaContent('meta[property="og:description"]', data.ogDescription);
-    setMetaContent('meta[property="og:image"]', data.ogImage);
-    setMetaContent('meta[property="og:site_name"]', data.ogSiteName);
+    document.title = meta.title;
+
+    setMetaContent('meta[name="description"]', meta.description);
+    setMetaContent('meta[name="keywords"]', meta.keywords);
+    setMetaContent('meta[property="og:title"]', meta.ogTitle);
+    setMetaContent('meta[property="og:description"]', meta.ogDescription);
+    setMetaContent('meta[property="og:image"]', meta.ogImage);
+    setMetaContent('meta[property="og:site_name"]', meta.ogSiteName);
 
     const fluidIcon = document.querySelector('link[rel="fluid-icon"]');
     if (fluidIcon) {
-        fluidIcon.setAttribute('title', data.fluidIconTitle);
+        fluidIcon.setAttribute('title', meta.fluidIconTitle);
     }
 }
 
@@ -706,7 +982,7 @@ async function loadSiteData() {
         throw new Error('data.json konnte nicht geladen werden.');
     }
 
-    return response.json();
+    return normalizeSiteData(await response.json());
 }
 
 async function bootstrapContent() {
@@ -718,7 +994,20 @@ async function bootstrapContent() {
     }
 
     applyMeta(siteData.meta);
-    root.innerHTML = renderApp(siteData);
+    root.innerHTML = [
+        renderHeader(siteData.header, siteData.siteConfig),
+        '<main>',
+        renderHero(siteData.hero, siteData.siteConfig),
+        renderAbout(siteData.about),
+        renderSkills(siteData.skills),
+        renderExperience(siteData.experience),
+        renderProjects(siteData.projects),
+        renderEducation(siteData.education),
+        renderContact(siteData.contact),
+        '</main>',
+        renderFooter(siteData.footer, siteData.siteConfig),
+        '<div class="backdrop" data-overlay></div>'
+    ].join('');
 }
 
 function educationCarouselInitialize() {
@@ -771,12 +1060,17 @@ function contactFormInitialize() {
     }
 
     function renderErrors(errors) {
+        if (!isPlainObject(errors)) {
+            return;
+        }
+
         Object.keys(errors).forEach(function(name) {
             const errorElement = form.querySelector('[data-form-error="' + name + '"]');
             const field = form.querySelector('[name="' + name + '"]');
+            const message = typeof errors[name] === 'string' ? errors[name] : '';
 
             if (errorElement) {
-                errorElement.textContent = errors[name];
+                errorElement.textContent = message;
             }
 
             if (field) {
@@ -794,6 +1088,31 @@ function contactFormInitialize() {
 
         submitButton.disabled = isSubmitting;
         submitButton.innerHTML = isSubmitting ? 'Nachricht wird gesendet...' : defaultSubmitHtml;
+    }
+
+    function parseResponse(response) {
+        return response.text().then(function(body) {
+            const contentType = (response.headers.get('content-type') || '').toLowerCase();
+            let payload = null;
+
+            if (body !== '' && contentType.includes('application/json')) {
+                try {
+                    payload = JSON.parse(body);
+                } catch (error) {
+                    return {
+                        ok: response.ok,
+                        payload: null,
+                        errorType: 'invalid-json',
+                    };
+                }
+            }
+
+            return {
+                ok: response.ok,
+                payload: isPlainObject(payload) ? payload : null,
+                errorType: payload === null ? 'non-json' : '',
+            };
+        });
     }
 
     form.addEventListener('submit', function(event) {
@@ -816,13 +1135,23 @@ function contactFormInitialize() {
                 Accept: 'application/json'
             }
         }).then(function(response) {
-            return response.json().then(function(payload) {
-                return {
-                    ok: response.ok,
-                    payload: payload
-                };
-            });
+            return parseResponse(response);
         }).then(function(result) {
+            if (result.errorType === 'invalid-json') {
+                setStatus('Der Server hat eine ungültige Antwort gesendet. Bitte versuche es später erneut.', 'error');
+                return;
+            }
+
+            if (result.payload === null) {
+                setStatus(
+                    result.ok
+                        ? 'Der Server hat keine verwertbare Antwort gesendet. Bitte versuche es erneut.'
+                        : 'Der Server hat einen Fehler zurückgegeben. Bitte versuche es später erneut.',
+                    'error'
+                );
+                return;
+            }
+
             if (!result.ok || !result.payload.ok) {
                 if (result.payload.errors) {
                     renderErrors(result.payload.errors);

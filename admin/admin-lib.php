@@ -161,6 +161,134 @@ function adminRenderClientConfigScript(): string
     return '<script>window.adminUi=' . $json . ';</script>';
 }
 
+/**
+ * @param array{
+ *     title_suffix_key: string,
+ *     meta_refresh?: string,
+ *     extra_inline_script?: string
+ * } $options
+ */
+function adminRenderHead(array $options = []): string
+{
+    $titleSuffixKey = isset($options['title_suffix_key']) && is_string($options['title_suffix_key'])
+        ? $options['title_suffix_key']
+        : '';
+
+    if ($titleSuffixKey === '') {
+        throw new InvalidArgumentException('The "title_suffix_key" option is required.');
+    }
+
+    $metaRefresh = isset($options['meta_refresh']) && is_string($options['meta_refresh'])
+        ? trim($options['meta_refresh'])
+        : '';
+    $extraInlineScript = isset($options['extra_inline_script']) && is_string($options['extra_inline_script'])
+        ? trim($options['extra_inline_script'])
+        : '';
+    $fullTitle = adminTitle() . ' ' . adminT($titleSuffixKey);
+    $escapedTitle = adminEscape($fullTitle);
+    $themeBootstrapScript = <<<'JS'
+(function() {
+    const themeStorageKey = 'theme-preference';
+    const rootElement = document.documentElement;
+    const themeColorMeta = document.querySelector('meta[name="theme-color"]');
+
+    let storedTheme = null;
+
+    try {
+        storedTheme = localStorage.getItem(themeStorageKey);
+    } catch (error) {
+        storedTheme = null;
+    }
+
+    const resolvedTheme = storedTheme === 'light' || storedTheme === 'dark'
+        ? storedTheme
+        : (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+
+    rootElement.dataset.theme = resolvedTheme;
+    rootElement.style.colorScheme = resolvedTheme;
+
+    if (themeColorMeta) {
+        themeColorMeta.setAttribute('content', resolvedTheme === 'dark' ? '#18181b' : '#ffffff');
+    }
+})();
+JS;
+
+    $headParts = [
+        '<head>',
+        '    <meta http-equiv="X-UA-Compatible" content="IE=edge">',
+        '    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">',
+        '    <meta charset="UTF-8">',
+        '    <meta name="viewport" content="width=device-width, initial-scale=1.0">',
+    ];
+
+    if ($metaRefresh !== '') {
+        $headParts[] = '    <meta http-equiv="refresh" content="' . adminEscape($metaRefresh) . '">';
+    }
+
+    $headParts = array_merge($headParts, [
+        '    <title>' . $escapedTitle . '</title>',
+        '    <meta name="description" content="' . $escapedTitle . '">',
+        '    <meta name="keywords" content="portfolio, admin">',
+        '    <meta name="mobile-web-app-capable" content="yes">',
+        '    <meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex, notranslate">',
+        '    <meta name="googlebot" content="noindex, nofollow, noarchive, nosnippet, noimageindex, notranslate">',
+        '    <meta name="bingbot" content="noindex, nofollow, noarchive, nosnippet, noimageindex, notranslate">',
+        '    <meta name="GPTBot" content="noindex, nofollow, noarchive, nosnippet, noimageindex, notranslate">',
+        '    <meta name="ChatGPT-User" content="noindex, nofollow, noarchive, nosnippet, noimageindex, notranslate">',
+        '    <meta name="Google-Extended" content="noindex, nofollow, noarchive, nosnippet, noimageindex, notranslate">',
+        '    <meta name="ClaudeBot" content="noindex, nofollow, noarchive, nosnippet, noimageindex, notranslate">',
+        '    <meta name="Claude-Web" content="noindex, nofollow, noarchive, nosnippet, noimageindex, notranslate">',
+        '    <meta name="anthropic-ai" content="noindex, nofollow, noarchive, nosnippet, noimageindex, notranslate">',
+        '    <meta name="CCBot" content="noindex, nofollow, noarchive, nosnippet, noimageindex, notranslate">',
+        '    <meta name="PerplexityBot" content="noindex, nofollow, noarchive, nosnippet, noimageindex, notranslate">',
+        '    <meta property="og:title" content="' . $escapedTitle . '">',
+        '    <meta property="og:description" content="' . $escapedTitle . '">',
+        '    <meta property="og:image" content="../img/favicon_512x512.png">',
+        '    <meta property="og:site_name" content="https://www.lisa-weber.de">',
+        '    <!-- iOS Homescreen Icon -->',
+        '    <link rel="apple-touch-icon-precomposed" href="../img/favicon_512x512.png">',
+        '    <!-- iPad Homescreen Icon -->',
+        '    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../img/favicon_512x512.png">',
+        '    <!-- new iPad Homescreen Icon -->',
+        '    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="../img/favicon_512x512.png">',
+        '    <!-- Windows 8 -->',
+        '    <meta name="msapplication-TileColor" content="#ffffff">',
+        '    <!-- Kachel-Farbe -->',
+        '    <meta name="theme-color" content="#ffffff">',
+        '    <script>',
+        $themeBootstrapScript,
+    ]);
+
+    if ($extraInlineScript !== '') {
+        $headParts[] = '';
+        $headParts[] = $extraInlineScript;
+    }
+
+    $headParts = array_merge($headParts, [
+        '    </script>',
+        '    <meta name="msapplication-TileImage" content="../img/favicon_512x512.png">',
+        '    <!-- Fluid -->',
+        '    <link rel="fluid-icon" href="../img/favicon_512x512.png" title="' . $escapedTitle . '">',
+        '    <!-- Shortcut Icons -->',
+        '    <link rel="shortcut icon" href="../img/favicon.ico?rand=1" type="image/x-icon">',
+        '    <link rel="icon" href="../img/favicon_16x16.png" sizes="16x16">',
+        '    <link rel="icon" href="../img/favicon_32x32.png" sizes="32x32">',
+        '    <link rel="icon" href="../img/favicon_48x48.png" sizes="48x48">',
+        '    <link rel="icon" href="../img/favicon_64x64.png" sizes="64x64">',
+        '    <link rel="icon" href="../img/favicon_128x128.png" sizes="128x128">',
+        '',
+        '    <link rel="preload" href="../fonts/PlayfairDisplay/PlayfairDisplay.woff2" as="font" type="font/woff2" crossorigin="anonymous">',
+        '    <link rel="preload" href="../fonts/PlayfairDisplay/PlayfairDisplay-Italic.woff2" as="font" type="font/woff2" crossorigin="anonymous">',
+        '',
+        '    <link rel="preload" href="../fonts/Inter/Inter.woff2" as="font" type="font/woff2" crossorigin="anonymous">',
+        '',
+        '    <link rel="stylesheet" href="../css/styles.min.css">',
+        '</head>',
+    ]);
+
+    return implode("\n", $headParts);
+}
+
 function adminTitle(): string
 {
     return (string) adminConfig()['admin_title'];

@@ -88,6 +88,29 @@ function contactRecipient(): string
     return is_string($recipient) && $recipient !== '' ? $recipient : '';
 }
 
+function contactHeaderValueIsSafe(string $value): bool
+{
+    return !preg_match('/[\r\n]/', $value);
+}
+
+function validatedContactRecipient(): string
+{
+    $recipient = contactRecipient();
+
+    if (
+        $recipient === ''
+        || filter_var($recipient, FILTER_VALIDATE_EMAIL) === false
+        || !contactHeaderValueIsSafe($recipient)
+    ) {
+        respond(500, [
+            'ok' => false,
+            'message' => contactMessage('mailFailed'),
+        ]);
+    }
+
+    return $recipient;
+}
+
 /**
  * @return array<string, string>
  */
@@ -280,7 +303,7 @@ function textLength(string $value): int
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     respond(405, [
         'ok' => false,
-        'message' => contactMessage('method_not_allowed'),
+        'message' => contactMessage('methodNotAllowed'),
     ]);
 }
 
@@ -333,6 +356,7 @@ if ($errors !== []) {
 }
 
 // Schritt 8: Aus den geprüften Daten bauen wir jetzt die E-Mail zusammen.
+$recipient = validatedContactRecipient();
 $senderName = trim($firstname . ' ' . $lastname);
 $mailSubjectPrefix = contactMessage('mailSubjectPrefix');
 $mailSubjectValue = $subject !== '' ? $subject : contactMessage('emptySubjectFallback');
@@ -349,13 +373,16 @@ $mailBody = implode("\n", [
     $message,
 ]);
 $headers = [
-    'From: Portfolio Kontakt <' . contactRecipient() . '>',
-    'Reply-To: ' . $email,
+    'From: Portfolio Kontakt <' . $recipient . '>',
     'Content-Type: text/plain; charset=UTF-8',
 ];
 
+if ($email !== '' && filter_var($email, FILTER_VALIDATE_EMAIL) !== false && contactHeaderValueIsSafe($email)) {
+    $headers[] = 'Reply-To: ' . $email;
+}
+
 // Schritt 9: mail() gibt true bei Erfolg und false bei einem Fehler zurück.
-$sent = mail(contactRecipient(), $mailSubject, $mailBody, implode("\r\n", $headers));
+$sent = mail($recipient, $mailSubject, $mailBody, implode("\r\n", $headers));
 
 if (!$sent) {
     respond(500, [

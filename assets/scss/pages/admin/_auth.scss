@@ -31,34 +31,6 @@
 				gap: v.$spacing-2xl;
 			}
 			
-			.admin-password-icon-button {
-				top: 50%;
-				right: 1.4rem;
-				width: 2.4rem;
-				height: 2.4rem;
-				padding: 0;
-				display: inline-flex;
-				align-items: center;
-				justify-content: center;
-				background: transparent;
-				border: none;
-				cursor: pointer;
-				transform: translateY(-50%);
-				position: absolute;
-				
-				&:hover,
-				&:focus-visible {
-					color: v.$tertiary;
-				}
-				
-				svg {
-					width: 1.8rem;
-					height: 1.8rem;
-					stroke-width: 1.8;
-					pointer-events: none;
-				}
-			}
-			
 			.card__footer {
 				display: flex;
 				flex-direction: column;

@@ -120,10 +120,14 @@ dokumentiert.
 
 ## Tests
 Derzeit gibt es keine automatisierte Test-Suite im Repository. Manuelle QA-Schritte gehören deshalb in jeden PR.
+PHP-Prüfungen werden in der laufenden lokalen Docker-Umgebung ausgeführt und nicht über ein lokal installiertes
+`php`-Binary.
 
 Typische QA-Schritte:
 
 - Start der lokalen Umgebung prüfen.
+- PHP-Syntaxprüfungen im laufenden Docker-Container ausführen, zum Beispiel mit
+  `docker exec portfolio_de_php php -l /var/www/html/contact.php`.
 - Öffentliche Seite über die lokale URL laden.
 - Admin-Oberfläche unter `admin/` öffnen, wenn eine Änderung den Inhalts- oder Auth-Bereich betrifft.
 - Kontaktformular und MailHog prüfen, wenn Formularlogik oder Kontaktkonfiguration geändert wurde.

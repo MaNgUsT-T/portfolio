@@ -23,7 +23,132 @@ function adminStartSession(): void
     }
 
     session_name((string) adminConfig()['session_name']);
+    session_set_cookie_params(adminSessionCookieParams());
     session_start();
+}
+
+/**
+ * @return array{
+ *     lifetime: int,
+ *     path: string,
+ *     domain: string,
+ *     secure: bool,
+ *     httponly: bool,
+ *     samesite: string
+ * }
+ */
+function adminSessionCookieParams(): array
+{
+    $cookieConfig = adminConfig()['session_cookie'] ?? [];
+
+    if (!is_array($cookieConfig)) {
+        $cookieConfig = [];
+    }
+
+    return [
+        'lifetime' => adminNormalizeSessionCookieLifetime($cookieConfig['lifetime'] ?? 0),
+        'path' => adminNormalizeSessionCookiePath($cookieConfig['path'] ?? '/admin'),
+        'domain' => adminNormalizeSessionCookieDomain($cookieConfig['domain'] ?? ''),
+        'secure' => adminNormalizeSessionCookieSecure($cookieConfig['secure'] ?? null),
+        'httponly' => adminNormalizeSessionCookieHttpOnly($cookieConfig['httponly'] ?? true),
+        'samesite' => adminNormalizeSessionCookieSameSite($cookieConfig['samesite'] ?? 'Lax'),
+    ];
+}
+
+function adminNormalizeSessionCookieLifetime(mixed $lifetime): int
+{
+    if (is_int($lifetime) && $lifetime >= 0) {
+        return $lifetime;
+    }
+
+    return 0;
+}
+
+function adminNormalizeSessionCookiePath(mixed $path): string
+{
+    if (!is_string($path)) {
+        return '/admin';
+    }
+
+    $normalizedPath = trim($path);
+
+    if ($normalizedPath === '') {
+        return '/admin';
+    }
+
+    return str_starts_with($normalizedPath, '/') ? $normalizedPath : '/' . $normalizedPath;
+}
+
+function adminNormalizeSessionCookieDomain(mixed $domain): string
+{
+    if (!is_string($domain)) {
+        return '';
+    }
+
+    return trim($domain);
+}
+
+function adminNormalizeSessionCookieSecure(mixed $secure): bool
+{
+    if (is_bool($secure)) {
+        return $secure;
+    }
+
+    return adminIsHttpsRequest();
+}
+
+function adminNormalizeSessionCookieHttpOnly(mixed $httpOnly): bool
+{
+    if (is_bool($httpOnly)) {
+        return $httpOnly;
+    }
+
+    return true;
+}
+
+function adminNormalizeSessionCookieSameSite(mixed $sameSite): string
+{
+    if (!is_string($sameSite)) {
+        return 'Lax';
+    }
+
+    $normalizedSameSite = strtolower(trim($sameSite));
+
+    return match ($normalizedSameSite) {
+        'lax' => 'Lax',
+        'strict' => 'Strict',
+        'none' => 'None',
+        default => 'Lax',
+    };
+}
+
+function adminIsHttpsRequest(): bool
+{
+    $https = $_SERVER['HTTPS'] ?? null;
+
+    if (is_string($https) && $https !== '' && strtolower($https) !== 'off') {
+        return true;
+    }
+
+    $requestScheme = $_SERVER['REQUEST_SCHEME'] ?? null;
+
+    if (is_string($requestScheme) && strtolower($requestScheme) === 'https') {
+        return true;
+    }
+
+    $forwardedProto = $_SERVER['HTTP_X_FORWARDED_PROTO'] ?? null;
+
+    if (!is_string($forwardedProto)) {
+        return false;
+    }
+
+    foreach (explode(',', $forwardedProto) as $proto) {
+        if (strtolower(trim($proto)) === 'https') {
+            return true;
+        }
+    }
+
+    return false;
 }
 
 function adminDefaultLocale(): string

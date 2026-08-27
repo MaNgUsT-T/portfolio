@@ -173,7 +173,6 @@ input[type="radio"] {
     gap: v.$spacing-xs;
 }
 
-/*.contact-form__status,*/
 [data-form-status],
 [data-form-error] {
     display: none;
@@ -181,17 +180,17 @@ input[type="radio"] {
     font-size: v.$fs-xs;
 }
 
-/*.contact-form__status*/[data-form-status="success"],
-/*.contact-form__status*/[data-form-status="error"],
+[data-form-status="success"],
+[data-form-status="error"],
 [data-form-error]:not(:empty) {
     display: block;
 }
 
-/*.contact-form__status*/[data-form-status="success"] {
+[data-form-status="success"] {
     color: v.$green;
 }
 
-/*.contact-form__status*/[data-form-status="error"],
+[data-form-status="error"],
 [data-form-error]:not(:empty) {
     color: v.$red;
 }

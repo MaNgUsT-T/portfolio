@@ -17,9 +17,8 @@ bezieht sich auf den aktiven Projektcode; `siteelements`, `main.js`,
 - `strukturiert`: ja, deutlich besser als zuvor. Die Trennung in`normalize*()` und `render*()` ist nachvollziehbar und 
   konsistent, siehe [assets/js/app.js](/assets/js/app.js:149) und [assets/js/app.js](/assets/js/app.js:474).
 
-- `sauber`: überwiegend ja. Die Verantwortlichkeiten sind klarer getrennt, aber
-  die Dateien sind weiterhin relativ groß und nicht in Module aufgeteilt, vor
-  allem [assets/js/app.js](/assets/js/app.js:1).
+- `sauber`: überwiegend ja. Die Verantwortlichkeiten sind klarer getrennt, aber die Dateien sind weiterhin relativ groß
+  und nicht in Module aufgeteilt, vor allem [assets/js/app.js](/assets/js/app.js:1).
 
 - `modern`: teilweise. Positiv sind `strict_types`, `async/await`, defensive
   Guards und atomisches JSON-Schreiben. Ich kann aber nicht bestätigen, dass
@@ -35,8 +34,3 @@ bezieht sich auf den aktiven Projektcode; `siteelements`, `main.js`,
   Implementierung selbst umfassend dokumentiert ist. Es gibt Projekt-Dokumente,
   aber aus dem aktuell geprüften Code folgt keine vollständige technische
   Entwicklerdokumentation.
-
-- `admin/admin-lib.php`: Session-Cookie-Parameter wie `httponly`, `secure` und
-  `samesite` explizit im Projekt konfigurieren, bevor `session_start()`
-  aufgerufen wird. Im Repository ist dafür derzeit keine eigene Absicherung
-  hinterlegt, sodass das Verhalten von Laufzeit-Defaults abhängen kann.

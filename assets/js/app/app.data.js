@@ -1,6 +1,13 @@
+import { normalizeSiteData } from './app.normalize.root.js';
+import { applyMeta } from './app.meta.js';
+import { renderAbout, renderSkills } from './app.render.about-skills.js';
+import { renderEducation, renderContact, renderFooter } from './app.render.education-contact.js';
+import { renderExperience, renderProjects } from './app.render.experience-projects.js';
+import { renderHeader, renderHero } from './app.render.header-hero.js';
+
 const SITE_DATA_PATH = './data/data.json';
 
-async function loadSiteData() {
+export async function loadSiteData() {
     const response = await fetch(SITE_DATA_PATH, {
         cache: 'no-store'
     });
@@ -12,7 +19,7 @@ async function loadSiteData() {
     return normalizeSiteData(await response.json());
 }
 
-async function bootstrapContent() {
+export async function bootstrapContent() {
     const siteData = await loadSiteData();
     const root = document.querySelector('[data-site-root]');
 

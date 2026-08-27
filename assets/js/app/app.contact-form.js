@@ -1,4 +1,6 @@
-function contactFormInitialize() {
+import { isPlainObject } from './app.utils.js';
+
+export function contactFormInitialize() {
     const form = document.querySelector('#contact-form');
 
     if (!form) {

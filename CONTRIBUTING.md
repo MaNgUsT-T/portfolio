@@ -75,7 +75,8 @@ Bei Frontend-Änderungen müssen Quell- und Auslieferungsdateien synchron bleibe
 - Änderungen an `assets/js/app.js`, `assets/js/admin.js` oder `assets/js/siteelements.js` gehören zusammen mit den
   zugehörigen Artefakten in `js/`.
 - Änderungen an `assets/scss/styles.scss` und den Partials gehören zusammen mit `css/styles.min.css`.
-- Maßgeblich für diese Zuordnungen ist `prepros.config`.
+- Für JavaScript ist `node scripts/build-js.mjs` der maßgebliche Build-Schritt.
+- `prepros.config` dokumentiert für JavaScript nur noch die deaktivierten Auto-Compile-Einträge der Entrypoints.
 
 ## Code- und Sicherheitsstandards
 Neue Änderungen folgen dem bestehenden Projektstil und vermeiden unnötige Groß-Refactorings in stabilem Altbestand.
@@ -127,7 +128,9 @@ referenziert:
 - `VIRTUAL_HOST`/`PHPMYADMIN_HOST`: Hostnamen für Traefik-Routing.
 - `dev-proxy`: gemeinsames Docker-Netz für Traefik.
 - `config.php.local`: lokale Konfiguration, die im Container `config.php` überschreibt.
-- `js/*.min.js`: ausgelieferte JavaScript-Artefakte, die laut `prepros.config` aus `assets/js/` erzeugt werden.
+- `js/*.min.js`: ausgelieferte JavaScript-Artefakte, die aus den Einstiegspunkten unter `assets/js/` erzeugt werden.
+- `scripts/build-js.mjs`: bündelt die ES-Modul-Einstiegspunkte unter `assets/js/` in die ausgelieferten Artefakte
+  unter `js/`.
 
 ## ToDo (Code-Review)
 Die ToDo-Liste wird mit Priorität, Owner und Zieltermin gepflegt.

@@ -1,3 +1,13 @@
+import {
+    arrayOrEmpty,
+    booleanOrFalse,
+    escapeHtml,
+    numberOrEmpty,
+    objectArrayOrEmpty,
+    objectOrEmpty,
+    stringOrEmpty,
+} from './app.utils.js';
+
 function normalizeButtonVariant(value) {
     const variant = stringOrEmpty(value);
 
@@ -12,7 +22,7 @@ function normalizeButtonVariant(value) {
     return variant;
 }
 
-function normalizeRichText(value, segments) {
+export function normalizeRichText(value, segments) {
     // Rich-text fragments are stored as small structured objects in JSON so the
     // renderer can preserve emphasis without trusting raw HTML from content.
     if (typeof value === 'string') {
@@ -30,7 +40,7 @@ function normalizeRichText(value, segments) {
     }).join('');
 }
 
-function normalizePictureData(image) {
+export function normalizePictureData(image) {
     const imageData = objectOrEmpty(image);
     const fallbackImage = objectOrEmpty(imageData.fallback);
     // Support both `responsive` and older `sources` arrays so legacy exports do
@@ -69,7 +79,7 @@ function normalizeSocialLinkData(item) {
     };
 }
 
-function normalizeButtonLinkData(button, fallbackLabel) {
+export function normalizeButtonLinkData(button, fallbackLabel) {
     const buttonData = objectOrEmpty(button);
 
     return {
@@ -81,7 +91,7 @@ function normalizeButtonLinkData(button, fallbackLabel) {
     };
 }
 
-function normalizeButtonElementData(button, fallbackLabel) {
+export function normalizeButtonElementData(button, fallbackLabel) {
     const buttonData = normalizeButtonLinkData(button, fallbackLabel);
 
     return {
@@ -92,7 +102,7 @@ function normalizeButtonElementData(button, fallbackLabel) {
     };
 }
 
-function normalizeSiteConfig(data) {
+export function normalizeSiteConfig(data) {
     const site = objectOrEmpty(data.site);
     const header = objectOrEmpty(data.header);
     const footer = objectOrEmpty(data.footer);
@@ -112,7 +122,7 @@ function normalizeSiteConfig(data) {
     };
 }
 
-function normalizeMetaData(data) {
+export function normalizeMetaData(data) {
     const meta = objectOrEmpty(data);
 
     return {

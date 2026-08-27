@@ -1,6 +1,10 @@
+import { icon } from '../shared/all.js';
+import { escapeAttribute, escapeHtml } from './app.utils.js';
+import { renderButtonElement, renderSocialLinks } from './app.render.shared.js';
+
 // Renders the education carousel and the full contact section, including the
 // dynamic form controls used by the frontend validation layer.
-function renderEducation(viewModel) {
+export function renderEducation(viewModel) {
     return [
         '<section class="education">',
             '<div class="container">',
@@ -214,7 +218,7 @@ function renderContactFields(fields) {
     return markup.join('');
 }
 
-function renderContact(viewModel) {
+export function renderContact(viewModel) {
     return [
         '<section id="' + escapeAttribute(viewModel.id) + '" class="contact">',
             '<div class="container">',
@@ -262,7 +266,7 @@ function renderContact(viewModel) {
     ].join('');
 }
 
-function renderFooter(viewModel, siteConfig) {
+export function renderFooter(viewModel, siteConfig) {
     return [
         '<footer class="footer">',
             '<div class="container footer__wrapper">',

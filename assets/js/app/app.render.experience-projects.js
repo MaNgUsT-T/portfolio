@@ -1,5 +1,9 @@
+import { icon } from '../shared/all.js';
+import { escapeAttribute, escapeHtml } from './app.utils.js';
+import { renderPicture } from './app.render.shared.js';
+
 // Renders the timeline and project gallery from already normalized view models.
-function renderExperience(viewModel) {
+export function renderExperience(viewModel) {
     return [
         '<section id="' + escapeAttribute(viewModel.id) + '" class="experience">',
             '<div class="container">',
@@ -38,7 +42,7 @@ function renderExperience(viewModel) {
     ].join('');
 }
 
-function renderProjects(viewModel) {
+export function renderProjects(viewModel) {
     return [
         '<section id="' + escapeAttribute(viewModel.id) + '" class="projects">',
             '<div class="container">',

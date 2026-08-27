@@ -1,3 +1,12 @@
+import {
+    booleanOrFalse,
+    numberOrEmpty,
+    objectArrayOrEmpty,
+    objectOrEmpty,
+    stringOrEmpty,
+} from './app.utils.js';
+import { normalizeButtonElementData } from './app.normalize.meta.js';
+
 function normalizeContactOptionData(option) {
     const optionData = objectOrEmpty(option);
 
@@ -32,7 +41,7 @@ function normalizeContactFieldData(field) {
     };
 }
 
-function normalizeContactData(data) {
+export function normalizeContactData(data) {
     const contact = objectOrEmpty(data);
     const introCard = objectOrEmpty(contact.introCard);
     const form = objectOrEmpty(contact.form);
@@ -54,7 +63,7 @@ function normalizeContactData(data) {
     };
 }
 
-function normalizeFooterData(data) {
+export function normalizeFooterData(data) {
     const footer = objectOrEmpty(data);
 
     return {

@@ -1,4 +1,4 @@
-function initializeTabs() {
+export function initializeTabs() {
     const tabRoot = document.querySelector('[data-tabs]');
 
     if (!tabRoot) {

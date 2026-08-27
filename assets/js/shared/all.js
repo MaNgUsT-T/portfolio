@@ -1,7 +1,7 @@
 let iconsCache = null;
 let iconsPromise = null;
 
-function icon(name) {
+export function icon(name) {
     if (!iconsCache || typeof iconsCache[name] !== 'string') {
         return '';
     }
@@ -13,7 +13,7 @@ function resolveIconsPath() {
     return window.location.pathname.includes('/admin/') ? '../data/icons.json' : './data/icons.json';
 }
 
-async function loadIcons() {
+export async function loadIcons() {
     if (iconsCache) {
         return iconsCache;
     }
@@ -54,7 +54,11 @@ async function loadIcons() {
     return iconsPromise;
 }
 
-function initializeCustomSelects(rootNode = document) {
+export function getIconMap() {
+    return iconsCache || {};
+}
+
+export function initializeCustomSelects(rootNode = document) {
     const customSelects = rootNode.querySelectorAll('[data-custom-select]');
 
     customSelects.forEach((customSelect) => {
@@ -62,7 +66,7 @@ function initializeCustomSelects(rootNode = document) {
     });
 }
 
-function bindCustomSelect(customSelect) {
+export function bindCustomSelect(customSelect) {
     if (!(customSelect instanceof HTMLElement) || customSelect.dataset.customSelectInitialized === 'true') {
         return;
     }
@@ -324,7 +328,7 @@ function bindCustomSelect(customSelect) {
     syncFromNativeSelect(false);
 }
 
-function themeInitialize() {
+export function themeInitialize() {
     const themeStorageKey = 'theme-preference';
     const lightTheme = 'light';
     const darkTheme = 'dark';
@@ -493,7 +497,7 @@ function scheduleOffcanvasInsetSync(headerElement) {
     });
 }
 
-function headerScrollInitialize() {
+export function headerScrollInitialize() {
     const header = document.querySelector('.js-header');
 
     if (!header) {
@@ -554,7 +558,7 @@ function headerScrollInitialize() {
     updateHeaderScrollState();
 }
 
-function mobileNavigationInitialize() {
+export function mobileNavigationInitialize() {
     const header = document.querySelector('.js-header');
     const toggleButton = document.querySelector('[data-mobile-nav-toggle]');
     const panel = document.querySelector('.js-header-nav-wrapper');

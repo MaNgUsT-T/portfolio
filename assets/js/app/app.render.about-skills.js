@@ -1,4 +1,8 @@
-function renderAbout(viewModel) {
+import { icon } from '../shared/all.js';
+import { escapeAttribute, escapeHtml } from './app.utils.js';
+import { renderPicture } from './app.render.shared.js';
+
+export function renderAbout(viewModel) {
     return [
         '<section id="' + escapeAttribute(viewModel.id) + '" class="about">',
             '<div class="container">',
@@ -34,7 +38,7 @@ function renderAbout(viewModel) {
     ].join('');
 }
 
-function renderSkills(viewModel) {
+export function renderSkills(viewModel) {
     return [
         '<section id="' + escapeAttribute(viewModel.id) + '" class="skills">',
             '<div class="container">',

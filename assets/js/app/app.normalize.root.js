@@ -1,4 +1,17 @@
-function normalizeSiteData(data) {
+import { objectOrEmpty } from './app.utils.js';
+import {
+    normalizeHeaderData,
+    normalizeHeroData,
+    normalizeAboutData,
+    normalizeSkillsData,
+    normalizeExperienceData,
+    normalizeProjectsData,
+    normalizeEducationData,
+} from './app.normalize.content.js';
+import { normalizeContactData, normalizeFooterData } from './app.normalize.contact.js';
+import { normalizeMetaData, normalizeSiteConfig } from './app.normalize.meta.js';
+
+export function normalizeSiteData(data) {
     const siteData = objectOrEmpty(data);
 
     return {

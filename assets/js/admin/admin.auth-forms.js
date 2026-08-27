@@ -1,5 +1,7 @@
 // Centralizes async auth-form behavior so login and password change can share
 // the same status, validation and submit-state handling.
+import { adminTranslate } from './admin.utils.js';
+
 function createAdminFormState(form, submitButton, statusElement, submittingLabel) {
     const defaultSubmitHtml = submitButton ? submitButton.innerHTML : '';
 
@@ -110,7 +112,7 @@ function createAdminFormState(form, submitButton, statusElement, submittingLabel
     };
 }
 
-function initializeLoginForm() {
+export function initializeLoginForm() {
     const form = document.querySelector('#auth-form');
 
     if (!form) {
@@ -161,7 +163,7 @@ function initializeLoginForm() {
     });
 }
 
-function initializeChangePasswordForm() {
+export function initializeChangePasswordForm() {
     const form = document.querySelector('#change-password-form');
 
     if (!form) {

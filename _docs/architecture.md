@@ -13,6 +13,7 @@ PHP-Endpunkte für Admin und Kontaktformular sowie eine lokale Docker-Umgebung.
 
 - `index.html` ist der öffentliche Einstiegspunkt.
 - `js/app.min.js` ist das von `index.html` geladene Frontend-Artefakt.
+- `scripts/build-js.mjs` erzeugt die ausgelieferten JavaScript-Bundles aus den ES-Modul-Entrypoints unter `assets/js/`.
 - `data/data.json` liefert Inhalte, Metadaten und Formular-Konfiguration.
 - `admin/admin.php` ist die geschützte Admin-Oberfläche.
 - `admin/admin-save.php` verarbeitet Admin-Speichervorgänge.
@@ -61,6 +62,9 @@ Für Architekturfragen sollten diese Dateien zuerst geprüft werden.
 
 - `index.html`
 - `assets/js/app.js`
+- `assets/js/admin.js`
+- `assets/js/shared/all.js`
+- `scripts/build-js.mjs`
 - `assets/js/app/`
 - `admin/admin.php`
 - `admin/admin-save.php`

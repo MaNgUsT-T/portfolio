@@ -1,4 +1,7 @@
-function renderPicture(image) {
+import { icon } from '../shared/all.js';
+import { escapeAttribute, escapeHtml } from './app.utils.js';
+
+export function renderPicture(image) {
     return [
         '<picture>',
         image.responsive.map(function(source) {
@@ -14,7 +17,7 @@ function renderPicture(image) {
     ].join('');
 }
 
-function renderSocialLinks(items) {
+export function renderSocialLinks(items) {
     return items.map(function(item) {
         return [
             '<a href="' + escapeAttribute(item.href) + '" title="' + escapeAttribute(item.title) + '">',
@@ -24,7 +27,7 @@ function renderSocialLinks(items) {
     }).join('');
 }
 
-function renderButtonLink(button) {
+export function renderButtonLink(button) {
     const classNames = ['btn', button.variant];
 
     if (button.large) {
@@ -39,7 +42,7 @@ function renderButtonLink(button) {
     ].join('');
 }
 
-function renderButtonElement(button, attributes) {
+export function renderButtonElement(button, attributes) {
     const classNames = ['btn', button.variant || 'btn--primary'];
     const htmlAttributes = Array.isArray(attributes) ? attributes.slice() : [];
 

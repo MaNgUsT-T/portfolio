@@ -1,4 +1,7 @@
-function initializeIconPickers() {
+import { getIconMap, icon } from '../shared/all.js';
+import { adminTranslate, escapeAdminAttribute, escapeAdminHtml } from './admin.utils.js';
+
+export function initializeIconPickers() {
     const pickers = document.querySelectorAll('[data-icon-picker]');
 
     pickers.forEach((picker) => {
@@ -6,7 +9,7 @@ function initializeIconPickers() {
     });
 }
 
-function bindIconPicker(picker) {
+export function bindIconPicker(picker) {
     if (!(picker instanceof HTMLElement) || picker.dataset.iconPickerInitialized === 'true') {
         return;
     }
@@ -37,7 +40,7 @@ function bindIconPicker(picker) {
         return;
     }
 
-    const iconEntries = Object.keys(iconsCache || {}).sort((left, right) => left.localeCompare(right));
+    const iconEntries = Object.keys(getIconMap()).sort((left, right) => left.localeCompare(right));
     const placeholder = adminTranslate('admin.icon_picker_placeholder', 'Icon auswählen');
     const emptyMessage = optionsContainer.dataset.emptyMessage || adminTranslate('admin.icon_picker_empty', 'Keine Icons gefunden.');
     const iconWord = adminTranslate('field.icon', 'Icon');

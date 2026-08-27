@@ -1,6 +1,20 @@
+import {
+    arrayOrEmpty,
+    isPlainObject,
+    objectArrayOrEmpty,
+    objectOrEmpty,
+    stringArrayOrEmpty,
+    stringOrEmpty,
+} from './app.utils.js';
+import {
+    normalizeButtonLinkData,
+    normalizePictureData,
+    normalizeRichText,
+} from './app.normalize.meta.js';
+
 // Normalizes the content-heavy sections of `data/data.json` into predictable
 // view models so the render layer can work without branching on legacy shapes.
-function normalizeHeaderData(data) {
+export function normalizeHeaderData(data) {
     const header = objectOrEmpty(data);
 
     return {
@@ -17,7 +31,7 @@ function normalizeHeaderData(data) {
     };
 }
 
-function normalizeHeroData(data) {
+export function normalizeHeroData(data) {
     const hero = objectOrEmpty(data);
 
     return {
@@ -30,7 +44,7 @@ function normalizeHeroData(data) {
     };
 }
 
-function normalizeAboutData(data) {
+export function normalizeAboutData(data) {
     const about = objectOrEmpty(data);
     // Accept both the current `images` array and the older single `image`
     // object to keep historical data files renderable.
@@ -56,7 +70,7 @@ function normalizeAboutData(data) {
     };
 }
 
-function normalizeSkillsData(data) {
+export function normalizeSkillsData(data) {
     const skillsSection = objectOrEmpty(data);
     // Support `skills` and `groups` as equivalent sources because the admin and
     // earlier JSON exports did not always use the same key.
@@ -80,7 +94,7 @@ function normalizeSkillsData(data) {
     };
 }
 
-function normalizeExperienceData(data) {
+export function normalizeExperienceData(data) {
     const experienceSection = objectOrEmpty(data);
     // Keep the timeline compatible with both nested `experience` payloads and
     // generic `items` arrays from earlier content revisions.
@@ -106,7 +120,7 @@ function normalizeExperienceData(data) {
     };
 }
 
-function normalizeProjectsData(data) {
+export function normalizeProjectsData(data) {
     const projectsSection = objectOrEmpty(data);
     // Project cards follow the same fallback pattern as experience entries so
     // old exports do not break the current card renderer.
@@ -134,7 +148,7 @@ function normalizeProjectsData(data) {
     };
 }
 
-function normalizeEducationData(data) {
+export function normalizeEducationData(data) {
     const educationSection = objectOrEmpty(data);
     // The carousel historically used `items`; the current editor writes
     // `courses`, so both shapes are normalized to one output contract.

@@ -3,8 +3,8 @@
 Stand: 2026-08-27
 
 Diese Seite beschreibt die technische Frontend-Struktur der öffentlichen Portfolio-Seite. Maßgeblich sind
-`index.html`, `assets/js/app.js`, `assets/js/app/`, `js/app.min.js`, `assets/scss/`, `css/styles.min.css` und
-`prepros.config`.
+`index.html`, `assets/js/app.js`, `assets/js/app/`, `assets/js/shared/all.js`, `scripts/build-js.mjs`,
+`js/app.min.js`, `assets/scss/`, `css/styles.min.css` und `prepros.config`.
 
 ## Einstieg
 
@@ -20,8 +20,8 @@ Aktuell werden geladen:
 
 ## Struktur unter `assets/js/app/`
 
-`assets/js/app.js` ist der Prepros-Einstiegspunkt für das öffentliche Frontend. Die Datei bindet über
-`@prepros-prepend` die eigentlichen Teilmodule unter `assets/js/app/` ein.
+`assets/js/app.js` ist der öffentliche JavaScript-Entrypoint. Die Datei importiert `assets/js/app/app.entry.js`,
+und die eigentlichen Teilmodule unter `assets/js/app/` sind über native ES-Module miteinander verdrahtet.
 
 Die Unterstruktur deckt aktuell diese Bereiche ab:
 
@@ -33,6 +33,9 @@ Die Unterstruktur deckt aktuell diese Bereiche ab:
 - `app.education-carousel.js` für Splide im Education-Bereich
 - `app.contact-form.js` für das Kontaktformular
 - `app.entry.js` für die Bootstrap-Reihenfolge
+
+Zusätzlich stellt `assets/js/shared/all.js` gemeinsam genutzte UI-Helfer für Icon-Laden, Theme, Navigation und
+Custom-Selects bereit.
 
 ## Verantwortlichkeiten der Teilmodule
 
@@ -71,7 +74,8 @@ Datenstruktur angewiesen sind.
 
 ## Interne Schnittstellen
 
-Die Module kommunizieren im aktuellen Stand über einige wenige zentrale Verträge.
+Die Module kommunizieren im aktuellen Stand über explizite ES-Modul-Schnittstellen und einige wenige zentrale
+Fachverträge.
 
 - `normalizeSiteData(data)` liefert das vereinheitlichte View-Model für die gesamte Seite
 - `applyMeta(siteData.meta)` erwartet bereits normalisierte Meta-Daten
@@ -135,14 +139,17 @@ Die Reihenfolge ist technisch relevant, weil mehrere Initialisierer bereits gere
 
 ## Build-Zuordnung
 
-`prepros.config` definiert im aktuellen Stand diese maßgeblichen Build-Zuordnungen:
+`scripts/build-js.mjs` ist der führende Build-Pfad für das Frontend-JavaScript. Das Skript folgt den relativen
+Imports von `assets/js/app.js` und schreibt danach das ausgelieferte Bundle.
 
 - `assets/js/app.js` -> `js/app.min.js`
 - `assets/js/admin.js` -> `js/admin.min.js`
 - `assets/js/siteelements.js` -> `js/siteelements.min.js`
 - `assets/scss/styles.scss` -> `css/styles.min.css`
 
-Damit sind Änderungen an den Quell-Dateien erst vollständig, wenn die ausgelieferten Dateien dazu passen.
+`prepros.config` hält für JavaScript nur noch die Projekt-Metadaten und die deaktivierten Auto-Compile-Einträge der
+JS-Entrypoints. Damit sind Änderungen an den Quell-Dateien erst vollständig, wenn `node scripts/build-js.mjs` gelaufen
+ist und die ausgelieferten Dateien dazu passen.
 
 ## Grenzen der Frontend-Schicht
 
@@ -151,4 +158,4 @@ Das Frontend validiert und rendert Inhalte, ist aber nicht die führende Stelle 
 - Harte Feldvalidierung für das Kontaktformular liegt final in `contact.php`
 - Strukturelle Validierung der Inhaltsdaten liegt final in `admin/admin-save.php`
 - Der Frontend-Code verlässt sich darauf, dass `data/icons.json` und `data/data.json` verfügbar sind
-- Die ausgelieferten Artefakte bleiben laut `prepros.config` `js/app.min.js` und `css/styles.min.css`
+- Die ausgelieferten Artefakte bleiben `js/app.min.js` und `css/styles.min.css`

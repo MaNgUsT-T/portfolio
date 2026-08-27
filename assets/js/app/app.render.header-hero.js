@@ -1,4 +1,8 @@
-function renderHeader(viewModel, siteConfig) {
+import { icon } from '../shared/all.js';
+import { escapeAttribute, escapeHtml } from './app.utils.js';
+import { renderButtonLink, renderSocialLinks } from './app.render.shared.js';
+
+export function renderHeader(viewModel, siteConfig) {
     return [
         '<header class="header js-header">',
             '<div class="container header__wrapper">',
@@ -29,7 +33,7 @@ function renderHeader(viewModel, siteConfig) {
     ].join('');
 }
 
-function renderHero(viewModel, siteConfig) {
+export function renderHero(viewModel, siteConfig) {
     return [
         '<section id="hero" class="hero">',
             '<div class="container hero__wrapper">',

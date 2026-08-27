@@ -3,8 +3,8 @@
 Stand: 2026-08-27
 
 Diese Seite beschreibt den technischen Ablauf der Admin-Oberfläche. Maßgeblich sind `admin/admin.php`,
-`admin/admin-save.php`, `admin/admin-lib.php`, `assets/js/admin.js`, `js/admin.min.js`, `data/data.json` und
-`data/data.admin-template.json`.
+`admin/admin-save.php`, `admin/admin-lib.php`, `assets/js/admin.js`, `assets/js/admin/`, `assets/js/shared/all.js`,
+`scripts/build-js.mjs`, `js/admin.min.js`, `data/data.json` und `data/data.admin-template.json`.
 
 ## Admin-Flow
 
@@ -139,8 +139,8 @@ Mehrfachmeldungen pro Feld verarbeiten.
 
 ## Clientseitige Admin-Helfer
 
-`assets/js/admin.js` bündelt die clientseitigen Teilmodule für das Admin-UI. Nach `DOMContentLoaded` initialisiert
-die Datei aktuell:
+`assets/js/admin.js` ist der Admin-JavaScript-Entrypoint und importiert `assets/js/admin/admin.entry.js`. Nach
+`DOMContentLoaded` initialisiert das gebündelte Admin-Skript aktuell:
 
 - Header-Scroll
 - Mobile-Navigation
@@ -152,7 +152,7 @@ die Datei aktuell:
 - Login-Formular
 - Passwortwechsel-Formular
 
-`prepros.config` ordnet `assets/js/admin.js` dem ausgelieferten Artefakt `js/admin.min.js` zu.
+`scripts/build-js.mjs` erzeugt aus `assets/js/admin.js` das ausgelieferte Artefakt `js/admin.min.js`.
 
 ## Verantwortlichkeiten der Admin-JS-Module
 
@@ -165,6 +165,9 @@ Die unter `assets/js/admin/` eingebundenen Teilmodule decken im aktuellen Stand 
 - `admin.password-visibility.js` für Umschalten der Passwortsichtbarkeit
 - `admin.auth-forms.js` für gemeinsame JSON-Logik von Login und Passwortwechsel
 - `admin.entry.js` für die Initialisierungsreihenfolge
+
+Die Module importieren ihre Abhängigkeiten explizit. Gemeinsame UI-Helfer wie Icon-Laden, Navigation und
+Custom-Selects kommen aus `assets/js/shared/all.js`.
 
 ## DOM-Vertrag der Admin-JS-Module
 

@@ -1,3 +1,5 @@
+import { normalizeMetaData } from './app.normalize.meta.js';
+
 function setMetaContent(selector, value) {
     const element = document.querySelector(selector);
 
@@ -6,7 +8,7 @@ function setMetaContent(selector, value) {
     }
 }
 
-function applyMeta(data) {
+export function applyMeta(data) {
     const meta = normalizeMetaData(data);
 
     document.title = meta.title;

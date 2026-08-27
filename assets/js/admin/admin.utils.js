@@ -1,4 +1,4 @@
-function adminTranslate(key, fallback = '') {
+export function adminTranslate(key, fallback = '') {
     const translations = window.adminUi && typeof window.adminUi === 'object'
         ? window.adminUi.translations
         : null;
@@ -10,7 +10,7 @@ function adminTranslate(key, fallback = '') {
     return fallback || key;
 }
 
-function escapeAdminHtml(value) {
+export function escapeAdminHtml(value) {
     return String(value)
         .replaceAll('&', '&amp;')
         .replaceAll('<', '&lt;')
@@ -19,6 +19,6 @@ function escapeAdminHtml(value) {
         .replaceAll("'", '&#039;');
 }
 
-function escapeAdminAttribute(value) {
+export function escapeAdminAttribute(value) {
     return escapeAdminHtml(value);
 }

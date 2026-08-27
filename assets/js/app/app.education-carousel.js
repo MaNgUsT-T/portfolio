@@ -1,4 +1,4 @@
-function educationCarouselInitialize() {
+export function educationCarouselInitialize() {
     const itemCount = document.querySelectorAll('#education-carousel .splide__slide').length;
 
     if (itemCount <= 0) {

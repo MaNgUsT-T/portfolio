@@ -1,4 +1,8 @@
-function initializeRepeatables() {
+import { bindCustomSelect } from '../shared/all.js';
+import { bindIconPicker } from './admin.icon-picker.js';
+import { adminTranslate } from './admin.utils.js';
+
+export function initializeRepeatables() {
     const repeatables = document.querySelectorAll('[data-repeatable]');
 
     repeatables.forEach((repeatable) => {

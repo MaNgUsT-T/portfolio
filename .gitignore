@@ -4,7 +4,8 @@
 .DS_Store
 node_modules/
 
-img
+img/*
+!img/favicon*
 
 # Local Docker env files
 _docker/.env

@@ -3,6 +3,46 @@
 
 .admin-content {
 	
+	section {
+		
+		&#admin {
+			padding-block: v.$spacing * 100;
+			
+			.container {
+				display: flex;
+				flex-direction: column;
+				gap: v.$spacing-l;
+				
+				p:has(.pill) {
+					display: flex;
+					flex-wrap: wrap;
+					gap: v.$spacing-s;
+				}
+			}
+			
+		}
+		
+		&:nth-child(2n + 2) {
+			background: v.$section-bg;
+			border-block-start: v.$section-border;
+			border-block-end: v.$section-border;
+		}
+		
+		&:nth-child(2n + 3) {
+			background: none;
+			border-block-start: none;
+			border-block-end: none;
+		}
+	}
+	
+	[role="tablist"] {
+		
+		.container {
+			text-align: center;
+		}
+	}
+	
+	
 	.card,
 	.card__body,
 	.card__body-wrapper {

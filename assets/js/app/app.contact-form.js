@@ -122,6 +122,11 @@ export function contactFormInitialize() {
                 return;
             }
 
+            if (result.payload.honeypot === true) {
+                setStatus(result.payload.message || 'Bitte prüfe deine Angaben.', 'error');
+                return;
+            }
+
             form.reset();
             setStatus(result.payload.message, 'success');
         }).catch(function() {

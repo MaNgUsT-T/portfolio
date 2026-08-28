@@ -5,6 +5,10 @@ Stand: 2026-08-27
 Diese Dokumentation bündelt die technischen Details des aktuellen Projektstands unter `_docs/`. Sie ergänzt
 `README.md`, `AGENTS.md`, `CONTRIBUTING.md` und `_docker/README.md`, ohne deren Aufgaben zu duplizieren.
 
+Der Frontend-Build für JavaScript und Sass läuft im aktuellen Stand über
+`_vite/`. Einstieg und tägliche Nutzung stehen in `README.md`, die technische
+Zuordnung in `build.md`, `frontend.md` und `admin.md`.
+
 ## Inhalt
 
 Die Detailseiten decken die wesentlichen technischen Bereiche des Repositories ab.

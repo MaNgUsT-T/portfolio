@@ -4,7 +4,7 @@ Stand: 2026-08-27
 
 Diese Seite beschreibt den technischen Ablauf der Admin-Oberfläche. Maßgeblich sind `admin/admin.php`,
 `admin/admin-save.php`, `admin/admin-lib.php`, `assets/js/admin.js`, `assets/js/admin/`, `assets/js/shared/all.js`,
-`scripts/build-js.mjs`, `js/admin.min.js`, `data/data.json` und `data/data.admin-template.json`.
+`_vite/vite.mjs`, `js/admin.min.js`, `data/data.json` und `data/data.admin-template.json`.
 
 ## Admin-Flow
 
@@ -152,7 +152,7 @@ Mehrfachmeldungen pro Feld verarbeiten.
 - Login-Formular
 - Passwortwechsel-Formular
 
-`scripts/build-js.mjs` erzeugt aus `assets/js/admin.js` das ausgelieferte Artefakt `js/admin.min.js`.
+`_vite/lib/tasks/js.mjs` erzeugt aus `assets/js/admin.js` das ausgelieferte Artefakt `js/admin.min.js`.
 
 ## Verantwortlichkeiten der Admin-JS-Module
 

@@ -75,8 +75,8 @@ Bei Frontend-Änderungen müssen Quell- und Auslieferungsdateien synchron bleibe
 - Änderungen an `assets/js/app.js`, `assets/js/admin.js` oder `assets/js/siteelements.js` gehören zusammen mit den
   zugehörigen Artefakten in `js/`.
 - Änderungen an `assets/scss/styles.scss` und den Partials gehören zusammen mit `css/styles.min.css`.
-- Für JavaScript ist `node scripts/build-js.mjs` der maßgebliche Build-Schritt.
-- `prepros.config` dokumentiert für JavaScript nur noch die deaktivierten Auto-Compile-Einträge der Entrypoints.
+- Für JavaScript und Sass ist `_vite/` der maßgebliche Build-Pfad.
+- Vor manueller QA muss der passende `_vite`-Build gelaufen sein.
 
 ## Code- und Sicherheitsstandards
 Neue Änderungen folgen dem bestehenden Projektstil und vermeiden unnötige Groß-Refactorings in stabilem Altbestand.
@@ -129,8 +129,9 @@ referenziert:
 - `dev-proxy`: gemeinsames Docker-Netz für Traefik.
 - `config.php.local`: lokale Konfiguration, die im Container `config.php` überschreibt.
 - `js/*.min.js`: ausgelieferte JavaScript-Artefakte, die aus den Einstiegspunkten unter `assets/js/` erzeugt werden.
-- `scripts/build-js.mjs`: bündelt die ES-Modul-Einstiegspunkte unter `assets/js/` in die ausgelieferten Artefakte
-  unter `js/`.
+- `js/*.min.js.map`: externe Source Maps der ausgelieferten JavaScript-Artefakte.
+- `_vite/vite.mjs`: baut die ES-Modul-Einstiegspunkte unter `assets/js/` sowie `assets/scss/styles.scss` in die
+  ausgelieferten Artefakte unter `js/` und `css/`.
 
 ## ToDo (Code-Review)
 Die ToDo-Liste wird mit Priorität, Owner und Zieltermin gepflegt.

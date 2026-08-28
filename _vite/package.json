@@ -1,0 +1,19 @@
+{
+  "name": "portfolio-vite",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "build": "node vite.mjs prod",
+    "build:css": "node vite.mjs prod:css",
+    "build:js": "node vite.mjs prod:js",
+    "dev": "node vite.mjs dev",
+    "dev:css": "node vite.mjs dev:css",
+    "dev:js": "node vite.mjs dev:js"
+  },
+  "devDependencies": {
+    "chokidar-cli": "^3.0.0",
+    "esbuild": "^0.28.2",
+    "sass": "^1.93.2",
+    "vite": "^8.0.10"
+  }
+}

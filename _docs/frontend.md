@@ -3,8 +3,8 @@
 Stand: 2026-08-27
 
 Diese Seite beschreibt die technische Frontend-Struktur der öffentlichen Portfolio-Seite. Maßgeblich sind
-`index.html`, `assets/js/app.js`, `assets/js/app/`, `assets/js/shared/all.js`, `scripts/build-js.mjs`,
-`js/app.min.js`, `assets/scss/`, `css/styles.min.css` und `prepros.config`.
+`index.html`, `assets/js/app.js`, `assets/js/app/`, `assets/js/shared/all.js`, `_vite/vite.mjs`, `js/app.min.js`,
+`assets/scss/` und `css/styles.min.css`.
 
 ## Einstieg
 
@@ -139,17 +139,19 @@ Die Reihenfolge ist technisch relevant, weil mehrere Initialisierer bereits gere
 
 ## Build-Zuordnung
 
-`scripts/build-js.mjs` ist der führende Build-Pfad für das Frontend-JavaScript. Das Skript folgt den relativen
-Imports von `assets/js/app.js` und schreibt danach das ausgelieferte Bundle.
+`_vite/` ist der führende Build-Pfad für das Frontend. `_vite/vite.mjs` steuert die JS- und Sass-Tasks,
+`_vite/lib/tasks/js.mjs` bündelt die relativen Imports der ES-Modul-Entrypoints, und `_vite/lib/tasks/css.mjs`
+kompiliert `assets/scss/styles.scss` nach `css/styles.min.css`.
 
 - `assets/js/app.js` -> `js/app.min.js`
 - `assets/js/admin.js` -> `js/admin.min.js`
 - `assets/js/siteelements.js` -> `js/siteelements.min.js`
+- `js/app.min.js.map`, `js/admin.min.js.map`, `js/siteelements.min.js.map` als zugehörige externe Source Maps
 - `assets/scss/styles.scss` -> `css/styles.min.css`
+- `css/styles.min.css.map` als zugehörige externe Source Map
 
-`prepros.config` hält für JavaScript nur noch die Projekt-Metadaten und die deaktivierten Auto-Compile-Einträge der
-JS-Entrypoints. Damit sind Änderungen an den Quell-Dateien erst vollständig, wenn `node scripts/build-js.mjs` gelaufen
-ist und die ausgelieferten Dateien dazu passen.
+Damit sind Änderungen an den Quell-Dateien erst vollständig, wenn der passende `_vite`-Build gelaufen ist und die
+ausgelieferten Dateien dazu passen.
 
 ## Grenzen der Frontend-Schicht
 

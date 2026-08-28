@@ -6,7 +6,8 @@ Dieses Repository enthält ein datengetriebenes Portfolio auf Basis von
 `index.html`, PHP-Endpunkten und einer lokalen Docker-Umgebung. Die
 öffentliche Seite lädt Inhalte aus `data/data.json`, rendert sie clientseitig
 über `js/app.min.js` und nutzt `contact.php` als JSON-Endpunkt für das
-Kontaktformular.
+Kontaktformular. Der Frontend-Build für JavaScript und Sass läuft über
+`_vite/`.
 
 ## Wichtig
 
@@ -38,6 +39,49 @@ make -C _docker logs # Logs (Apache)
 
 Nach dem Start gibt die Docker-Umgebung zusätzlich zur Projekt-URL auch die lokalen phpMyAdmin- und MailHog-URLs aus.
 MailHog zeigt lokal abgefangene Kontaktformular-Mails an; Details stehen in `_docker/README.md`.
+
+## Frontend-Build mit `_vite`
+
+Für Änderungen an `assets/js/` oder `assets/scss/` ist `_vite/` der
+maßgebliche Build-Pfad. Alle Befehle laufen vom Repo-Root aus.
+
+Einmalige Installation der Build-Abhängigkeiten:
+
+```bash
+npm --prefix _vite install
+```
+
+Einmaliger vollständiger Build:
+
+```bash
+npm --prefix _vite run build
+```
+
+Teil-Builds:
+
+```bash
+npm --prefix _vite run build:js
+npm --prefix _vite run build:css
+```
+
+Watch-Modus während der Entwicklung:
+
+```bash
+npm --prefix _vite run dev
+```
+
+Der Build schreibt die ausgelieferten Dateien nach `js/app.min.js`,
+`js/admin.min.js`, `js/siteelements.min.js` und `css/styles.min.css`.
+
+## PhpStorm
+
+In PhpStorm ist `_vite/package.json` die richtige Paketbasis für die
+Build-Skripte.
+
+- Package-Datei: `_vite/package.json`
+- Einmaliger Build: Script `build`
+- Watch-Modus: Script `dev`
+- Teil-Builds: `build:js`, `build:css`, `dev:js`, `dev:css`
 
 ## Technische Dokumentation
 

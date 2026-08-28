@@ -46,7 +46,8 @@ Der technische Request-Vertrag ist im aktuellen Stand eng gefasst.
 
 - Nur `POST` ist erlaubt
 - andere Methoden liefern sofort HTTP `405`
-- ein befülltes Honeypot-Feld beendet den Flow frühzeitig mit einer Erfolgsmeldung
+- ein befülltes Honeypot-Feld beendet den Flow frühzeitig mit einer technisch erfolgreichen, aber als Spam markierten
+  Antwort
 - die Empfängeradresse wird nicht aus `data/data.json`, sondern aus `contact-config.php` gelesen
 - `Reply-To` wird nur gesetzt, wenn die Benutzer-E-Mail gültig und header-sicher ist
 
@@ -61,7 +62,8 @@ leer ist, ergänzt `contact.php` interne Fallbacks.
 Im aktuellen Stand treten diese Antwortformen auf:
 
 - HTTP `200`, `ok: true`, `message` bei erfolgreichem Versand
-- HTTP `200`, `ok: true`, `message` bei ausgelöstem Honeypot
+- HTTP `200`, `ok: true`, `honeypot: true`, `message` bei ausgelöstem Honeypot mit Hinweis auf automatisches
+  Ausfüllen des versteckten Spam-Schutz-Felds
 - HTTP `405`, `ok: false`, `message` bei nicht erlaubter Methode
 - HTTP `422`, `ok: false`, `message`, `errors` bei Validierungsfehlern
 - HTTP `500`, `ok: false`, `message` bei technischen Fehlern wie ungültiger Konfiguration, ungültigem JSON oder
@@ -117,6 +119,7 @@ Das öffentliche Frontend in `assets/js/app/app.contact-form.js` verarbeitet die
 
 - Bei `422` werden die Fehlermeldungen feldweise in `[data-form-error="<feldname>"]` geschrieben
 - Bei Erfolg wird das Formular zurückgesetzt und die `message` in das Status-Element übernommen
+- Bei `honeypot: true` zeigt das Frontend die `message` als Fehlerstatus und setzt das Formular nicht zurück
 - Bei ungültigem JSON oder Nicht-JSON-Antworten zeigt das Frontend generische technische Fehlermeldungen an
 
 ## Abhängigkeiten

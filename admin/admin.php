@@ -29,7 +29,7 @@ try {
 <body class="admin-content">
     <?= adminRenderSiteHeader($siteData, true) ?>
 	<main>
-		<section>
+		<section id="admin">
 			<div class="container">
 				<h1><?= adminEscape(adminT('admin.heading')) ?></h1>
 				<p><?= adminEscape(adminT('admin.structured_intro')) ?> <code>data/data.json</code>.</p>
@@ -50,7 +50,7 @@ try {
 
 		<?php if ($loadError == null): ?>
 			<div class="admin-tabs" data-tabs>
-				<section role="tablist" aria-label="<?= adminEscape(adminT('tabs.editor_modes')) ?>">
+				<div role="tablist" aria-label="<?= adminEscape(adminT('tabs.editor_modes')) ?>">
 					<div class="container">
 						<button type="button" class="tab-button is-active" data-tab-trigger="structured" role="tab">
 							<?= adminEscape(adminT('tabs.content')) ?>
@@ -59,7 +59,7 @@ try {
 							<?= adminEscape(adminT('tabs.json')) ?>
 						</button>
 					</div>
-				</section>
+				</div>
 
 				<div class="tab-panel is-active" data-tab-panel="structured" role="tabpanel">
 					<?= adminRenderFields($siteData, $templateData) ?>

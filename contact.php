@@ -342,7 +342,9 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 if (field(contactHoneypotName()) !== '') {
     respond(200, [
         'ok' => true,
-        'message' => contactMessage('honeypotSuccess'),
+        'honeypot' => true,
+        'message' => 'Das Formular wurde durch einen automatischen Eintrag im Spam-Schutz-Feld blockiert. Bitte '
+            . 'Browser-Autofill oder den Passwortmanager für dieses Formular deaktivieren und erneut senden.',
     ]);
 }
 
@@ -353,7 +355,7 @@ $lastname = singleLine(field('lastname'));
 $email = singleLine(field('email'));
 $subject = singleLine(field('subject'));
 $interest = singleLine(field('radio-group'));
-$message = field('message');
+$userMessage = field('message');
 
 $errors = [];
 
@@ -370,9 +372,9 @@ if ($email !== '' && filter_var($email, FILTER_VALIDATE_EMAIL) === false) {
 }
 
 // Schritt 6: Pflichtfelder prüfen wir über die Regeln aus der Konfiguration.
-foreach (contactRequiredFields() as $name => $message) {
+foreach (contactRequiredFields() as $name => $requiredMessage) {
     if (field($name) === '') {
-        $errors[$name] = $message;
+        $errors[$name] = $requiredMessage;
     }
 }
 
@@ -400,7 +402,7 @@ $mailBody = implode("\n", [
     'Interesse: ' . ($interest !== '' ? $interest : '-'),
     '',
     'Nachricht:',
-    $message,
+    $userMessage,
 ]);
 $headers = [
     'From: Portfolio Kontakt <' . $recipient . '>',

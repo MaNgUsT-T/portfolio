@@ -10,7 +10,9 @@ export function icon(name) {
 }
 
 function resolveIconsPath() {
-    return window.location.pathname.includes('/admin/') ? '../data/icons.json' : './data/icons.json';
+    return window.location.pathname.includes('/admin/') || window.location.pathname.includes('/_siteelements/')
+        ? '../data/icons.json'
+        : './data/icons.json';
 }
 
 export async function loadIcons() {

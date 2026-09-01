@@ -13,7 +13,7 @@ Die ausgelieferten Artefakte werden im aktuellen Stand aus diesen Quell-Dateien 
 
 - `assets/js/app.js` -> `js/app.min.js`
 - `assets/js/admin.js` -> `js/admin.min.js`
-- `assets/js/siteelements.js` -> `js/siteelements.min.js`
+- `_siteelements/js/siteelements.js` -> `js/siteelements.min.js`
 - `assets/scss/styles.scss` -> `css/styles.min.css`
 
 ## Frontend-Build
@@ -59,7 +59,7 @@ Die folgenden Zuordnungen beschreiben, welche Bereiche bei Änderungen gemeinsam
 - Änderung an `assets/js/admin/` oder `assets/js/admin.js`
   Prüfen: `_vite/vite.mjs`, `_vite/lib/tasks/js.mjs`, `js/admin.min.js`, `_docs/admin.md`, Login,
   Passwortwechsel, Modal, Bildfelder, Tabs, Repeatables, Icon-Picker
-- Änderung an `assets/js/siteelements.js`
+- Änderung an `_siteelements/js/**/*.js`
   Prüfen: `_vite/vite.mjs`, `_vite/lib/tasks/js.mjs`, `js/siteelements.min.js`, `siteelements.html`
 - Änderung an `assets/scss/` oder `assets/scss/styles.scss`
   Prüfen: `_vite/vite.mjs`, `_vite/lib/tasks/css.mjs`, `css/styles.min.css`, öffentliche Seite und Admin visuell

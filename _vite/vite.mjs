@@ -28,6 +28,7 @@ try {
         "chokidar",
         "assets/scss/**/*.scss",
         "assets/js/**/*.js",
+        "_siteelements/js/**/*.js",
         "-c",
         `${process.execPath} _vite/vite.mjs prod:css && ${process.execPath} _vite/vite.mjs prod:js`,
         "-d",

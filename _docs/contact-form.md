@@ -1,6 +1,6 @@
 # Kontaktformular
 
-Stand: 2026-08-27
+Stand: 2026-09-01
 
 Diese Seite beschreibt den technischen Vertrag von `contact.php`. Maßgeblich sind `contact.php`,
 `contact-config.php` und der Bereich `contact.form` in `data/data.json`.
@@ -13,7 +13,10 @@ Formular-Konfiguration aus `data/data.json`, hält den Mail-Empfänger aber getr
 ## Eingangsvertrag
 
 Die Datei verarbeitet Formulardaten auf Basis der Felddefinitionen aus `contact.form.fields`. Zusätzlich verwendet
-sie einen Honeypot-Namen aus `contactHoneypotName()`, der aktuell den Wert `honeypot` zurückgibt.
+sie einen Honeypot-Namen aus `contactHoneypotName()`, der aktuell den Wert `honeypot` zurückgibt. Das öffentliche
+Frontend rendert das Honeypot-Feld zwar weiterhin im DOM, sendet den Wert im aktuellen Stand aber erst in
+`assets/js/app/app.contact-form.js` gezielt per `FormData.append('honeypot', ...)`, damit Browser-Autofill und
+Passwortmanager das Feld seltener automatisch befüllen.
 
 Die serverseitige Validierung verwendet aus der JSON-Konfiguration unter anderem:
 
@@ -39,6 +42,9 @@ Die Werte werden dabei unterschiedlich vorbehandelt:
 - `singleLine()` reduziert Felder wie Name, E-Mail, Betreff und Interesse auf eine Zeile
 - `message` bleibt mehrzeilig erhalten
 - `textLength()` prüft Längen UTF-8-sicher über `mb_strlen()`, falls verfügbar
+
+Im gerenderten HTML trägt das Honeypot-Feld bewusst keinen `name`- und keinen `id`-Wert. Stattdessen verwendet das
+Frontend nur `data-honeypot-field`, `autocomplete="new-password"` und einen manuellen Append beim Senden.
 
 ## Request-Regeln
 
@@ -128,5 +134,6 @@ Das öffentliche Frontend in `assets/js/app/app.contact-form.js` verarbeitet die
 
 - `data/data.json`
 - `contact-config.php`
+- `assets/js/app/app.render.education-contact.js`
 - `assets/js/app/app.contact-form.js`
 - `admin/admin-save.php`

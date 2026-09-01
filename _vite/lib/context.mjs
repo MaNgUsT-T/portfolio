@@ -20,7 +20,7 @@ export const jsBundles = [
     globalName: "PortfolioAdminBundle"
   },
   {
-    entry: resolve(repoRoot, "assets/js/siteelements.js"),
+    entry: resolve(repoRoot, "_siteelements/js/siteelements.js"),
     fileName: "siteelements.min.js",
     globalName: "PortfolioSiteElementsBundle"
   }

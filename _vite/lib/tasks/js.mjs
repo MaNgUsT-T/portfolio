@@ -38,13 +38,14 @@ export function taskDevJs() {
   run(npmCmd, [
     "--prefix",
     "_vite",
-    "exec",
-    "--",
-    "chokidar",
-    "assets/js/**/*.js",
-    "-c",
-    `${process.execPath} _vite/vite.mjs prod:js`,
-    "-d",
+        "exec",
+        "--",
+        "chokidar",
+        "assets/js/**/*.js",
+        "_siteelements/js/**/*.js",
+        "-c",
+        `${process.execPath} _vite/vite.mjs prod:js`,
+        "-d",
     "200"
   ]);
 }

@@ -15,6 +15,10 @@
 
         &.splide__arrow--prev {
             inset-inline-start: v.$splide-arrow-position;
+            
+            svg {
+                transform: none;
+            }
         }
 
         &.splide__arrow--next {

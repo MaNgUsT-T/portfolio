@@ -39,7 +39,7 @@ export function renderEducation(viewModel) {
                         '</ul>',
                     '</div>',
                     '<div class="splide__arrows">',
-                        '<button class="splide__arrow splide__arrow--prev">' + icon('arrow-right') + '</button>',
+                        '<button class="splide__arrow splide__arrow--prev">' + icon('arrow-left') + '</button>',
                         '<button class="splide__arrow splide__arrow--next">' + icon('arrow-right') + '</button>',
                     '</div>',
                 '</div>',

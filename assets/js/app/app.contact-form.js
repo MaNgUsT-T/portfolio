@@ -9,6 +9,7 @@ export function contactFormInitialize() {
 
     const submitButton = document.querySelector('[data-contact-submit]');
     const statusElement = document.querySelector('[data-form-status]');
+    const honeypotField = form.querySelector('[data-honeypot-field]');
     const defaultSubmitHtml = submitButton ? submitButton.innerHTML : '';
 
     function setStatus(message, type) {
@@ -89,9 +90,15 @@ export function contactFormInitialize() {
         setStatus('', '');
         setSubmitting(true);
 
+        const formData = new FormData(form);
+
+        if (honeypotField instanceof HTMLInputElement) {
+            formData.append('honeypot', honeypotField.value);
+        }
+
         fetch(form.action, {
             method: 'POST',
-            body: new FormData(form),
+            body: formData,
             headers: {
                 Accept: 'application/json'
             }

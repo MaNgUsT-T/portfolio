@@ -88,9 +88,9 @@ in nachvollziehbaren Review-Berichten.
 (Datei: <HOME_DIR>/.agents/skills/code-reviewer/SKILL.md)
 
 ##### Aufgaben
-Prüft Änderungen im Repo-Root (`index.html`, `contact.php`, `config.php`, `contact-config.php`), in `assets/`, `css/`,
-`js/`, `admin/`, `data/`, `vendor/` und `_docker/` auf technische Risiken. Validiert bei Doku-Änderungen, dass
-referenzierte Befehle und Pfade mit dem tatsächlichen Repository-Stand übereinstimmen.
+Prüft Änderungen im Repo-Root (`index.php`, `index.html`, `config.php`), in `css/`, `js/`,
+`vendor/` und `_docker/` auf technische Risiken. Validiert bei Doku-Änderungen, dass referenzierte Befehle und Pfade
+mit dem tatsächlichen Repository-Stand übereinstimmen.
 
 ##### Checkliste (typisch)
 - [ ] Funktionsänderungen auf Regressionsrisiken und Seiteneffekte prüfen.
@@ -170,12 +170,11 @@ Integrationen.
 (Datei: <HOME_DIR>/.agents/skills/php-pro/SKILL.md)
 
 ##### Aufgaben
-Code-Änderungen auf `contact.php`, `contact-mailto.php`, `config.php`, `contact-config.php`, `admin/*.php`,
-`index.html`, `assets/`, `css/` und `js/` fokussieren. Kompatibilität zur lokalen Containerkonfiguration
-(`PHP_VERSION` in `_docker/.env`) sicherstellen.
+Code-Änderungen auf `index.php`, `index.html`, `css/` und `js/` fokussieren. Kompatibilität
+zur lokalen Containerkonfiguration (`PHP_VERSION` in `_docker/.env`) sicherstellen.
 
 ##### Checkliste (typisch)
-- [ ] PHP-Syntax prüfen: `php -l contact.php` und gegebenenfalls weitere geänderte PHP-Dateien.
+- [ ] PHP-Syntax prüfen: `php -l index.php` (gegebenenfalls weitere geänderte PHP-Dateien).
 - [ ] Lokale Laufzeit prüfen: `make -C _docker up` und `make -C _docker logs`.
 
 ##### Grenzen

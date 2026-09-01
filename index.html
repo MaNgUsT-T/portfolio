@@ -68,7 +68,1179 @@
     <link rel="stylesheet" type="text/css" href="./css/styles.min.css">
 </head>
 <body>
-    <div id="app" data-site-root></div>
+	<header class="header">
+		<div class="container header__wrapper">
+			<div class="logo">
+				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+					<path d="M12 22a1 1 0 0 1 0-20 10 9 0 0 1 10 9 5 5 0 0 1-5 5h-2.25a1.75 1.75 0 0 0-1.4 2.8l.3.4a1.75 1.75 0 0 1-1.4 2.8z"></path>
+					<circle cx="13.5" cy="6.5" r=".5" fill="currentColor"></circle>
+					<circle cx="17.5" cy="10.5" r=".5" fill="currentColor"></circle>
+					<circle cx="6.5" cy="12.5" r=".5" fill="currentColor"></circle>
+					<circle cx="8.5" cy="7.5" r=".5" fill="currentColor"></circle>
+				</svg>
+				<span>lisa.weber</span>
+			</div>
+			<div
+				id="header-navigation"
+				aria-hidden="true"
+				class="header__nav-wrapper"
+			>
+				<nav
+					role="navigation"
+					aria-label="Navigation"
+					class="main-nav"
+				>
+					<ul>
+						<li><a href="#about">Über mich</a></li>
+						<li><a href="#skills">Fähigkeiten</a></li>
+						<li><a href="#experience">Erfarung</a></li>
+						<li><a href="#projects">Projekte</a></li>
+						<li><a href="#contact" title="Kontakt">Kontakt</a></li>
+					</ul>
+				</nav>
+				<nav class="option-nav">
+					<ul>
+						<li>
+							<a href="#" title="dark">
+								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+									<path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+								</svg>
+							</a>
+						</li>
+						<li><a href="#experience" class="btn btn--primary">Lebenslauf</a></li>
+					</ul>
+				</nav>
+			</div>
+			<div
+				role="button"
+				aria-expanded="false"
+				aria-controls="header-navigation"
+				aria-label="Navigation öffnen"
+				tabindex="0"
+				class="mobile-nav-toggle"
+				data-mobile-nav-toggle
+			>
+				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+					<path d="M4 5h16"/>
+					<path d="M4 12h16"/>
+					<path d="M4 19h16"/>
+				</svg>
+			</div>
+		</div>
+	</header>
+	<main>
+		<section id="hero" class="hero">
+			<div class="container hero__wrapper">
+				<div class="hero__col">
+					<p class="availability">Verfügbar für Freelance-Projekte</p>
+					<h1>Digitale <i>Erlebnisse</i> gestalten.</h1>
+					<p>
+						Hallo, ich bin <b>Lisa Weber</b>. Eine Webdesignerin & UI/UX Experterin, die sich  darauf spezialisiert
+						hat, ästhetische, nutzerzentrierte und zugängliche Interfaces zu kreieren.
+					</p>
+					<div class="hero__buttons">
+						<a href="#projects" class="btn btn--primary btn--large">
+							Portfolio ansehen
+							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+								<path d="M5 12h14"></path>
+								<path d="m12 5 7 7-7 7"></path>
+							</svg>
+						</a>
+						<a href="#contact" class="btn btn--secondary btn--large">Kontakt</a>
+					</div>
+					<div class="social-icons">
+						<a href="#" title="Dribbble">
+							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+								<circle cx="12" cy="12" r="10"></circle>
+								<path d="M19.13 5.09C15.22 9.14 10 10.44 2.25 10.94"></path>
+								<path d="M21.75 12.84c-6.62-1.41-12.14 1-16.38 6.32"></path>
+								<path d="M8.56 2.75c4.37 6 6 9.42 8 17.72"></path>
+							</svg>
+						</a>
+						<a href="#" title="LinkedIn">
+							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+								<path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+								<rect width="4" height="12" x="2" y="9"></rect>
+								<circle cx="4" cy="4" r="2"></circle>
+							</svg>
+						</a>
+						<a href="#" title="Instagram">
+							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+								<rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect>
+								<path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+								<line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line>
+							</svg>
+						</a>
+					</div>
+				</div>
+				<div class="hero__col">
+					<div>
+						<div class="hero-element"></div>
+						<div class="hero-element">
+							<div></div>
+							<div></div>
+							<div></div>
+							<div>
+								<span></span><span></span>
+							</div>
+						</div>
+						<div class="hero-element">
+							<div>
+								<div></div>
+								<div>
+									<div></div>
+									<div></div>
+								</div>
+							</div>
+							<div></div>
+							<div></div>
+							<div></div>
+						</div>
+						<div class="hero-element"></div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<section id="about" class="about">
+			<div class="container">
+				<p class="preheader">Philosophe & Ansatzt</p>
+				<h2>Über mich</h2>
+				<div class="about__wrapper">
+					<div class="about__col">
+						<p>
+							Schon währendmeines Design-Studiums war ich fasziniert von der Schnitstelle zwischen visueller
+							Geestaltung und Technologie. Heute mit über 6 Jahren Erfahrung in der Branche, helfe ich
+							Marken dabei, ihre digitale identität zu finden und in nutzerfreundliche Produkte zu übersetzen.
+						</p>
+						<p>
+							Mein Ansatz kombiniert strategisches Denken mit Liebe zum Detail. Ich glaube fest daran, dass
+							herausragendes Webdesign nicht nur gut aussehen der Zielgruppe zugeschnitten sein sollte.
+						</p>
+						<p>
+							Wenn ich nicht gerade Pixel in Figma schubse oder Frontend-Code optimiere, findet man mich meistens mit
+							einer analogen Kamera in der Natur oder beim Ausprobieren neuer Kaffeeröstereien in der Stadt.
+						</p>
+						<picture>
+							<source
+								media="(min-width: 48rem)"
+								srcset="./img/d_computer.jpg"
+								width="1024px"
+								height="683px"
+							>
+							<source
+								media="(min-width: 35.5rem)"
+								srcset="./img/t_computer.jpg"
+								width="768px"
+								height="683px"
+							>
+							<img
+								src="./img/m_computer.jpg"
+								width="568px"
+								height="683px"
+								alt="Computer"
+								loading="lazy"
+								class="img-fluid"
+							>
+						</picture>
+					</div>
+					<div class="about__col">
+						<div class="card card--about-item">
+							<div class="card__header">
+								<div class="card__icon">
+									<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+										<path d="M15.707 21.293a1 1 0 0 1-1.414 0l-1.586-1.586a1 1 0 0 1 0-1.414l5.586-5.586a1 1 0 0 1 1.414 0l1.586 1.586a1 1 0 0 1 0 1.414z"></path>
+										<path d="m18 13-1.375-6.874a1 1 0 0 0-.746-.776L3.235 2.028a1 1 0 0 0-1.207 1.207L5.35 15.879a1 1 0 0 0 .776.746L13 18"></path>
+										<path d="m2.3 2.3 7.286 7.286"></path>
+										<circle cx="11" cy="11" r="2"></circle>
+									</svg>
+								</div>
+							</div>
+							<div class="card__body">
+								<div class="card__body-wrapper">
+									<h3>Ästhetik trifft Funktion</h3>
+									<p>
+										Gutes Design ist unsichtbar. Ich gestalte interfaces, die nicht nur visuell ansprechend sind,
+										sondern den Nutzer intuitiv an sein Ziel führen.
+									</p>
+								</div>
+							</div>
+						</div>
+						<div class="card card--about-item">
+							<div class="card__header">
+								<div class="card__icon">
+									<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+										<rect width="18" height="18" x="3" y="3" rx="2"></rect>
+										<path d="M3 9h18"></path>
+										<path d="M9 21V9"></path>
+									</svg>
+								</div>
+							</div>
+							<div class="card__body">
+								<div class="card__body-wrapper">
+									<h3>Struktur & Systeme</h3>
+									<p>
+										Ich liebe es. konsistente Design-Systeme aufzubauen. Skalierbare Komponenten und klare
+										Typografie-Hierarchien sind das Fundament meiner Arbeit.
+									</p>
+								</div>
+							</div>
+						</div>
+						<div class="card card--about-item">
+							<div class="card__header">
+								<div class="card__icon">
+									<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+										<rect width="14" height="20" x="5" y="2" rx="2" ry="2"></rect>
+										<path d="M12 18h.01"></path>
+									</svg>
+								</div>
+							</div>
+							<div class="card__body">
+								<div class="card__body-wrapper">
+									<h3>Nutzerzentriert</h3>
+									<p>
+										Der Nutzer steht immer im Mittelpunkt. Durch Research, Wireframing und Prototyping stelle ich
+										sicher, dass echte Probleme gelöst werden.
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<section id="skills" class="skills">
+			<div class="container">
+				<p class="preheader">Expertise & Skills</p>
+				<h2>Meine Werkzeuge</h2>
+				<div class="skills__wrapper">
+					<div class="card card--skill-item">
+						<div class="card__header">
+							<div class="card__icon">
+								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+									<path d="M5 5.5A3.5 3.5 0 0 1 8.5 2H12v7H8.5A3.5 3.5 0 0 1 5 5.5z"></path>
+									<path d="M12 2h3.5a3.5 3.5 0 1 1 0 7H12V2z"></path>
+									<path d="M12 12.5a3.5 3.5 0 1 1 7 0 3.5 3.5 0 1 1-7 0z"></path>
+									<path d="M5 19.5A3.5 3.5 0 0 1 8.5 16H12v3.5a3.5 3.5 0 1 1-7 0z"></path>
+									<path d="M5 12.5A3.5 3.5 0 0 1 8.5 9H12v7H8.5A3.5 3.5 0 0 1 5 12.5z"></path>
+								</svg>
+							</div>
+							<h3>Design Tools</h3>
+						</div>
+						<div class="card__footer">
+							<p class="pill">Figma</p>
+							<p class="pill">Sketch</p>
+							<p class="pill">Adobe XD</p>
+							<p class="pill">Photoshop</p>
+							<p class="pill">Illustrator</p>
+							<p class="pill">Framer</p>
+						</div>
+					</div>
+					<div class="card card--skill-item">
+						<div class="card__header">
+							<div class="card__icon">
+								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+									<path d="m18 16 4-4-4-4"></path>
+									<path d="m6 8-4 4 4 4"></path>
+									<path d="m14.5 4-5 16"></path>
+								</svg>
+							</div>
+							<h3>Frontend Entwicklung</h3>
+						</div>
+						<div class="card__footer">
+							<p class="pill">HTML 5</p>
+							<p class="pill">CSS3/SASS</p>
+							<p class="pill">Tailwind CSS</p>
+							<p class="pill">JavaScript</p>
+							<p class="pill">React</p>
+							<p class="pill">Webflow</p>
+						</div>
+					</div>
+					<div class="card card--skill-item">
+						<div class="card__header">
+							<div class="card__icon">
+								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+									<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+									<path d="M16 3.128a4 4 0 0 1 0 7.744"></path>
+									<path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
+									<circle cx="9" cy="7" r="4"></circle>
+								</svg>
+							</div>
+							<h3>UX Methoden</h3>
+						</div>
+						<div class="card__footer">
+							<p class="pill">User Research</p>
+							<p class="pill">Wireframing</p>
+							<p class="pill">Prototyping</p>
+							<p class="pill">Usability Testing</p>
+							<p class="pill">Personas</p>
+						</div>
+					</div>
+					<div class="card card--skill-item">
+						<div class="card__header">
+							<div class="card__icon">
+								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+									<path d="M12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83z"></path>
+									<path d="M2 12a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 12"></path>
+									<path d="M2 17a1 1 0 0 0 .58.91l8.6 3.91a2 2 0 0 0 1.65 0l8.58-3.9A1 1 0 0 0 22 17"></path>
+								</svg>
+							</div>
+							<h3>Design Systeme</h3>
+						</div>
+						<div class="card__footer">
+							<p class="pill">Component Libraries</p>
+							<p class="pill">Design Tokens</p>
+							<p class="pill">Styleguides</p>
+							<p class="pill">Dokumentation</p>
+						</div>
+					</div>
+					<div class="card card--skill-item">
+						<div class="card__header">
+							<div class="card__icon">
+								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+									<path d="M12 22a1 1 0 0 1 0-20 10 9 0 0 1 10 9 5 5 0 0 1-5 5h-2.25a1.75 1.75 0 0 0-1.4 2.8l.3.4a1.75 1.75 0 0 1-1.4 2.8z"></path>
+									<circle cx="13.5" cy="6.5" r=".5" fill="currentColor"></circle>
+									<circle cx="17.5" cy="10.5" r=".5" fill="currentColor"></circle>
+									<circle cx="6.5" cy="12.5" r=".5" fill="currentColor"></circle>
+									<circle cx="8.5" cy="7.5" r=".5" fill="currentColor"></circle>
+								</svg>
+							</div>
+							<h3>Visuelles Design</h3>
+						</div>
+						<div class="card__footer">
+							<p class="pill">Typografie</p>
+							<p class="pill">Farbtheorie</p>
+							<p class="pill">Layout & Grid</p>
+							<p class="pill">Ikonografie</p>
+							<p class="pill">Branding</p>
+						</div>
+					</div>
+					<div class="card card--skill-item">
+						<div class="card__header">
+							<div class="card__icon">
+								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+									<path d="M10 7.75a.75.75 0 0 1 1.142-.638l3.664 2.249a.75.75 0 0 1 0 1.278l-3.664 2.25a.75.75 0 0 1-1.142-.64z"></path>
+									<path d="M12 17v4"></path><path d="M8 21h8"></path>
+									<rect x="2" y="3" width="20" height="14" rx="2"></rect>
+								</svg>
+							</div>
+							<h3>Motion & Interaktion</h3>
+						</div>
+						<div class="card__footer">
+							<p class="pill">Micro-Interactions</p>
+							<p class="pill">After Effects</p>
+							<p class="pill">Lottie</p>
+							<p class="pill">CSS Animations</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<section id="experience" class="experience">
+			<div class="container">
+				<p class="preheader">Mein Werdegang</p>
+				<h2>Berufserfahrung</h2>
+				<div class="experience__wrapper">
+					<div class="experience-item">
+						<div class="experience-item__timepoint"></div>
+						<div class="experience-item__date">
+							<p>2021 - Heute</p>
+						</div>
+						<div class="experience-item__body card card--experience-item">
+							<div class="card__body">
+								<div class="card__body-wrapper">
+									<p>2021 - Heute</p>
+									<h3>Creative Director Digital</h3>
+									<p class="workplace-point">
+										<b>Studio Nord</b>
+										<span>
+											<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+												<path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"></path>
+												<circle cx="12" cy="10" r="3"></circle>
+											</svg>
+											Hamburg
+										</span>
+									</p>
+									<ul>
+										<li>Leitung eines 5-köpfigen Design-Teams für digitale Produkte und Markenauftritte.</li>
+										<li>Entwicklung und Implementierung von umfassenden Design-Systemen für Enterprise-Kunden.</li>
+										<li>Steigerung der Conversion-Rate bei E-Commerce-Projekten um durchschnittlich 25% durchUX-Optimierungen.</li>
+										<li>Einführung agiler Design-Prozesse und enge Zusammenarbeit mit dem Entwickler-Team.</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="experience-item">
+						<div class="experience-item__timepoint"></div>
+						<div class="experience-item__date">
+							<p>2018 - 2021</p>
+						</div>
+						<div class="experience-item__card card card--experience-item">
+							<div class="card__body">
+								<div class="card__body-wrapper">
+									<p>2018 - 2021</p>
+									<h3>Senior UI/UX Designerin</h3>
+									<p class="workplace-point">
+										<b>TechFlow Agency</b>
+										<span>
+											<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+												<path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"></path>
+												<circle cx="12" cy="10" r="3"></circle>
+											</svg>
+											Berlin
+										</span>
+									</p>
+									<ul>
+										<li>Verantwortlich für das Redesign von 3 großen SaaS-Plattformen im B2B-Bereich.</li>
+										<li>Durchführung von Nutzerinterviews und Usability-Tests zur Validierung von Prototypen.</li>
+										<li>Erstellung von interaktiven High-Fidelity-Prototypen in Figma und Framer.</li>
+										<li>Mentoring von Junior-Designern und Organisation von internen Design-Workshops.</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="experience-item">
+						<div class="experience-item__timepoint"></div>
+						<div class="experience-item__date">
+							<p>2016 - 2018</p>
+						</div>
+						<div class="experience-item__card card card--experience-item">
+							<div class="card__body">
+								<div class="card__body-wrapper">
+									<p>2016 - 2018</p>
+									<h3>Junior Webdesignerin</h3>
+									<p class="workplace-point">
+										<b>Pixel & Code</b>
+										<span>
+											<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+												<path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"></path>
+												<circle cx="12" cy="10" r="3"></circle>
+											</svg>
+											München
+										</span>
+									</p>
+									<ul>
+										<li>Gestaltung von responsiven Corporate Websites und Landingpages.</li>
+										<li>Umsetzung von Screendesigns in HTML, CSS und grundlegendem JavaScript.</li>
+										<li>Erstellung von Social-Media-Grafiken und digitalen Kampagnen-Assets.</li>
+										<li>Unterstützung bei der Entwicklung von Markenidentitäten und Styleguides.</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<section id="projects" class="projects">
+			<div class="container">
+				<p class="preheader">Portfolio</p>
+				<h2>Ausgewählte Arbeiten</h2>
+				<div class="projects__wrapper">
+					<article class="card card--project-item">
+						<figure>
+							<picture>
+								<source
+									media="(min-width: 48rem)"
+									srcset="./img/d_computer.jpg"
+									width="1024px"
+									height="683px"
+								>
+								<source
+									media="(min-width: 35.5rem)"
+									srcset="./img/t_computer.jpg"
+									width="768px"
+									height="683px"
+								>
+								<img
+									src="./img/m_computer.jpg"
+									width="568px"
+									height="683px"
+									alt="Computer"
+									loading="lazy"
+									class="img-fluid"
+								>
+							</picture>
+							<figcaption class="pill">Webdesign & UX</figcaption>
+						</figure>
+						<div class="card__body">
+							<div class="card__body-wrapper">
+								<a href="#">
+									<h3>
+										Lumina E-Commerce
+										<span>
+											<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+												<path d="M15 3h6v6"></path>
+												<path d="M10 14 21 3"></path>
+												<path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+											</svg>
+										</span>
+									</h3>
+								</a>
+								<p>Komplettes Redesign eines Premium-Möbelshops. Fokus auf emotionale bildsprache, vereinfachten
+								Checkout-Prozess und Mobile-First-Ansatz.
+								</p>
+								<p class="highlight">
+									<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+										<path d="M5 12h14"></path>
+										<path d="m12 5 7 7-7 7"></path>
+									</svg>
+									+35% Mobile Conversion Rate
+								</p>
+							</div>
+						</div>
+						<div class="card__footer">
+							<p class="pill">Figma</p>
+							<p class="pill">Prototyping</p>
+							<p class="pill">Schopify</p>
+						</div>
+					</article>
+					<article class="card card--project-item">
+						<figure>
+							<picture>
+								<source
+									media="(min-width: 48rem)"
+									srcset="./img/d_dashboard.jpg"
+									width="1024px"
+									height="683px"
+								>
+								<source
+									media="(min-width: 35.5rem)"
+									srcset="./img/t_dashboard.jpg"
+									width="768px"
+									height="683px"
+								>
+								<img
+									src="./img/m_dashboard.jpg"
+									width="568px"
+									height="683px"
+									alt="Computer"
+									loading="lazy"
+									class="img-fluid"
+								>
+							</picture>
+							<figcaption class="pill">UI/UX Design</figcaption>
+						</figure>
+						<div class="card__body">
+							<div class="card__body-wrapper">
+								<a href="#">
+									<h3>
+										Fin Track SaaS Dashboard
+										<span>
+											<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+												<path d="M15 3h6v6"></path>
+												<path d="M10 14 21 3"></path>
+												<path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+											</svg>
+										</span>
+									</h3>
+								</a>
+								<p>
+									Gestaltung einer komplexen Finanz-Applikation für B2B-Kunden. Entwicklung eines modularen
+									Design-Systems zur Darstellung von Daten und Metriken.
+								</p>
+								<p class="highlight">
+									<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+										<path d="M5 12h14"></path>
+										<path d="m12 5 7 7-7 7"></path>
+									</svg>
+									Reduzierung der Onboarding-Zeit um 50%
+								</p>
+							</div>
+						</div>
+						<div class="card__footer">
+							<p class="pill">Design System</p>
+							<p class="pill">User Research</p>
+							<p class="pill">React</p>
+						</div>
+					</article>
+					<article class="card card--project-item">
+						<figure>
+							<picture>
+								<source
+									media="(min-width: 48rem)"
+									srcset="./img/d_beauty.jpg"
+									width="1024px"
+									height="683px"
+								>
+								<source
+									media="(min-width: 35.5rem)"
+									srcset="./img/t_beauty.jpg"
+									width="768px"
+									height="683px"
+								>
+								<img
+									src="./img/m_beauty.jpg"
+									width="568px"
+									height="683px"
+									alt="Computer"
+									loading="lazy"
+									class="img-fluid"
+								>
+							</picture>
+							<figcaption class="pill">Branding & Webdesign</figcaption>
+						</figure>
+						<div class="card__body">
+							<div class="card__body-wrapper">
+								<a href="#">
+									<h3>
+										Naturale Brand Identity
+										<span>
+											<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+												<path d="M15 3h6v6"></path>
+												<path d="M10 14 21 3"></path>
+												<path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+											</svg>
+										</span>
+									</h3>
+								</a>
+								<p>
+									Entwicklung der visuellen Identität und Gestaltung der Corpotate Website für ein nachhaltiges
+									Kosmetik-Startup. Inklusive Art Direction für Produktfotos.
+								</p>
+								<p class="highlight">
+									<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+										<path d="M5 12h14"></path>
+										<path d="m12 5 7 7-7 7"></path>
+									</svg>
+									Erfolgreicher Launch mit 10k+ Besuchen
+								</p>
+							</div>
+						</div>
+						<div class="card__footer">
+							<p class="pill">Branding</p>
+							<p class="pill">Webflow</p>
+							<p class="pill">Art Direction</p>
+						</div>
+					</article>
+					<article class="card card--project-item">
+						<figure>
+							<picture>
+								<source
+									media="(min-width: 48rem)"
+									srcset="./img/d_app.jpg"
+									width="1024px"
+									height="683px"
+								>
+								<source
+									media="(min-width: 35.5rem)"
+									srcset="./img/t_app.jpg"
+									width="768px"
+									height="683px"
+								>
+								<img
+									src="./img/m_app.jpg"
+									width="568px"
+									height="683px"
+									alt="Computer"
+									loading="lazy"
+									class="img-fluid"
+								>
+							</picture>
+							<figcaption class="pill">Mobile App Design</figcaption>
+						</figure>
+						<div class="card__body">
+							<div class="card__body-wrapper">
+								<a href="#">
+									<h3>
+										Move Fitness App
+										<span>
+											<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+												<path d="M15 3h6v6"></path>
+												<path d="M10 14 21 3"></path>
+												<path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+											</svg>
+										</span>
+									</h3>
+								</a>
+								<p>
+									Konzeption und UI-Design einer IOS-app<!-- für personalisierte Workouts. Fokus auf Gamification,
+									klare Fotschrittsanzeigen und Dark Mode-->.
+								</p>
+								<p class="highlight">
+									<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+										<path d="M5 12h14"></path>
+										<path d="m12 5 7 7-7 7"></path>
+									</svg>
+									4.8 Sterne im App Store
+								</p>
+							</div>
+						</div>
+						<div class="card__footer">
+							<p class="pill">iOS Design</p>
+							<p class="pill">Micro-Interactions</p>
+							<p class="pill">Figma</p>
+						</div>
+					</article>
+				</div>
+			</div>
+		</section>
+		<section class="education">
+			<div class="container">
+				<p class="preheader">Zertifikate & Kurse</p>
+				<h2>Weiterbildung</h2>
+
+				<!--
+				<div class="education__wrapper">
+					<div class="card card&#45;&#45;education-item">
+						<div class="card__header">
+							<div class="card__icon">
+								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+									<path d="m15.477 12.89 1.515 8.526a.5.5 0 0 1-.81.47l-3.58-2.687a1 1 0 0 0-1.197 0l-3.586 2.686a.5.5 0 0 1-.81-.469l1.514-8.526"></path>
+									<circle cx="12" cy="8" r="6"></circle>
+								</svg>
+							</div>
+						</div>
+						<div class="card__body">
+							<div class="card__body-wrapper">
+								<h3>Google UX Design Professional Certificate</h3>
+								<p>Google via Coursera</p>
+							</div>
+						</div>
+						<div class="card__footer">
+							<p>2022</p>
+							<p class="highlight">
+								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+									<circle cx="12" cy="12" r="10"></circle>
+									<path d="m9 12 2 2 4-4"></path>
+								</svg>
+								Verifiziert
+							</p>
+						</div>
+					</div>
+					<div class="card card&#45;&#45;education-item">
+						<div class="card__header">
+							<div class="card__icon">
+								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+									<path d="m15.477 12.89 1.515 8.526a.5.5 0 0 1-.81.47l-3.58-2.687a1 1 0 0 0-1.197 0l-3.586 2.686a.5.5 0 0 1-.81-.469l1.514-8.526"></path>
+									<circle cx="12" cy="8" r="6"></circle>
+								</svg>
+							</div>
+						</div>
+						<div class="card__body">
+							<div class="card__body-wrapper">
+								<h3>UI Design Patterns for Successful Software</h3>
+								<p>Interaction Design Foundation</p>
+							</div>
+						</div>
+						<div class="card__footer">
+							<p>2021</p>
+							<p class="highlight">
+								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+									<circle cx="12" cy="12" r="10"></circle>
+									<path d="m9 12 2 2 4-4"></path>
+								</svg>
+								Verifiziert
+							</p>
+						</div>
+					</div>
+					<div class="card card&#45;&#45;education-item">
+						<div class="card__header">
+							<div class="card__icon">
+								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+									<path d="m15.477 12.89 1.515 8.526a.5.5 0 0 1-.81.47l-3.58-2.687a1 1 0 0 0-1.197 0l-3.586 2.686a.5.5 0 0 1-.81-.469l1.514-8.526"></path>
+									<circle cx="12" cy="8" r="6"></circle>
+								</svg>
+							</div>
+						</div>
+						<div class="card__body">
+							<div class="card__body-wrapper">
+								<h3>Adobe Certified Professional in Visual Design</h3>
+								<p>Adobe</p>
+							</div>
+						</div>
+						<div class="card__footer">
+							<p>2020</p>
+							<p class="highlight">
+								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+									<circle cx="12" cy="12" r="10"></circle>
+									<path d="m9 12 2 2 4-4"></path>
+								</svg>
+								Verifiziert
+							</p>
+						</div>
+					</div>
+					<div class="card card&#45;&#45;education-item">
+						<div class="card__header">
+							<div class="card__icon">
+								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+									<path d="m15.477 12.89 1.515 8.526a.5.5 0 0 1-.81.47l-3.58-2.687a1 1 0 0 0-1.197 0l-3.586 2.686a.5.5 0 0 1-.81-.469l1.514-8.526"></path>
+									<circle cx="12" cy="8" r="6"></circle>
+								</svg>
+							</div>
+						</div>
+						<div class="card__body">
+							<div class="card__body-wrapper">
+								<h3>Web Accessibility (WCAG 2.1)</h3>
+								<p>W3C</p>
+							</div>
+						</div>
+						<div class="card__footer">
+							<p>2023</p>
+							<p class="highlight">
+								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+									<circle cx="12" cy="12" r="10"></circle>
+									<path d="m9 12 2 2 4-4"></path>
+								</svg>
+								Verifiziert
+							</p>
+						</div>
+					</div>
+				</div>
+				<hr>
+				-->
+
+				<div id="education-carousel" role="group" aria-label="Weiterbildung Slider" class="splide splide--education">
+					<div class="splide__track">
+						<ul class="splide__list">
+							<div class="splide__slide">
+								<div class="card card--education-item">
+									<div class="card__header">
+										<div class="card__icon">
+											<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+												<path d="m15.477 12.89 1.515 8.526a.5.5 0 0 1-.81.47l-3.58-2.687a1 1 0 0 0-1.197 0l-3.586 2.686a.5.5 0 0 1-.81-.469l1.514-8.526"></path>
+												<circle cx="12" cy="8" r="6"></circle>
+											</svg>
+										</div>
+									</div>
+									<div class="card__body">
+										<div class="card__body-wrapper">
+											<h3>Google UX Design Professional Certificate</h3>
+											<p>Google via Coursera</p>
+										</div>
+									</div>
+									<div class="card__footer">
+										<p>2022</p>
+										<p class="highlight">
+											<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+												<circle cx="12" cy="12" r="10"></circle>
+												<path d="m9 12 2 2 4-4"></path>
+											</svg>
+											Verifiziert
+										</p>
+									</div>
+								</div>
+							</div>
+							<div class="splide__slide">
+								<div class="card card--education-item">
+									<div class="card__header">
+										<div class="card__icon">
+											<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+												<path d="m15.477 12.89 1.515 8.526a.5.5 0 0 1-.81.47l-3.58-2.687a1 1 0 0 0-1.197 0l-3.586 2.686a.5.5 0 0 1-.81-.469l1.514-8.526"></path>
+												<circle cx="12" cy="8" r="6"></circle>
+											</svg>
+										</div>
+									</div>
+									<div class="card__body">
+										<div class="card__body-wrapper">
+											<h3>UI Design Patterns for Successful Software</h3>
+											<p>Interaction Design Foundation</p>
+										</div>
+									</div>
+									<div class="card__footer">
+										<p>2021</p>
+										<p class="highlight">
+											<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+												<circle cx="12" cy="12" r="10"></circle>
+												<path d="m9 12 2 2 4-4"></path>
+											</svg>
+											Verifiziert
+										</p>
+									</div>
+								</div>
+							</div>
+							<div class="splide__slide">
+								<div class="card card--education-item">
+									<div class="card__header">
+										<div class="card__icon">
+											<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+												<path d="m15.477 12.89 1.515 8.526a.5.5 0 0 1-.81.47l-3.58-2.687a1 1 0 0 0-1.197 0l-3.586 2.686a.5.5 0 0 1-.81-.469l1.514-8.526"></path>
+												<circle cx="12" cy="8" r="6"></circle>
+											</svg>
+										</div>
+									</div>
+									<div class="card__body">
+										<div class="card__body-wrapper">
+											<h3>Adobe Certified Professional in Visual Design</h3>
+											<p>Adobe</p>
+										</div>
+									</div>
+									<div class="card__footer">
+										<p>2020</p>
+										<p class="highlight">
+											<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+												<circle cx="12" cy="12" r="10"></circle>
+												<path d="m9 12 2 2 4-4"></path>
+											</svg>
+											Verifiziert
+										</p>
+									</div>
+								</div>
+							</div>
+							<div class="splide__slide">
+								<div class="card card--education-item">
+									<div class="card__header">
+										<div class="card__icon">
+											<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+												<path d="m15.477 12.89 1.515 8.526a.5.5 0 0 1-.81.47l-3.58-2.687a1 1 0 0 0-1.197 0l-3.586 2.686a.5.5 0 0 1-.81-.469l1.514-8.526"></path>
+												<circle cx="12" cy="8" r="6"></circle>
+											</svg>
+										</div>
+									</div>
+									<div class="card__body">
+										<div class="card__body-wrapper">
+											<h3>Web Accessibility (WCAG 2.1)</h3>
+											<p>W3C</p>
+										</div>
+									</div>
+									<div class="card__footer">
+										<p>2023</p>
+										<p class="highlight">
+											<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+												<circle cx="12" cy="12" r="10"></circle>
+												<path d="m9 12 2 2 4-4"></path>
+											</svg>
+											Verifiziert
+										</p>
+									</div>
+								</div>
+							</div>
+						</ul>
+					</div>
+					<div class="splide__arrows">
+						<button class="splide__arrow splide__arrow--prev">
+							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+								<path d="M5 12h14"></path>
+								<path d="m12 5 7 7-7 7"></path>
+							</svg>
+						</button>
+						<button class="splide__arrow splide__arrow--next">
+							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+								<path d="M5 12h14"></path>
+								<path d="m12 5 7 7-7 7"></path>
+							</svg>
+						</button>
+					</div>
+				</div>
+			</div>
+		</section>
+		<section id="contact" class="contact">
+			<div class="container">
+				<p class="preheader">Kontakt aufnehmen</p>
+				<h2>Lass uns sprechen</h2>
+				<div class="contact__wrapper">
+					<div class="card card--contact-item">
+						<div class="card__header">
+							<div class="card__icon">
+								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+									<path d="M10 2v2"></path>
+									<path d="M14 2v2"></path>
+									<path d="M16 8a1 1 0 0 1 1 1v8a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V9a1 1 0 0 1 1-1h14a4 4 0 1 1 0 8h-1"></path>
+									<path d="M6 2v2"></path>
+								</svg>
+							</div>
+							<h3>Auf einen Kaffee?</h3>
+						</div>
+						<div class="card__body">
+							<div class="card__body-wrapper">
+								<p>
+									Ich bin immer auf der Suche nach spannenden Projekten und neuen Herausforderungen. Egal ob es um ein
+									Redesign, eine neue App oder einfach nur um einen kreativen Austausch geht - schreib mir gerne
+									eine Nachricht!
+								</p>
+								<a href="mailto:&#104&#97&#108&#108&#111&#64&#108&#105&#115&#97&#119&#101&#98&#101&#114&#46&#100&#101&#115&#105&#103&#110" title="">
+									<span>
+										<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+											<path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7"></path>
+											<rect x="2" y="4" width="20" height="16" rx="2"></rect>
+										</svg>
+									</span>
+									<b>&#104&#97&#108&#108&#111&#64&#108&#105&#115&#97&#119&#101&#98&#101&#114&#46&#100&#101&#115&#105&#103&#110</b>
+								</a>
+							</div>
+						</div>
+					</div>
+					<div class="card card--contact-item">
+						<div class="card__body">
+							<div class="card__body-wrapper">
+								<div class="contact-form__status" data-contact-status aria-live="polite"></div>
+								<form
+									method="post"
+									action="./contact.php"
+									id="contact-form"
+									class="contact-form"
+									novalidate
+								>
+									<div class="form-group form-group--website">
+										<label for="website">Website</label>
+										<input type="text"
+											id="website"
+											name="website"
+											tabindex="-1"
+											autocomplete="off"
+										/>
+									</div>
+									<div class="form-group">
+										<label for="salutation">Anrede</label>
+										<select id="salutation" name="salutation">
+											<button>
+												<selectedcontent></selectedcontent>
+											</button>
+											<option selected>Anrede</option>
+											<option value="Herr">Herr</option>
+											<option value="Frau">Frau</option>
+										</select>
+									</div>
+									<div class="form-row">
+										<div class="form-group">
+											<label for="firstname">Vorname <sup>*</sup></label>
+											<input type="text"
+												id="firstname"
+												name="firstname"
+												placeholder="Dein Vorname"
+											/>
+											<span data-contact-error="firstname"></span>
+										</div>
+										<div class="form-group">
+											<label for="lastname">Nachname <sup>*</sup></label>
+											<input type="text"
+												id="lastname"
+												name="lastname"
+												placeholder="Dein Nachname"
+											/>
+											<span data-contact-error="lastname"></span>
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="email">E-Mail <sup>*</sup></label>
+										<input type="email"
+											id="email"
+											name="email"
+											placeholder="hallo@beispiel.de"
+										/>
+										<span data-contact-error="email"></span>
+									</div>
+									<div class="form-group">
+										<label for="subject">Betreff <sup>*</sup></label>
+										<input type="text"
+											id="subject"
+											name="subject"
+											placeholder="Worum geht es?"
+										/>
+										<span data-contact-error="subject"></span>
+									</div>
+									<div class="form-group">
+										<div class="form-check">
+											<input type="radio"
+												id="ci"
+												name="radio-group"
+												value="ci"
+											>
+											<label for="ci">Corporate Design</label>
+										</div>
+										<div class="form-check">
+											<input type="radio"
+												id="radio-2"
+												name="radio-group"
+												value="print"
+											>
+											<label for="radio-2">Print</label>
+										</div>
+										<div class="form-check">
+											<input type="radio"
+												id="radio-3"
+												name="radio-group"
+												value="web"
+											>
+											<label for="radio-3">Web</label>
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="message">Nachricht <sup>*</sup></label>
+										<textarea id="message"
+											name="message"
+											placeholder="Erzähl mir von deinem Projekt.."
+											rows="5"
+										></textarea>
+										<span data-contact-error="message"></span>
+									</div>
+									<div class="form-group">
+										<div class="form-check">
+											<input type="checkbox"
+												id="gdproptin"
+												name="gdproptin"
+												value="1"
+											>
+											<label for="gdproptin">Ich bin damit einverstanden, dass meine Daten dauerhaft verwendet werden. Ein Widerruf meiner Einwilligung ist jederzeit mit Wirkung für die Zukunft möglich.</label>
+										</div>
+										<span data-contact-error="gdproptin"></span>
+									</div>
+								</form>
+							</div>
+						</div>
+						<div class="card__footer">
+							<button
+								type="submit"
+								form="contact-form"
+								class="btn btn--primary btn--large"
+								data-contact-submit
+							>
+								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+									<path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z"></path>
+									<path d="m21.854 2.147-10.94 10.939"></path>
+								</svg> Nachricht senden
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+	</main>
+	<footer class="footer">
+		<div class="container footer__wrapper">
+			<div class="logo">
+				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+					<path d="M12 22a1 1 0 0 1 0-20 10 9 0 0 1 10 9 5 5 0 0 1-5 5h-2.25a1.75 1.75 0 0 0-1.4 2.8l.3.4a1.75 1.75 0 0 1-1.4 2.8z"></path>
+					<circle cx="13.5" cy="6.5" r=".5" fill="currentColor"></circle>
+					<circle cx="17.5" cy="10.5" r=".5" fill="currentColor"></circle>
+					<circle cx="6.5" cy="12.5" r=".5" fill="currentColor"></circle>
+					<circle cx="8.5" cy="7.5" r=".5" fill="currentColor"></circle>
+				</svg>
+				<span>lisa.weber</span>
+			</div>
+			<p>Gestaltet & Entwickelt mit liebe zum Detail <span class="text-nowrap">&copy; 2026</span> Lisa Weber. Alle Rechte vorbehalten.</p>
+			<div class="social-icons">
+				<a href="#" title="Dribbble">
+					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+						<circle cx="12" cy="12" r="10"></circle>
+						<path d="M19.13 5.09C15.22 9.14 10 10.44 2.25 10.94"></path>
+						<path d="M21.75 12.84c-6.62-1.41-12.14 1-16.38 6.32"></path>
+						<path d="M8.56 2.75c4.37 6 6 9.42 8 17.72"></path>
+					</svg>
+				</a>
+				<a href="#" title="LinkedIn">
+					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+						<path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+						<rect width="4" height="12" x="2" y="9"></rect>
+						<circle cx="4" cy="4" r="2"></circle>
+					</svg>
+				</a>
+				<a href="#" title="Instagram">
+					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+						<rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect>
+						<path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+						<line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line>
+					</svg>
+				</a>
+			</div>
+		</div>
+	</footer>
+	<div
+		class="backdrop"
+		data-overlay
+	></div>
+	<script src="./vendor/jquery/jquery-3.7.1.min.js" crossorigin="anonymous"></script>
 	<script src="./vendor/splide/splide.min.js" crossorigin="anonymous"></script>
 	<script src="./js/app.min.js"></script>
 </body>

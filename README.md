@@ -20,11 +20,29 @@ für Kontaktanfragen definiert ist.
 
 ## Übersicht
 
-- Öffentliche Seite: `index.html` + `js/app.min.js`
-- Inhaltsquelle: `data/data.json`
-- Admin-Bereich: `admin/admin.php`
-- Kontakt-Endpunkt: `contact.php`
-- Lokale Laufzeit: `_docker/`
+
+## Dokumentationsstruktur
+
+- `_docker/README.md` - Detaildokumentation der lokalen Docker-Umgebung.
+- `AGENTS.md` - Rollen, Verantwortlichkeiten und Arbeitsweise für Agenten.
+- `CONTRIBUTING.md` - Beitragsregeln (Codestyle, QA, Commits, PRs).
+- `README.md` - Einstieg und Orientierung für den täglichen Projektkontext.
+
+Ziel: Die Dokumente ergänzen sich. Operative Details werden zentral in `_docker/README.md` gepflegt, um Dopplungen zu
+vermeiden.
+
+## Projektstruktur
+
+- `_docker/` - Lokale Docker-Umgebung (Compose, Makefile, WP-CLI, Traefik).
+- `css/` - Projekt CSS.
+- `fonts/` - Projekt Fonts.
+- `img/` - Projekt Bilder.
+- `js/` - Projekt Js.
+- `vendor/` - Drittanbieter Bibliotheken.
+- `index.html` - Einstiegspunkt.
+- `config.php` - Datenbank Konfiguration.
+- `contact.php` - Kontakt Formular.
+- `form-config.php` - Kontakt Formular Konfiguration
 
 ## Schnellstart (lokal)
 

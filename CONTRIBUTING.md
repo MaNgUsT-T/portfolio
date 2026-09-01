@@ -22,11 +22,9 @@ die führende Entwicklerdokumentation.
 - `js/` - ausgelieferte minifizierte JavaScript-Dateien.
 - `vendor/` - Drittanbieter Bibliotheken.
 - `index.html` - Einstiegspunkt.
-- `admin/` - Admin-Oberfläche für Inhalts- und JSON-Bearbeitung.
-- `contact.php` - JSON-Endpunkt für das Kontaktformular.
-- `contact-config.php` - Empfänger-Konfiguration für Kontaktanfragen.
-- `data/data.json` - Inhalts-, Meta- und Kontaktformular-Konfiguration.
-- `data/data.admin-template.json` - Strukturvorlage für die Admin-Oberfläche.
+- `config.php` - Datenbank Konfiguration.
+- `contact.php` - Kontakt Formular.
+- `form-config.php` - Kontakt Formular Konfiguration.
 
 ### Infrastruktur und Hilfsverzeichnisse
 Die lokale Entwicklungsumgebung liegt unter `_docker/` (Compose, Makefile, Buildfiles, Dockerfiles, Skripte).

@@ -1,5 +1,5 @@
 @use "../variables" as v;
-@use "../mixins/mixins" as m;
+@use "../mixins/respond-from" as respondFrom;
 
 .splide {
     
@@ -82,11 +82,11 @@
     }
 
     &.is-initialized:not(.is-active) .splide__list {
-        @include m.respond-from(tablet) {
+        @include respondFrom.respond-from(tablet) {
             grid-template-columns: repeat(2, 1fr);
         }
 
-        @include m.respond-from(desktop) {
+        @include respondFrom.respond-from(desktop) {
             grid-template-columns: repeat(4, 1fr);
         }
     }

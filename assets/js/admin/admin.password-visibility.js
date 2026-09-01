@@ -1,4 +1,4 @@
-import { icon } from '../shared/all.js';
+import { icon } from '../shared/icons.js';
 import { adminTranslate } from './admin.utils.js';
 
 export function initializePasswordVisibility() {

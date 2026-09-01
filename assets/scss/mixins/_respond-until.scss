@@ -1,0 +1,7 @@
+@use "../functions" as f;
+
+@mixin respond-until($breakpoint) {
+    @media (max-width: f.breakpoint($breakpoint)) {
+        @content;
+    }
+}

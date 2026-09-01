@@ -11,8 +11,8 @@ $blue: #005fcc !default;
 $black-rgb: 0, 0, 0;
 $white-rgb: 255, 255, 255;
 $red-rgb: 207, 26, 67;
-$yellow-rgb: 240, 192, 0;
 $green-rgb: 106, 160, 41;
+$yellow-rgb: 240, 192, 0;
 $blue-rgb: 0, 95, 204;
 
 $color-violet-50: #f5f3ff !default;
@@ -86,6 +86,16 @@ $color-zinc-700-rgb: 63, 63, 70 !default;
 $color-zinc-800-rgb: 39, 39, 42 !default;
 $color-zinc-900-rgb: 24, 24, 27 !default;
 $color-zinc-950-rgb: 9, 9, 11 !default;
+
+$color-danger: $red!default;
+$color-success: $green !default;
+$color-warning: $yellow !default;
+$color-info: $blue !default;
+
+$color-danger-rgb: $red-rgb !default;
+$color-success-rgb: $green-rgb !default;
+$color-warning-rgb: $yellow-rgb !default;
+$color-info-rgb: $blue-rgb !default;
 
 $spacing: 0.2rem !default;
 $spacing-xxs: 0.4rem !default;
@@ -390,11 +400,11 @@ $btn-secondary-color: $primary !default;
 $btn-secondary-hover-bg: var(--btn-secondary-hover-bg) !default;
 $btn-secondary-hover-border: $tertiary !default;
 
-$btn-danger-bg: $quaternary-dark !default;
-$btn-danger-border: 0.1rem solid $color-rose-700 !default;
+$btn-danger-bg: $color-danger !default;
+$btn-danger-border: 0.1rem solid $color-danger !default;
 $btn-danger-color: $secondary !default;
-$btn-danger-hover-bg: $quaternary-dark  !default;
-$btn-danger-hover-border: $color-rose-700 !default;
+$btn-danger-hover-bg: $color-danger  !default;
+$btn-danger-hover-border: $color-danger !default;
 
 $btn-disabled-bg: var(--btn-disabled-bg) !default;
 $btn-disabled-border: var(--btn-disabled-border) !default;
@@ -445,6 +455,27 @@ $card-footer-padding: $spacing-2xl !default;
 $card-footer-flex-shrink: 0 !default;
 $card-footer-wrap: wrap !default;
 $card-hover-border-color: var(--card-hover-border-color) !default;
+
+$modal-bg: $secondary !default;
+$modal-border: 0.1rem solid $border-color !default;
+$modal-radius: $radius-2xl !default;
+$modal-shadow: $shadow-s !default;
+$modal-fs: $fs-range-xs-s !default;
+$modal-lh: $lh-3xl !default;
+$modal-color: $p-color !default;
+$modal-h-fs: $fs-range-l-xl !default;
+$modal-h-fw: $h-fw !default;
+$modal-h-lh: $lh-xs !default;
+$modal-header-padding: $spacing-2xl !default;
+$modal-header-display: flex !default;
+$modal-header-align-items: center !default;
+$modal-header-justify-content: space-between !default;
+$modal-header-gap: $spacing-m !default;
+$modal-header-wrap: nowrap !default;
+$modal-body-wrapper-h-margin-block-end: $spacing-s !default;
+$modal-body-wrapper-p-margin-block-end: $spacing-xl !default;
+$modal-body-wrapper-padding: $spacing-2xl !default;
+$modal-body-wrapper-wrap: wrap !default;
 
 $offcanvas-width: min(100%, 32rem) !default;
 $offcanvas-padding: $spacing-range-m-3xl !default;

@@ -1,0 +1,34 @@
+@use "../variables" as v;
+@use "./reduced-motion" as reducedMotion;
+
+@mixin card-shell(
+    $padding: null,
+    $direction: column,
+    $gap: null,
+    $background: v.$card-bg,
+    $border: v.$card-border,
+    $radius: v.$card-radius,
+    $shadow: v.$card-shadow,
+    $font-size: v.$card-fs,
+    $line-height: v.$card-lh
+) {
+    width: 100%;
+    padding: $padding;
+    display: flex;
+    flex-direction: $direction;
+    gap: $gap;
+    background: $background;
+    border: $border;
+    border-radius: $radius;
+    box-shadow: $shadow;
+    overflow: hidden;
+    transition: v.$card-transition;
+    font-size: $font-size;
+    line-height: $line-height;
+    color: v.$card-color;
+
+    @include reducedMotion.reduced-motion {
+        transform: none;
+        transition: none;
+    }
+}

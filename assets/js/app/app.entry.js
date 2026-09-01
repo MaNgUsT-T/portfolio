@@ -1,10 +1,8 @@
-import {
-    headerScrollInitialize,
-    initializeCustomSelects,
-    loadIcons,
-    mobileNavigationInitialize,
-    themeInitialize,
-} from '../shared/all.js';
+import { initializeCustomSelects } from '../shared/custom-select.js';
+import { headerScrollInitialize } from '../shared/header.js';
+import { loadIcons } from '../shared/icons.js';
+import { mobileNavigationInitialize } from '../shared/mobile-navigation.js';
+import { themeInitialize } from '../shared/theme.js';
 import { contactFormInitialize } from './app.contact-form.js';
 import { bootstrapContent } from './app.data.js';
 import { educationCarouselInitialize } from './app.education-carousel.js';

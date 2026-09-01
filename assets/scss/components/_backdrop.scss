@@ -1,0 +1,19 @@
+@use "../variables" as v;
+
+.backdrop {
+	inset: 0;
+	backdrop-filter: v.$backdrop-backdrop-filter;
+	opacity: 0;
+	pointer-events: none;
+	transition: opacity .3s ease, visibility .3s ease;
+	visibility: hidden;
+	position: fixed;
+	z-index: 90;
+	
+	.nav--open &,
+	.modal--open & {
+		opacity: 1;
+		pointer-events: auto;
+		visibility: visible;
+	}
+}

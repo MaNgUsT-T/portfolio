@@ -1,0 +1,30 @@
+@use "../variables" as v;
+
+@mixin modal-shell(
+    $width: min(70rem, calc(100vw - v.$spacing-2xl)),
+    $max-height: min(70rem, calc(100vh - v.$spacing-2xl)),
+    $padding: null,
+    $gap: null,
+    $background: v.$modal-bg,
+    $border: v.$modal-border,
+    $radius: v.$modal-radius,
+    $shadow: v.$modal-shadow,
+    $font-size: v.$modal-fs,
+    $line-height: v.$modal-lh
+) {
+    width: $width;
+    height: auto;
+    max-height: $max-height;
+    padding: $padding;
+    display: flex;
+    flex-direction: column;
+    gap: $gap;
+    background: $background;
+    border: $border;
+    border-radius: $radius;
+    box-shadow: $shadow;
+    overflow: hidden;
+    font-size: $font-size;
+    line-height: $line-height;
+    color: v.$modal-color;
+}

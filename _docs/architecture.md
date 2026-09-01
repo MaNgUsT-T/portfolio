@@ -1,6 +1,6 @@
 # Architektur
 
-Stand: 2026-08-27
+Stand: 2026-09-01
 
 Diese Seite beschreibt den technischen Gesamtaufbau des aktuellen Projektstands. Maßgeblich sind die tatsächlich
 geladenen Einstiegspunkte in `index.html`, die Frontend-Quellen unter `assets/js/`, die PHP-Dateien unter `admin/`
@@ -45,8 +45,10 @@ Template-Struktur.
 2. Die Seite lädt `data/data.json` und `data/data.admin-template.json`.
 3. Das strukturierte Admin-UI rendert Felder auf Basis des Templates.
 4. Im JSON-Modus wird die vollständige JSON-Struktur direkt bearbeitet.
-5. `admin/admin-save.php` validiert die eingehenden Daten.
-6. `admin/admin-lib.php` schreibt `data/data.json` atomar über eine temporäre Datei plus `rename()`.
+5. Bildfelder können zusätzlich `admin/admin-images.php` für vorhandene Bilder und `admin/admin-upload.php` für
+   Uploads verwenden.
+6. `admin/admin-save.php` validiert die eingehenden Daten.
+7. `admin/admin-lib.php` schreibt `data/data.json` atomar über eine temporäre Datei plus `rename()`.
 
 ## Backend-Grenzen
 
@@ -64,7 +66,7 @@ Für Architekturfragen sollten diese Dateien zuerst geprüft werden.
 - `index.html`
 - `assets/js/app.js`
 - `assets/js/admin.js`
-- `assets/js/shared/all.js`
+- `assets/js/shared/`
 - `_vite/vite.mjs`
 - `_vite/lib/tasks/js.mjs`
 - `_vite/lib/tasks/css.mjs`

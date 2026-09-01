@@ -1,0 +1,186 @@
+@use "../../variables" as v;
+@use "../../mixins/flex-cluster" as flexCluster;
+@use "../../mixins/icon-size" as icon;
+
+.admin-image-field__modal-content {
+	display: grid;
+	gap: v.$spacing-m;
+
+	@media (min-width: 48rem) {
+		grid-template-columns: minmax(24rem, .85fr) minmax(0, 1.4fr);
+		align-items: start;
+	}
+	
+	[data-status="success"] {
+		color: v.$color-success;
+	}
+	
+	[data-status="error"] {
+		color: v.$color-danger;
+	}
+	
+	.admin-image-field__status,
+	.admin-image-field__meta,
+	.admin-image-field__empty,
+	.admin-image-field__hint {
+		font-size: v.$fs-range-fs-xs;
+	}
+	
+	.admin-image-field__preview,
+	.admin-image-field__controls,
+	.admin-image-field__browser {
+		border: v.$modal-border;
+		border-radius: v.$modal-radius;
+	}
+	
+	.admin-image-field__controls,
+	.admin-image-field__browser {
+		padding: v.$spacing-m;
+	}
+	
+	.admin-image-field__preview {
+		@include flexCluster.flex-cluster(flex, row, nowrap, v.$spacing-s, center, center);
+		overflow: hidden;
+		
+		.admin-image-field__preview-empty {
+			padding: v.$spacing-m;
+			text-align: center;
+		}
+	}
+	
+	.admin-image-field__controls {
+		@include flexCluster.flex-cluster(flex, column, nowrap, v.$spacing-s, flex-start, flex-start);
+		
+		.admin-image-field__dropzone {
+			@include flexCluster.flex-cluster(flex, column, nowrap, v.$spacing-xs, center, center);
+			min-height: 16rem;
+			padding: v.$spacing-l;
+			background:
+				linear-gradient(180deg, rgb(v.$secondary-rgb, .8), rgb(v.$tertiary-rgb, .06)),
+				repeating-linear-gradient(135deg, rgb(v.$tertiary-rgb, .03) 0, rgb(v.$tertiary-rgb, .03) 1.2rem, transparent 1.2rem, transparent 2.4rem);
+			border: .1rem dashed rgb(v.$tertiary-rgb, .3);
+			border-radius: v.$modal-radius;
+			text-align: center;
+			transition: border-color .18s ease, transform .18s ease;
+			
+			.admin-image-field__dropzone-title {
+				color: v.$h-color;
+				font-weight: v.$h-fw;
+			}
+			
+			&.is-dragover,
+			&:hover,
+			&:focus-visible {
+				border-color: v.$tertiary;
+			}
+		}
+		
+		.admin-image-field__actions {
+			@include flexCluster.flex-cluster(flex, row, wrap, v.$spacing-s, center, center);
+			width: 100%;
+			
+			.btn {
+				width: 100%;
+				justify-content: center;
+			}
+		}
+	}
+	
+	.admin-image-field__browser {
+		grid-column: 1 / -1;
+		
+		.admin-image-field__browser-header {
+			@include flexCluster.flex-cluster(flex, column, nowrap, v.$spacing-xs, flex-start, flex-start);
+			width: 100%;
+		}
+		
+		.admin-image-field__browser-grid {
+			display: grid;
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+			gap: v.$spacing-s;
+			min-width: 0;
+			
+			@media (min-width: 36rem) {
+				grid-template-columns: repeat(3, minmax(0, 1fr));
+			}
+			
+			@media (min-width: 48rem) {
+				grid-template-columns: repeat(4, minmax(0, 1fr));
+			}
+			
+			@media (min-width: 64rem) {
+				grid-template-columns: repeat(6, minmax(0, 1fr));
+			}
+			
+			.admin-image-field__browser-grid-item {
+				@include flexCluster.flex-cluster(flex, column, nowrap, v.$spacing-xs, flex-start, flex-start);
+				border: none;
+				border-radius: v.$modal-radius;
+				
+				.admin-image-field__browser-grid-item-thumb {
+					width: 100%;
+					padding: v.$spacing;
+					border: v.$modal-border;
+					border-radius: v.$modal-radius;
+					aspect-ratio: 1;
+					overflow: hidden;
+					transition: border-color .18s ease;
+					
+					img {
+						width: 100%;
+						height: 100%;
+						border-radius: v.$modal-radius;
+						object-fit: cover;
+					}
+				}
+				
+				.admin-image-field__browser-grid-item-title,
+				.admin-image-field__browser-grid-item-type  {
+					width: 100%;
+					display: block;
+				}
+				
+				.admin-image-field__browser-grid-item-title {
+					text-align: start;
+				}
+				
+				.admin-image-field__browser-grid-item-type {
+					font-size: v.$fs-range-fs-xs;
+				}
+				
+				&:hover,
+				&:focus-visible,
+				&.is-selected {
+					
+					.admin-image-field__browser-grid-item-thumb {
+						border-color: v.$tertiary;
+					}
+				}
+				
+				&:focus-visible {
+					outline: none;
+					
+					.admin-image-field__browser-grid-item-thumb {
+						outline: 2px solid v.$focus-outline-color;
+					}
+				}
+			}
+		}
+		
+		&:not([hidden]) {
+			@include flexCluster.flex-cluster(flex, column, nowrap, v.$spacing-s, flex-start, flex-start);
+		}
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+

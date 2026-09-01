@@ -1,10 +1,12 @@
 @use "../variables" as v;
-@use "../mixins/mixins" as m;
+@use "../mixins/flex-cluster" as flexCluster;
+@use "../mixins/respond-from" as respondFrom;
+@use "../mixins/respond-until" as respondUntil;
 
 header {
     inset-block-start: 0;
     width: 100%;
-    padding-block: 2.4rem;
+    padding-block: v.$spacing-xl;
     transition: all .3s cubic-bezier(.4, 0, .2, 1);
     position: fixed;
     z-index: 100;
@@ -23,7 +25,7 @@ header {
     }
 
     &.header--scrolled {
-        padding-block: 1.6rem;
+        padding-block: v.$spacing-m;
 
         &::before {
             background: v.$header-scrolled-bg;
@@ -60,7 +62,7 @@ header {
         position: relative;
         z-index: 3;
 
-        @include m.respond-until(mobile-nav) {
+        @include respondUntil.respond-until(mobile-nav) {
             inset-inline-end: 0;
             inset-block-end: 0;
             width: min(100%, 32rem);
@@ -85,7 +87,7 @@ header {
     .main-nav {
         
         ul {
-            @include m.flex-cluster (3.2rem, center, flex-start, nowrap);
+            @include flexCluster.flex-cluster(flex, row, nowrap, 3.2rem, center, flex-start);
             list-style: none;
             font-weight: 500;
         }
@@ -94,7 +96,7 @@ header {
             font-size: 1.4rem;
         }
 
-        @include m.respond-until(mobile-nav) {
+        @include respondUntil.respond-until(mobile-nav) {
             height: 100%;
             overflow-x: hidden;
             overflow-y: auto;
@@ -106,22 +108,22 @@ header {
             }
 
             li {
-                padding-block: 0.8rem;
+                padding-block: v.$spacing-xs;
 
                 &:last-child {
-                    padding-block: 0.8rem;
+                    padding-block: v.$spacing-xs;
                 }
             }
         }
 
         + * {
-            @include m.respond-from(desktop) {
+            @include respondFrom.respond-from(desktop) {
                 margin-inline-start: v.$spacing-m;
                 padding-inline-start: v.$spacing-m;
                 border-inline-start: 1px solid v.$border-color-dark;
             }
 
-            @include m.respond-until(mobile-nav) {
+            @include respondUntil.respond-until(mobile-nav) {
                 padding-block-start: v.$spacing-m;
                 border-block-start: 1px solid v.$border-color-dark;
             }
@@ -131,7 +133,7 @@ header {
     .option-nav {
         
         ul {
-            @include m.flex-cluster (1.6rem, center, flex-start, nowrap);
+            @include flexCluster.flex-cluster(flex, row, nowrap, 1.6rem, center, flex-start);
             list-style: none;
         }
     }
@@ -143,7 +145,7 @@ header {
         position: relative;
         z-index: 3;
 
-        @include m.respond-from(desktop) {
+        @include respondFrom.respond-from(desktop) {
             display: none;
         }
     }
@@ -153,7 +155,7 @@ header {
 .nav--open {
     
     header .header__nav-wrapper {
-        @include m.respond-until(mobile-nav) {
+        @include respondUntil.respond-until(mobile-nav) {
             transition: transform .3s ease-in-out;
         }
     }
@@ -168,7 +170,7 @@ header {
     }
 
     header .header__nav-wrapper {
-        @include m.respond-until(mobile-nav) {
+        @include respondUntil.respond-until(mobile-nav) {
             transform: translateX(0);
         }
     }
@@ -178,14 +180,8 @@ header {
     }
     
     header.header--scrolled .header__nav-wrapper {
-        @include m.respond-until(mobile-nav) {
+        @include respondUntil.respond-until(mobile-nav) {
             background: v.$header-scrolled-bg;
         }
-    }
-
-    .backdrop {
-        opacity: 1;
-        visibility: visible;
-        pointer-events: auto;
     }
 }

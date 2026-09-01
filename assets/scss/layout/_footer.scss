@@ -1,5 +1,6 @@
 @use "../variables" as v;
-@use "../mixins/mixins" as m;
+@use "../mixins/icon-size" as icon;
+@use "../mixins/respond-from" as respondFrom;
 
 footer {
     margin-block-start: auto;
@@ -13,7 +14,7 @@ footer {
         align-items: center;
         justify-content: space-between;
 
-        @include m.respond-from(tablet) {
+        @include respondFrom.respond-from(tablet) {
             flex-wrap: nowrap;
         }
     }
@@ -24,7 +25,7 @@ footer {
     }
 
     .social-icons svg {
-        @include m.icon-size(2rem);
+        @include icon.icon-size(2rem);
         stroke: v.$footer-social-icon-color;
     }
 }

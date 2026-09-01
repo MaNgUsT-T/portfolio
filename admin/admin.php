@@ -107,6 +107,7 @@ try {
 		<?php endif; ?>
 	</main>
     <?= adminRenderSiteFooter($siteData) ?>
+    <?= adminRenderSiteModalRoot() ?>
     <div class="backdrop" data-overlay></div>
     <?= adminRenderClientConfigScript() ?>
     <script src="../js/admin.min.js"></script>

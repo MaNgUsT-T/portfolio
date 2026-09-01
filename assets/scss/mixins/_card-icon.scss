@@ -1,0 +1,29 @@
+@use "../variables" as v;
+@use "./icon-size" as icon;
+@use "./reduced-motion" as reducedMotion;
+
+@mixin card-icon(
+    $padding: null,
+    $background: null,
+    $border: null,
+    $radius: null,
+    $shadow: null,
+    $size: v.$card-icon-svg-width,
+    $color: v.$card-icon-svg-color
+) {
+    padding: $padding;
+    background: $background;
+    border: $border;
+    border-radius: $radius;
+    box-shadow: $shadow;
+    transition: v.$card-icon-transition;
+
+    @include reducedMotion.reduced-motion {
+        transition: none;
+    }
+
+    svg {
+        @include icon.icon-size($size);
+        stroke: $color;
+    }
+}

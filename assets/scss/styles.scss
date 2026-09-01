@@ -1,6 +1,5 @@
 @use "variables";
 @use "functions";
-@use "mixins/mixins";
 
 @use "base/reset";
 @use "base/animation";
@@ -9,7 +8,10 @@
 
 @use "components/alert";
 @use "components/custom-select";
+@use "components/modal";
+@use "components/admin/image-field";
 @use "components/admin/iconpicker";
+@use "components/backdrop";
 @use "components/button";
 @use "components/card";
 @use "components/form";

@@ -120,7 +120,7 @@ export function initializeLoginForm() {
     }
 
     const submitButton = document.querySelector('[form="auth-form"][type="submit"]');
-    const statusElement = form.closest('.card__body-wrapper')?.querySelector('[data-form-status]') ?? null;
+    const statusElement = form.closest('.js-card__body-wrapper')?.querySelector('[data-form-status]') ?? null;
     const formState = createAdminFormState(
         form,
         submitButton,
@@ -171,7 +171,7 @@ export function initializeChangePasswordForm() {
     }
 
     const submitButton = document.querySelector('[form="change-password-form"][type="submit"]');
-    const statusElement = form.closest('.card__body-wrapper')?.querySelector('[data-form-status]') ?? null;
+    const statusElement = form.closest('.js-card__body-wrapper')?.querySelector('[data-form-status]') ?? null;
     const formState = createAdminFormState(
         form,
         submitButton,

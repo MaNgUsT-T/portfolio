@@ -1,6 +1,6 @@
 # Build und Änderungsmatrix
 
-Stand: 2026-08-27
+Stand: 2026-09-01
 
 Diese Seite beschreibt die technische Build-Zuordnung des aktuellen Projektstands und zeigt, welche Dateien bei
 typischen Änderungen gemeinsam geprüft und aktualisiert werden müssen. Maßgeblich sind `_vite/vite.mjs`,
@@ -58,7 +58,7 @@ Die folgenden Zuordnungen beschreiben, welche Bereiche bei Änderungen gemeinsam
   Interaktionen
 - Änderung an `assets/js/admin/` oder `assets/js/admin.js`
   Prüfen: `_vite/vite.mjs`, `_vite/lib/tasks/js.mjs`, `js/admin.min.js`, `_docs/admin.md`, Login,
-  Passwortwechsel, Tabs, Repeatables, Icon-Picker
+  Passwortwechsel, Modal, Bildfelder, Tabs, Repeatables, Icon-Picker
 - Änderung an `assets/js/siteelements.js`
   Prüfen: `_vite/vite.mjs`, `_vite/lib/tasks/js.mjs`, `js/siteelements.min.js`, `siteelements.html`
 - Änderung an `assets/scss/` oder `assets/scss/styles.scss`

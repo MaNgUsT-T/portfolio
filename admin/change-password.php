@@ -138,7 +138,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			<div class="container">
 				<div class="card card--default-inner">
 					<div class="card__body">
-						<div class="card__body-wrapper">
+						<div class="card__body-wrapper js-card__body-wrapper">
 							<div class="admin-logo">
 								<?= adminIconSvg(adminHeaderLogoIconName($siteData)) ?>
 							</div>

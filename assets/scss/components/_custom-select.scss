@@ -1,5 +1,5 @@
 @use "../variables" as v;
-@use "../mixins/mixins" as m;
+@use "../mixins/icon-size" as icon;
 
 .custom-select-field {
     position: relative;
@@ -40,7 +40,7 @@
                 transition: transform 0.18s ease;
                 
                 svg {
-                    @include m.icon-size(2rem);
+                    @include icon.icon-size(2rem);
                 }
             }
         }

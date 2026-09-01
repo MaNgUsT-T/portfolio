@@ -1,0 +1,12 @@
+@mixin grid-wrapper($columns: 1, $row-gap: null, $column-gap: null) {
+    display: grid;
+    grid-template-columns: repeat($columns, 1fr);
+
+    @if $row-gap != null {
+        row-gap: $row-gap;
+    }
+
+    @if $column-gap != null {
+        column-gap: $column-gap;
+    }
+}

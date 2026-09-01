@@ -1,4 +1,4 @@
-import { icon } from '../shared/all.js';
+import { icon } from '../shared/icons.js';
 import { escapeAttribute, escapeHtml } from './app.utils.js';
 
 export function renderPicture(image) {

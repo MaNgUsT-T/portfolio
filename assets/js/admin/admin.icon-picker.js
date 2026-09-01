@@ -1,4 +1,4 @@
-import { getIconMap, icon } from '../shared/all.js';
+import { getIconMap, icon } from '../shared/icons.js';
 import { adminTranslate, escapeAdminAttribute, escapeAdminHtml } from './admin.utils.js';
 
 export function initializeIconPickers() {

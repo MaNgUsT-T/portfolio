@@ -1,5 +1,5 @@
 @use "../variables" as v;
-@use "../mixins/mixins" as m;
+@use "../mixins/alert-variant" as alertVariant;
 
 .alert {
 	padding: v.$spacing-m v.$spacing-l;
@@ -9,18 +9,18 @@
 	line-height: v.$lh-3xl;
 	
 	&.alert--success {
-		@include m.alert-variant(v.$green);
+		@include alertVariant.alert-variant(v.$color-success);
 	}
 
 	&.alert--error {
-		@include m.alert-variant(v.$red);
+		@include alertVariant.alert-variant(v.$color-danger);
 	}
 
 	&.alert--warning {
-		@include m.alert-variant(v.$yellow);
+		@include alertVariant.alert-variant(v.$color-warning);
 	}
 
 	&.alert--info {
-		@include m.alert-variant(v.$blue);
+		@include alertVariant.alert-variant(v.$color-info);
 	}
 }

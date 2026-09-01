@@ -1,5 +1,6 @@
 @use "../variables" as v;
-@use "../mixins/mixins" as m;
+@use "../mixins/flex-cluster" as flexCluster;
+@use "../mixins/icon-size" as icon;
 
 *:focus-visible {
     outline: 2px solid v.$focus-outline-color;
@@ -122,6 +123,12 @@ section {
     margin-inline: auto;
 }
 
+.text-truncate {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
 .logo {
     display: flex;
     gap: v.$spacing-xs;
@@ -144,11 +151,11 @@ section {
     line-height: v.$lh !important;
 
     &:has(svg) {
-        @include m.flex-cluster (v.$spacing-xs, center, flex-start, nowrap);
+        @include flexCluster.flex-cluster(flex, row, nowrap, v.$spacing-xs, center, flex-start);
     }
 
     svg {
-        @include m.icon-size (v.$fs-range-fs-xs);
+        @include icon.icon-size(v.$fs-range-fs-xs);
         stroke: v.$highlight-color;
     }
 }
@@ -179,18 +186,7 @@ section {
     align-items: center;
 
     svg {
-        @include m.icon-size (2.4rem);
+        @include icon.icon-size(2.4rem);
         stroke: v.$social-icon-color;
     }
-}
-
-.backdrop {
-    inset: 0;
-    backdrop-filter: v.$backdrop-backdrop-filter;
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-    transition: opacity .3s ease, visibility .3s ease;
-    position: fixed;
-    z-index: 90;
 }

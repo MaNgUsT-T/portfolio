@@ -1,0 +1,15 @@
+@mixin button-surface($background, $border, $color, $hover-background, $hover-border) {
+    background-color: $background;
+    border: $border;
+    color: $color !important;
+
+    &:active,
+    &:hover {
+        background-color: $hover-background;
+        border-color: $hover-border;
+    }
+
+    svg {
+        stroke: $color !important;
+    }
+}

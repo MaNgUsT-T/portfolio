@@ -1,0 +1,8 @@
+@mixin flex-cluster($display: flex, $flex-direction, $wrap: wrap, $gap, $align: center, $justify: flex-start) {
+    display: $display;
+    flex-direction: $flex-direction;
+    flex-wrap: $wrap;
+    gap: $gap;
+    align-items: $align;
+    justify-content: $justify;
+}

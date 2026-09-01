@@ -1,4 +1,5 @@
-import { bindCustomSelect } from '../shared/all.js';
+import { bindCustomSelect } from '../shared/custom-select.js';
+import { bindImageField } from './admin.image-field.js';
 import { bindIconPicker } from './admin.icon-picker.js';
 import { adminTranslate } from './admin.utils.js';
 
@@ -47,6 +48,9 @@ function bindRepeatable(repeatable) {
                 });
                 insertedItem.querySelectorAll('[data-custom-select]').forEach((customSelect) => {
                     bindCustomSelect(customSelect);
+                });
+                insertedItem.querySelectorAll('[data-image-field]').forEach((imageField) => {
+                    bindImageField(imageField);
                 });
                 insertedItem.querySelectorAll('[data-icon-picker]').forEach((iconPicker) => {
                     bindIconPicker(iconPicker);

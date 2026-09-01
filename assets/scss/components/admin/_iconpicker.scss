@@ -1,5 +1,5 @@
 @use "../../variables" as v;
-@use "../../mixins/mixins" as m;
+@use "../../mixins/icon-size" as icon;
 
 .admin-icon-picker__toggle-preview,
 .admin-icon-picker__option-preview {
@@ -16,7 +16,7 @@
 .admin-icon-picker__toggle-preview svg,
 .admin-icon-picker__option-preview svg,
 .admin-icon-picker__toggle-indicator svg {
-	@include m.icon-size(2rem);
+	@include icon.icon-size(2rem);
 }
 
 .admin-icon-picker {

@@ -1,5 +1,5 @@
 @use "../../variables" as v;
-@use "../../mixins/mixins" as m;
+@use "../../mixins/icon-size" as icon;
 
 .admin-auth {
 	
@@ -15,7 +15,7 @@
 				justify-content: center;
 				
 				svg {
-					@include m.icon-size (10rem);
+					@include icon.icon-size(10rem);
 					stroke-width: 1.5;
 				}
 			}

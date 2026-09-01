@@ -258,6 +258,25 @@ function adminJsTranslations(): array
 {
     return [
         'admin.remove_confirm' => adminT('admin.remove_confirm'),
+        'admin.modal_close' => adminT('admin.modal_close'),
+        'admin.image_field_modal_title' => adminT('admin.image_field_modal_title'),
+        'admin.image_field_manual_label' => adminT('admin.image_field_manual_label'),
+        'admin.image_field_manual_placeholder' => adminT('admin.image_field_manual_placeholder'),
+        'admin.image_field_close' => adminT('admin.image_field_close'),
+        'admin.image_field_dropzone' => adminT('admin.image_field_dropzone'),
+        'admin.image_field_upload_button' => adminT('admin.image_field_upload_button'),
+        'admin.image_field_existing_button' => adminT('admin.image_field_existing_button'),
+        'admin.image_field_search' => adminT('admin.image_field_search'),
+        'admin.image_field_empty' => adminT('admin.image_field_empty'),
+        'admin.image_field_loading' => adminT('admin.image_field_loading'),
+        'admin.image_field_uploading' => adminT('admin.image_field_uploading'),
+        'admin.image_field_upload_failed' => adminT('admin.image_field_upload_failed'),
+        'admin.image_field_path_applied' => adminT('admin.image_field_path_applied'),
+        'admin.image_field_upload_success' => adminT('admin.image_field_upload_success'),
+        'admin.image_field_choose_from_list' => adminT('admin.image_field_choose_from_list'),
+        'admin.image_field_choose_uploaded' => adminT('admin.image_field_choose_uploaded'),
+        'admin.image_field_no_preview' => adminT('admin.image_field_no_preview'),
+        'admin.image_field_preview' => adminT('admin.image_field_preview'),
         'auth.show_password' => adminT('auth.show_password'),
         'auth.hide_password' => adminT('auth.hide_password'),
         'auth.login_submitting' => adminT('auth.login_submitting'),
@@ -284,6 +303,27 @@ function adminRenderClientConfigScript(): string
     }
 
     return '<script>window.adminUi=' . $json . ';</script>';
+}
+
+function adminRenderSiteModalRoot(): string
+{
+    $closeLabel = adminT('admin.modal_close');
+
+    return '<div id="global-modal" class="modal" data-modal>' .
+        '<div role="dialog" aria-modal="true" aria-label="' . adminEscape($closeLabel) . '" class="modal__dialog">' .
+            '<div class="modal__header">' .
+                '<h3 data-modal-title></h3>' .
+                '<button
+                    type="button"
+                    aria-label="' . adminEscape($closeLabel) . '"
+                    data-modal-close
+                >' . adminIconSvg('X') . '</button>' .
+            '</div>' .
+            '<div class="modal__body">' .
+                '<div class="modal__body-wrapper" data-modal-body></div>' .
+            '</div>' .
+        '</div>' .
+    '</div>';
 }
 
 /**
@@ -422,6 +462,34 @@ function adminTitle(): string
 function adminDataFile(): string
 {
     return (string) adminConfig()['data_file'];
+}
+
+function adminImageDirectory(): string
+{
+    return dirname(__DIR__) . '/img';
+}
+
+function adminImageBaseRelativePath(): string
+{
+    return './img';
+}
+
+function adminImageUploadMaxBytes(): int
+{
+    return 10 * 1024 * 1024;
+}
+
+/**
+ * @return array<string, string>
+ */
+function adminAllowedImageMimeTypes(): array
+{
+    return [
+        'image/jpeg' => 'jpg',
+        'image/png' => 'png',
+        'image/webp' => 'webp',
+        'image/gif' => 'gif',
+    ];
 }
 
 function adminIconsFile(): string
@@ -882,6 +950,40 @@ function adminEnsureAuthenticated(): void
     exit;
 }
 
+function adminRespondJson(int $statusCode, array $payload): void
+{
+    http_response_code($statusCode);
+    header('Content-Type: application/json; charset=utf-8');
+    echo json_encode($payload, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+    exit;
+}
+
+function adminEnsureRequestMethod(string $method): void
+{
+    $requestMethod = $_SERVER['REQUEST_METHOD'] ?? 'GET';
+
+    if (strtoupper((string) $requestMethod) === strtoupper($method)) {
+        return;
+    }
+
+    adminRespondJson(405, [
+        'ok' => false,
+        'message' => adminT('error.request_not_allowed'),
+    ]);
+}
+
+function adminEnsureConfirmedRequest(?string $token): void
+{
+    if (adminVerifyCsrfToken($token)) {
+        return;
+    }
+
+    adminRespondJson(403, [
+        'ok' => false,
+        'message' => adminT('error.request_unconfirmed'),
+    ]);
+}
+
 function adminRedirectToLogin(): void
 {
     header('Location: ./index.php');
@@ -1028,6 +1130,29 @@ function adminSaveSiteData(array $data): void
 function adminEscape($value): string
 {
     return htmlspecialchars((string) $value, ENT_QUOTES, 'UTF-8');
+}
+
+function adminRelativeImagePreviewUrl(string $path): string
+{
+    $normalizedPath = trim($path);
+
+    if ($normalizedPath === '') {
+        return '';
+    }
+
+    if ((bool) preg_match('#^(?:https?:)?//#i', $normalizedPath) || str_starts_with($normalizedPath, 'data:')) {
+        return $normalizedPath;
+    }
+
+    if (str_starts_with($normalizedPath, './')) {
+        return '../' . substr($normalizedPath, 2);
+    }
+
+    if (str_starts_with($normalizedPath, '/')) {
+        return $normalizedPath;
+    }
+
+    return '../' . ltrim($normalizedPath, '/');
 }
 
 function adminFlash(string $type, string $message): void
@@ -1417,11 +1542,338 @@ function adminRenderScalarField(string $label, array $path, $currentValue, strin
         return '<div class=form-group">' . $input . '</div>';
     }
 
+    if (adminIsImagePathField($path, $key, $currentValue)) {
+        return adminRenderImagePathField($label, $name, $id, $value);
+    }
+
     $input .= '<label for="' . adminEscape($id) . '">' . adminEscape($label) . '</label>';
     $input .= '<input type="' . adminEscape($type) . '" id="' . adminEscape($id) . '" name="' .
         adminEscape($name) . '" placeholder="' . adminEscape($label) . '" value="' . adminEscape($value) . '">';
 
     return '<div class="form-group">' . $input . '</div>';
+}
+
+/**
+ * @param array<int, string|int> $path
+ * @param mixed $currentValue
+ */
+function adminIsImagePathField(array $path, string $key, $currentValue): bool
+{
+    if (!is_string($currentValue) && !is_numeric($currentValue) && $currentValue !== null) {
+        return false;
+    }
+
+    if ($key === 'srcset' && adminPathContains($path, 'responsive')) {
+        return true;
+    }
+
+    if ($key !== 'src') {
+        return false;
+    }
+
+    return adminPathContains($path, 'image') || adminPathContains($path, 'images');
+}
+
+function adminRenderImagePathField(string $label, string $name, string $id, string $value): string
+{
+    $modalTitle = adminT('admin.image_field_modal_title');
+    $manualLabel = adminT('admin.image_field_manual_label');
+    $manualPlaceholder = adminT('admin.image_field_manual_placeholder');
+    $dropzoneLabel = adminT('admin.image_field_dropzone');
+    $uploadButtonLabel = adminT('admin.image_field_upload_button');
+    $existingButtonLabel = adminT('admin.image_field_existing_button');
+    $searchLabel = adminT('admin.image_field_search');
+    $hint = adminT('admin.image_field_hint');
+    $emptyMessage = adminT('admin.image_field_empty');
+    $loadingMessage = adminT('admin.image_field_loading');
+    $previewLabel = adminT('admin.image_field_preview');
+    $noPreviewLabel = adminT('admin.image_field_no_preview');
+    $previewUrl = adminRelativeImagePreviewUrl($value);
+
+    $triggerId = $id . '-trigger';
+    $browserId = $id . '-browser';
+
+    $markup = '<div data-image-field data-image-field-modal-title="' . adminEscape($modalTitle) . '" data-upload-endpoint="./admin-upload.php" data-images-endpoint="./admin-images.php" data-csrf-token="' . adminEscape(adminCsrfToken()) . '" class="form-group admin-image-field">';
+    	$markup .= '<label for="' . adminEscape($triggerId) . '">' . adminEscape($label) . '</label>';
+    	$markup .= '<input type="hidden" id="' . adminEscape($id) . '" name="' . adminEscape($name) . '" value="' . adminEscape($value) . '" data-image-field-input>';
+
+    	$markup .= '<div class="input-group">';
+        	$markup .= '<input
+							type="text"
+							id="' . adminEscape($triggerId) . '"
+							placeholder="' . adminEscape($label) . '"
+							value="' . adminEscape($value) . '"
+							aria-haspopup="dialog"
+							aria-controls="global-modal"
+							data-image-field-trigger-input
+							data-image-field-open-modal
+							readonly
+						>';
+			$markup .= '<button
+							type="button"
+							aria-label="' . adminEscape($modalTitle) . '"
+							aria-haspopup="dialog"
+							aria-controls="global-modal"
+							class="icon-button"
+							data-image-field-open-modal
+						>' . adminIconSvg('image-up') . '</button>';
+    	$markup .= '</div>';
+
+    	$markup .= '<div class="admin-image-field__modal-host" data-image-field-modal-host hidden>';
+        	$markup .= '<div class="admin-image-field__modal-content" data-image-field-modal-content>';
+
+				 $markup .= '<div class="admin-image-field__preview" data-image-field-preview-container>';
+					if ($previewUrl !== '') {
+						$markup .= '<img src="' . adminEscape($previewUrl) . '" alt="' . adminEscape($label) . '" data-image-field-preview>';
+					} else {
+						$markup .= '<span class="admin-image-field__preview-empty" data-image-field-preview-empty>' . adminEscape($noPreviewLabel) . '</span>';
+					}
+				$markup .= '</div>';
+
+				$markup .= '<div class="admin-image-field__controls">';
+					$markup .= '<div class="form-group">';
+						$markup .= '<label for="' . adminEscape($triggerId) . '-manual" class="admin-image-field__manual-label">' . adminEscape($manualLabel) . '</label>';
+						$markup .= '<input
+										type="text"
+										id="' . adminEscape($triggerId) . '-manual"
+										placeholder="' . adminEscape($manualPlaceholder) . '"
+										value="' . adminEscape($value) . '"
+										class="admin-image-field__manual-input"
+										data-image-field-manual-input
+									>';
+					$markup .= '</div>';
+					$markup .= '<p class="admin-image-field__hint">' . adminEscape($hint) . '</p>';
+					$markup .= '<button
+									type="button"
+									class="admin-image-field__dropzone"
+									data-image-field-dropzone
+								>';
+						$markup .= '<span class="admin-image-field__dropzone-title">' . adminEscape($dropzoneLabel) . '</span>';
+						$markup .= '<span class="admin-image-field__dropzone-subtitle">' . adminEscape($hint) . '</span>';
+					$markup .= '</button>';
+					$markup .= '<div class="admin-image-field__actions">';
+						$markup .= '<button
+										type="button"
+										class="btn btn--secondary"
+										data-image-field-upload-button
+									>' . adminEscape($uploadButtonLabel) . '</button>';
+						$markup .= '<button
+										type="button"
+										aria-expanded="false"
+										aria-controls="' . adminEscape($browserId) . '"
+										class="btn btn--secondary"
+										data-image-field-toggle-browser
+									>' . adminEscape($existingButtonLabel) . '</button>';
+					$markup .= '</div>';
+					$markup .= '<input type="file" accept="image/jpeg,image/png,image/webp,image/gif" multiple hidden data-image-field-file-input>';
+					$markup .= '<p class="admin-image-field__status" data-image-field-status aria-live="polite"></p>';
+				$markup .= '</div>';
+
+				$markup .= '<div id="' . adminEscape($browserId) . '" class="admin-image-field__browser" data-image-field-browser hidden>';
+					$markup .= '<div class="admin-image-field__browser-header">';
+						$markup .= '<input
+										type="search"
+										placeholder="' . adminEscape($searchLabel) . '"
+										autocomplete="off"
+										class="admin-image-field__search"
+										data-image-field-search
+									>';
+						$markup .= '<p class="admin-image-field__meta" data-image-field-meta>' . adminEscape($loadingMessage) . '</p>';
+					$markup .= '</div>';
+					$markup .= '<div class="admin-image-field__browser-grid" data-image-field-grid data-empty-message="' . adminEscape($emptyMessage) . '"></div>';
+				$markup .= '</div>';
+
+            $markup .= '</div>';
+        $markup .= '</div>';
+    $markup .= '</div>';
+
+    return $markup;
+}
+
+/**
+ * @return list<array{
+ *     name: string,
+ *     full_path: string,
+ *     type: string,
+ *     tmp_name: string,
+ *     error: int,
+ *     size: int
+ * }>
+ */
+function adminNormalizeUploadedFilesArray(array $files): array
+{
+    $names = $files['name'] ?? null;
+    $types = $files['type'] ?? null;
+    $tmpNames = $files['tmp_name'] ?? null;
+    $errors = $files['error'] ?? null;
+    $sizes = $files['size'] ?? null;
+    $fullPaths = $files['full_path'] ?? [];
+
+    if (!is_array($names) || !is_array($tmpNames) || !is_array($errors) || !is_array($sizes)) {
+        return [];
+    }
+
+    $normalized = [];
+
+    foreach ($names as $index => $name) {
+        $normalized[] = [
+            'name' => is_string($name) ? $name : '',
+            'full_path' => is_array($fullPaths) && isset($fullPaths[$index]) && is_string($fullPaths[$index])
+                ? $fullPaths[$index]
+                : (is_string($name) ? $name : ''),
+            'type' => is_array($types) && isset($types[$index]) && is_string($types[$index]) ? $types[$index] : '',
+            'tmp_name' => isset($tmpNames[$index]) && is_string($tmpNames[$index]) ? $tmpNames[$index] : '',
+            'error' => isset($errors[$index]) ? (int) $errors[$index] : UPLOAD_ERR_NO_FILE,
+            'size' => isset($sizes[$index]) ? (int) $sizes[$index] : 0,
+        ];
+    }
+
+    return $normalized;
+}
+
+function adminSanitizeUploadBaseName(string $fileName): string
+{
+    $baseName = strtolower(trim(pathinfo($fileName, PATHINFO_FILENAME)));
+    $baseName = preg_replace('/[^a-z0-9]+/', '-', $baseName) ?? '';
+    $baseName = trim($baseName, '-');
+
+    return $baseName !== '' ? $baseName : 'image';
+}
+
+/**
+ * @param array{
+ *     name: string,
+ *     full_path: string,
+ *     type: string,
+ *     tmp_name: string,
+ *     error: int,
+ *     size: int
+ * } $file
+ * @return array{path: string, url: string, width: int, height: int, size: int, mime: string, name: string, modified: int}
+ */
+function adminStoreUploadedImage(array $file): array
+{
+    if ($file['error'] === UPLOAD_ERR_NO_FILE) {
+        throw new RuntimeException(adminT('error.upload_no_files'));
+    }
+
+    if ($file['error'] !== UPLOAD_ERR_OK) {
+        throw new RuntimeException(adminT('error.upload_failed'));
+    }
+
+    if ($file['tmp_name'] === '' || !is_uploaded_file($file['tmp_name'])) {
+        throw new RuntimeException(adminT('error.upload_invalid_file'));
+    }
+
+    if ($file['size'] <= 0 || $file['size'] > adminImageUploadMaxBytes()) {
+        throw new RuntimeException(adminT('error.upload_file_too_large'));
+    }
+
+    $finfo = new finfo(FILEINFO_MIME_TYPE);
+    $mimeType = $finfo->file($file['tmp_name']);
+
+    if (!is_string($mimeType)) {
+        throw new RuntimeException(adminT('error.upload_invalid_file'));
+    }
+
+    $allowedMimeTypes = adminAllowedImageMimeTypes();
+    $extension = $allowedMimeTypes[$mimeType] ?? null;
+
+    if ($extension === null) {
+        throw new RuntimeException(adminT('error.upload_invalid_image_type'));
+    }
+
+    $imageSize = @getimagesize($file['tmp_name']);
+
+    if (!is_array($imageSize) || !isset($imageSize[0], $imageSize[1])) {
+        throw new RuntimeException(adminT('error.upload_invalid_file'));
+    }
+
+    $targetDirectory = adminImageDirectory();
+
+    if (!is_dir($targetDirectory) || !is_writable($targetDirectory)) {
+        throw new RuntimeException(adminT('error.upload_target_not_writable'));
+    }
+
+    $safeBaseName = adminSanitizeUploadBaseName($file['name']);
+    $uniqueName = $safeBaseName . '-' . date('Ymd-His') . '-' . bin2hex(random_bytes(4)) . '.' . $extension;
+    $targetPath = $targetDirectory . '/' . $uniqueName;
+
+    if (!move_uploaded_file($file['tmp_name'], $targetPath)) {
+        throw new RuntimeException(adminT('error.upload_move_failed'));
+    }
+
+    return [
+        'path' => adminImageBaseRelativePath() . '/' . $uniqueName,
+        'url' => adminRelativeImagePreviewUrl(adminImageBaseRelativePath() . '/' . $uniqueName),
+        'width' => (int) $imageSize[0],
+        'height' => (int) $imageSize[1],
+        'size' => $file['size'],
+        'mime' => $mimeType,
+        'name' => $uniqueName,
+        'modified' => filemtime($targetPath) ?: time(),
+    ];
+}
+
+/**
+ * @return list<array{path: string, url: string, name: string, width: int, height: int, size: int, modified: int}>
+ */
+function adminListImageFiles(): array
+{
+    $directory = adminImageDirectory();
+
+    if (!is_dir($directory) || !is_readable($directory)) {
+        throw new RuntimeException(adminT('error.upload_list_failed'));
+    }
+
+    $allowedExtensions = array_values(adminAllowedImageMimeTypes());
+    $iterator = new RecursiveIteratorIterator(
+        new RecursiveDirectoryIterator($directory, FilesystemIterator::SKIP_DOTS)
+    );
+    $images = [];
+
+    foreach ($iterator as $fileInfo) {
+        if (!$fileInfo instanceof SplFileInfo || !$fileInfo->isFile()) {
+            continue;
+        }
+
+        $extension = strtolower($fileInfo->getExtension());
+
+        if (!in_array($extension, $allowedExtensions, true)) {
+            continue;
+        }
+
+        $fullPath = $fileInfo->getPathname();
+        $relativePath = substr($fullPath, strlen($directory));
+        $relativePath = str_replace(DIRECTORY_SEPARATOR, '/', ltrim((string) $relativePath, DIRECTORY_SEPARATOR));
+        $siteRelativePath = adminImageBaseRelativePath() . ($relativePath !== '' ? '/' . $relativePath : '');
+        $imageSize = @getimagesize($fullPath);
+
+        $images[] = [
+            'path' => $siteRelativePath,
+            'url' => adminRelativeImagePreviewUrl($siteRelativePath),
+            'name' => $relativePath !== '' ? basename($relativePath) : $fileInfo->getFilename(),
+            'width' => is_array($imageSize) && isset($imageSize[0]) ? (int) $imageSize[0] : 0,
+            'height' => is_array($imageSize) && isset($imageSize[1]) ? (int) $imageSize[1] : 0,
+            'size' => (int) $fileInfo->getSize(),
+            'modified' => $fileInfo->getMTime(),
+        ];
+    }
+
+    usort(
+        $images,
+        static function (array $left, array $right): int {
+            $dateOrder = ($right['modified'] ?? 0) <=> ($left['modified'] ?? 0);
+
+            if ($dateOrder !== 0) {
+                return $dateOrder;
+            }
+
+            return strnatcasecmp($left['path'], $right['path']);
+        }
+    );
+
+    return $images;
 }
 
 function adminIsIconField(string $key, $currentValue): bool

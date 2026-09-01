@@ -1,0 +1,61 @@
+@use "../variables" as v;
+@use "../mixins/flex-cluster" as flexCluster;
+@use "../mixins/icon-size" as icon;
+@use "../mixins/modal-shell" as modalShell;
+
+
+
+.modal {
+	inset: 0;
+	padding: v.$spacing-l;
+	display: none;
+	position: fixed;
+	z-index: 120;
+	
+	.modal__dialog {
+		@include modalShell.modal-shell;
+	}
+	
+	.modal__header {
+		padding: v.$modal-header-padding;
+		@include flexCluster.flex-cluster(flex, row, v.$modal-header-wrap, v.$modal-header-gap, v.$card-header-align-items, v.$modal-header-justify-content);
+		border-block-end: v.$modal-border;
+		
+		h3 {
+			margin: unset;
+			font-size: v.$modal-h-fs;
+			font-weight: v.$modal-h-fw;
+			line-height: v.$modal-h-lh;
+		}
+		
+		button {
+			width: 4rem;
+			height: 4rem;
+			padding: unset;
+			@include flexCluster.flex-cluster(inline-flex, row, nowrap, 0, center, center);
+			border: none;
+			background: transparent;
+			
+			svg {
+				@include icon.icon-size(3rem);
+			}
+		}
+	}
+	
+	.modal__body {
+		overflow-y: auto;
+		
+		.modal__body-wrapper {
+			padding: v.$modal-body-wrapper-padding;
+		}
+	}
+}
+
+.modal--open {
+	overflow-y: clip;
+	
+	.modal {
+		@include flexCluster.flex-cluster(flex, row, nowrap, 0, center, center);
+	}
+	
+}

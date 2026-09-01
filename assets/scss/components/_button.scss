@@ -1,5 +1,6 @@
 @use "../variables" as v;
-@use "../mixins/mixins" as m;
+@use "../mixins/button-surface" as buttonSurface;
+@use "../mixins/icon-size" as icon;
 
 .btn {
     height: v.$btn-height;
@@ -17,7 +18,7 @@
     white-space: v.$btn-white-space;
 
     &:not(.btn--large) svg {
-        @include m.icon-size (v.$btn-svg-dimension);
+        @include icon.icon-size(v.$btn-svg-dimension);
     }
 }
 
@@ -32,7 +33,7 @@ button {
 }
 
 .btn--primary {
-    @include m.button-surface(
+    @include buttonSurface.button-surface(
         v.$btn-primary-bg,
         v.$btn-primary-border,
         v.$btn-primary-color,
@@ -42,7 +43,7 @@ button {
 }
 
 .btn--secondary {
-    @include m.button-surface(
+    @include buttonSurface.button-surface(
         v.$btn-secondary-bg,
         v.$btn-secondary-border,
         v.$btn-secondary-color,
@@ -52,7 +53,7 @@ button {
 }
 
 .btn--danger {
-    @include m.button-surface(
+    @include buttonSurface.button-surface(
             v.$btn-danger-bg,
             v.$btn-danger-border,
             v.$btn-danger-color,

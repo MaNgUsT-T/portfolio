@@ -1,5 +1,5 @@
 @use "../variables" as v;
-@use "../mixins/mixins" as m;
+@use "../mixins/icon-size" as icon;
 
 form {
     display: flex;
@@ -131,6 +131,10 @@ input[type="radio"] {
 .input-group {
     position: relative;
     
+    input {
+        padding-inline-end: v.$spacing-3xl;
+    }
+    
     .icon-button {
         top: 50%;
         right: 1.4rem;
@@ -153,7 +157,7 @@ input[type="radio"] {
         }
         
         svg {
-            @include m.icon-size (2.4rem);
+            @include icon.icon-size(2.4rem);
             stroke-width: 1.8;
             pointer-events: none;
         }

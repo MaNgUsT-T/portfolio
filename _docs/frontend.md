@@ -1,9 +1,9 @@
 # Frontend
 
-Stand: 2026-08-27
+Stand: 2026-09-01
 
 Diese Seite beschreibt die technische Frontend-Struktur der öffentlichen Portfolio-Seite. Maßgeblich sind
-`index.html`, `assets/js/app.js`, `assets/js/app/`, `assets/js/shared/all.js`, `_vite/vite.mjs`, `js/app.min.js`,
+`index.html`, `assets/js/app.js`, `assets/js/app/`, `assets/js/shared/`, `_vite/vite.mjs`, `js/app.min.js`,
 `assets/scss/` und `css/styles.min.css`.
 
 ## Einstieg
@@ -34,8 +34,9 @@ Die Unterstruktur deckt aktuell diese Bereiche ab:
 - `app.contact-form.js` für das Kontaktformular
 - `app.entry.js` für die Bootstrap-Reihenfolge
 
-Zusätzlich stellt `assets/js/shared/all.js` gemeinsam genutzte UI-Helfer für Icon-Laden, Theme, Navigation und
-Custom-Selects bereit.
+Zusätzlich importiert `app.entry.js` gemeinsam genutzte UI-Helfer direkt aus `assets/js/shared/custom-select.js`,
+`assets/js/shared/header.js`, `assets/js/shared/icons.js`, `assets/js/shared/mobile-navigation.js` und
+`assets/js/shared/theme.js`.
 
 ## Verantwortlichkeiten der Teilmodule
 
@@ -98,7 +99,7 @@ Mehrere Frontend-Module arbeiten nur, wenn bestimmte DOM-Knoten bereits vorhande
 - `app.contact-form.js`
   erwartet `#contact-form`, ein Submit-Element mit `data-contact-submit`, Fehler-Slots mit `data-form-error` und ein
   Status-Element mit `data-form-status`
-- Theme- und Navigationsinitialisierung aus den Shared-Skripten
+- Theme-, Header-, Navigations- und Custom-Select-Initialisierung aus den Shared-Modulen
   erwarten die beim Rendering erzeugten Header- und Overlay-Strukturen
 
 ## Rückgabeverträge der Kernfunktionen

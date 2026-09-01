@@ -1,66 +1,12 @@
 @use "../variables" as v;
-@use "../mixins/mixins" as m;
-
-@mixin card-shell(
-    $padding: null,
-    $direction: column,
-    $gap: null,
-    $background: v.$card-bg,
-    $border: v.$card-border,
-    $radius: v.$card-radius,
-    $shadow: v.$card-shadow,
-    $font-size: v.$card-fs,
-    $line-height: v.$card-lh
-) {
-    width: 100%;
-    padding: $padding;
-    display: flex;
-    flex-direction: $direction;
-    gap: $gap;
-    background: $background;
-    border: $border;
-    border-radius: $radius;
-    box-shadow: $shadow;
-    overflow: hidden;
-    transition: v.$card-transition;
-    font-size: $font-size;
-    line-height: $line-height;
-    color: v.$card-color;
-
-    @include m.reduced-motion {
-        transform: none;
-        transition: none;
-    }
-}
-
-@mixin card-icon(
-    $padding: null,
-    $background: null,
-    $border: null,
-    $radius: null,
-    $shadow: null,
-    $size: v.$card-icon-svg-width,
-    $color: v.$card-icon-svg-color
-) {
-    padding: $padding;
-    background: $background;
-    border: $border;
-    border-radius: $radius;
-    box-shadow: $shadow;
-    transition: v.$card-icon-transition;
-
-    @include m.reduced-motion {
-        transition: none;
-    }
-
-    svg {
-        @include m.icon-size($size);
-        stroke: $color;
-    }
-}
+@use "../mixins/card-icon" as cardIcon;
+@use "../mixins/card-shell" as cardShell;
+@use "../mixins/icon-size" as icon;
+@use "../mixins/reduced-motion" as reducedMotion;
+@use "../mixins/respond-from" as respondFrom;
 
 .card {
-    @include card-shell;
+    @include cardShell.card-shell;
 
     h3 {
         font-size: v.$card-h-fs;
@@ -78,7 +24,7 @@
             object-fit: v.$card-figure-img-object-fit;
             transition: v.$card-figure-img-transition;
 
-            @include m.reduced-motion {
+            @include reducedMotion.reduced-motion {
                 transition: none;
                 transform: none;
             }
@@ -92,14 +38,14 @@
     }
 
     .card__icon {
-        @include card-icon;
+        @include cardIcon.card-icon;
     }
 
     .card__header {
         padding: v.$card-header-padding;
         flex-wrap: v.$card-header-wrap;
-        gap: v.$card-header-gap;
         align-items: v.$card-header-align-items;
+        gap: v.$card-header-gap;
     }
 
     .card__body {
@@ -122,7 +68,7 @@
             justify-content: center;
 
             svg {
-                @include m.icon-size (v.$card-icon-svg-width);
+                @include icon.icon-size(v.$card-icon-svg-width);
             }
         }
     }
@@ -237,7 +183,7 @@
     }
 
     .card__icon {
-        @include card-icon (v.$spacing-s, v.$about-item-card-icon-bg, null, v.$radius-xl, null);
+        @include cardIcon.card-icon(v.$spacing-s, v.$about-item-card-icon-bg, null, v.$radius-xl, null);
     }
 
     .card__header {
@@ -262,7 +208,7 @@
     }
 
     .card__icon {
-        @include card-icon (v.$spacing-s, v.$skill-item-icon-bg, 0.1rem solid v.$border-color, v.$radius-xl, v.$shadow-s, 2rem);
+        @include cardIcon.card-icon(v.$spacing-s, v.$skill-item-icon-bg, 0.1rem solid v.$border-color, v.$radius-xl, v.$shadow-s, 2rem);
     }
 
     .card__header,
@@ -298,7 +244,7 @@
         color: v.$experience-item-date-color;
         line-height: 2.3;
 
-        @include m.respond-from(tablet) {
+        @include respondFrom.respond-from(tablet) {
             display: none;
         }
     }
@@ -321,7 +267,7 @@
             font-weight: 400;
 
             svg {
-                @include m.icon-size (1.4rem);
+                @include icon.icon-size(1.4rem);
                 stroke: v.$experience-item-card-workplace-icon-color;
             }
         }
@@ -350,7 +296,7 @@
     .card__icon,
     .card__body h3:has(svg) span,
     .card__body a:has(svg) span {
-        @include card-icon (v.$spacing-xs, v.$project-item-icon-bg, 0.1rem solid v.$border-color-dark, v.$radius-max, null, 1.4rem, v.$project-item-icon-svg-color);
+        @include cardIcon.card-icon(v.$spacing-xs, v.$project-item-icon-bg, 0.1rem solid v.$border-color-dark, v.$radius-max, null, 1.4rem, v.$project-item-icon-svg-color);
     }
 
     .card__body {
@@ -386,7 +332,7 @@
     }
 
     .card__icon {
-        @include card-icon (v.$spacing-m, v.$education-item-icon-bg, null, v.$radius-max, null, 3.2rem);
+        @include cardIcon.card-icon(v.$spacing-m, v.$education-item-icon-bg, null, v.$radius-max, null, 3.2rem);
     }
 
     .card__header {
@@ -413,7 +359,7 @@
         gap: v.$spacing-xxs;
 
         svg {
-            @include m.icon-size (1.6rem);
+            @include icon.icon-size(1.6rem);
         }
     }
 }
@@ -438,7 +384,7 @@
     }
 
     .card__body a:has(svg) span {
-        @include card-icon (v.$spacing-s, v.$contact-item-icon-bg, 0.1rem solid v.$border-color-dark, v.$radius-max, null, 2rem);
+        @include cardIcon.card-icon(v.$spacing-s, v.$contact-item-icon-bg, 0.1rem solid v.$border-color-dark, v.$radius-max, null, 2rem);
     }
 
     &:first-child {

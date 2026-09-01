@@ -1,10 +1,11 @@
 # Admin
 
-Stand: 2026-08-27
+Stand: 2026-09-01
 
 Diese Seite beschreibt den technischen Ablauf der Admin-Oberfläche. Maßgeblich sind `admin/admin.php`,
-`admin/admin-save.php`, `admin/admin-lib.php`, `assets/js/admin.js`, `assets/js/admin/`, `assets/js/shared/all.js`,
-`_vite/vite.mjs`, `js/admin.min.js`, `data/data.json` und `data/data.admin-template.json`.
+`admin/admin-save.php`, `admin/admin-upload.php`, `admin/admin-images.php`, `admin/admin-lib.php`,
+`assets/js/admin.js`, `assets/js/admin/`, `assets/js/shared/`, `_vite/vite.mjs`, `js/admin.min.js`,
+`data/data.json` und `data/data.admin-template.json`.
 
 ## Admin-Flow
 
@@ -89,6 +90,29 @@ und Redirects.
 - Bei `JsonException`: Error-Flash mit Präfix aus der Übersetzung und Redirect zu `./admin.php`
 - Bei `RuntimeException`: Error-Flash mit der konkreten Validierungs- oder Laufzeitmeldung und Redirect zu `./admin.php`
 
+## Bild-Upload- und Bildbrowser-Flow
+
+Der strukturierte Admin-Modus enthält im aktuellen Stand ein kombiniertes Bildfeld für bestehende Bildpfade,
+Datei-Uploads und die Auswahl vorhandener Dateien.
+
+- `admin/admin-upload.php`
+  verarbeitet authentifizierte Upload-Requests mit `POST`, `csrf_token`, Mehrfachdateien in `images[]` und
+  JSON-Antwort
+- `admin/admin-images.php`
+  liefert die vorhandenen Bilddateien als authentifizierte JSON-Liste für den Browser im Modal
+- `admin/admin-lib.php`
+  rendert das Bildfeld-Markup, die Datenattribute für Endpunkte und CSRF sowie den globalen Modal-Content-Host
+
+Der Upload-Endpunkt antwortet im JSON-Modus mit:
+
+- Erfolg: HTTP `200`, `ok: true`, `files[]`, `message`
+- Fehler: HTTP `4xx` oder `5xx`, `ok: false`, `message`
+
+Die Bilderliste antwortet im JSON-Modus mit:
+
+- Erfolg: HTTP `200`, `ok: true`, `files[]`, `message`
+- Fehler: HTTP `500`, `ok: false`, `message`
+
 ## Save-Flow
 
 Nach erfolgreicher Validierung schreibt `adminSaveSiteData()` in `admin/admin-lib.php` die neue Fassung von
@@ -144,6 +168,8 @@ Mehrfachmeldungen pro Feld verarbeiten.
 
 - Header-Scroll
 - Mobile-Navigation
+- Modal
+- Bildfelder
 - Tabs
 - Repeatables
 - Custom-Selects
@@ -154,6 +180,21 @@ Mehrfachmeldungen pro Feld verarbeiten.
 
 `_vite/lib/tasks/js.mjs` erzeugt aus `assets/js/admin.js` das ausgelieferte Artefakt `js/admin.min.js`.
 
+Die Initialisierung in `admin.entry.js` läuft im aktuellen Stand in dieser Reihenfolge:
+
+1. `loadIcons()`
+2. `headerScrollInitialize()`
+3. `mobileNavigationInitialize()`
+4. `initializeModal()`
+5. `initializeImageFields()`
+6. `initializeTabs()`
+7. `initializeRepeatables()`
+8. `initializeCustomSelects()`
+9. `initializeIconPickers()`
+10. `initializePasswordVisibility()`
+11. `initializeLoginForm()`
+12. `initializeChangePasswordForm()`
+
 ## Verantwortlichkeiten der Admin-JS-Module
 
 Die unter `assets/js/admin/` eingebundenen Teilmodule decken im aktuellen Stand diese Rollen ab:
@@ -161,13 +202,15 @@ Die unter `assets/js/admin/` eingebundenen Teilmodule decken im aktuellen Stand 
 - `admin.utils.js` für gemeinsame kleine Hilfsfunktionen
 - `admin.tabs.js` für Tab-Wechsel
 - `admin.repeatables.js` für dynamisch wiederholbare Feldgruppen und deren Index-Neuberechnung
+- `admin.image-field.js` für Bild-Modal, Upload, Browser, Suche, Vorschau und Rebinding in Repeatables
 - `admin.icon-picker.js` für Icon-Auswahl und Suche
 - `admin.password-visibility.js` für Umschalten der Passwortsichtbarkeit
 - `admin.auth-forms.js` für gemeinsame JSON-Logik von Login und Passwortwechsel
 - `admin.entry.js` für die Initialisierungsreihenfolge
 
 Die Module importieren ihre Abhängigkeiten explizit. Gemeinsame UI-Helfer wie Icon-Laden, Navigation und
-Custom-Selects kommen aus `assets/js/shared/all.js`.
+Custom-Selects kommen direkt aus `assets/js/shared/custom-select.js`, `assets/js/shared/header.js`,
+`assets/js/shared/icons.js`, `assets/js/shared/mobile-navigation.js` und `assets/js/shared/modal.js`.
 
 ## DOM-Vertrag der Admin-JS-Module
 
@@ -177,6 +220,11 @@ Die wichtigsten Admin-Teilmodule erwarten im aktuellen Stand diese DOM-Strukture
   `[data-tabs]`, `[data-tab-trigger]`, `[data-tab-panel]`
 - `admin.repeatables.js`
   `[data-repeatable]`, `[data-repeatable-items]`, `[data-repeatable-template]`, `[data-repeatable-item]`
+- `admin.image-field.js`
+  `[data-image-field]`, `[data-image-field-modal-content]`, `[data-image-field-preview-container]`,
+  `[data-image-field-browser]`, `[data-image-field-grid]`, `[data-image-field-search]`,
+  `[data-image-field-upload-button]`, `[data-image-field-dropzone]` und den globalen Modal-Root mit
+  `[data-modal]` und `[data-modal-body]`
 - `admin.icon-picker.js`
   `[data-icon-picker]` sowie die internen Klassen und Data-Attribute des Picker-Markups
 - `admin.password-visibility.js`

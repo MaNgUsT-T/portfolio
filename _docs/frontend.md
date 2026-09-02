@@ -147,8 +147,9 @@ kompiliert `assets/scss/styles.scss` nach `css/styles.min.css`.
 
 - `assets/js/app.js` -> `js/app.min.js`
 - `assets/js/admin.js` -> `js/admin.min.js`
-- `_siteelements/js/siteelements.js` -> `js/siteelements.min.js`
-- `js/app.min.js.map`, `js/admin.min.js.map`, `js/siteelements.min.js.map` als zugehörige externe Source Maps
+- `_siteelements/js/siteelements.js` -> `_siteelements/js/siteelements.min.js`
+- `js/app.min.js.map`, `js/admin.min.js.map` und `_siteelements/js/siteelements.min.js.map` als zugehörige externe
+  Source Maps
 - `assets/scss/styles.scss` -> `css/styles.min.css`
 - `css/styles.min.css.map` als zugehörige externe Source Map
 

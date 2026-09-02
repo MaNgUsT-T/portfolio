@@ -13,7 +13,7 @@ Die ausgelieferten Artefakte werden im aktuellen Stand aus diesen Quell-Dateien 
 
 - `assets/js/app.js` -> `js/app.min.js`
 - `assets/js/admin.js` -> `js/admin.min.js`
-- `_siteelements/js/siteelements.js` -> `js/siteelements.min.js`
+- `_siteelements/js/siteelements.js` -> `_siteelements/js/siteelements.min.js`
 - `assets/scss/styles.scss` -> `css/styles.min.css`
 
 ## Frontend-Build
@@ -25,11 +25,11 @@ Der maßgebliche Build-Pfad für JavaScript und Sass liegt unter `_vite/`.
 - `_vite/vite.mjs` steuert den JS-Build über `_vite/lib/tasks/js.mjs`.
 - `_vite/vite.mjs` steuert den Sass-Build über `_vite/lib/tasks/css.mjs`.
 - Der JS-Task verwendet Vite, bündelt die relativen Import-Abhängigkeiten und schreibt minifizierte Artefakte nach
-  `js/app.min.js`, `js/admin.min.js` und `js/siteelements.min.js`.
+  `js/app.min.js`, `js/admin.min.js` und `_siteelements/js/siteelements.min.js`.
 - Der Sass-Task kompiliert `assets/scss/styles.scss` nach `css/styles.min.css`.
-- Für jedes JavaScript-Artefakt erzeugt der Build zusätzlich eine externe Source Map unter `js/*.min.js.map`.
+- Für jedes JavaScript-Artefakt erzeugt der Build zusätzlich eine externe Source Map im jeweiligen Zielordner.
 - Für `css/styles.min.css` erzeugt der Build zusätzlich `css/styles.min.css.map`.
-- Die ausgelieferten Seiten laden weiterhin nur die Bundles unter `js/` und nicht die Rohquellen direkt.
+- Die ausgelieferten Seiten laden weiterhin nur die gebauten Bundles und nicht die Rohquellen direkt.
 
 ## Build-Befehle
 
@@ -60,7 +60,8 @@ Die folgenden Zuordnungen beschreiben, welche Bereiche bei Änderungen gemeinsam
   Prüfen: `_vite/vite.mjs`, `_vite/lib/tasks/js.mjs`, `js/admin.min.js`, `_docs/admin.md`, Login,
   Passwortwechsel, Modal, Bildfelder, Tabs, Repeatables, Icon-Picker
 - Änderung an `_siteelements/js/**/*.js`
-  Prüfen: `_vite/vite.mjs`, `_vite/lib/tasks/js.mjs`, `js/siteelements.min.js`, `siteelements.html`
+  Prüfen: `_vite/vite.mjs`, `_vite/lib/tasks/js.mjs`, `_siteelements/js/siteelements.min.js`,
+  `_siteelements/siteelements.html`
 - Änderung an `assets/scss/` oder `assets/scss/styles.scss`
   Prüfen: `_vite/vite.mjs`, `_vite/lib/tasks/css.mjs`, `css/styles.min.css`, öffentliche Seite und Admin visuell
 - Änderung an `contact.php`
@@ -80,6 +81,6 @@ Die folgenden Zuordnungen beschreiben, welche Bereiche bei Änderungen gemeinsam
 Nach Änderungen an Build- oder Quell-Dateien ist der Arbeitsstand im aktuellen Projekt erst dann konsistent, wenn:
 
 - `npm --prefix _vite run build` oder der passende `_vite`-Teilbuild nach JS- oder Sass-Änderungen erneut gelaufen ist
-- die passende minifizierte Datei unter `js/` oder `css/` aktualisiert ist
+- die passende minifizierte Datei unter `js/`, `_siteelements/js/` oder `css/` aktualisiert ist
 - die betroffene technische Detailseite unter `_docs/` noch zum Code passt
 - die in `CONTRIBUTING.md` geforderte manuelle QA für den betroffenen Bereich durchgeführt wurde

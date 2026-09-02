@@ -71,7 +71,8 @@ npm --prefix _vite run dev
 ```
 
 Der Build schreibt die ausgelieferten Dateien nach `js/app.min.js`,
-`js/admin.min.js`, `js/siteelements.min.js` und `css/styles.min.css`.
+`js/admin.min.js`, `_siteelements/js/siteelements.min.js` und
+`css/styles.min.css`.
 
 ## PhpStorm
 

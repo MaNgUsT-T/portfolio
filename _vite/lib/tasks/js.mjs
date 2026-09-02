@@ -1,5 +1,5 @@
 import { build } from "vite";
-import { jsBundles, jsOutputDir, repoRoot } from "../context.mjs";
+import { jsBundles, repoRoot } from "../context.mjs";
 import { npmCmd, run } from "../utils/process.mjs";
 
 async function buildBundle(bundle, watch = false) {
@@ -8,7 +8,7 @@ async function buildBundle(bundle, watch = false) {
     root: repoRoot,
     publicDir: false,
     build: {
-      outDir: jsOutputDir,
+      outDir: bundle.outDir,
       emptyOutDir: false,
       sourcemap: true,
       minify: "esbuild",
@@ -38,14 +38,15 @@ export function taskDevJs() {
   run(npmCmd, [
     "--prefix",
     "_vite",
-        "exec",
-        "--",
-        "chokidar",
-        "assets/js/**/*.js",
-        "_siteelements/js/**/*.js",
-        "-c",
-        `${process.execPath} _vite/vite.mjs prod:js`,
-        "-d",
+    "exec",
+    "--",
+    "chokidar",
+    "assets/js/**/*.js",
+    "_siteelements/js/siteelements.js",
+    "_siteelements/js/siteelements/**/*.js",
+    "-c",
+    `${process.execPath} _vite/vite.mjs prod:js`,
+    "-d",
     "200"
   ]);
 }

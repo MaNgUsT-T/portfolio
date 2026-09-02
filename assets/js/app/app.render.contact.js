@@ -1,52 +1,6 @@
 import { icon } from '../shared/icons.js';
 import { escapeAttribute, escapeHtml } from './app.utils.js';
-import { renderButtonElement, renderSocialLinks } from './app.render.shared.js';
-
-// Renders the education carousel and the full contact section, including the
-// dynamic form controls used by the frontend validation layer.
-export function renderEducation(viewModel) {
-    return [
-        '<section class="education">',
-            '<div class="container">',
-                '<p class="preheader">' + escapeHtml(viewModel.preheader) + '</p>',
-                '<h2>' + escapeHtml(viewModel.title) + '</h2>',
-                '<div id="education-carousel" role="group" aria-label="' + escapeAttribute(viewModel.carouselLabel) + '" class="splide splide--education">',
-                    '<div class="splide__track">',
-                        '<ul class="splide__list">',
-                            viewModel.courses.map(function(item) {
-                                return [
-                                    '<li class="splide__slide">',
-                                        '<div class="card card--education-item">',
-                                            '<div class="card__header">',
-                                                '<div class="card__icon">',
-                                                    icon('certificate'),
-                                                '</div>',
-                                            '</div>',
-                                            '<div class="card__body">',
-                                                '<div class="card__body-wrapper">',
-                                                    '<h3>' + escapeHtml(item.title) + '</h3>',
-                                                    '<p>' + escapeHtml(item.provider) + '</p>',
-                                                '</div>',
-                                            '</div>',
-                                            '<div class="card__footer">',
-                                                '<p>' + escapeHtml(item.year) + '</p>',
-                                                '<p class="highlight">' + icon('verify') + escapeHtml(item.status) + '</p>',
-                                            '</div>',
-                                        '</div>',
-                                    '</li>',
-                                ].join('');
-                            }).join(''),
-                        '</ul>',
-                    '</div>',
-                    '<div class="splide__arrows">',
-                        '<button class="splide__arrow splide__arrow--prev">' + icon('arrow-left') + '</button>',
-                        '<button class="splide__arrow splide__arrow--next">' + icon('arrow-right') + '</button>',
-                    '</div>',
-                '</div>',
-            '</div>',
-        '</section>'
-    ].join('');
-}
+import { renderButtonElement } from './app.render.shared.js';
 
 function renderField(viewModel) {
     const requiredSuffix = viewModel.required ? ' <sup>*</sup>' : '';
@@ -89,8 +43,6 @@ function renderField(viewModel) {
     }
 
     if (viewModel.type === 'select') {
-        // The native select remains the source of truth; the custom UI mirrors
-        // it so keyboard, submission and validation still behave predictably.
         const selectedOption = viewModel.options.find(function(option) {
             return option.selected;
         }) || viewModel.options[0] || { value: '', label: '' };
@@ -200,8 +152,6 @@ function renderContactFields(fields) {
             const nextField = fields[index + 1];
 
             if (nextField && nextField.row) {
-                // Pair adjacent row fields into one two-column wrapper while
-                // leaving every other field in the natural document flow.
                 markup.push([
                     '<div class="form-row">',
                         renderField(field),
@@ -244,9 +194,6 @@ export function renderContact(viewModel) {
                         '<div class="card__body">',
                             '<div class="card__body-wrapper">',
                                 '<div class="contact-form__status" data-form-status aria-live="polite"></div>',
-                                // The submit button lives in the card footer,
-                                // so the form keeps a stable `id` for the
-                                // external `form` attribute binding.
                                 '<form method="post" action="' + escapeAttribute(viewModel.form.action) + '" id="contact-form" class="contact-form" novalidate>',
                                     renderContactHoneypotField(),
                                     renderContactFields(viewModel.form.fields),
@@ -264,17 +211,5 @@ export function renderContact(viewModel) {
                 '</div>',
             '</div>',
         '</section>'
-    ].join('');
-}
-
-export function renderFooter(viewModel, siteConfig) {
-    return [
-        '<footer class="footer">',
-            '<div class="container footer__wrapper">',
-                '<div class="logo">' + icon(siteConfig.logoIcon) + '<span>' + escapeHtml(siteConfig.logoText) + '</span></div>',
-                '<p>' + escapeHtml(viewModel.text) + ' <span class="text-nowrap">&copy; ' + escapeHtml(viewModel.copyright) + '</span> ' + escapeHtml(viewModel.owner) + '</p>',
-                '<div class="social-icons">' + renderSocialLinks(siteConfig.socialLinks) + '</div>',
-            '</div>',
-        '</footer>'
     ].join('');
 }

@@ -134,6 +134,6 @@ Das öffentliche Frontend in `assets/js/app/app.contact-form.js` verarbeitet die
 
 - `data/data.json`
 - `contact-config.php`
-- `assets/js/app/app.render.education-contact.js`
+- `assets/js/app/app.render.contact.js`
 - `assets/js/app/app.contact-form.js`
 - `admin/admin-save.php`

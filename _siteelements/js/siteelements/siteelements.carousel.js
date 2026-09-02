@@ -34,7 +34,3 @@ function initializeCarousel(selector) {
 export function demoCarouselInitialize() {
     initializeCarousel('#splide-carousel');
 }
-
-export function educationCarouselInitialize() {
-    initializeCarousel('#education-carousel');
-}

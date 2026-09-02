@@ -1,8 +1,13 @@
 import { normalizeSiteData } from './app.normalize.root.js';
-import { renderAbout, renderSkills } from './app.render.about-skills.js';
-import { renderEducation, renderContact, renderFooter } from './app.render.education-contact.js';
-import { renderExperience, renderProjects } from './app.render.experience-projects.js';
-import { renderHeader, renderHero } from './app.render.header-hero.js';
+import { renderHeader } from './app.render.header.js';
+import { renderHero } from './app.render.hero.js';
+import { renderAbout } from './app.render.about.js';
+import { renderSkills } from './app.render.skills.js';
+import { renderExperience } from './app.render.experience.js';
+import { renderProjects } from './app.render.projects.js';
+import { renderEducation } from './app.render.education.js';
+import { renderContact } from './app.render.contact.js';
+import { renderFooter } from './app.render.footer.js';
 
 // Composes the full page from normalized section view models in the same order
 // that the static template and navigation expect.

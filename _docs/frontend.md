@@ -49,8 +49,9 @@ Die Teilmodule arbeiten im aktuellen Stand mit klar getrennten Aufgaben.
 - `app.normalize.contact.js` normalisiert Kontaktformular und Footer
 - `app.normalize.root.js` baut aus den Teilnormalisierungen ein einheitliches Site-View-Model
 - `app.render.shared.js` rendert wiederverwendete UI-Bausteine wie Bilder, Buttons und Social-Links
-- `app.render.header-hero.js`, `app.render.about-skills.js`, `app.render.experience-projects.js` und
-  `app.render.education-contact.js` erzeugen Section-Markup
+- `app.render.header.js`, `app.render.hero.js`, `app.render.about.js`, `app.render.skills.js`,
+  `app.render.experience.js`, `app.render.projects.js`, `app.render.education.js`, `app.render.contact.js`
+  und `app.render.footer.js` erzeugen Section-Markup
 - `app.render.root.js` setzt die Gesamtseite in derselben Reihenfolge zusammen, die Navigation und Initialisierung
   erwarten
 - `app.meta.js` schreibt Metadaten in das bestehende Dokument

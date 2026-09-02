@@ -1,9 +1,14 @@
 import { normalizeSiteData } from './app.normalize.root.js';
 import { applyMeta } from './app.meta.js';
-import { renderAbout, renderSkills } from './app.render.about-skills.js';
-import { renderEducation, renderContact, renderFooter } from './app.render.education-contact.js';
-import { renderExperience, renderProjects } from './app.render.experience-projects.js';
-import { renderHeader, renderHero } from './app.render.header-hero.js';
+import { renderAbout } from './app.render.about.js';
+import { renderContact } from './app.render.contact.js';
+import { renderEducation } from './app.render.education.js';
+import { renderExperience } from './app.render.experience.js';
+import { renderFooter } from './app.render.footer.js';
+import { renderHeader } from './app.render.header.js';
+import { renderHero } from './app.render.hero.js';
+import { renderProjects } from './app.render.projects.js';
+import { renderSkills } from './app.render.skills.js';
 
 const SITE_DATA_PATH = './data/data.json';
 
